@@ -1356,7 +1356,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
  async function continueExisting(){if(!client){message('Authentication is not connected. Please check the Supabase configuration.','error');return;}const {data,error}=await client.auth.getSession();if(error){message(error.message,'error');return;}if(data.session){location.href='./index.html';return;}await socialSignIn('google');}
  $('continueAccount').addEventListener('click',continueExisting);
  $('welcomeGoogle').addEventListener('click',()=>socialSignIn('google'));
- $('welcomeMicrosoft').addEventListener('click',()=>socialSignIn('azure'));
+ $('welcomeMicrosoft')?.addEventListener('click',()=>socialSignIn('azure'));
  function setMode(next){mode=next;const signup=mode==='signup';$('loginModeButton').classList.toggle('active',!signup);$('signupModeButton').classList.toggle('active',signup);$('confirmWrap').hidden=!signup;confirmPassword.required=signup;password.autocomplete=signup?'new-password':'current-password';$('forgotLink').hidden=signup;$('pageTitle').textContent='Log in or sign up';$('pageIntro').textContent=signup?'Create your NextGen account to get started.':'You’ll get smarter responses and can upload files, images and more.';message('');}
  $('loginModeButton').addEventListener('click',()=>setMode('login'));
  $('signupModeButton').addEventListener('click',()=>setMode('signup'));
