@@ -143,18 +143,19 @@
   }
   function renderChannels(){
     const root=document.querySelector('.app main .list');if(!root)return;
-    // Remove previously generated extra cards first. refresh() may run more
-    // than once (including when the workspace script is included twice).
-    root.querySelectorAll('[data-ng-workspace-channel="true"]').forEach(card=>card.remove());
-    // Preserve the four approved starter cards and overlay the first saved
-    // channel per platform. Additional channels are rebuilt exactly once.
+    // Keep exactly one starter card per platform. Older renderer versions
+    // appended unmarked cards, so remove duplicates even if they lack our
+    // current data attribute; then remove marked generated cards on refresh.
     const platformClass={youtube:'yt',facebook:'fb',instagram:'ig',threads:'th'};
     const platformIcon={youtube:'▶',facebook:'f',instagram:'◎',threads:'＠'};
     const starterByPlatform={};
-    root.querySelectorAll('.card').forEach(card=>{
+    Array.from(root.querySelectorAll('.card')).forEach(card=>{
       const key=Object.keys(platformClass).find(p=>card.classList.contains(platformClass[p]));
-      if(key&&!starterByPlatform[key])starterByPlatform[key]=card;
+      if(!key)return;
+      if(!starterByPlatform[key])starterByPlatform[key]=card;
+      else card.remove();
     });
+    root.querySelectorAll('[data-ng-workspace-channel="true"]').forEach(card=>card.remove());
     if(!channels.length){
       if(!root.querySelector('.card'))empty(root,'No channels are saved in this workspace yet. Use Add Channel to verify and save a profile.');
       return;
