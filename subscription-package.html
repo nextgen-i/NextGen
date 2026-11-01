@@ -590,13 +590,13 @@ body>.app>nav.ng-bottom-nav{
  if(!trigger||!drawer||!backdrop||!close||trigger.dataset.ready==='1')return;
  trigger.dataset.ready='1';
  function openMenu(){
-   drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');
+   drawer.classList.add('is-open');try{sessionStorage.setItem('ngNextGenMenuOpen','1');}catch(e){}drawer.setAttribute('aria-hidden','false');
    backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');
    trigger.setAttribute('aria-label','Close navigation menu');
    document.body.classList.add('ng-menu-open');
  }
  function closeMenu(){
-   drawer.classList.remove('is-open');drawer.setAttribute('aria-hidden','true');
+   drawer.classList.remove('is-open');try{sessionStorage.removeItem('ngNextGenMenuOpen');}catch(e){}drawer.setAttribute('aria-hidden','true');
    backdrop.hidden=true;trigger.setAttribute('aria-expanded','false');
    trigger.setAttribute('aria-label','Open navigation menu');
    document.body.classList.remove('ng-menu-open');
@@ -605,6 +605,7 @@ body>.app>nav.ng-bottom-nav{
  close.addEventListener('click',closeMenu);
  backdrop.addEventListener('click',closeMenu);
  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+ try{if(sessionStorage.getItem('ngNextGenMenuOpen')==='1')openMenu();}catch(e){}
  var mainLinks=drawer.querySelector('.ng-menu-main-links');
  if(mainLinks){mainLinks.querySelectorAll('a[href*="login.html"],a[href*="logout"]').forEach(function(a){a.remove();});}
  var authLink=drawer.querySelector('.ng-menu-logout');
@@ -696,20 +697,6 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
 })();
 </script>
 
-
-<script id="ng-menu-refresh-state-reset">
-(function(){
- try{sessionStorage.removeItem('ngNextGenMenuOpen');}catch(e){}
- document.documentElement.classList.remove('ng-menu-refresh-open');
- var drawer=document.getElementById('ng-menu-drawer');
- var trigger=document.getElementById('ng-hamburger');
- var backdrop=document.getElementById('ng-menu-backdrop');
- if(drawer){drawer.classList.remove('is-open','ng-menu-restored-no-motion');drawer.setAttribute('aria-hidden','true');}
- if(backdrop)backdrop.hidden=true;
- if(trigger){trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-label','Open navigation menu');}
- document.body.classList.remove('ng-menu-open');
-})();
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js?v=20261030-workspace"></script>
