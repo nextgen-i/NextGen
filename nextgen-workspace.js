@@ -121,6 +121,17 @@
       .order('created_at',{ascending:false});
     if(c.error)throw c.error;
     channels=c.data||[];
+    if(page==='channels.html'){
+      let diag=document.getElementById('ng-channels-diagnostic');
+      if(!diag){
+        diag=document.createElement('p');
+        diag.id='ng-channels-diagnostic';
+        diag.style.cssText='margin:8px 10px;padding:8px 10px;border:1px solid #2857a4;border-radius:9px;background:#071a3e;color:#cfe5ff;font-size:11px;line-height:1.4;overflow-wrap:anywhere';
+        const list=document.querySelector('.app main .list');
+        if(list)list.insertAdjacentElement('beforebegin',diag);
+      }
+      if(diag)diag.textContent='Account: '+(user.email||'signed in')+' · User ID: '+user.id+' · Channels loaded: '+channels.length+' · YouTube: '+channels.filter(x=>String(x.platform||'').toLowerCase()==='youtube').length;
+    }
     const [items,s]=await Promise.all([
       client.from('content_items').select('id,channel_id,platform,content_type,title,caption,hashtags,tags,keywords,thumbnail_url,thumbnail_prompt,status,scheduled_for,created_at').order('created_at',{ascending:false}).limit(100),
       client.from('automation_settings').select('*').eq('owner_id',user.id).maybeSingle()
