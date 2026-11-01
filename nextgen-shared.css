@@ -307,3 +307,52 @@ html body.ng-menu-open nav.ng-bottom-nav{
 .ng-profile-menu .ng-profile-links a .ng-profile-icon svg{display:block!important;width:27px!important;height:27px!important;fill:none!important;stroke:currentColor!important;stroke-width:2!important;stroke-linecap:round!important;stroke-linejoin:round!important;}
 .ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="youtube"] svg{color:#ff343f!important;}
 .ng-profile-menu .ng-profile-links a .ng-profile-delete-icon{color:#ff4565!important;}
+
+/* NextGen Profile Menu approved mobile refinement */
+.ng-profile-menu{
+  border:0!important;outline:0!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.48)!important;
+}
+.ng-profile-menu .ng-profile-account-actions{
+  gap:10px!important;padding:7px 0 14px!important;
+}
+.ng-profile-menu .ng-profile-account-actions button{
+  min-height:48px!important;padding:8px 10px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:9px!important;font-size:15px!important;font-weight:750!important;
+  line-height:1.2!important;border:1px solid #159ee5!important;
+}
+.ng-profile-menu .ng-profile-account-actions button svg{
+  display:block!important;width:29px!important;height:29px!important;
+  flex:0 0 29px!important;
+}
+.ng-profile-menu .ng-profile-account-actions .ng-profile-switch-account svg{
+  fill:none!important;stroke:#19d5f4!important;stroke-width:2.2!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+.ng-profile-menu .ng-profile-account-actions .ng-profile-google-account svg{
+  width:31px!important;height:31px!important;flex-basis:31px!important;
+}
+.ng-profile-menu .ng-profile-links a{gap:14px!important;min-height:48px!important;font-size:17px!important;}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon{
+  width:34px!important;height:34px!important;flex:0 0 34px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  font-size:0!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon svg{
+  width:29px!important;height:29px!important;display:block!important;
+  fill:none!important;stroke:currentColor!important;stroke-width:2.1!important;
+  stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="youtube"] svg{
+  color:#ff343f!important;fill:#ff343f!important;stroke:#ff343f!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-delete-icon{color:#ff4565!important;}
+.ng-profile-menu .ng-profile-account-copy strong{font-size:19px!important;}
+.ng-profile-menu .ng-profile-account-copy span{font-size:14px!important;}
+@media(max-width:380px){
+ .ng-profile-menu .ng-profile-account-actions button{font-size:14px!important;gap:7px!important;}
+ .ng-profile-menu .ng-profile-account-actions button svg{width:26px!important;height:26px!important;flex-basis:26px!important;}
+ .ng-profile-menu .ng-profile-links a .ng-profile-icon{width:32px!important;height:32px!important;flex-basis:32px!important;}
+ .ng-profile-menu .ng-profile-links a .ng-profile-icon svg{width:27px!important;height:27px!important;}
+}
