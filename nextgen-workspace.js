@@ -108,9 +108,11 @@
     await requireUser();
     // Load channels independently so an unrelated Content or Settings
     // permission/schema error cannot leave stale starter cards on Channels.
+    // RLS already scopes this query to the signed-in user's rows.
+    // Avoid a second client-side owner filter that can hide valid saved rows
+    // if the auth session is still being restored during page initialization.
     const c=await client.from('channels')
       .select('id,platform,display_name,handle,profile_url,connection_status,is_paused')
-      .eq('owner_id',user.id)
       .order('created_at',{ascending:false});
     if(c.error)throw c.error;
     channels=c.data||[];
