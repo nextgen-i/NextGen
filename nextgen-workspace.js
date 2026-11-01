@@ -377,6 +377,7 @@
     if($('analyticsPeriod'))$('analyticsPeriod').addEventListener('change',()=>loadAnalytics().catch(()=>{}));
   }
   function renderProfileAuthEntry(){
+    window.dispatchEvent(new CustomEvent('nextgen-auth-state',{detail:{signedIn:!!user}}));
     const profileLinks=document.querySelector('.ng-profile-menu .ng-profile-links');
     const profileItems=profileLinks?[...profileLinks.querySelectorAll('[data-ng-auth-entry],a[href="./login.html"]')]:[];
     let profileItem=profileItems[0]||null;
