@@ -59,14 +59,18 @@
     const title=document.createElement('strong');title.textContent='NextGen Account';title.style.cssText='display:block;margin-bottom:8px;color:#fff;font-size:14px';
     authMessage=document.createElement('p');authMessage.className='muted';authMessage.style.cssText='font-size:12px;line-height:1.45;margin:0 0 8px;color:#a8c1e8';
     const input=document.createElement('input');input.type='email';input.autocomplete='email';input.placeholder='Your email address';input.required=true;input.id='ng-workspace-email';input.style.cssText='box-sizing:border-box;width:100%;min-height:42px;margin:0 0 8px;padding:9px;border:1px solid #285a89;border-radius:8px;background:#203452;color:#fff;font-size:16px';
-    const password=document.createElement('input');password.type='password';password.autocomplete='current-password';password.placeholder='Password';password.required=true;password.id='ng-workspace-password';password.minLength=8;password.hidden=true;password.style.cssText='box-sizing:border-box;width:100%;min-height:42px;margin:0 0 8px;padding:9px;border:1px solid #285a89;border-radius:8px;background:#203452;color:#fff;font-size:16px';
+    const passwordWrap=document.createElement('div');passwordWrap.style.cssText='position:relative;margin:0 0 8px';
+    const password=document.createElement('input');password.type='password';password.autocomplete='current-password';password.placeholder='Password';password.required=true;password.id='ng-workspace-password';password.minLength=8;password.hidden=true;password.style.cssText='box-sizing:border-box;width:100%;min-height:42px;margin:0;padding:9px 66px 9px 9px;border:1px solid #285a89;border-radius:8px;background:#203452;color:#fff;font-size:16px';
+    const passwordToggle=document.createElement('button');passwordToggle.type='button';passwordToggle.textContent='Show';passwordToggle.setAttribute('aria-label','Show password');passwordToggle.setAttribute('aria-pressed','false');passwordToggle.hidden=true;passwordToggle.style.cssText='position:absolute;right:9px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#8bdcff;font-size:13px;font-weight:700;padding:7px 5px';
+    passwordToggle.addEventListener('click',function(){const visible=password.type==='password';password.type=visible?'text':'password';passwordToggle.textContent=visible?'Hide':'Show';passwordToggle.setAttribute('aria-label',visible?'Hide password':'Show password');passwordToggle.setAttribute('aria-pressed',visible?'true':'false');password.focus();});
+    passwordWrap.append(password,passwordToggle);
     const button=document.createElement('button');button.type='button';button.textContent='Sign in';button.style.cssText='width:100%;min-height:42px;padding:8px 12px;border:1px solid #21bdf1;border-radius:9px;background:#0c3154;color:#fff;font-weight:700';
     let passwordStep=false;
     button.addEventListener('click',async function(){
       const email=input.value.trim();
       if(!passwordStep){
         if(!input.checkValidity()||!email){authMessage.textContent='Enter a valid email address.';input.focus();return;}
-        passwordStep=true;password.hidden=false;button.textContent='Login';authMessage.textContent='Enter your password to continue.';password.focus();return;
+        passwordStep=true;password.hidden=false;passwordToggle.hidden=false;button.textContent='Login';authMessage.textContent='Enter your password to continue.';password.focus();return;
       }
       if(!password.value||password.value.length<8){authMessage.textContent='Enter your password (at least 8 characters).';password.focus();return;}
       button.disabled=true;authMessage.textContent='Signing in…';
@@ -82,7 +86,7 @@
         if(button.isConnected)button.disabled=false;
       }
     });
-    authPanel.append(title,authMessage,input,password,button);
+    authPanel.append(title,authMessage,input,passwordWrap,button);
     const old=drawer.querySelector('.ng-menu-logout');
     if(old)old.remove();
     drawer.append(authPanel);
