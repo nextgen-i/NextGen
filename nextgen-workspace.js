@@ -423,7 +423,31 @@
       }
     });
   }
+  function bindProfileAccountActions(){
+    document.querySelectorAll('.ng-profile-google-account').forEach(button=>button.remove());
+    document.querySelectorAll('.ng-profile-switch-account').forEach(button=>{
+      if(button.dataset.switchBound)return;
+      button.dataset.switchBound='1';
+      button.addEventListener('click',()=>{location.href='./login.html';});
+    });
+    document.querySelectorAll('.ng-menu-main-links a[href*="login.html"],.ng-menu-main-links a[href*="logout"]').forEach(link=>link.remove());
+  }
+  if(document.body&&!window.__ngProfileMenuObserver){
+    window.__ngProfileMenuObserver=new MutationObserver(()=>{
+      bindProfileAccountActions();
+      const entry=document.querySelector('#ng-menu-drawer .ng-menu-logout');
+      if(entry){
+        const signedIn=!!user;
+        entry.href=signedIn?'#':'./login.html';
+        entry.innerHTML=signedIn
+          ? '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>'
+          : '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up<i>›</i>';
+      }
+    });
+    window.__ngProfileMenuObserver.observe(document.body,{childList:true,subtree:true});
+  }
   function showAuth(){
+    bindProfileAccountActions();
     showAuthPanel();
     renderProfileAuthEntry();
     if(user)setSignedIn();
