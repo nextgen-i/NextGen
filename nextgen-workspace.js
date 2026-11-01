@@ -88,8 +88,6 @@
       }
     });
     authPanel.append(title,authMessage,input,passwordWrap,button);
-    const old=drawer.querySelector('.ng-menu-logout');
-    if(old)old.remove();
     drawer.append(authPanel);
   }
   function setSignedIn(){
