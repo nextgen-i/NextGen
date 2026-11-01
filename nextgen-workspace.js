@@ -382,7 +382,7 @@
     links.querySelectorAll('[data-ng-auth-entry],a[href="./login.html"]').forEach(node=>node.remove());
     const item=document.createElement('a');
     item.dataset.ngAuthEntry='true';
-    item.innerHTML=user?'<span>↪</span>Logout<i>›</i>':'<span>↪</span>Login / Sign Up<i>›</i>';
+    item.innerHTML=user?'<span class="ng-profile-icon"><svg viewBox="0 0 24 24"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>':'<span class="ng-profile-icon"><svg viewBox="0 0 24 24"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up<i>›</i>';
     if(user){
       item.href='#';
       item.addEventListener('click',async event=>{
@@ -404,7 +404,7 @@
     links.append(item);
     const menuItem=document.querySelector('#ng-menu-drawer .ng-menu-logout');
     if(menuItem){
-      menuItem.textContent=user?'↪ Logout':'↪ Login / Sign Up';
+      menuItem.innerHTML=user?'<span class="ng-point-icon"><svg viewBox="0 0 24 24"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout':'<span class="ng-point-icon"><svg viewBox="0 0 24 24"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up';
       menuItem.href=user?'#':'./login.html';
       menuItem.removeAttribute('disabled');
       menuItem.removeAttribute('aria-disabled');
