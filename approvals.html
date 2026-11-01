@@ -477,7 +477,7 @@ body>.app>nav.ng-bottom-nav{
 <a href="./settings.html#language"><span class="ng-point-icon">文</span>Language</a>
 </div>
   </div>
-  <a href="./login.html" class="ng-menu-logout ng-menu-login-active">↪ Login / Sign Up</a>
+  <a href="./login.html" class="ng-menu-logout ng-menu-login-active">↪ Login</a>
 </aside>
 
 
@@ -531,9 +531,9 @@ body>.app>nav.ng-bottom-nav{
  var authLink=drawer.querySelector('.ng-menu-logout');
  function syncHamburgerAuth(signedIn){
    if(!authLink)return;
-   authLink.textContent=signedIn?'↪ Logout':'↪ Login / Sign Up';
+   authLink.textContent=signedIn?'↪ Logout':'↪ Login';
    authLink.href=signedIn?'#':'./login.html';
-   authLink.setAttribute('aria-label',signedIn?'Logout':'Login / Sign Up');
+   authLink.setAttribute('aria-label',signedIn?'Logout':'Login');
    authLink.classList.add('ng-menu-login-active');
  }
  syncHamburgerAuth(!!(window.NGWorkspace&&window.NGWorkspace.getUser&&window.NGWorkspace.getUser()));
