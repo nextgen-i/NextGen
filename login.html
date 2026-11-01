@@ -1361,7 +1361,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
  $('loginModeButton').addEventListener('click',()=>setMode('login'));
  $('signupModeButton').addEventListener('click',()=>setMode('signup'));
  $('email').addEventListener('input',()=>{$('submitButton').disabled=!email.checkValidity()||!email.value.trim();});
- $('submitButton').addEventListener('click',()=>{if(!email.value.trim()||!email.checkValidity()){message('Enter a valid email address.','error');email.focus();return;}$('passwordStep').hidden=false;$('submitButton').hidden=true;$('passwordSubmitButton').hidden=false;password.required=true;password.focus();window.scrollTo({top:0,behavior:'smooth'});});
+ $('submitButton').addEventListener('click',()=>{const mail=email.value.trim();if(!mail||!email.checkValidity()){message('Enter a valid email address.','error');email.focus();return;}const step=$('passwordStep');step.hidden=false;step.removeAttribute('hidden');step.style.display='block';$('submitButton').hidden=true;$('submitButton').style.display='none';$('passwordSubmitButton').hidden=false;$('passwordSubmitButton').removeAttribute('hidden');$('passwordSubmitButton').style.display='block';password.required=true;message('Now enter your password.','success');password.focus({preventScroll:true});step.scrollIntoView({behavior:'smooth',block:'nearest'});});
  $('moreSignInOptions').addEventListener('click',()=>{const box=$('extraSocialOptions');box.hidden=!box.hidden;$('moreSignInOptions').textContent=box.hidden?'More sign-in options':'Fewer sign-in options';});
  $('googleSignIn').addEventListener('click',()=>socialSignIn('google'));
  $('microsoftSignIn').addEventListener('click',()=>socialSignIn('azure'));
