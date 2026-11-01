@@ -22,6 +22,9 @@
       document.body.classList.remove('ng-profile-open');
       try{sessionStorage.removeItem(key)}catch(e){}
     }
+    // The page's inline profile-menu controller already toggles the drawer.
+    // This shared script only persists the resulting state; a second toggle listener
+    // would immediately undo the user's click on pages loading this bundle twice.
     trigger.addEventListener('click',()=>setTimeout(()=>{
       try{if(menu.classList.contains('is-open'))sessionStorage.setItem(key,'1');else close()}catch(e){}
     },0));
