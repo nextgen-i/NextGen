@@ -1068,7 +1068,7 @@ main>.ng-shared-footer .ng-credit{
     if(nameInput)nameInput.value='';
     try{
       if(!window.supabase||!window.NEXTGEN_SUPABASE_CONFIG)throw new Error('Profile-name lookup service is not available.');
-      var client=window.supabase.createClient(window.NEXTGEN_SUPABASE_CONFIG.url,window.NEXTGEN_SUPABASE_CONFIG.anonKey);
+      var client=(window.NGWorkspace&&window.NGWorkspace.client)||window.supabase.createClient(window.NEXTGEN_SUPABASE_CONFIG.url,window.NEXTGEN_SUPABASE_CONFIG.anonKey);
       var sessionResult=await client.auth.getSession();
       var session=sessionResult.data&&sessionResult.data.session;
       if(!session)throw new Error('Sign in to NextGen to look up the verified profile name.');
