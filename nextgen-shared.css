@@ -253,3 +253,7 @@ html body.ng-menu-open nav.ng-bottom-nav{
 
 /* Profile menu: remove the extra divider above Share; row borders provide the single separator. */
 .ng-profile-menu .ng-profile-action-divider{display:none!important;height:0!important;margin:0!important;padding:0!important;border:0!important;background:none!important;}
+
+/* Active hamburger Login / Sign Up action replacing the disabled pending placeholder. */
+.ng-menu-login-active{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;text-decoration:none!important;text-align:center!important;color:#dff7ff!important;border-color:#168dcc!important;background:linear-gradient(135deg,#0b3760,#123d70)!important;cursor:pointer!important;pointer-events:auto!important;opacity:1!important;}
+.ng-menu-login-active:active{background:#14518a!important;}
