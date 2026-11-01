@@ -110,6 +110,7 @@
     // permission/schema error cannot leave stale starter cards on Channels.
     const c=await client.from('channels')
       .select('id,platform,display_name,handle,profile_url,connection_status,is_paused')
+      .eq('owner_id',user.id)
       .order('created_at',{ascending:false});
     if(c.error)throw c.error;
     channels=c.data||[];
