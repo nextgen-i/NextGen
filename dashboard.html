@@ -9,7 +9,7 @@
   }
 </style>
 <title>NextGen – Dashboard</title>
-<link rel="stylesheet" href="./nextgen-shared.css?v=profile-back-button-20261102-v4">
+<link rel="stylesheet" href="./nextgen-shared.css?v=profile-pull-refresh-fix-20261102-v5">
 <style>
 :root{color-scheme:dark;box-sizing:border-box;--bg:#030b24;--txt:#fff;--mut:#8fa6d6;--green:#16e08a;padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -1291,27 +1291,45 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
   });
   // Pull down at the top of the Settings-to-Logout list to refresh this page.
   // The saved popup state restores the same profile popup after reload.
-  var list=menu.querySelector('.ng-profile-links'),touchStartY=0,pullReady=false;
+  var list=menu.querySelector('.ng-profile-links'),touchStartY=null,pullReady=false,pullIndicator=null;
   if(list){
+    pullIndicator=document.createElement('div');
+    pullIndicator.className='ng-profile-pull-indicator';
+    pullIndicator.textContent='↓ Pull to refresh';
+    pullIndicator.setAttribute('aria-live','polite');
+    list.parentNode.insertBefore(pullIndicator,list);
     list.addEventListener('touchstart',function(e){
-      if(list.scrollTop<=0&&e.touches&&e.touches.length===1){
-        touchStartY=e.touches[0].clientY;pullReady=false;
-      }else{touchStartY=0;pullReady=false;}
+      touchStartY=null;pullReady=false;
+      if(list.scrollTop<=1&&e.touches&&e.touches.length===1){
+        touchStartY=e.touches[0].clientY;
+      }
+      pullIndicator.classList.remove('is-ready');
+      pullIndicator.textContent='↓ Pull to refresh';
     },{passive:true});
     list.addEventListener('touchmove',function(e){
-      if(!touchStartY||!e.touches||e.touches.length!==1||list.scrollTop>0)return;
+      if(touchStartY===null||!e.touches||e.touches.length!==1)return;
       var distance=e.touches[0].clientY-touchStartY;
-      pullReady=distance>105;
-      if(pullReady&&e.cancelable)e.preventDefault();
+      if(list.scrollTop>1||distance<0){touchStartY=null;pullReady=false;return;}
+      if(distance>8&&e.cancelable)e.preventDefault();
+      pullReady=distance>=72;
+      pullIndicator.textContent=pullReady?'↻ Release to refresh':'↓ Pull to refresh';
+      pullIndicator.classList.toggle('is-ready',pullReady);
     },{passive:false});
     list.addEventListener('touchend',function(){
-      if(pullReady){
+      var shouldRefresh=pullReady;
+      touchStartY=null;pullReady=false;
+      pullIndicator.classList.remove('is-ready');
+      if(shouldRefresh){
+        pullIndicator.textContent='↻ Refreshing…';
         try{sessionStorage.setItem(key,'1');}catch(e){}
-        location.reload();
-      }
-      touchStartY=0;pullReady=false;
+        window.location.reload();
+      }else{pullIndicator.textContent='↓ Pull to refresh';}
     },{passive:true});
-    list.addEventListener('touchcancel',function(){touchStartY=0;pullReady=false;},{passive:true});
+    list.addEventListener('touchcancel',function(){
+      touchStartY=null;pullReady=false;
+      pullIndicator.classList.remove('is-ready');
+      pullIndicator.textContent='↓ Pull to refresh';
+    },{passive:true});
   }
   try{if(sessionStorage.getItem(key)==='1')show();}catch(e){}
 })();
