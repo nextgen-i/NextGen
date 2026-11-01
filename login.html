@@ -1306,7 +1306,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
       <div class="field" id="confirmWrap" hidden><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm password" aria-label="Confirm password" minlength="8"></div>
       <div class="auth-mode-switch"><button type="button" id="loginModeButton" class="mode-link active">Log in</button><span>·</span><button type="button" id="signupModeButton" class="mode-link">Sign up</button></div>
     </div>
-    <button class="primary email-continue" id="submitButton" type="submit">Login</button>
+    <button class="primary email-continue" id="submitButton" type="button" onclick="(function(){var p=document.getElementById('passwordStep'),e=document.getElementById('email');if(!e||!e.value.trim()||!e.checkValidity()){var st=document.getElementById('status');if(st){st.textContent='Enter a valid email address.';st.className='status error';}if(e)e.focus();return;}p.hidden=false;p.removeAttribute('hidden');p.style.display='block';var first=document.getElementById('submitButton');first.hidden=true;first.style.display='none';var b=document.getElementById('passwordSubmitButton');b.hidden=false;b.removeAttribute('hidden');b.style.display='block';document.getElementById('password').required=true;document.getElementById('password').focus();})();">Login</button>
     <button class="primary password-continue" id="passwordSubmitButton" type="submit" hidden>Login</button>
   </form>
   <div class="auth-divider"><span>OR</span></div>
