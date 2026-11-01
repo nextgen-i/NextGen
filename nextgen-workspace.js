@@ -443,6 +443,29 @@
       item.href='./login.html';
     }
     links.append(item);
+    const menuItem=document.querySelector('#ng-menu-drawer .ng-menu-logout');
+    if(menuItem){
+      menuItem.textContent=user?'↪ Logout':'↪ Login / Sign Up';
+      menuItem.href=user?'#':'./login.html';
+      menuItem.removeAttribute('disabled');
+      menuItem.removeAttribute('aria-disabled');
+      menuItem.classList.add('ng-menu-login-active');
+      if(!menuItem.dataset.authBound){
+        menuItem.dataset.authBound='1';
+        menuItem.addEventListener('click',async event=>{
+          if(menuItem.getAttribute('href')!=='#')return;
+          event.preventDefault();
+          menuItem.style.pointerEvents='none';
+          const {error}=await client.auth.signOut();
+          if(error){
+            menuItem.style.pointerEvents='';
+            menuItem.textContent='Logout failed — try again';
+            return;
+          }
+          location.href='./login.html';
+        });
+      }
+    }
   }
   function showAuth(){
     showAuthPanel();
