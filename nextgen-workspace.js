@@ -106,13 +106,19 @@
   }
   async function loadBase(){
     await requireUser();
-    const [c,items,s]=await Promise.all([
-      client.from('channels').select('id,platform,display_name,handle,connection_status,is_paused').order('created_at',{ascending:false}),
+    // Load channels independently so an unrelated Content or Settings
+    // permission/schema error cannot leave stale starter cards on Channels.
+    const c=await client.from('channels')
+      .select('id,platform,display_name,handle,profile_url,connection_status,is_paused')
+      .order('created_at',{ascending:false});
+    if(c.error)throw c.error;
+    channels=c.data||[];
+    const [items,s]=await Promise.all([
       client.from('content_items').select('id,channel_id,platform,content_type,title,caption,hashtags,tags,keywords,thumbnail_url,thumbnail_prompt,status,scheduled_for,created_at').order('created_at',{ascending:false}).limit(100),
       client.from('automation_settings').select('*').eq('owner_id',user.id).maybeSingle()
     ]);
-    if(c.error)throw c.error;if(items.error)throw items.error;if(s.error)throw s.error;
-    channels=c.data||[];content=items.data||[];settings=s.data||null;
+    content=items.error?[]:(items.data||[]);
+    settings=s.error?null:(s.data||null);
   }
   function parseList(v){return String(v||'').split(/[,;\n]/).map(x=>x.trim().replace(/^#/,'')).filter(Boolean);}
   function safeText(node,value){if(node)node.textContent=value==null?'':String(value);}
