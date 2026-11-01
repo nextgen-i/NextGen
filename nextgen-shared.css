@@ -394,48 +394,9 @@ html body.ng-menu-open nav.ng-bottom-nav{
  .ng-profile-menu .ng-profile-account-actions button svg{width:25px!important;height:25px!important;flex-basis:25px!important}
 }
 
-/* Profile menu: full-screen mobile layout matching the approved reference.
-   Keep the app bottom navigation visible and leave Google Account untouched. */
-@media(max-width:700px){
-  body.ng-profile-open>.app>header,
-  body.ng-profile-open .app>header{
-    display:none!important;
-  }
-  body.ng-profile-open .ng-profile-backdrop{
-    top:0!important;
-    bottom:calc(58px + env(safe-area-inset-bottom,0px))!important;
-    background:transparent!important;
-  }
-  body.ng-profile-open .ng-profile-menu{
-    position:fixed!important;
-    top:0!important;
-    left:0!important;
-    right:0!important;
-    bottom:calc(58px + env(safe-area-inset-bottom,0px))!important;
-    width:100%!important;
-    max-width:none!important;
-    max-height:none!important;
-    height:auto!important;
-    margin:0!important;
-    padding:16px 14px 12px!important;
-    border:0!important;
-    border-radius:0!important;
-    box-shadow:none!important;
-    overflow-x:hidden!important;
-    overflow-y:auto!important;
-    overscroll-behavior:contain!important;
-    transform:none!important;
-    background:linear-gradient(155deg,#061a3b,#030b24 72%)!important;
-  }
-  body.ng-profile-open .ng-profile-menu.is-open{
-    opacity:1!important;
-    visibility:visible!important;
-  }
-}
 
-
-/* PROFILE MENU — exact mobile layout from the user-approved reference screenshot.
-   Header remains visible; action buttons stay side-by-side; bottom navigation remains visible. */
+/* Profile Menu — consolidated mobile layout matching the approved screenshot.
+   Header and bottom navigation stay visible; every menu row remains in normal flow. */
 @media(max-width:700px){
   body.ng-profile-open>.app>header,
   body.ng-profile-open .app>header{
@@ -517,11 +478,14 @@ html body.ng-menu-open nav.ng-bottom-nav{
     height:27px!important;
   }
   body.ng-profile-open .ng-profile-menu .ng-profile-links{
-    display:block!important;
+    display:flex!important;
+    flex-direction:column!important;
     width:100%!important;
   }
   body.ng-profile-open .ng-profile-menu .ng-profile-links>a{
     box-sizing:border-box!important;
+    position:static!important;
+    inset:auto!important;
     display:flex!important;
     align-items:center!important;
     gap:14px!important;
@@ -529,10 +493,18 @@ html body.ng-menu-open nav.ng-bottom-nav{
     min-height:48px!important;
     padding:5px 2px!important;
     margin:0!important;
+    border:0!important;
     border-bottom:1px solid #173b60!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
     font-size:17px!important;
     line-height:1.2!important;
     text-decoration:none!important;
+    color:#f3f8ff!important;
+  }
+  body.ng-profile-open .ng-profile-menu .ng-profile-links>a:last-child{
+    border-bottom:0!important;
   }
   body.ng-profile-open .ng-profile-menu .ng-profile-links>a .ng-profile-icon{
     display:inline-flex!important;
@@ -556,6 +528,10 @@ html body.ng-menu-open nav.ng-bottom-nav{
 }
 @media(max-width:380px){
   body.ng-profile-open .ng-profile-menu .ng-profile-account-actions{gap:7px!important}
-  body.ng-profile-open .ng-profile-menu .ng-profile-account-actions button{font-size:13px!important;padding:6px 4px!important;gap:5px!important}
-  body.ng-profile-open .ng-profile-menu .ng-profile-account-actions button svg{flex-basis:24px!important;width:24px!important;height:24px!important}
+  body.ng-profile-open .ng-profile-menu .ng-profile-account-actions button{
+    font-size:13px!important;padding:6px 4px!important;gap:5px!important;
+  }
+  body.ng-profile-open .ng-profile-menu .ng-profile-account-actions button svg{
+    flex-basis:24px!important;width:24px!important;height:24px!important;
+  }
 }
