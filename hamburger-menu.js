@@ -65,9 +65,9 @@
     var authLink=drawer.querySelector(".ng-menu-logout");
     function syncAuthMenu(signedIn){
       if(!authLink)return;
-      authLink.textContent=signedIn?"↪ Logout":"↪ Login / Sign Up";
+      authLink.textContent=signedIn?"↪ Logout":"↪ Login";
       authLink.href=signedIn?"#":"./login.html";
-      authLink.setAttribute("aria-label",signedIn?"Logout":"Login / Sign Up");
+      authLink.setAttribute("aria-label",signedIn?"Logout":"Login");
       authLink.classList.add("ng-menu-login-active");
       authLink.removeAttribute("disabled");
       authLink.removeAttribute("aria-disabled");
