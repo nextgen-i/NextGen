@@ -22,6 +22,7 @@
     drawer.dataset.sharedReady="1";
     function openMenu(){
       drawer.classList.add("is-open");
+      try{sessionStorage.setItem("ng-hamburger-open","1");}catch(e){}
       drawer.setAttribute("aria-hidden","false");
       backdrop.hidden=false;
       trigger.setAttribute("aria-expanded","true");
@@ -30,6 +31,7 @@
     }
     function closeMenu(){
       drawer.classList.remove("is-open");
+      try{sessionStorage.removeItem("ng-hamburger-open");}catch(e){}
       drawer.setAttribute("aria-hidden","true");
       backdrop.hidden=true;
       trigger.setAttribute("aria-expanded","false");
@@ -89,6 +91,7 @@
         }
       });
     }
+    try{if(sessionStorage.getItem("ng-hamburger-open")==="1")openMenu();}catch(e){}
     drawer.querySelectorAll("a[href]").forEach(function(link){
       link.addEventListener("click",function(){if(link.getAttribute("href")!=="#")closeMenu();});
     });
