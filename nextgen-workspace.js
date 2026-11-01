@@ -377,54 +377,50 @@
     if($('analyticsPeriod'))$('analyticsPeriod').addEventListener('change',()=>loadAnalytics().catch(()=>{}));
   }
   function renderProfileAuthEntry(){
-    const links=document.querySelector('.ng-profile-menu .ng-profile-links');
-    if(!links)return;
-    links.querySelectorAll('[data-ng-auth-entry],a[href="./login.html"]').forEach(node=>node.remove());
-    const item=document.createElement('a');
-    item.dataset.ngAuthEntry='true';
-    item.innerHTML=user?'<span class="ng-profile-icon"><svg viewBox="0 0 24 24"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>':'<span class="ng-profile-icon"><svg viewBox="0 0 24 24"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up<i>›</i>';
-    if(user){
-      item.href='#';
-      item.addEventListener('click',async event=>{
-        event.preventDefault();
-        item.style.pointerEvents='none';
-        item.style.opacity='.65';
-        const {error}=await client.auth.signOut();
-        if(error){
-          item.style.pointerEvents='';
-          item.style.opacity='';
-          item.lastChild.textContent='!';
-          return;
-        }
-        location.href='./login.html';
-      });
-    }else{
-      item.href='./login.html';
+    const profileLinks=document.querySelector('.ng-profile-menu .ng-profile-links');
+    const profileItems=profileLinks?[...profileLinks.querySelectorAll('[data-ng-auth-entry],a[href="./login.html"]')]:[];
+    let profileItem=profileItems[0]||null;
+    profileItems.slice(1).forEach(node=>node.remove());
+    if(profileLinks&&!profileItem){
+      profileItem=document.createElement('a');
+      profileItem.dataset.ngAuthEntry='true';
+      profileLinks.append(profileItem);
     }
-    links.append(item);
-    const menuItem=document.querySelector('#ng-menu-drawer .ng-menu-logout');
-    if(menuItem){
-      menuItem.innerHTML=user?'<span class="ng-point-icon"><svg viewBox="0 0 24 24"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout':'<span class="ng-point-icon"><svg viewBox="0 0 24 24"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up';
-      menuItem.href=user?'#':'./login.html';
-      menuItem.removeAttribute('disabled');
-      menuItem.removeAttribute('aria-disabled');
-      menuItem.classList.add('ng-menu-login-active');
-      if(!menuItem.dataset.authBound){
-        menuItem.dataset.authBound='1';
-        menuItem.addEventListener('click',async event=>{
-          if(menuItem.getAttribute('href')!=='#')return;
+
+    const hamburgerItem=document.querySelector('#ng-menu-drawer .ng-menu-logout');
+    const entries=[profileItem,hamburgerItem].filter(Boolean);
+    entries.forEach(item=>{
+      const signedIn=!!user;
+      item.innerHTML=signedIn
+        ? '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>'
+        : '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up<i>›</i>';
+      item.href=signedIn?'#':'./login.html';
+      item.removeAttribute('disabled');
+      item.removeAttribute('aria-disabled');
+      item.classList.add('ng-menu-login-active');
+      item.setAttribute('aria-label',signedIn?'Logout':'Login / Sign Up');
+      if(!item.dataset.authBound){
+        item.dataset.authBound='1';
+        item.addEventListener('click',async event=>{
+          if(item.getAttribute('href')!=='#')return;
           event.preventDefault();
-          menuItem.style.pointerEvents='none';
+          if(!user)return;
+          item.style.pointerEvents='none';
+          item.style.opacity='.65';
           const {error}=await client.auth.signOut();
           if(error){
-            menuItem.style.pointerEvents='';
-            menuItem.textContent='Logout failed — try again';
+            item.style.pointerEvents='';
+            item.style.opacity='';
+            item.setAttribute('aria-label','Logout failed — try again');
             return;
           }
-          location.href='./login.html';
+          user=null;
+          renderProfileAuthEntry();
+          item.style.pointerEvents='';
+          item.style.opacity='';
         });
       }
-    }
+    });
   }
   function showAuth(){
     showAuthPanel();
