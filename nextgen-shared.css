@@ -605,3 +605,33 @@ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-ba
   background:transparent!important;
   box-shadow:none!important;
 }
+
+
+/* Profile popup header flush-left alignment: zero left margin for arrow,
+   with avatar and account name following immediately to its right. */
+@media(max-width:700px){
+  body.ng-profile-open #ng-profile-menu{
+    padding-left:0!important;
+  }
+  body.ng-profile-open #ng-profile-menu .ng-profile-account{
+    margin-left:0!important;
+    padding-left:0!important;
+    padding-right:18px!important;
+    gap:7px!important;
+  }
+  body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back{
+    margin-left:0!important;
+    padding-left:0!important;
+    flex-basis:38px!important;
+    width:38px!important;
+    min-width:38px!important;
+  }
+  body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-brand-avatar{
+    margin-left:0!important;
+  }
+  body.ng-profile-open #ng-profile-menu .ng-profile-account-actions,
+  body.ng-profile-open #ng-profile-menu .ng-profile-links{
+    margin-left:18px!important;
+    width:calc(100% - 18px)!important;
+  }
+}
