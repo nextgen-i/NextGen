@@ -438,14 +438,18 @@
 
   bindPage();
   showAuth();
-  client.auth.getSession().then(({data})=>{
+  client.auth.getSession().then(({data,error})=>{
+    if(error){if(authMessage)authMessage.textContent='Session check failed: '+error.message;return;}
     user=data&&data.session?data.session.user:null;
     showAuth();
     if(user)refresh();
   });
+  // Do not call Supabase queries synchronously inside onAuthStateChange.
+  // Supabase auth callbacks run under an internal lock; defer workspace reads
+  // until the callback returns to avoid a stalled Channels refresh.
   client.auth.onAuthStateChange((_event,session)=>{
     user=session&&session.user?session.user:null;
     showAuth();
-    if(user)refresh();
+    if(user)setTimeout(()=>{if(user)refresh();},0);
   });
 })();
