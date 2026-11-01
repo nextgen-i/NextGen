@@ -481,3 +481,33 @@ html body.ng-menu-open nav.ng-bottom-nav{
   body.ng-profile-open .ng-profile-menu .ng-profile-account-actions button{font-size:12px!important;padding:6px 3px!important;gap:4px!important}
   body.ng-profile-open .ng-profile-menu .ng-profile-account-actions button svg{flex-basis:23px!important;width:23px!important;height:23px!important}
 }
+
+/* Visible Back control in the top-left of the Profile popup. */
+@media(max-width:700px){
+  body.ng-profile-open .ng-profile-menu .ng-profile-account{
+    gap:9px!important;
+  }
+  body.ng-profile-open .ng-profile-menu .ng-profile-popup-back{
+    box-sizing:border-box!important;
+    display:inline-flex!important;
+    flex:0 0 38px!important;
+    width:38px!important;
+    min-width:38px!important;
+    height:38px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0 2px 0 0!important;
+    padding:0!important;
+    border:1px solid rgba(42,190,255,.55)!important;
+    border-radius:50%!important;
+    color:#35d9ff!important;
+    background:rgba(7,48,83,.65)!important;
+    box-shadow:0 0 12px rgba(0,190,255,.16)!important;
+    cursor:pointer!important;
+  }
+  body.ng-profile-open .ng-profile-menu .ng-profile-popup-back svg{
+    display:block!important;width:23px!important;height:23px!important;
+    fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;
+    stroke-linecap:round!important;stroke-linejoin:round!important;
+  }
+}
