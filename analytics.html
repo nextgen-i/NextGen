@@ -790,7 +790,7 @@ body>.app>nav.ng-bottom-nav{
     <button type="button" class="ng-menu-accordion-trigger" aria-expanded="false"><span>⚙</span>Settings &amp; Privacy <i>⌄</i></button>
     <div class="ng-menu-accordion-panel" hidden><a href="./settings.html"><span class="ng-point-icon">⚙</span>Settings</a><a href="./privacy-policy.html"><span class="ng-point-icon">🔒</span>Privacy Center</a><a href="./settings.html#time-management"><span class="ng-point-icon">◷</span>Time management</a><a href="./settings.html#device-requests"><span class="ng-point-icon">▣</span>Device requests</a><a href="./subscription-package.html"><span class="ng-point-icon">♙</span>Your Subscription Activities</a><a href="./subscription-package.html#orders-and-payments"><span class="ng-point-icon">₹</span>Orders and payments</a><a href="./settings.html#link-history"><span class="ng-point-icon">↗</span>Link history</a><a href="./settings.html#appearance"><span class="ng-point-icon">◐</span>Dark mode / White Mode</a><a href="./settings.html#language"><span class="ng-point-icon">文</span>Language</a></div>
   </div>
-  <a href="./login.html" class="ng-menu-logout ng-menu-login-active">↪ Login / Sign Up</a>
+  <a href="./login.html" class="ng-menu-logout ng-menu-login-active">↪ Login</a>
 </aside>
 
 
@@ -1011,9 +1011,9 @@ body>.app>nav.ng-bottom-nav{
  var authLink=drawer.querySelector('.ng-menu-logout');
  function syncHamburgerAuth(signedIn){
    if(!authLink)return;
-   authLink.textContent=signedIn?'↪ Logout':'↪ Login / Sign Up';
+   authLink.textContent=signedIn?'↪ Logout':'↪ Login';
    authLink.href=signedIn?'#':'./login.html';
-   authLink.setAttribute('aria-label',signedIn?'Logout':'Login / Sign Up');
+   authLink.setAttribute('aria-label',signedIn?'Logout':'Login');
    authLink.classList.add('ng-menu-login-active');
  }
  syncHamburgerAuth(!!(window.NGWorkspace&&window.NGWorkspace.getUser&&window.NGWorkspace.getUser()));
