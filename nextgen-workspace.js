@@ -143,8 +143,11 @@
   }
   function renderChannels(){
     const root=document.querySelector('.app main .list');if(!root)return;
-    // Preserve the four approved starter cards. Overlay saved records on their
-    // matching platform cards and append additional channels without duplicates.
+    // Remove previously generated extra cards first. refresh() may run more
+    // than once (including when the workspace script is included twice).
+    root.querySelectorAll('[data-ng-workspace-channel="true"]').forEach(card=>card.remove());
+    // Preserve the four approved starter cards and overlay the first saved
+    // channel per platform. Additional channels are rebuilt exactly once.
     const platformClass={youtube:'yt',facebook:'fb',instagram:'ig',threads:'th'};
     const platformIcon={youtube:'▶',facebook:'f',instagram:'◎',threads:'＠'};
     const starterByPlatform={};
@@ -164,6 +167,7 @@
       if(existing)usedStarter.add(platform);
       else card.className='card '+(platformClass[platform]||'');
       if(!existing){
+        card.dataset.ngWorkspaceChannel='true';
         const icon=document.createElement('div');icon.className='ico';icon.textContent=platformIcon[platform]||'•';
         const info=document.createElement('div');info.className='info';
         const name=document.createElement('b');const handle=document.createElement('span');
