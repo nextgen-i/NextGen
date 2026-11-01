@@ -543,3 +543,43 @@ html body.ng-menu-open nav.ng-bottom-nav{
     display:block!important;width:23px!important;height:23px!important;stroke:currentColor!important;stroke-width:2.2!important;
   }
 }
+
+
+/* FINAL PROFILE POPUP BACK BUTTON POSITION LOCK — only affects the profile account header. */
+body.ng-profile-open #ng-profile-menu .ng-profile-account{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  flex-wrap:nowrap!important;
+  gap:9px!important;
+  min-width:0!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back{
+  position:relative!important;
+  inset:auto!important;
+  order:0!important;
+  display:inline-flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  flex:0 0 38px!important;
+  width:38px!important;
+  min-width:38px!important;
+  max-width:38px!important;
+  height:38px!important;
+  min-height:38px!important;
+  margin:0!important;
+  padding:0!important;
+  align-self:center!important;
+  transform:none!important;
+  z-index:30!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-brand-avatar{
+  order:1!important;flex:0 0 auto!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-account-copy{
+  order:2!important;flex:1 1 auto!important;min-width:0!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-edit{
+  order:3!important;flex:0 0 auto!important;
+}
