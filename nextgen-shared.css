@@ -511,3 +511,18 @@ html body.ng-menu-open nav.ng-bottom-nav{
     stroke-linecap:round!important;stroke-linejoin:round!important;
   }
 }
+
+/* Pull-to-refresh cue, shown only while the profile list is being pulled down. */
+@media(max-width:700px){
+  body.ng-profile-open .ng-profile-pull-indicator{
+    display:block!important;flex:0 0 auto!important;
+    height:0!important;min-height:0!important;overflow:hidden!important;
+    opacity:0!important;text-align:center!important;
+    color:#8edfff!important;font-size:13px!important;font-weight:600!important;
+    transition:height .12s ease,opacity .12s ease!important;
+  }
+  body.ng-profile-open .ng-profile-pull-indicator.is-ready{
+    height:30px!important;min-height:30px!important;opacity:1!important;
+    padding:5px 0!important;
+  }
+}
