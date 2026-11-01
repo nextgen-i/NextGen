@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NextGen – Content</title>
-<link rel="stylesheet" href="./nextgen-shared.css?v=profile-popup-modal-20261102-v2">
+<link rel="stylesheet" href="./nextgen-shared.css?v=profile-list-scroll-refresh-20261102-v3">
 <style>
 :root{color-scheme:dark;box-sizing:border-box;--bg:#030b24;--txt:#fff;--mut:#8fa6d6;--green:#16e08a;padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -625,6 +625,30 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
   window.addEventListener('popstate',function(){
     closing=false;clear();hide();
   });
+  // Pull down at the top of the Settings-to-Logout list to refresh this page.
+  // The saved popup state restores the same profile popup after reload.
+  var list=menu.querySelector('.ng-profile-links'),touchStartY=0,pullReady=false;
+  if(list){
+    list.addEventListener('touchstart',function(e){
+      if(list.scrollTop<=0&&e.touches&&e.touches.length===1){
+        touchStartY=e.touches[0].clientY;pullReady=false;
+      }else{touchStartY=0;pullReady=false;}
+    },{passive:true});
+    list.addEventListener('touchmove',function(e){
+      if(!touchStartY||!e.touches||e.touches.length!==1||list.scrollTop>0)return;
+      var distance=e.touches[0].clientY-touchStartY;
+      pullReady=distance>105;
+      if(pullReady&&e.cancelable)e.preventDefault();
+    },{passive:false});
+    list.addEventListener('touchend',function(){
+      if(pullReady){
+        try{sessionStorage.setItem(key,'1');}catch(e){}
+        location.reload();
+      }
+      touchStartY=0;pullReady=false;
+    },{passive:true});
+    list.addEventListener('touchcancel',function(){touchStartY=0;pullReady=false;},{passive:true});
+  }
   try{if(sessionStorage.getItem(key)==='1')show();}catch(e){}
 })();
 </script>
