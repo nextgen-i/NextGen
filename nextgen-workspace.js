@@ -2,7 +2,8 @@
   'use strict';
   // Keep the right-side profile menu on the same page when Chrome refreshes.
   (function(){
-    const key='ngNextGenProfileMenuOpen';
+    // Scope the open-state to this exact page so it cannot carry over to another page.
+    const key='ngNextGenProfileMenuOpen:'+location.pathname+location.search+location.hash;
     // This bundle is included more than once on some pages; bind persistence only once.
     if(window.__ngProfileMenuPersistenceBound)return;
     const trigger=document.getElementById('ng-profile-trigger');
