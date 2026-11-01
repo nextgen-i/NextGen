@@ -1091,26 +1091,49 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu)});
 })();
 </script>
-<script id="ng-profile-refresh-state">
+<script id="ng-profile-popup-history">
 (function(){
- var key='ng-profile-open',trigger=document.getElementById('ng-profile-trigger'),menu=document.getElementById('ng-profile-menu'),backdrop=document.getElementById('ng-profile-backdrop'),navigating=false;
- if(!trigger||!menu||!backdrop)return;
- function clearSaved(){try{sessionStorage.removeItem(key);}catch(e){}}
- function closeHistoryEntry(){if(history.state&&history.state.ngProfileMenu&&!navigating){history.back();}}
- trigger.addEventListener('click',function(){
-   var isOpen=menu.classList.contains('is-open');
-   try{if(isOpen)sessionStorage.setItem(key,'1');else sessionStorage.removeItem(key);}catch(e){}
-   if(isOpen){if(!(history.state&&history.state.ngProfileMenu)){try{history.pushState(Object.assign({},history.state||{},{ngProfileMenu:true}),'',location.href);}catch(e){}}}
-   else closeHistoryEntry();
- });
- menu.querySelectorAll('a[href]').forEach(function(a){a.addEventListener('click',function(){navigating=true;clearSaved();},true);});
- backdrop.addEventListener('click',function(){clearSaved();closeHistoryEntry();});
- document.addEventListener('keydown',function(e){if(e.key==='Escape'){clearSaved();closeHistoryEntry();}});
- window.addEventListener('popstate',function(){
-   if(menu.classList.contains('is-open'))trigger.click();
-   clearSaved();
- });
- try{if(sessionStorage.getItem(key)==='1'&&!menu.classList.contains('is-open'))trigger.click();}catch(e){}
+  var key='ng-profile-open',trigger=document.getElementById('ng-profile-trigger'),
+      menu=document.getElementById('ng-profile-menu'),backdrop=document.getElementById('ng-profile-backdrop'),
+      closing=false,navigating=false;
+  if(!trigger||!menu||!backdrop)return;
+  function show(){
+    menu.classList.add('is-open');menu.setAttribute('aria-hidden','false');
+    backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');
+    document.body.classList.add('ng-profile-open');
+  }
+  function hide(){
+    menu.classList.remove('is-open');menu.setAttribute('aria-hidden','true');
+    backdrop.hidden=true;trigger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('ng-profile-open');
+  }
+  function clear(){try{sessionStorage.removeItem(key);}catch(e){}}
+  function closePopup(){
+    clear();hide();
+    if(history.state&&history.state.ngProfileMenu&&!closing&&!navigating){
+      closing=true;history.back();
+    }
+  }
+  trigger.addEventListener('click',function(){
+    if(menu.classList.contains('is-open')){
+      try{sessionStorage.setItem(key,'1');}catch(e){}
+      if(!(history.state&&history.state.ngProfileMenu)){
+        try{history.pushState(Object.assign({},history.state||{},{ngProfileMenu:true}),'',location.href);}catch(e){}
+      }
+    }else{
+      clear();
+      if(history.state&&history.state.ngProfileMenu)closePopup();
+    }
+  });
+  backdrop.addEventListener('click',closePopup);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('is-open'))closePopup();});
+  menu.querySelectorAll('a[href]').forEach(function(a){
+    a.addEventListener('click',function(){navigating=true;clear();},true);
+  });
+  window.addEventListener('popstate',function(){
+    closing=false;clear();hide();
+  });
+  try{if(sessionStorage.getItem(key)==='1')show();}catch(e){}
 })();
 </script>
 <script id="ng-facebook-menu-script">
