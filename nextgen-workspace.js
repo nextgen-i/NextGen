@@ -464,12 +464,23 @@
   };
 
   bindPage();
-  showAuth();
+  // Resolve the persisted Supabase session before rendering Login/Logout.
+  // This prevents a signed-in user briefly (or incorrectly) seeing Login
+  // while the initial session check is still pending.
   client.auth.getSession().then(({data,error})=>{
-    if(error){if(authMessage)authMessage.textContent='Session check failed: '+error.message;return;}
+    if(error){
+      if(authMessage)authMessage.textContent='Session check failed: '+error.message;
+      user=null;
+      showAuth();
+      return;
+    }
     user=data&&data.session?data.session.user:null;
     showAuth();
     if(user)refresh();
+  }).catch(error=>{
+    user=null;
+    showAuth();
+    if(authMessage)authMessage.textContent='Session check failed: '+(error&&error.message?error.message:'Please retry.');
   });
   // Do not call Supabase queries synchronously inside onAuthStateChange.
   // Supabase auth callbacks run under an internal lock; defer workspace reads
