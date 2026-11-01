@@ -101,7 +101,12 @@
     authPanel.append(title,info,button);
   }
   async function requireUser(){
-    if(!user)throw new Error('Open the three-line menu and sign in at the bottom to continue.');
+    // Re-check the authenticated user against Supabase before loading private rows.
+    // This avoids relying on a stale/null local variable during mobile page refresh.
+    const result=await client.auth.getUser();
+    if(result.error)throw result.error;
+    user=result.data&&result.data.user?result.data.user:null;
+    if(!user)throw new Error('You are not signed in. Open the profile menu and sign in, then refresh Channels.');
     return user;
   }
   async function loadBase(){
@@ -113,6 +118,7 @@
     // if the auth session is still being restored during page initialization.
     const c=await client.from('channels')
       .select('id,platform,display_name,handle,profile_url,connection_status,is_paused')
+      .eq('owner_id',user.id)
       .order('created_at',{ascending:false});
     if(c.error)throw c.error;
     channels=c.data||[];
@@ -377,6 +383,11 @@
       const msg='Workspace data could not be loaded: '+(e.message||'Unknown error');
       ['draftNote','modeNote','slotNote','scheduleNote'].forEach(id=>setNote(id,msg,true));
       const status=document.querySelector('.ng-analytics-status');if(status)status.textContent=msg;
+      if(page==='channels.html'){
+        let notice=document.getElementById('ng-channels-load-error');
+        if(!notice){notice=document.createElement('p');notice.id='ng-channels-load-error';notice.style.cssText='margin:12px 0;padding:12px;border:1px solid #f45b78;border-radius:10px;background:#321329;color:#ffe5ec;font-size:13px;line-height:1.45';const list=document.querySelector('.app main .list');if(list)list.insertAdjacentElement('beforebegin',notice);}
+        if(notice)notice.textContent=msg;
+      }
     }
   }
   function bindPage(){
