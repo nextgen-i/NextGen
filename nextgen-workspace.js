@@ -156,8 +156,14 @@
       empty(root,'No channels are saved in this workspace yet. Use Add Channel to verify and save a profile.');
       return;
     }
+    const seenChannels=new Set();
     channels.forEach(ch=>{
       const platform=String(ch.platform||'').toLowerCase();
+      const handleKey=String(ch.handle||'').replace(/^@/,'').trim().toLowerCase();
+      const profileKey=String(ch.profile_url||'').trim().toLowerCase().replace(/\\?.*$/,'').replace(/\\/$/,'');
+      const uniqueKey=platform+'|'+(handleKey||profileKey||String(ch.id||''));
+      if(seenChannels.has(uniqueKey))return;
+      seenChannels.add(uniqueKey);
       const card=(templates[platform]||document.createElement('div')).cloneNode(true);
       card.className='card '+(platformClass[platform]||'');
       const nameNode=card.querySelector('.info b');
