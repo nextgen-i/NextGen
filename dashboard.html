@@ -1209,11 +1209,12 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
  var trigger=document.getElementById('ng-profile-trigger'),menu=document.getElementById('ng-profile-menu'),backdrop=document.getElementById('ng-profile-backdrop');
  if(!trigger||!menu||!backdrop||trigger.dataset.profileReady==='1')return;
  trigger.dataset.profileReady='1';
- function openMenu(){menu.classList.add('is-open');menu.setAttribute('aria-hidden','false');backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');document.body.classList.add('ng-profile-open')}
- function closeMenu(){menu.classList.remove('is-open');menu.setAttribute('aria-hidden','true');backdrop.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.classList.remove('ng-profile-open')}
+ function openMenu(){menu.classList.add('is-open');menu.setAttribute('aria-hidden','false');backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');document.body.classList.add('ng-profile-open');try{sessionStorage.setItem('ng-profile-menu-open:'+location.pathname,'1')}catch(e){}}
+ function closeMenu(){menu.classList.remove('is-open');menu.setAttribute('aria-hidden','true');backdrop.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.classList.remove('ng-profile-open');try{sessionStorage.removeItem('ng-profile-menu-open:'+location.pathname)}catch(e){}}
  trigger.addEventListener('click',function(){menu.classList.contains('is-open')?closeMenu():openMenu()});
  backdrop.addEventListener('click',closeMenu);
  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu()});
+ try{if(sessionStorage.getItem('ng-profile-menu-open:'+location.pathname)==='1')openMenu()}catch(e){}
  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu)});
 })();
 </script>
