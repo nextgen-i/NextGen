@@ -143,45 +143,36 @@
   }
   function renderChannels(){
     const root=document.querySelector('.app main .list');if(!root)return;
-    // Keep exactly one starter card per platform. Older renderer versions
-    // appended unmarked cards, so remove duplicates even if they lack our
-    // current data attribute; then remove marked generated cards on refresh.
     const platformClass={youtube:'yt',facebook:'fb',instagram:'ig',threads:'th'};
-    const platformIcon={youtube:'▶',facebook:'f',instagram:'◎',threads:'＠'};
-    const starterByPlatform={};
-    Array.from(root.querySelectorAll('.card')).forEach(card=>{
-      const key=Object.keys(platformClass).find(p=>card.classList.contains(platformClass[p]));
-      if(!key)return;
-      if(!starterByPlatform[key])starterByPlatform[key]=card;
-      else card.remove();
+    const templates={};
+    Object.keys(platformClass).forEach(platform=>{
+      const template=root.querySelector('.card.'+platformClass[platform]);
+      if(template)templates[platform]=template.cloneNode(true);
     });
-    root.querySelectorAll('[data-ng-workspace-channel="true"]').forEach(card=>card.remove());
+    // Rebuild the list from the saved database rows on every refresh.
+    // This prevents stale/generated cards from surviving repeated auth refreshes.
+    root.innerHTML='';
     if(!channels.length){
-      if(!root.querySelector('.card'))empty(root,'No channels are saved in this workspace yet. Use Add Channel to verify and save a profile.');
+      empty(root,'No channels are saved in this workspace yet. Use Add Channel to verify and save a profile.');
       return;
     }
-    const usedStarter=new Set();
     channels.forEach(ch=>{
       const platform=String(ch.platform||'').toLowerCase();
-      const existing=starterByPlatform[platform]&&!usedStarter.has(platform)?starterByPlatform[platform]:null;
-      const card=existing||document.createElement('div');
-      if(existing)usedStarter.add(platform);
-      else card.className='card '+(platformClass[platform]||'');
-      if(!existing){
-        card.dataset.ngWorkspaceChannel='true';
-        const icon=document.createElement('div');icon.className='ico';icon.textContent=platformIcon[platform]||'•';
-        const info=document.createElement('div');info.className='info';
-        const name=document.createElement('b');const handle=document.createElement('span');
-        info.append(name,handle);
-        const status=document.createElement('div');status.className='st';
-        card.append(icon,info,status);root.append(card);
-      }
+      const card=(templates[platform]||document.createElement('div')).cloneNode(true);
+      card.className='card '+(platformClass[platform]||'');
       const nameNode=card.querySelector('.info b');
       const handleNode=card.querySelector('.info span');
       const statusNode=card.querySelector('.st');
       if(nameNode)nameNode.textContent=ch.display_name||platform||'Channel';
       if(handleNode)handleNode.textContent=ch.handle?'@'+String(ch.handle).replace(/^@/,''):'Profile name pending';
       if(statusNode)statusNode.textContent='Connection: '+(ch.connection_status||'pending')+(ch.is_paused?' · Paused':'');
+      const review=card.querySelector('[data-review]');
+      if(review){
+        review.addEventListener('click',()=>{
+          alert((ch.display_name||platform||'Channel')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'')+'\nConnection: '+(ch.connection_status||'pending')+'. Connect the platform API before publishing.');
+        });
+      }
+      root.append(card);
     });
   }
   function renderContent(){
