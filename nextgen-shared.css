@@ -356,3 +356,40 @@ html body.ng-menu-open nav.ng-bottom-nav{
  .ng-profile-menu .ng-profile-links a .ng-profile-icon{width:32px!important;height:32px!important;flex-basis:32px!important;}
  .ng-profile-menu .ng-profile-links a .ng-profile-icon svg{width:27px!important;height:27px!important;}
 }
+
+
+/* Profile menu reference: paired account actions and distinct matching icon colors. */
+.ng-profile-menu .ng-profile-account-actions{
+  display:grid!important;grid-template-columns:1fr 1fr!important;
+  gap:10px!important;align-items:stretch!important;
+}
+.ng-profile-menu .ng-profile-account-actions button{
+  min-width:0!important;min-height:48px!important;border-radius:28px!important;
+  background:linear-gradient(180deg,#0b2145,#09203e)!important;
+  color:#f4f8ff!important;white-space:nowrap!important;
+}
+.ng-profile-menu .ng-profile-account-actions .ng-profile-google-account{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:9px!important;border:1px solid #159ee5!important;
+}
+.ng-profile-menu .ng-profile-account-actions .ng-profile-google-account svg{
+  width:31px!important;height:31px!important;flex:0 0 31px!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="settings"]{color:#16c9ef!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="account"]{color:#28a9ff!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="youtube"]{color:#ff303b!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="terms"]{color:#4b9dff!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="share"]{color:#00e879!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="pin"]{color:#ffca18!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="lock"]{color:#12d9df!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="files"]{color:#b84cff!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="search"]{color:#08d7ef!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="home"]{color:#19bfff!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon.ng-profile-delete-icon{color:#ff303b!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="logout"],
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="login"]{color:#ff303b!important}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="youtube"] svg{fill:#ff303b!important;stroke:#ff303b!important}
+@media(max-width:380px){
+ .ng-profile-menu .ng-profile-account-actions button{font-size:13px!important;gap:6px!important;padding:7px 5px!important}
+ .ng-profile-menu .ng-profile-account-actions button svg{width:25px!important;height:25px!important;flex-basis:25px!important}
+}
