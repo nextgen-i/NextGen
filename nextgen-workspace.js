@@ -438,6 +438,9 @@
       const entry=document.querySelector('#ng-menu-drawer .ng-menu-logout');
       if(entry){
         const signedIn=!!user;
+        const authState=signedIn?'signed-in':'signed-out';
+        if(entry.dataset.authState===authState)return;
+        entry.dataset.authState=authState;
         entry.href=signedIn?'#':'./login.html';
         entry.innerHTML=signedIn
           ? '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>'
