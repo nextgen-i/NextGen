@@ -59,6 +59,36 @@
         seeLess.textContent=collapsed?"See more":"See less";
       });
     }
+    if(mainLinks){mainLinks.querySelectorAll('a[href*="login.html"],a[href*="logout"]').forEach(function(link){link.remove();});}
+    var authLink=drawer.querySelector(".ng-menu-logout");
+    function syncAuthMenu(signedIn){
+      if(!authLink)return;
+      authLink.textContent=signedIn?"↪ Logout":"↪ Login / Sign Up";
+      authLink.href=signedIn?"#":"./login.html";
+      authLink.setAttribute("aria-label",signedIn?"Logout":"Login / Sign Up");
+      authLink.classList.add("ng-menu-login-active");
+      authLink.removeAttribute("disabled");
+      authLink.removeAttribute("aria-disabled");
+    }
+    function syncFromWorkspace(){
+      syncAuthMenu(!!(window.NGWorkspace&&typeof window.NGWorkspace.getUser==="function"&&window.NGWorkspace.getUser()));
+    }
+    syncFromWorkspace();
+    window.addEventListener("nextgen-auth-state",function(event){syncAuthMenu(!!(event.detail&&event.detail.signedIn));});
+    if(authLink&&!authLink.dataset.authBound){
+      authLink.dataset.authBound="1";
+      authLink.addEventListener("click",function(event){
+        if(authLink.getAttribute("href")!=="#")return;
+        event.preventDefault();
+        if(window.NGWorkspace&&typeof window.NGWorkspace.signOut==="function"){
+          authLink.style.pointerEvents="none";
+          window.NGWorkspace.signOut().then(function(result){
+            if(result&&result.error){authLink.style.pointerEvents="";return;}
+            syncAuthMenu(false);authLink.style.pointerEvents="";
+          }).catch(function(){authLink.style.pointerEvents="";});
+        }
+      });
+    }
     drawer.querySelectorAll("a[href]").forEach(function(link){
       link.addEventListener("click",function(){if(link.getAttribute("href")!=="#")closeMenu();});
     });
