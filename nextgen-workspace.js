@@ -393,8 +393,8 @@
     entries.forEach(item=>{
       const signedIn=!!user;
       item.innerHTML=signedIn
-        ? '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>'
-        : '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up<i>›</i>';
+        ? '<span class="ng-profile-icon" data-icon="logout"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>'
+        : '<span class="ng-profile-icon" data-icon="login"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login / Sign Up<i>›</i>';
       item.href=signedIn?'#':'./login.html';
       item.removeAttribute('disabled');
       item.removeAttribute('aria-disabled');
@@ -424,7 +424,6 @@
     });
   }
   function bindProfileAccountActions(){
-    document.querySelectorAll('.ng-profile-google-account').forEach(button=>button.remove());
     document.querySelectorAll('.ng-profile-switch-account').forEach(button=>{
       if(button.dataset.switchBound)return;
       button.dataset.switchBound='1';
