@@ -257,3 +257,45 @@ html body.ng-menu-open nav.ng-bottom-nav{
 /* Active hamburger Login / Sign Up action replacing the disabled pending placeholder. */
 .ng-menu-login-active{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;text-decoration:none!important;text-align:center!important;color:#dff7ff!important;border-color:#168dcc!important;background:linear-gradient(135deg,#0b3760,#123d70)!important;cursor:pointer!important;pointer-events:auto!important;opacity:1!important;}
 .ng-menu-login-active:active{background:#14518a!important;}
+
+/* NextGen profile menu visual refinement: no outer border, consistent larger SVG icons. */
+.ng-profile-menu{
+  border:0!important;
+  outline:0!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.42)!important;
+}
+.ng-profile-menu .ng-profile-links a{
+  gap:14px!important;
+  min-height:46px!important;
+  font-size:16px!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon{
+  width:30px!important;
+  height:30px!important;
+  flex:0 0 30px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  color:#27c9ff!important;
+  font-size:0!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon svg{
+  display:block!important;
+  width:25px!important;
+  height:25px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:2!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="youtube"] svg{
+  color:#ff343f!important;
+  fill:#ff343f!important;
+}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon.ng-profile-delete-icon{color:#ff4565!important;}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon.ng-profile-delete-icon svg{stroke:currentColor!important;}
+@media(max-width:380px){
+ .ng-profile-menu .ng-profile-links a .ng-profile-icon{width:29px!important;height:29px!important;flex-basis:29px!important;}
+ .ng-profile-menu .ng-profile-links a .ng-profile-icon svg{width:24px!important;height:24px!important;}
+}
