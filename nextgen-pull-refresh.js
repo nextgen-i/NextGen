@@ -40,7 +40,7 @@
     indicator.classList.add('ng-visible');
     indicator.classList.toggle('ng-ready',!!isReady);
     indicator.querySelector('.ng-pull-label').textContent=isReady?'Release to refresh':'Pull to refresh';
-    indicator.style.transform='translate(-50%,'+Math.min(0,distance-70)+'px)';
+    indicator.style.transform='translate(-50%,'+Math.min(58,distance)+'px)';
   }
   function hide(){
     if(!indicator)return;
