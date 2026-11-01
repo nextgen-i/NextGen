@@ -506,6 +506,20 @@ html body.ng-menu-open nav.ng-bottom-nav{
   body.ng-profile-open .ng-profile-menu .ng-profile-links>a:last-child{
     border-bottom:0!important;
   }
+  body.ng-profile-open .ng-profile-menu .ng-profile-links>a.ng-menu-login-active{
+    justify-content:flex-start!important;
+    text-align:left!important;
+    position:static!important;
+    bottom:auto!important;
+    margin-top:0!important;
+    padding:5px 2px!important;
+    min-height:48px!important;
+    border:0!important;
+    border-bottom:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
   body.ng-profile-open .ng-profile-menu .ng-profile-links>a .ng-profile-icon{
     display:inline-flex!important;
     flex:0 0 34px!important;
