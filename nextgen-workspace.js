@@ -144,19 +144,17 @@
   function renderChannels(){
     const root=document.querySelector('.app main .list');if(!root)return;
     const platformClass={youtube:'yt',facebook:'fb',instagram:'ig',threads:'th'};
+    const platformLabel={youtube:'YouTube',facebook:'Facebook',instagram:'Instagram',threads:'Threads'};
     const templates={};
     Object.keys(platformClass).forEach(platform=>{
       const template=root.querySelector('.card.'+platformClass[platform]);
       if(template)templates[platform]=template.cloneNode(true);
     });
-    // Rebuild the list from the saved database rows on every refresh.
-    // This prevents stale/generated cards from surviving repeated auth refreshes.
+    // Rebuild from saved channels, while retaining one starter card for
+    // every platform that has not yet been added by the user.
     root.innerHTML='';
-    if(!channels.length){
-      empty(root,'No channels are saved in this workspace yet. Use Add Channel to verify and save a profile.');
-      return;
-    }
     const seenChannels=new Set();
+    const renderedPlatforms=new Set();
     channels.forEach(ch=>{
       const platform=String(ch.platform||'').toLowerCase();
       const handleKey=String(ch.handle||'').replace(/^@/,'').trim().toLowerCase();
@@ -169,15 +167,26 @@
       const nameNode=card.querySelector('.info b');
       const handleNode=card.querySelector('.info span');
       const statusNode=card.querySelector('.st');
-      if(nameNode)nameNode.textContent=ch.display_name||platform||'Channel';
+      if(nameNode)nameNode.textContent=ch.display_name||platformLabel[platform]||'Channel';
       if(handleNode)handleNode.textContent=ch.handle?'@'+String(ch.handle).replace(/^@/,''):'Profile name pending';
       if(statusNode)statusNode.textContent='Connection: '+(ch.connection_status||'pending')+(ch.is_paused?' · Paused':'');
       const review=card.querySelector('[data-review]');
       if(review){
         review.addEventListener('click',()=>{
-          alert((ch.display_name||platform||'Channel')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'')+'\nConnection: '+(ch.connection_status||'pending')+'. Connect the platform API before publishing.');
+          alert((ch.display_name||platformLabel[platform]||'Channel')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'')+'\nConnection: '+(ch.connection_status||'pending')+'. Connect the platform API before publishing.');
         });
       }
+      root.append(card);
+      renderedPlatforms.add(platform);
+    });
+    Object.keys(platformClass).forEach(platform=>{
+      if(renderedPlatforms.has(platform)||!templates[platform])return;
+      const card=templates[platform].cloneNode(true);
+      card.classList.add(platformClass[platform]);
+      const nameNode=card.querySelector('.info b');
+      const statusNode=card.querySelector('.st');
+      if(nameNode)nameNode.textContent=platformLabel[platform];
+      if(statusNode)statusNode.textContent='App connection: Not verified';
       root.append(card);
     });
   }
