@@ -299,3 +299,11 @@ html body.ng-menu-open nav.ng-bottom-nav{
  .ng-profile-menu .ng-profile-links a .ng-profile-icon{width:29px!important;height:29px!important;flex-basis:29px!important;}
  .ng-profile-menu .ng-profile-links a .ng-profile-icon svg{width:24px!important;height:24px!important;}
 }
+
+/* Profile Menu polish: remove panel outline, enlarge aligned icon slots, and keep clean row spacing. */
+.ng-profile-menu{border:0!important;outline:0!important;box-shadow:0 14px 36px rgba(0,0,0,.42)!important;}
+.ng-profile-menu .ng-profile-links a{gap:14px!important;min-height:48px!important;}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon{width:32px!important;height:32px!important;flex:0 0 32px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:0!important;}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon svg{display:block!important;width:27px!important;height:27px!important;fill:none!important;stroke:currentColor!important;stroke-width:2!important;stroke-linecap:round!important;stroke-linejoin:round!important;}
+.ng-profile-menu .ng-profile-links a .ng-profile-icon[data-icon="youtube"] svg{color:#ff343f!important;}
+.ng-profile-menu .ng-profile-links a .ng-profile-delete-icon{color:#ff4565!important;}
