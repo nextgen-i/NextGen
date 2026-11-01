@@ -644,7 +644,7 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
  var key='ng-profile-open',trigger=document.getElementById('ng-profile-trigger'),menu=document.getElementById('ng-profile-menu'),backdrop=document.getElementById('ng-profile-backdrop');
  if(!trigger||!menu||!backdrop)return;
  trigger.addEventListener('click',function(){try{if(menu.classList.contains('is-open'))sessionStorage.setItem(key,'1');else sessionStorage.removeItem(key);}catch(e){}});
- backdrop.addEventListener('click',function(){try{sessionStorage.removeItem(key);}catch(e){}});
+ backdrop.addEventListener('click',function(){try{sessionStorage.removeItem(key);}catch(e){}});menu.querySelectorAll('a[href]').forEach(function(a){a.addEventListener('click',function(){try{sessionStorage.removeItem(key);}catch(e){}})});
  document.addEventListener('keydown',function(e){if(e.key==='Escape')try{sessionStorage.removeItem(key);}catch(err){}});
  try{if(sessionStorage.getItem(key)==='1')trigger.click();}catch(e){}
 })();
