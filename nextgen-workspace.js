@@ -70,7 +70,7 @@
       const email=input.value.trim();
       if(!passwordStep){
         if(!input.checkValidity()||!email){authMessage.textContent='Enter a valid email address.';input.focus();return;}
-        passwordStep=true;password.hidden=false;passwordToggle.hidden=false;button.textContent='Login';authMessage.textContent='Enter your password to continue.';password.focus();return;
+        passwordStep=true;password.hidden=false;passwordToggle.hidden=false;passwordToggle.style.display='inline-block';button.textContent='Login';authMessage.textContent='Enter your password to continue.';password.focus();return;
       }
       if(!password.value||password.value.length<8){authMessage.textContent='Enter your password (at least 8 characters).';password.focus();return;}
       button.disabled=true;authMessage.textContent='Signing in…';
