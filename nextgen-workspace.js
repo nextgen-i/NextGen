@@ -3,10 +3,13 @@
   // Keep the right-side profile menu on the same page when Chrome refreshes.
   (function(){
     const key='ngNextGenProfileMenuOpen';
+    // This bundle is included more than once on some pages; bind persistence only once.
+    if(window.__ngProfileMenuPersistenceBound)return;
     const trigger=document.getElementById('ng-profile-trigger');
     const menu=document.getElementById('ng-profile-menu');
     const backdrop=document.getElementById('ng-profile-backdrop');
     if(!trigger||!menu||!backdrop)return;
+    window.__ngProfileMenuPersistenceBound=true;
     function open(){
       menu.classList.add('is-open');
       menu.setAttribute('aria-hidden','false');
