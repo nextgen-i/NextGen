@@ -583,3 +583,25 @@ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-account-
 body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-edit{
   order:3!important;flex:0 0 auto!important;
 }
+
+
+/* Profile popup back control: arrow only, no circle or button decoration. */
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back{
+  border:0!important;
+  outline:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#35d9ff!important;
+  appearance:none!important;
+  -webkit-appearance:none!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back:focus,
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back:focus-visible,
+body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back:active{
+  border:0!important;
+  outline:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
