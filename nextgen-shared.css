@@ -635,3 +635,18 @@ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-ba
     width:calc(100% - 18px)!important;
   }
 }
+
+
+/* Minimize only the gap between the profile back arrow and avatar. */
+@media(max-width:700px){
+  body.ng-profile-open #ng-profile-menu .ng-profile-account{
+    column-gap:1px!important;
+    gap:1px!important;
+  }
+  body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back{
+    margin-right:0!important;
+  }
+  body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-brand-avatar{
+    margin-left:0!important;
+  }
+}
