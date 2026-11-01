@@ -58,17 +58,31 @@
     authPanel.style.cssText='margin:14px 0 4px;padding:12px;border:1px solid #285a89;border-radius:11px;background:#07142d;color:#eef5ff';
     const title=document.createElement('strong');title.textContent='NextGen Account';title.style.cssText='display:block;margin-bottom:8px;color:#fff;font-size:14px';
     authMessage=document.createElement('p');authMessage.className='muted';authMessage.style.cssText='font-size:12px;line-height:1.45;margin:0 0 8px;color:#a8c1e8';
-    const input=document.createElement('input');input.type='email';input.autocomplete='email';input.placeholder='Your email address';input.required=true;input.id='ng-workspace-email';input.style.cssText='box-sizing:border-box;width:100%;min-height:40px;margin:0 0 8px;padding:9px;border:1px solid #285a89;border-radius:8px;background:#061a35;color:#fff';
-    const button=document.createElement('button');button.type='button';button.textContent='Sign in';button.style.cssText='width:100%;min-height:40px;padding:8px 12px;border:1px solid #21bdf1;border-radius:9px;background:#0c3154;color:#fff;font-weight:700';
+    const input=document.createElement('input');input.type='email';input.autocomplete='email';input.placeholder='Your email address';input.required=true;input.id='ng-workspace-email';input.style.cssText='box-sizing:border-box;width:100%;min-height:42px;margin:0 0 8px;padding:9px;border:1px solid #285a89;border-radius:8px;background:#203452;color:#fff;font-size:16px';
+    const password=document.createElement('input');password.type='password';password.autocomplete='current-password';password.placeholder='Password';password.required=true;password.id='ng-workspace-password';password.minLength=8;password.hidden=true;password.style.cssText='box-sizing:border-box;width:100%;min-height:42px;margin:0 0 8px;padding:9px;border:1px solid #285a89;border-radius:8px;background:#203452;color:#fff;font-size:16px';
+    const button=document.createElement('button');button.type='button';button.textContent='Sign in';button.style.cssText='width:100%;min-height:42px;padding:8px 12px;border:1px solid #21bdf1;border-radius:9px;background:#0c3154;color:#fff;font-weight:700';
+    let passwordStep=false;
     button.addEventListener('click',async function(){
       const email=input.value.trim();
-      if(!email){authMessage.textContent='Enter your email address first.';return;}
-      button.disabled=true;authMessage.textContent='Sending secure sign-in link…';
-      const {error}=await client.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
-      button.disabled=false;
-      authMessage.textContent=error?'Sign-in link could not be sent: '+error.message:'Check your email and open the secure NextGen sign-in link on this device.';
+      if(!passwordStep){
+        if(!input.checkValidity()||!email){authMessage.textContent='Enter a valid email address.';input.focus();return;}
+        passwordStep=true;password.hidden=false;button.textContent='Login';authMessage.textContent='Enter your password to continue.';password.focus();return;
+      }
+      if(!password.value||password.value.length<8){authMessage.textContent='Enter your password (at least 8 characters).';password.focus();return;}
+      button.disabled=true;authMessage.textContent='Signing in…';
+      try{
+        const {data,error}=await client.auth.signInWithPassword({email,password:password.value});
+        if(error)throw error;
+        user=data.user||null;
+        authMessage.textContent='Login successful.';
+        setSignedIn();
+      }catch(error){
+        authMessage.textContent='Login failed: '+(error&&error.message?error.message:'Please check your email and password.');
+      }finally{
+        if(button.isConnected)button.disabled=false;
+      }
     });
-    authPanel.append(title,authMessage,input,button);
+    authPanel.append(title,authMessage,input,password,button);
     const old=drawer.querySelector('.ng-menu-logout');
     if(old)old.remove();
     drawer.append(authPanel);
