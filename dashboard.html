@@ -1308,7 +1308,7 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
         pullIndicator.classList.add('is-refreshing');
         pullIndicator.textContent='Refreshing…';
         try{sessionStorage.setItem(key,'1');}catch(err){}
-        setTimeout(function(){window.location.reload();},150);
+        setTimeout(function(){window.location.reload();},1000);
       }
     },{capture:true,passive:true});
     document.addEventListener('touchcancel',resetGesture,{capture:true,passive:true});
