@@ -666,16 +666,4 @@ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-ba
 }
 
 
-/* PROFILE POPUP ONLY — JavaScript exclusively controls vertical gestures. */
-@media(max-width:700px){
-  body.ng-profile-open #ng-profile-menu,
-  body.ng-profile-open #ng-profile-menu *,
-  body.ng-profile-open #ng-profile-menu .ng-profile-links{
-    touch-action:none!important;
-  }
-  body.ng-profile-open #ng-profile-menu .ng-profile-links{
-    overflow-y:auto!important;
-    overscroll-behavior-y:none!important;
-    -webkit-overflow-scrolling:auto!important;
-  }
-}
+/* Removed the later touch-action:none override; popup top-edge gesture is handled by the profile script. */
