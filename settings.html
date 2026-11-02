@@ -706,7 +706,8 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
       if(shouldRefresh&&!refreshing){
         refreshing=true;
         pullIndicator.classList.add('is-ready');
-        pullIndicator.textContent='↻ Refreshing…';
+        pullIndicator.classList.add('is-refreshing');
+        pullIndicator.textContent='Refreshing…';
         try{sessionStorage.setItem(key,'1');}catch(err){}
         setTimeout(function(){window.location.reload();},150);
       }
