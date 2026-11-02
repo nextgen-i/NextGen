@@ -822,10 +822,10 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
   window.addEventListener('popstate',function(){
     closing=false;clear();hide();
   });
-  // Profile-popup-only pull-to-refresh. Capture the gesture on the whole popup,
-  // because Android may begin the swipe on the account header or list container.
+  // Profile-popup-only pull-to-refresh with controlled vertical scrolling.
+  // The popup is a fixed overlay, so the browser's native page refresh cannot run here.
   var list=menu.querySelector('.ng-profile-links'),touchStartY=null,touchStartX=null,
-      pullReady=false,pullIndicator=null,refreshing=false;
+      startScrollTop=0,startedInList=false,pullReady=false,pullIndicator=null,refreshing=false;
   if(list){
     pullIndicator=document.createElement('div');
     pullIndicator.className='ng-profile-pull-indicator';
@@ -833,15 +833,15 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
     pullIndicator.setAttribute('aria-live','polite');
     list.parentNode.insertBefore(pullIndicator,list);
     function resetPull(){
-      touchStartY=null;touchStartX=null;pullReady=false;
+      touchStartY=null;touchStartX=null;startedInList=false;pullReady=false;
       pullIndicator.classList.remove('is-ready');
       pullIndicator.textContent='↓ Pull to refresh';
     }
     menu.addEventListener('touchstart',function(e){
       if(refreshing||!menu.classList.contains('is-open')||!e.touches||e.touches.length!==1){resetPull();return;}
-      if(list.scrollTop>1){resetPull();return;}
-      touchStartY=e.touches[0].clientY;
-      touchStartX=e.touches[0].clientX;
+      touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;
+      startScrollTop=list.scrollTop;
+      startedInList=!!(e.target&&list.contains(e.target));
       pullReady=false;
       pullIndicator.classList.remove('is-ready');
       pullIndicator.textContent='↓ Pull to refresh';
@@ -850,12 +850,15 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
       if(touchStartY===null||refreshing||!menu.classList.contains('is-open')||!e.touches||e.touches.length!==1)return;
       var dy=e.touches[0].clientY-touchStartY;
       var dx=e.touches[0].clientX-touchStartX;
-      if(Math.abs(dx)>Math.abs(dy)||dy<0||list.scrollTop>1){resetPull();return;}
-      if(dy>8){
+      if(Math.abs(dx)>Math.abs(dy)){resetPull();return;}
+      if(dy>0&&startScrollTop<=1){
         if(e.cancelable)e.preventDefault();
         pullReady=dy>=64;
         pullIndicator.classList.toggle('is-ready',pullReady);
         pullIndicator.textContent=pullReady?'↻ Release to refresh':'↓ Pull to refresh';
+      }else if(startedInList){
+        if(e.cancelable)e.preventDefault();
+        list.scrollTop=Math.max(0,startScrollTop-dy);
       }
     },{capture:true,passive:false});
     menu.addEventListener('touchend',function(){
