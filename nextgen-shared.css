@@ -512,18 +512,24 @@ html body.ng-menu-open nav.ng-bottom-nav{
   }
 }
 
-/* Pull-to-refresh cue, shown only while the profile list is being pulled down. */
+/* Profile popup pull-to-refresh indicator with a visible rotating circular spinner. */
+@keyframes ngProfileRefreshSpin{to{transform:rotate(360deg)}}
 @media(max-width:700px){
   body.ng-profile-open .ng-profile-pull-indicator{
-    display:block!important;flex:0 0 auto!important;
-    height:0!important;min-height:0!important;overflow:hidden!important;
-    opacity:0!important;text-align:center!important;
-    color:#8edfff!important;font-size:13px!important;font-weight:600!important;
+    display:flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;
+    gap:9px!important;height:0!important;min-height:0!important;overflow:hidden!important;
+    opacity:0!important;color:#8edfff!important;font-size:13px!important;font-weight:600!important;
     transition:height .12s ease,opacity .12s ease!important;
   }
-  body.ng-profile-open .ng-profile-pull-indicator.is-ready{
-    height:30px!important;min-height:30px!important;opacity:1!important;
-    padding:5px 0!important;
+  body.ng-profile-open .ng-profile-pull-indicator.is-ready,
+  body.ng-profile-open .ng-profile-pull-indicator.is-refreshing{
+    height:38px!important;min-height:38px!important;opacity:1!important;padding:5px 0!important;
+  }
+  body.ng-profile-open .ng-profile-pull-indicator.is-refreshing::before{
+    content:""!important;display:block!important;flex:0 0 19px!important;width:19px!important;height:19px!important;
+    box-sizing:border-box!important;border:2.5px solid rgba(83,205,255,.28)!important;
+    border-top-color:#35d9ff!important;border-right-color:#35d9ff!important;border-radius:50%!important;
+    animation:ngProfileRefreshSpin .7s linear infinite!important;
   }
 }
 
