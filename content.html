@@ -599,18 +599,19 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
   window.addEventListener('popstate',function(){
     closing=false;clear();hide();
   });
-  // PROFILE POPUP: JavaScript owns vertical touch scrolling and top-edge refresh.
+    // PROFILE POPUP ONLY: top-of-popup pull refresh; menu list scroll stays JS-controlled.
   var list=menu.querySelector('.ng-profile-links'),touchY=null,touchX=null,
-      lastY=0,startY=0,startListTop=0,startedInList=false,startedAtScreenTop=false,
+      startY=0,startListTop=0,startedInList=false,startedAtPopupTop=false,
       pullReady=false,pullIndicator=null,refreshing=false;
   if(list){
     pullIndicator=document.createElement('div');
     pullIndicator.className='ng-profile-pull-indicator';
     pullIndicator.textContent='↓ Pull to refresh';
     pullIndicator.setAttribute('aria-live','polite');
-    list.parentNode.insertBefore(pullIndicator,list);
+    var account=menu.querySelector('.ng-profile-account');
+    menu.insertBefore(pullIndicator,account||menu.firstChild);
     function resetGesture(){
-      touchY=null;touchX=null;startedInList=false;startedAtScreenTop=false;pullReady=false;
+      touchY=null;touchX=null;startedInList=false;startedAtPopupTop=false;pullReady=false;
       pullIndicator.classList.remove('is-ready');
       pullIndicator.textContent='↓ Pull to refresh';
     }
@@ -618,12 +619,11 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
       if(refreshing||!menu.classList.contains('is-open')||!e.touches||e.touches.length!==1||!menu.contains(e.target)){
         resetGesture();return;
       }
-      var t=e.touches[0];
-      touchY=t.clientY;touchX=t.clientX;lastY=t.clientY;startY=t.clientY;
+      var t=e.touches[0],rect=menu.getBoundingClientRect();
+      touchY=t.clientY;touchX=t.clientX;startY=t.clientY;
       startListTop=list.scrollTop;
       startedInList=!!(e.target&&list.contains(e.target));
-      // Refresh starts only from the very top strip of the open Profile popup.
-      startedAtScreenTop=t.clientY<=120;
+      startedAtPopupTop=t.clientY<=rect.top+145;
       pullReady=false;
       pullIndicator.classList.remove('is-ready');
       pullIndicator.textContent='↓ Pull to refresh';
@@ -632,18 +632,17 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
       if(touchY===null||refreshing||!menu.classList.contains('is-open')||!e.touches||e.touches.length!==1)return;
       var t=e.touches[0],dy=t.clientY-startY,dx=t.clientX-touchX;
       if(Math.abs(dx)>Math.abs(dy)){resetGesture();return;}
-      if(e.cancelable)e.preventDefault();
-      if(startedAtScreenTop&&dy>0){
+      if(startedAtPopupTop&&dy>0){
+        if(e.cancelable)e.preventDefault();
         pullReady=dy>=64;
         pullIndicator.classList.toggle('is-ready',pullReady);
         pullIndicator.textContent=pullReady?'↻ Release to refresh':'↓ Pull to refresh';
       }else if(startedInList){
-        // Finger up scrolls down the list; finger down scrolls it back to the top.
+        if(e.cancelable)e.preventDefault();
         list.scrollTop=Math.max(0,startListTop-dy);
       }
-      lastY=t.clientY;
     },{capture:true,passive:false});
-    document.addEventListener('touchend',function(e){
+    document.addEventListener('touchend',function(){
       if(touchY===null)return;
       var shouldRefresh=pullReady;
       resetGesture();
