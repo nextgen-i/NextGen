@@ -20,6 +20,10 @@ h1{margin:0 0 8px;font-size:23px}
 .panel{padding:17px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
 .panel h2{margin:0 0 8px;font-size:16px}
 .panel p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+.danger{margin-top:16px;border-color:#8d3547;background:#241528}
+.danger h2{color:#ff9aa9}
+.delete-btn{margin-top:14px;padding:11px 15px;border:1px solid #ff657d;border-radius:9px;background:#451b2a;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.delete-note{margin-top:10px!important;font-size:12px!important}
 footer{padding:13px 12px 15px;text-align:center;border-top:1px solid var(--line);color:#a9bfd8;font-size:11px;line-height:1.7}
 footer strong{display:block;color:var(--cyan);font-size:10px;letter-spacing:.2px}
 @media(min-width:600px){main{padding-top:34px}}
@@ -34,7 +38,19 @@ footer strong{display:block;color:var(--cyan);font-size:10px;letter-spacing:.2px
 <h2 id="privacy-status">Privacy controls</h2>
 <p>Privacy controls are not connected yet. No account privacy, data-sharing, or security settings have been changed by adding this page. These controls will be added only after their behavior and permissions are defined.</p>
 </section>
+<section class="panel danger" aria-labelledby="delete-account-heading">
+<h2 id="delete-account-heading">Delete Profile/Account</h2>
+<p>Use this option to begin a profile or account deletion request. Account deletion is not connected yet, so this control will not delete your profile or any data.</p>
+<button class="delete-btn" type="button" id="delete-account-btn">Delete Profile/Account</button>
+<p class="delete-note" id="delete-account-status" role="status" aria-live="polite"></p>
+</section>
 </main>
+<script>
+document.getElementById("delete-account-btn").addEventListener("click",function(){
+  const confirmed=window.confirm("Account deletion is not available yet. No profile or account data will be deleted. Continue to view this notice?");
+  if(confirmed){document.getElementById("delete-account-status").textContent="Account deletion is not connected yet. No changes have been made and no data has been deleted."}
+});
+</script>
 <footer>©2026 NextGen. All Rights Reserved.<strong>Powered by ABDUS SATTAR</strong></footer>
 </body>
 </html>
