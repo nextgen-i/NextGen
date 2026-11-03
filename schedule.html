@@ -351,7 +351,7 @@ html,body{background-color:#030b24!important;background-image:none!important}
 <style id="ng-header-action-popups">
 .ng-header-action{appearance:none;-webkit-appearance:none;border:0;cursor:pointer;color:inherit;font:inherit}
 .app>header .hr>.ng-header-action{display:grid;place-items:center;flex:0 0 29px;width:29px;height:34px;padding:0;background:transparent}
-.app>header .hr>.ng-header-action.plus{width:48px;height:48px;flex-basis:48px;border:2px solid #245bff;border-radius:50%;box-shadow:0 0 10px #236bff88;background:#061b48}
+.app>header .hr>.ng-header-action.plus{width:29px!important;height:29px!important;min-width:29px!important;min-height:29px!important;flex:0 0 29px!important;padding:0!important;border:2px solid #245bff!important;border-radius:50%!important;box-shadow:0 0 8px #236bff88!important;background:#061b48!important}.app>header .hr>.ng-header-action.plus svg{width:19px!important;height:19px!important}
 .app>header .hr>.ng-header-action.bell{position:relative;width:29px;height:34px;flex-basis:29px;background:transparent}
 .app>header .hr>.ng-header-action.bell svg{width:24px;height:24px}
 .ng-header-popup-backdrop[hidden]{display:none!important}
@@ -832,11 +832,3 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 </html>
 
 
-<style id="ng-compact-header-create-icon">
-/* Restore compact header Create button size; match the original circular header controls. */
-.app>header .hr>.ng-header-action.plus{
-  width:29px!important;height:29px!important;min-width:29px!important;min-height:29px!important;
-  flex:0 0 29px!important;padding:0!important;border-width:2px!important;border-radius:50%!important;
-}
-.app>header .hr>.ng-header-action.plus svg{width:19px!important;height:19px!important}
-</style>
