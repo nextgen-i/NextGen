@@ -379,7 +379,7 @@ html,body{background-color:#030b24!important;background-image:none!important}
 .ng-header-popup-backdrop{position:fixed;inset:0;z-index:110;background:#0009;display:flex;align-items:flex-start;justify-content:flex-end;padding:calc(58px + env(safe-area-inset-top,0px)) 12px 18px}
 .ng-header-popup{width:min(330px,calc(100vw - 24px));max-height:calc(100dvh - 90px);overflow:auto;border:1px solid #168fe0;border-radius:17px;background:linear-gradient(155deg,#09244a,#030b20 78%);box-shadow:0 16px 42px #000b,0 0 18px #087bff33;color:#f4f8ff}
 .ng-header-popup-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #174c83;font-size:17px;font-weight:800}
-.ng-header-popup-close{width:32px;height:32px;border:1px solid #286da6;border-radius:50%;background:#102f55;color:#fff;font-size:22px;line-height:1}
+.ng-header-popup-close{display:grid!important;place-items:center!important;flex:0 0 32px!important;width:32px!important;min-width:32px!important;height:32px!important;min-height:32px!important;max-height:32px!important;padding:0!important;border:1px solid #286da6!important;border-radius:50%!important;background:#102f55!important;color:#fff!important;font-size:22px!important;line-height:1!important;box-sizing:border-box!important}
 .ng-quick-create-list{display:flex;flex-direction:column}
 .ng-quick-create-list a,.ng-notification-links a{min-height:62px;display:flex;align-items:center;gap:15px;padding:10px 18px;color:#f4f8ff;text-decoration:none;font-size:17px;border-bottom:1px solid #17385d}
 .ng-quick-create-list a:last-child,.ng-notification-links a:last-child{border-bottom:0}
@@ -449,13 +449,7 @@ body.ng-header-popup-open{overflow:hidden}
 <div class="ng-header-popup-backdrop" id="ng-notifications-backdrop" hidden>
  <section class="ng-header-popup" role="dialog" aria-modal="true" aria-labelledby="ng-notifications-title">
   <div class="ng-header-popup-head"><span id="ng-notifications-title">Notifications</span><button type="button" class="ng-header-popup-close" data-ng-popup-close aria-label="Close">×</button></div>
-  <p class="ng-notification-empty">Your workspace notification centre. Open a section below to review updates. Live notification delivery is not connected yet.</p>
-  <nav class="ng-notification-links" aria-label="Notification sections">
-   <a href="./approvals.html">Approval updates <span aria-hidden="true">›</span></a>
-   <a href="./schedule.html">Publishing and schedule updates <span aria-hidden="true">›</span></a>
-   <a href="./channels.html">Channel connection alerts <span aria-hidden="true">›</span></a>
-   <a href="./settings.html#ng-notification-preferences">Notification preferences <span aria-hidden="true">›</span></a>
-  </nav>
+  <div class="ng-notification-empty" role="status" aria-live="polite">No new notifications.</div>
  </section>
 </div>
 
