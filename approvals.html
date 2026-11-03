@@ -348,6 +348,25 @@ html,body{background-color:#030b24!important;background-image:none!important}
 .ng-menu-drawer .ng-point-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
 .ng-menu-main-links>a>span,.ng-menu-accordion-panel a .ng-point-icon{filter:drop-shadow(0 0 2px currentColor)}
 </style>
+<style id="ng-header-action-popups">
+.ng-header-action{appearance:none;-webkit-appearance:none;border:0;cursor:pointer;color:inherit;font:inherit}
+.app>header .hr>.ng-header-action{display:grid;place-items:center;flex:0 0 29px;width:29px;height:34px;padding:0;background:transparent}
+.app>header .hr>.ng-header-action.plus{width:48px;height:48px;flex-basis:48px;border:2px solid #245bff;border-radius:50%;box-shadow:0 0 10px #236bff88;background:#061b48}
+.app>header .hr>.ng-header-action.bell{position:relative;width:29px;height:34px;flex-basis:29px;background:transparent}
+.app>header .hr>.ng-header-action.bell svg{width:24px;height:24px}
+.ng-header-popup-backdrop[hidden]{display:none!important}
+.ng-header-popup-backdrop{position:fixed;inset:0;z-index:110;background:#0009;display:flex;align-items:flex-start;justify-content:flex-end;padding:calc(58px + env(safe-area-inset-top,0px)) 12px 18px}
+.ng-header-popup{width:min(330px,calc(100vw - 24px));max-height:calc(100dvh - 90px);overflow:auto;border:1px solid #168fe0;border-radius:17px;background:linear-gradient(155deg,#09244a,#030b20 78%);box-shadow:0 16px 42px #000b,0 0 18px #087bff33;color:#f4f8ff}
+.ng-header-popup-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #174c83;font-size:17px;font-weight:800}
+.ng-header-popup-close{width:32px;height:32px;border:1px solid #286da6;border-radius:50%;background:#102f55;color:#fff;font-size:22px;line-height:1}
+.ng-quick-create-list{display:flex;flex-direction:column}
+.ng-quick-create-list a,.ng-notification-links a{min-height:62px;display:flex;align-items:center;gap:15px;padding:10px 18px;color:#f4f8ff;text-decoration:none;font-size:17px;border-bottom:1px solid #17385d}
+.ng-quick-create-list a:last-child,.ng-notification-links a:last-child{border-bottom:0}
+.ng-quick-create-list svg,.ng-notification-links svg{width:30px;height:30px;flex:0 0 30px;fill:none;stroke:#31caff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ng-notification-empty{padding:18px 16px;color:#b9cce6;font-size:13px;line-height:1.5}
+.ng-notification-links a{min-height:52px;font-size:14px}
+body.ng-header-popup-open{overflow:hidden}
+</style>
 </head>
 <body>
 <div class="app">
@@ -355,11 +374,35 @@ html,body{background-color:#030b24!important;background-image:none!important}
   <button type="button" class="ng-hamburger" id="ng-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="ng-menu-drawer"><span></span><span></span><span></span></button>
   <img class="logo" src="./file_000000005ab0820896e23efe9cf142bb.png" alt="NextGen — Smart Automation. Smarter Growth.">
   <div class="hr">
-    <div class="circ plus"><svg width="16" height="16" viewBox="0 0 16 16" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 1v14M1 8h14"/></svg></div>
-    <div class="bell"><svg width="24" height="24" viewBox="0 0 24 24" aria-label="Notifications"><path fill="#fff" d="M12 2.1a2.45 2.45 0 0 0-2.45 2.45v.63C6.18 6.25 4 9.18 4 12.65v4.02l-1.4 1.66c-.45.54-.07 1.36.63 1.36h17.54c.7 0 1.08-.82.63-1.36L20 16.67v-4.02c0-3.47-2.18-6.4-5.55-7.47v-.63A2.45 2.45 0 0 0 12 2.1Z"/><path fill="#fff" d="M8.4 21.1a3.7 3.7 0 0 0 7.2 0Z"/></svg><u></u></div>
+    <button type="button" class="circ plus ng-header-action" aria-label="Create" aria-haspopup="dialog" aria-controls="ng-quick-create-backdrop"><svg width="24" height="24" viewBox="0 0 16 16" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 1v14M1 8h14"/></svg></button>
+    <button type="button" class="bell ng-header-action" aria-label="Notifications" aria-haspopup="dialog" aria-controls="ng-notifications-backdrop"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2.1a2.45 2.45 0 0 0-2.45 2.45v.63C6.18 6.25 4 9.18 4 12.65v4.02l-1.4 1.66c-.45.54-.07 1.36.63 1.36h17.54c.7 0 1.08-.82.63-1.36L20 16.67v-4.02c0-3.47-2.18-6.4-5.55-7.47v-.63A2.45 2.45 0 0 0 12 2.1Z"/><path fill="#fff" d="M8.4 21.1a3.7 3.7 0 0 0 7.2 0Z"/></svg><u></u></button>
     <button type="button" class="circ av ng-profile-trigger" id="ng-profile-trigger" aria-label="Open profile menu" aria-expanded="false" aria-controls="ng-profile-menu">RF</button>
   </div>
 </header>
+<div class="ng-header-popup-backdrop" id="ng-quick-create-backdrop" hidden>
+ <section class="ng-header-popup" role="dialog" aria-modal="true" aria-labelledby="ng-quick-create-title">
+  <div class="ng-header-popup-head"><span id="ng-quick-create-title">Create</span><button type="button" class="ng-header-popup-close" data-ng-popup-close aria-label="Close">×</button></div>
+  <nav class="ng-quick-create-list" aria-label="Create content">
+   <a href="./content.html?ng_create=post"><svg viewBox="0 0 24 24"><path d="M4 20h4l11-11a2.1 2.1 0 0 0-4-4L4 16zM13.5 6.5l4 4"/></svg><span>Post</span></a>
+   <a href="./content.html?ng_create=story"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 1-8.4 5.8M3.5 4v5h5M12 7v5l3 2"/></svg><span>Story</span></a>
+   <a href="./content.html?ng_create=reel"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M8 3l4 6M15 3l4 6M10 13l5 3-5 3z"/></svg><span>Reel</span></a>
+   <a href="./content.html?ng_create=live"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="14" height="12" rx="3"/><path d="m17 11 4-3v10l-4-3M8 13h.01"/></svg><span>Live</span></a>
+   <a href="./content.html?ng_create=note"><svg viewBox="0 0 24 24"><path d="M4 5h16v12H9l-5 4zM8 9h8M8 13h5"/></svg><span>Note</span></a>
+  </nav>
+ </section>
+</div>
+<div class="ng-header-popup-backdrop" id="ng-notifications-backdrop" hidden>
+ <section class="ng-header-popup" role="dialog" aria-modal="true" aria-labelledby="ng-notifications-title">
+  <div class="ng-header-popup-head"><span id="ng-notifications-title">Notifications</span><button type="button" class="ng-header-popup-close" data-ng-popup-close aria-label="Close">×</button></div>
+  <p class="ng-notification-empty">Your workspace notification centre. Open a section below to review updates. Live notification delivery is not connected yet.</p>
+  <nav class="ng-notification-links" aria-label="Notification sections">
+   <a href="./approvals.html">Approval updates <span aria-hidden="true">›</span></a>
+   <a href="./schedule.html">Publishing and schedule updates <span aria-hidden="true">›</span></a>
+   <a href="./channels.html">Channel connection alerts <span aria-hidden="true">›</span></a>
+   <a href="./settings.html#ng-notification-preferences">Notification preferences <span aria-hidden="true">›</span></a>
+  </nav>
+ </section>
+</div>
 
 <div class="ng-profile-backdrop" id="ng-profile-backdrop" hidden></div>
 <aside class="ng-profile-menu" id="ng-profile-menu" aria-label="Profile menu" aria-hidden="true">
@@ -467,6 +510,20 @@ html,body{background-color:#030b24!important;background-image:none!important}
   <a href="schedule.html"><span class="schedule-master-icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#08B9D1" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="15.5" height="17" rx="2.3"/><path d="M7 2v4M13.5 2v4M2.5 9h15.5M6 12.5h2M10 12.5h2M6 16h2"/><circle cx="17.5" cy="16.5" r="5.1" fill="#030b24"/><path d="M17.5 13.5v3l2 1.5"/></svg></span><small>Schedule</small></a>
 </nav>
 </div>
+<script id="ng-header-action-popup-script">
+(function(){
+ if(window.__ngHeaderActionPopupsReady)return;window.__ngHeaderActionPopupsReady=true;
+ var pairs=[['.app>header .hr>.plus','#ng-quick-create-backdrop'],['.app>header .hr>.bell','#ng-notifications-backdrop']];
+ function closeAll(){document.querySelectorAll('.ng-header-popup-backdrop').forEach(function(b){b.hidden=true});document.body.classList.remove('ng-header-popup-open');}
+ pairs.forEach(function(pair){var trigger=document.querySelector(pair[0]),backdrop=document.querySelector(pair[1]);if(!trigger||!backdrop)return;
+  trigger.addEventListener('click',function(){var opening=backdrop.hidden;closeAll();if(opening){backdrop.hidden=false;document.body.classList.add('ng-header-popup-open');}});
+  backdrop.addEventListener('click',function(e){if(e.target===backdrop)closeAll();});
+  backdrop.querySelectorAll('[data-ng-popup-close]').forEach(function(b){b.addEventListener('click',closeAll);});
+  backdrop.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeAll);});
+ });
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
+})();
+</script>
 <script id="ng-hamburger-fix-script">
 (function(){
  // Keep only the intended square menu button, logo and right-side actions in the header.
