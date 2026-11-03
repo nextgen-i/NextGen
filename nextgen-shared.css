@@ -673,3 +673,49 @@ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-ba
 
 
 /* Removed the later touch-action:none override; popup top-edge gesture is handled by the profile script. */
+
+/* NEXTGEN GLOBAL HEADER STABILITY FIX — 2026-11-03
+   Root cause: the shared layout guard changed .app and .app>main back to
+   auto/visible overflow. That let the document become the scroller, so the
+   header could travel off-screen. Keep the 46px master header outside the
+   only scrolling region (main). Do not use sticky inside a scrolling main. */
+@supports selector(body:has(> .app)){
+  html body:has(> .app){
+    height:100dvh!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    padding-bottom:0!important;
+  }
+}
+html body .app{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  max-width:430px!important;
+  height:100vh!important;
+  height:100dvh!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+html body .app>header{
+  position:relative!important;
+  top:auto!important;
+  flex:0 0 46px!important;
+  height:46px!important;
+  min-height:46px!important;
+  z-index:30!important;
+}
+html body .app>main{
+  position:relative!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior-y:auto!important;
+  touch-action:pan-y!important;
+}
