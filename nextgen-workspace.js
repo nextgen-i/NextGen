@@ -490,9 +490,17 @@
     if(user)setSignedIn();
     else if(authMessage)authMessage.textContent='Sign in to enable secure database access. Local-only saving is disabled.';
   }
+  async function syncAuthState(){
+    const result=await client.auth.getSession();
+    if(result.error)throw result.error;
+    user=result.data&&result.data.session?result.data.session.user:null;
+    showAuth();
+    return user;
+  }
   window.NGWorkspace={
     client,
     getUser:()=>user,
+    syncAuthState,
     refresh,
     signIn:async email=>client.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}}),
     signOut:()=>client.auth.signOut()
