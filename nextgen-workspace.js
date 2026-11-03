@@ -248,7 +248,7 @@
     jobs.forEach(job=>{
       const item=content.find(x=>x.id===job.content_id),channel=channels.find(x=>x.id===job.channel_id);
       addEntry(root,item?item.title:'Scheduled content', (channel?channel.display_name:'Channel')+' · '+new Date(job.scheduled_for).toLocaleString()+' · '+job.status,'Queued in NextGen. Publishing has not been performed.',[
-        ...(job.status==='queued'?[{label:'Cancel',onClick:async()=>{const {error}=await client.from('publishing_jobs').update({status:'cancelled',updated_at:new Date().toISOString()}).eq('id',job.id);if(error){setNote('scheduleNote',error.message,true);return;}await loadBase();renderSchedule();}}]:[])
+        ...(job.status==='queued'?[{label:'Cancel',onClick:async()=>{if(!confirm('Cancel this scheduled item? It will return to Approved if no other active schedule exists.'))return;const {error}=await client.rpc('cancel_scheduled_content',{p_job_id:job.id});if(error){setNote('scheduleNote',error.message,true);return;}setNote('scheduleNote','Schedule cancelled. The content is back in Approved when no other active schedule remains.',false);await loadBase();await renderSchedule();}}]:[])
       ]);
     });
   }
