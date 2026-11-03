@@ -427,7 +427,37 @@
     document.querySelectorAll('.ng-profile-switch-account').forEach(button=>{
       if(button.dataset.switchBound)return;
       button.dataset.switchBound='1';
-      button.addEventListener('click',()=>{location.href='./login.html';});
+      button.addEventListener('click',async()=>{
+        if(button.dataset.switching==='true')return;
+        const label=button.querySelector('span');
+        const originalLabel=label?label.textContent:button.textContent;
+        button.dataset.switching='true';
+        button.disabled=true;
+        button.setAttribute('aria-busy','true');
+        if(label)label.textContent='Signing out…';
+        try{
+          const {error}=await client.auth.signOut();
+          if(error)throw error;
+          user=null;
+          renderProfileAuthEntry();
+          location.href='./login.html?switch-account=1';
+        }catch(error){
+          button.dataset.switching='false';
+          button.disabled=false;
+          button.removeAttribute('aria-busy');
+          if(label)label.textContent=originalLabel;
+          button.setAttribute('aria-label','Switch account failed: '+(error&&error.message?error.message:'Please try again'));
+          let status=button.parentElement&&button.parentElement.querySelector('[data-switch-account-status]');
+          if(!status&&button.parentElement){
+            status=document.createElement('p');
+            status.dataset.switchAccountStatus='true';
+            status.setAttribute('role','alert');
+            status.style.cssText='margin:6px 0 0;color:#ffb4b4;font-size:12px;line-height:1.4';
+            button.parentElement.append(status);
+          }
+          if(status)status.textContent='Could not sign out. '+(error&&error.message?error.message:'Please try again.');
+        }
+      });
     });
     document.querySelectorAll('.ng-menu-main-links a[href*="login.html"],.ng-menu-main-links a[href*="logout"]').forEach(link=>link.remove());
   }
