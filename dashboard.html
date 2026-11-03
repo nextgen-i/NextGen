@@ -1442,6 +1442,21 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
     return window.NGWorkspace&&window.NGWorkspace.client?window.NGWorkspace:null;
   }
 
+  function syncProfileName(){
+    var workspace=getWorkspace();
+    var user=workspace&&workspace.getUser&&workspace.getUser();
+    var metadata=user&&user.user_metadata||{};
+    var name=metadata.display_name||metadata.full_name||metadata.name;
+    if(name){
+      var label=menu.querySelector('.ng-profile-account-copy strong');
+      if(label)label.textContent=name;
+      var avatar=menu.querySelector('.ng-profile-brand-avatar');
+      if(avatar)avatar.textContent=name.trim().split(/\\s+/).slice(0,2).map(function(part){return part.charAt(0).toUpperCase();}).join('');
+    }
+  }
+  var profileTrigger=document.getElementById('ng-profile-trigger');
+  if(profileTrigger)profileTrigger.addEventListener('click',syncProfileName);
+
   var edit=menu.querySelector('.ng-profile-edit');
   if(edit&&!edit.dataset.bound){
     edit.dataset.bound='1';
