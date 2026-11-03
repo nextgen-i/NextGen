@@ -161,6 +161,24 @@
           alert((ch.display_name||platformLabel[platform]||'Channel')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'')+'\nConnection: '+(ch.connection_status||'pending')+'. Connect the platform API before publishing.');
         });
       }
+      if(ch.id){
+        const remove=document.createElement('button');
+        remove.type='button';
+        remove.className='channel-remove';
+        remove.textContent='Remove';
+        remove.setAttribute('aria-label','Remove '+(ch.display_name||platformLabel[platform]||'channel'));
+        remove.style.cssText='position:absolute;right:10px;top:54px;min-width:92px;height:23px;padding:0 10px;border:1px solid #a52b50;border-radius:7px;background:#351127;color:#ff9bb2;font-size:11px;font-weight:700;cursor:pointer;z-index:2';
+        remove.addEventListener('click',async()=>{
+          if(!confirm('Remove '+(ch.display_name||platformLabel[platform]||'this channel')+'? Removal is blocked if it has linked content, schedules, or analytics.'))return;
+          remove.disabled=true;
+          const {error}=await client.rpc('remove_channel_safely',{p_channel_id:ch.id});
+          if(error){remove.disabled=false;alert('Channel not removed: '+error.message);return;}
+          await loadBase();
+          renderChannels();
+          alert('Channel removed successfully.');
+        });
+        card.append(remove);
+      }
       root.append(card);
       renderedPlatforms.add(platform);
     });
