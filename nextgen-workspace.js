@@ -379,14 +379,14 @@
   function renderProfileAuthEntry(){
     window.dispatchEvent(new CustomEvent('nextgen-auth-state',{detail:{signedIn:!!user}}));
     const profileLinks=document.querySelector('.ng-profile-menu .ng-profile-links');
-    const profileItems=profileLinks?[...profileLinks.querySelectorAll('[data-ng-auth-entry],a[href="./login.html"]')]:[];
+    const profileItems=profileLinks?[...profileLinks.querySelectorAll('[data-ng-auth-entry],a[href*="login.html"]')]:[];
     let profileItem=profileItems[0]||null;
     profileItems.slice(1).forEach(node=>node.remove());
     if(profileLinks&&!profileItem){
       profileItem=document.createElement('a');
-      profileItem.dataset.ngAuthEntry='true';
       profileLinks.append(profileItem);
     }
+    if(profileItem)profileItem.dataset.ngAuthEntry='true';
 
     const hamburgerItem=document.querySelector('#ng-menu-drawer .ng-menu-logout');
     const entries=[profileItem,hamburgerItem].filter(Boolean);
@@ -395,7 +395,7 @@
       item.innerHTML=signedIn
         ? '<span class="ng-profile-icon" data-icon="logout"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>'
         : '<span class="ng-profile-icon" data-icon="login"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login<i>›</i>';
-      item.href=signedIn?'#':'./login.html';
+      item.href=signedIn?'#':'./login.html#options';
       item.removeAttribute('disabled');
       item.removeAttribute('aria-disabled');
       item.classList.add('ng-menu-login-active');
@@ -403,22 +403,27 @@
       if(!item.dataset.authBound){
         item.dataset.authBound='1';
         item.addEventListener('click',async event=>{
-          if(item.getAttribute('href')!=='#')return;
-          event.preventDefault();
-          if(!user)return;
-          item.style.pointerEvents='none';
-          item.style.opacity='.65';
-          const {error}=await client.auth.signOut();
-          if(error){
-            item.style.pointerEvents='';
-            item.style.opacity='';
-            item.setAttribute('aria-label','Logout failed — try again');
+          if(!user){
+            if(item.tagName==='BUTTON'){
+              event.preventDefault();
+              location.href='./login.html#options';
+            }
             return;
           }
-          user=null;
-          renderProfileAuthEntry();
-          item.style.pointerEvents='';
-          item.style.opacity='';
+          event.preventDefault();
+          item.style.pointerEvents='none';
+          item.style.opacity='.65';
+          try{
+            const {error}=await client.auth.signOut();
+            if(error)throw error;
+            user=null;
+            renderProfileAuthEntry();
+          }catch(error){
+            item.setAttribute('aria-label','Logout failed — '+(error&&error.message?error.message:'try again'));
+          }finally{
+            item.style.pointerEvents='';
+            item.style.opacity='';
+          }
         });
       }
     });
@@ -440,7 +445,7 @@
           if(error)throw error;
           user=null;
           renderProfileAuthEntry();
-          location.href='./login.html?switch-account=1';
+          location.href='./login.html?switch-account=1#options';
         }catch(error){
           button.dataset.switching='false';
           button.disabled=false;
@@ -470,7 +475,7 @@
         const authState=signedIn?'signed-in':'signed-out';
         if(entry.dataset.authState===authState)return;
         entry.dataset.authState=authState;
-        entry.href=signedIn?'#':'./login.html';
+        entry.href=signedIn?'#':'./login.html#options';
         entry.innerHTML=signedIn
           ? '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span>Logout<i>›</i>'
           : '<span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login<i>›</i>';
