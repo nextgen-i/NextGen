@@ -801,6 +801,19 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 
 
 <script src="./nextgen-workspace.js?v=20261102-profile-auth-login-v2"></script>
+<script id="ng-quick-create-route">
+(function(){
+ var params=new URLSearchParams(window.location.search),kind=params.get('ng_create');
+ if(!kind)return;
+ var select=document.getElementById('draftType'),note=document.getElementById('draftNote'),form=document.getElementById('draftForm');
+ var types={post:'Photo Post',story:'Story',reel:'Reels / Short Video',note:'Text Post'};
+ if(kind==='live'){
+  if(note)note.textContent='Live streaming is not connected yet. You can prepare a regular content draft below, but this will not start a live broadcast.';
+ }else if(types[kind]&&select){select.value=types[kind];}
+ if(form){window.setTimeout(function(){form.scrollIntoView({behavior:'smooth',block:'start'});var first=form.querySelector('select,input,textarea');if(first)first.focus({preventScroll:true});},80);}
+})();
+</script>
+
 </body>
 </html>
 
