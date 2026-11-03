@@ -1284,7 +1284,7 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
  var trigger=document.getElementById('ng-profile-trigger'),menu=document.getElementById('ng-profile-menu'),backdrop=document.getElementById('ng-profile-backdrop');
  if(!trigger||!menu||!backdrop||trigger.dataset.profileReady==='1')return;
  trigger.dataset.profileReady='1';
- function openMenu(){menu.classList.add('is-open');menu.setAttribute('aria-hidden','false');backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');document.body.classList.add('ng-profile-open');}
+ function openMenu(){menu.classList.add('is-open');menu.setAttribute('aria-hidden','false');backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');document.body.classList.add('ng-profile-open');if(window.NGWorkspace&&typeof window.NGWorkspace.syncAuthState==='function'){window.NGWorkspace.syncAuthState().catch(function(error){console.warn('NextGen profile auth sync:',error);});}}
  function closeMenu(){menu.classList.remove('is-open');menu.setAttribute('aria-hidden','true');backdrop.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.classList.remove('ng-profile-open');}
  trigger.addEventListener('click',function(){menu.classList.contains('is-open')?closeMenu():openMenu()});
  backdrop.addEventListener('click',closeMenu);
