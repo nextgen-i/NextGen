@@ -123,7 +123,7 @@ html body .app>header #ng-hamburger{background:transparent!important;background-
 
 /* NEXTGEN SHARED VIEWPORT LAYOUT — document refresh + sticky header.
    Keep native browser pull-to-refresh while the header stays pinned during page scroll. */
-html,body{
+html body{
   width:100%!important;
   height:auto!important;
   min-height:100%!important;
@@ -180,15 +180,16 @@ html body .app>nav.ng-bottom-nav{
    Keep each page's existing header artwork and popovers untouched; only assign scroll ownership. */
 @supports selector(body:has(> header)){
   html body:has(> header):has(> main):has(> nav.ng-bottom-nav){
-    display:flex!important;flex-direction:column!important;height:100dvh!important;
-    min-height:0!important;overflow:hidden!important;box-sizing:border-box!important;
+    display:block!important;flex-direction:initial!important;height:auto!important;
+    min-height:100dvh!important;overflow-x:hidden!important;overflow-y:auto!important;
+    overscroll-behavior-y:auto!important;box-sizing:border-box!important;
   }
   html body:has(> header):has(> main):has(> nav.ng-bottom-nav)>header{
-    flex:0 0 auto!important;position:relative!important;z-index:5!important;
+    position:sticky!important;top:0!important;z-index:30!important;
   }
   html body:has(> header):has(> main):has(> nav.ng-bottom-nav)>main{
-    flex:1 1 0!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;
-    -webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;
+    display:block!important;flex:initial!important;min-height:0!important;overflow:visible!important;
+    -webkit-overflow-scrolling:auto!important;overscroll-behavior-y:auto!important;touch-action:auto!important;
   }
   html body:has(> header):has(> main):has(> nav.ng-bottom-nav)>nav.ng-bottom-nav{
     position:relative!important;inset:auto!important;
