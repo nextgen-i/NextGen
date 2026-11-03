@@ -964,6 +964,47 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 }
 
 
+
+<script>
+/* NEXTGEN GLOBAL PULL-TO-REFRESH: works at document top on Android browser/PWA. */
+(function(){
+  if(window.__ngGlobalPullRefreshBound)return;
+  window.__ngGlobalPullRefreshBound=true;
+  var startX=0,startY=0,pulling=false,threshold=82,indicator=null;
+  function blocked(target){
+    return !!(target&&target.closest&&target.closest(
+      'input,textarea,select,button,a,[contenteditable="true"],.ng-profile-menu,.ng-profile-backdrop,.ng-menu-drawer,.ng-menu-backdrop,[role="dialog"]'
+    ));
+  }
+  document.addEventListener('touchstart',function(e){
+    if(e.touches.length!==1||blocked(e.target)) {pulling=false;return;}
+    var root=document.scrollingElement||document.documentElement;
+    if(root.scrollTop>2||window.scrollY>2){pulling=false;return;}
+    startX=e.touches[0].clientX;startY=e.touches[0].clientY;pulling=true;
+  },{passive:true,capture:true});
+  document.addEventListener('touchmove',function(e){
+    if(!pulling||e.touches.length!==1)return;
+    var dx=e.touches[0].clientX-startX,dy=e.touches[0].clientY-startY;
+    if(Math.abs(dx)>Math.abs(dy)||dy<0){pulling=false;return;}
+    var root=document.scrollingElement||document.documentElement;
+    if(root.scrollTop>2||window.scrollY>2){pulling=false;return;}
+    if(dy>12&&e.cancelable)e.preventDefault();
+  },{passive:false,capture:true});
+  document.addEventListener('touchend',function(e){
+    if(!pulling)return;
+    var t=e.changedTouches&&e.changedTouches[0],dy=t?t.clientY-startY:0;
+    pulling=false;
+    if(dy>=threshold){
+      if(!document.body.classList.contains('ng-refreshing')){
+        document.body.classList.add('ng-refreshing');
+        window.location.reload();
+      }
+    }
+  },{passive:true,capture:true});
+  document.addEventListener('touchcancel',function(){pulling=false;},{passive:true,capture:true});
+})();
+</script>
+<!-- NEXTGEN GLOBAL PULL-TO-REFRESH -->
 </body>
 </html>
 
