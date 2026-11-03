@@ -123,7 +123,9 @@ html body .app>header #ng-hamburger{background:transparent!important;background-
 
 /* NEXTGEN SHARED VIEWPORT LAYOUT — document refresh + sticky header.
    Keep native browser pull-to-refresh while the header stays pinned during page scroll. */
-html body{
+/* Higher specificity than each page's later inline html,body overflow lock. */
+html:root,
+html:root body{
   width:100%!important;
   height:auto!important;
   min-height:100%!important;
