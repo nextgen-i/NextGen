@@ -1194,7 +1194,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
     <button type="button" class="ng-profile-edit" aria-label="Edit profile">✎</button>
   </div>
   <div class="ng-profile-account-actions">
-    <button type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="8" r="2.5"/><path d="M2.5 20v-1.5a6.5 6.5 0 0 1 13 0V20ZM15 14a5 5 0 0 1 6.5 4.5V20h-4"/></svg>&nbsp; Switch account</button>
+    <button type="button" class="ng-profile-switch-account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="8" r="2.5"/><path d="M2.5 20v-1.5a6.5 6.5 0 0 1 13 0V20ZM15 14a5 5 0 0 1 6.5 4.5V20h-4"/></svg>&nbsp; Switch account</button>
     <button type="button"><b>G</b>&nbsp; Google Account</button>
   </div>
   <div class="ng-profile-links">
@@ -1398,6 +1398,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
  document.querySelectorAll(".ng-menu-accordion-trigger").forEach(btn=>btn.addEventListener("click",()=>{const panel=btn.nextElementSibling;const open=btn.getAttribute("aria-expanded")==="true";btn.setAttribute("aria-expanded",String(!open));if(panel)panel.hidden=open}));
 })();
 </script>
+<script src="./nextgen-workspace.js?v=20261103-login-menu-auth-v1"></script>
 </div>
 <style id="ng-menu-accordion-alignment-final">
 #ng-menu-drawer .ng-menu-accordion>.ng-menu-accordion-trigger{box-sizing:border-box!important;display:flex!important;align-items:center!important;gap:9px!important;padding-left:21px!important;padding-right:14px!important;text-align:left!important}
