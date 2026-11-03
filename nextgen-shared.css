@@ -121,45 +121,44 @@ html body .app>header>img.logo{clip-path:none!important}
 html body .app>header #ng-hamburger{background:transparent!important;background-color:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;}
 
 
-/* NEXTGEN SHARED VIEWPORT LAYOUT — fixed shell, content-only scrolling.
-   Header and bottom navigation stay outside the scrollable main region. */
+/* NEXTGEN SHARED VIEWPORT LAYOUT — document refresh + sticky header.
+   Keep native browser pull-to-refresh while the header stays pinned during page scroll. */
 html,body{
   width:100%!important;
-  height:100%!important;
-  min-height:0!important;
-  overflow:hidden!important;
-  overscroll-behavior:none!important;
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:auto!important;
 }
 html body .app{
   position:relative!important;
   inset:auto!important;
   width:100%!important;
   max-width:430px!important;
-  height:100vh!important;
-  height:100dvh!important;
-  min-height:0!important;
+  height:auto!important;
+  min-height:100vh!important;
+  min-height:100dvh!important;
   margin:0 auto!important;
   display:flex!important;
   flex-direction:column!important;
-  overflow:hidden!important;
+  overflow:visible!important;
   box-sizing:border-box!important;
 }
 html body .app>header{
   flex:0 0 46px!important;
   height:46px!important;
   min-height:46px!important;
-  position:relative!important;
-  top:auto!important;
+  position:sticky!important;
+  top:0!important;
   z-index:30!important;
 }
 html body .app>main{
-  flex:1 1 auto!important;
+  flex:1 0 auto!important;
   min-height:0!important;
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-  -webkit-overflow-scrolling:touch!important;
-  overscroll-behavior-y:contain!important;
-  touch-action:pan-y!important;
+  overflow:visible!important;
+  overscroll-behavior-y:auto!important;
+  touch-action:auto!important;
 }
 html body .app>nav.ng-bottom-nav{
   position:fixed!important;
