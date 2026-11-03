@@ -854,8 +854,7 @@ body.ng-header-popup-open{overflow:hidden}
     <a href="./content.html"><span class="ng-profile-icon" data-icon="files"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8l4 4v14H8zM16 3v5h4M4 7v14"/></svg></span>Uploaded files<i>›</i></a>
     <a href="./content.html"><span class="ng-profile-icon" data-icon="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></span>Find in chat<i>›</i></a>
     <a href="#" data-profile-action="home"><span class="ng-profile-icon" data-icon="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1Z"/></svg></span>Add to home<i>›</i></a>
-<a href="#" data-profile-action="delete" class="ng-profile-delete"><span class="ng-profile-icon ng-profile-delete-icon" data-icon="delete"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15M10 10v7M14 10v7"/></svg></span>Delete<i>›</i></a>
-    <a href="./login.html" data-ng-auth-entry="true"><span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login<i>›</i></a>
+<a href="./login.html" data-ng-auth-entry="true"><span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login<i>›</i></a>
   </div>
 </aside>
 
@@ -1412,6 +1411,102 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 
 
 <!-- Workspace client is loaded once at the end of the page. -->
+
+<script id="ng-profile-actions-v2">
+(function(){
+  'use strict';
+  var menu=document.getElementById('ng-profile-menu');
+  if(!menu||menu.dataset.actionsV2==='1')return;
+  menu.dataset.actionsV2='1';
+
+  var deferredInstall=null;
+  window.addEventListener('beforeinstallprompt',function(event){
+    event.preventDefault();
+    deferredInstall=event;
+  });
+
+  function setStatus(message){
+    var note=menu.querySelector('.ng-profile-action-status');
+    if(!note){
+      note=document.createElement('p');
+      note.className='ng-profile-action-status';
+      note.setAttribute('role','status');
+      note.setAttribute('aria-live','polite');
+      note.style.cssText='margin:8px 12px 12px;padding:9px 11px;border:1px solid #245784;border-radius:9px;background:#071a32;color:#c8eaff;font-size:12px;line-height:1.45';
+      menu.appendChild(note);
+    }
+    note.textContent=message;
+  }
+
+  function getWorkspace(){
+    return window.NGWorkspace&&window.NGWorkspace.client?window.NGWorkspace:null;
+  }
+
+  var edit=menu.querySelector('.ng-profile-edit');
+  if(edit&&!edit.dataset.bound){
+    edit.dataset.bound='1';
+    edit.addEventListener('click',async function(){
+      var workspace=getWorkspace();
+      var user=workspace&&workspace.getUser&&workspace.getUser();
+      if(!user){location.href='./login.html';return;}
+      var current=(user.user_metadata&&(user.user_metadata.display_name||user.user_metadata.full_name||user.user_metadata.name))||'';
+      var next=window.prompt('Enter your profile display name:',current);
+      if(next===null)return;
+      next=next.trim();
+      if(!next){setStatus('Display name cannot be empty.');return;}
+      edit.disabled=true;
+      try{
+        var result=await workspace.client.auth.updateUser({data:{display_name:next}});
+        if(result.error)throw result.error;
+        var name=menu.querySelector('.ng-profile-account-copy strong');
+        if(name)name.textContent=next;
+        setStatus('Profile display name updated.');
+      }catch(error){
+        setStatus('Could not update profile: '+(error&&error.message?error.message:'Please try again.'));
+      }finally{edit.disabled=false;}
+    });
+  }
+
+  var share=menu.querySelector('[data-profile-action="share"]');
+  if(share&&!share.dataset.bound){
+    share.dataset.bound='1';
+    share.addEventListener('click',async function(event){
+      event.preventDefault();
+      var payload={title:'NextGen',text:'Smart Automation. Smarter Growth.',url:location.origin+location.pathname};
+      try{
+        if(navigator.share){await navigator.share(payload);setStatus('Share sheet opened.');}
+        else if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(payload.url);setStatus('NextGen link copied.');}
+        else setStatus('Sharing is not supported by this browser.');
+      }catch(error){if(error&&error.name!=='AbortError')setStatus('Could not share this link.');}
+    });
+  }
+
+  var home=menu.querySelector('[data-profile-action="home"]');
+  if(home&&!home.dataset.bound){
+    home.dataset.bound='1';
+    home.addEventListener('click',async function(event){
+      event.preventDefault();
+      var standalone=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches;
+      if(standalone||window.navigator.standalone){setStatus('NextGen is already installed on this device.');return;}
+      if(deferredInstall){
+        try{
+          deferredInstall.prompt();
+          var choice=await deferredInstall.userChoice;
+          setStatus(choice&&choice.outcome==='accepted'?'NextGen installation accepted.':'Installation was dismissed.');
+        }catch(error){setStatus('Install prompt could not be opened.');}
+        deferredInstall=null;
+        return;
+      }
+      var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+      setStatus(isIOS?'On iPhone/iPad: open the browser Share menu, then choose “Add to Home Screen”.':'Install is not available in this browser yet. Open the browser menu and look for “Install app” or “Add to Home screen”.');
+    });
+  }
+
+  // Pin and Lock Chat are deliberately left untouched until their intended
+  // meaning and security behavior are defined; a visual-only lock is unsafe.
+})();
+</script>
+
 
 <style id="ng-hamburger-main-point-icons-size">
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
