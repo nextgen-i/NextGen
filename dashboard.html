@@ -1819,6 +1819,26 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 }
 </style>
 
+
+<style id="ng-profile-popup-close-no-flash-v13">
+/* Keep the borderless 80vw full-height shell even after ng-profile-open is removed.
+   This prevents the old bordered popup geometry flashing during its closing transition. */
+#ng-profile-menu.ng-profile-menu{
+  position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:auto!important;
+  width:80vw!important;min-width:80vw!important;max-width:80vw!important;
+  height:100vh!important;height:100dvh!important;max-height:100vh!important;max-height:100dvh!important;
+  margin:0!important;box-sizing:border-box!important;
+  border:0!important;border-width:0!important;outline:0!important;border-radius:0!important;
+  box-shadow:none!important;background-clip:padding-box!important;
+}
+#ng-profile-menu.ng-profile-menu:not(.is-open){
+  pointer-events:none!important;
+}
+#ng-profile-menu.ng-profile-menu .ng-profile-links{
+  max-height:none!important;min-height:0!important;overflow-y:auto!important;
+}
+</style>
+
 </body>
 </html>
 
