@@ -907,22 +907,19 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 .ng-menu-shortcuts{padding:0 2px 4px!important}
 </style>
 
-<style id="ng-profile-compact-right-panel-v1">
-/* Compact right-side profile panel, proportioned like the hamburger drawer. */
+
+<style id="ng-profile-compact-right-panel-v2">
+/* True right-side drawer: narrower than the viewport, matching the hamburger panel pattern. */
 .ng-profile-menu{
-  box-sizing:border-box!important;
-  left:auto!important;
-  right:8px!important;
-  width:min(360px,88vw)!important;
-  max-width:calc(100vw - 16px)!important;
-  max-height:calc(100dvh - 112px)!important;
-  overflow-y:auto!important;
-  transform:translateX(14px)!important;
-  border-radius:16px!important;
-  transition:opacity .18s ease,transform .18s ease,visibility .18s ease!important;
+  position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:auto!important;
+  box-sizing:border-box!important;width:min(320px,82vw)!important;max-width:calc(100vw - 18px)!important;
+  height:100dvh!important;max-height:100dvh!important;overflow-y:auto!important;
+  padding:calc(14px + env(safe-area-inset-top,0px)) 12px calc(16px + env(safe-area-inset-bottom,0px))!important;
+  border-radius:16px 0 0 16px!important;
+  transform:translateX(105%)!important;
+  transition:opacity .2s ease,transform .2s ease,visibility .2s ease!important;
 }
 .ng-profile-menu.is-open{transform:translateX(0)!important}
-@media(max-width:380px){.ng-profile-menu{right:6px!important;width:88vw!important;max-width:calc(100vw - 12px)!important}}
 </style>
 </body>
 </html>
