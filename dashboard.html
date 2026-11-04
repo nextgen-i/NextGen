@@ -1720,6 +1720,25 @@ body.ng-menu-open .ng-menu-drawer{
  overscroll-behavior-y:contain!important;
 }
 </style>
+<style id="ng-profile-menu-align-to-avatar-v15">
+/* Align the complete profile menu list with the left edge of the RF avatar. */
+body.ng-profile-open #ng-profile-menu .ng-profile-links{
+  position:relative!important;
+  left:-46px!important;
+  width:calc(100% + 46px)!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+  box-sizing:border-box!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-links a{
+  padding-left:3px!important;
+  padding-right:3px!important;
+  box-sizing:border-box!important;
+}
+</style>
 <script id="ng-unified-drawer-pull-refresh-v12">
 (function(){
  'use strict';
