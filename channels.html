@@ -580,7 +580,7 @@ body.ng-header-popup-open{overflow:hidden}
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./supabase-config.js?v=20261029-profilelookup"></script>
+<script src="./supabase-config.js?v=20261104-auth-rebuild-v1"></script>
 <script id="approval-safety-display-controls">
 (function(){
  var manual=document.getElementById('manual-approval-mode');
@@ -654,7 +654,7 @@ body.ng-header-popup-open{overflow:hidden}
     if(nameInput)nameInput.value='';
     try{
       if(!window.supabase||!window.NEXTGEN_SUPABASE_CONFIG)throw new Error('Profile-name lookup service is not available.');
-      var client=window.supabase.createClient(window.NEXTGEN_SUPABASE_CONFIG.url,window.NEXTGEN_SUPABASE_CONFIG.anonKey);
+      var client=window.getNextGenSupabaseClient();
       var sessionResult=await client.auth.getSession();
       var session=sessionResult.data&&sessionResult.data.session;
       if(!session)throw new Error('Sign in to NextGen to look up the verified profile name.');
@@ -684,7 +684,7 @@ body.ng-header-popup-open{overflow:hidden}
     var isVerified=!!(verifiedProfileName&&n);
     var displayName=isVerified?n:(p.charAt(0).toUpperCase()+p.slice(1)+' profile — verification pending');
     try{
-      var dbClient=window.supabase.createClient(window.NEXTGEN_SUPABASE_CONFIG.url,window.NEXTGEN_SUPABASE_CONFIG.anonKey);
+      var dbClient=window.getNextGenSupabaseClient();
       var authResult=await dbClient.auth.getUser();
       if(authResult.error||!authResult.data.user){msg.textContent='Sign in to NextGen above before saving this channel.';return;}
       var existing=await dbClient.from('channels').select('id,profile_url,handle').eq('owner_id',authResult.data.user.id).eq('platform',p);
@@ -955,7 +955,7 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 </script>
 
 
-<script src="./nextgen-workspace.js?v=20261102-auth-session-first-v3"></script>
+<script src="./nextgen-workspace.js?v=20261104-auth-rebuild-v1"></script>
 
 <style id="ng-hamburger-main-point-icons-size">
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
