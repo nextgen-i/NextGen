@@ -448,9 +448,12 @@
         try{
           const {error}=await client.auth.signOut({scope:'local'});
           if(error)throw error;
+          const verification=await client.auth.getSession();
+          if(verification.error)throw verification.error;
+          if(verification.data&&verification.data.session)throw new Error('Previous session is still active; account switch was stopped.');
           user=null;
           renderProfileAuthEntry();
-          location.href='./login.html?switch-account=1#options';
+          location.replace('./login.html?switch-account=1#options');
         }catch(error){
           button.dataset.switching='false';
           button.disabled=false;
