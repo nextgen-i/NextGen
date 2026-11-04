@@ -1117,66 +1117,67 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 
 
 
-<script id="ng-profile-menu-script">
+<script id="ng-profile-menu-controller-v2">
 (function(){
- var trigger=document.getElementById('ng-profile-trigger'),menu=document.getElementById('ng-profile-menu'),backdrop=document.getElementById('ng-profile-backdrop');
- if(!trigger||!menu||!backdrop||trigger.dataset.profileReady==='1')return;
- trigger.dataset.profileReady='1';
- function openMenu(){menu.classList.add('is-open');menu.setAttribute('aria-hidden','false');backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');document.body.classList.add('ng-profile-open');}
- function closeMenu(){menu.classList.remove('is-open');menu.setAttribute('aria-hidden','true');backdrop.hidden=true;trigger.setAttribute('aria-expanded','false');document.body.classList.remove('ng-profile-open');}
- trigger.addEventListener('click',function(){menu.classList.contains('is-open')?closeMenu():openMenu()});
- backdrop.addEventListener('click',closeMenu);
- document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu()});
- 
- menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu)});
-})();
-</script>
-<script id="ng-profile-popup-history">
-(function(){
-  var key='ng-profile-open',trigger=document.getElementById('ng-profile-trigger'),
-      menu=document.getElementById('ng-profile-menu'),backdrop=document.getElementById('ng-profile-backdrop'),
-      closing=false,navigating=false;
-  if(!trigger||!menu||!backdrop)return;
-  function show(){
-    menu.classList.add('is-open');menu.setAttribute('aria-hidden','false');
-    backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');
-    document.body.classList.add('ng-profile-open');
-  }
-  function hide(){
-    menu.classList.remove('is-open');menu.setAttribute('aria-hidden','true');
-    backdrop.hidden=true;trigger.setAttribute('aria-expanded','false');
-    document.body.classList.remove('ng-profile-open');
-  }
-  function clear(){try{sessionStorage.removeItem(key);}catch(e){}}
-  var closeButton=menu.querySelector('.ng-profile-popup-close');
-  if(closeButton)closeButton.addEventListener('click',closePopup);
-  function closePopup(){
-    clear();hide();
-    if(history.state&&history.state.ngProfileMenu&&!closing&&!navigating){
-      closing=true;history.back();
-    }
-  }
-  trigger.addEventListener('click',function(){
-    if(menu.classList.contains('is-open')){
-      try{sessionStorage.setItem(key,'1');}catch(e){}
-      if(!(history.state&&history.state.ngProfileMenu)){
-        try{history.pushState(Object.assign({},history.state||{},{ngProfileMenu:true}),'',location.href);}catch(e){}
-      }
-    }else{
-      clear();
-      if(history.state&&history.state.ngProfileMenu)closePopup();
-    }
-  });
-  backdrop.addEventListener('click',closePopup);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('is-open'))closePopup();});
-  menu.querySelectorAll('a[href]').forEach(function(a){
-    a.addEventListener('click',function(){navigating=true;clear();},true);
-  });
-  window.addEventListener('popstate',function(){
-    closing=false;clear();hide();
-  });
-      // Custom pull-to-refresh removed; native page refresh is not intercepted.
-  try{if(sessionStorage.getItem(key)==='1')show();}catch(e){}
+ var trigger=document.getElementById('ng-profile-trigger');
+ var menu=document.getElementById('ng-profile-menu');
+ var backdrop=document.getElementById('ng-profile-backdrop');
+ if(!trigger||!menu||!backdrop||menu.dataset.profileController==='v2')return;
+ menu.dataset.profileController='v2';
+ var historyOpen=false,closing=false;
+ function setOrigin(){
+   if(window.innerWidth>700)return;
+   var rect=trigger.getBoundingClientRect();
+   var width=Math.min(window.innerWidth*.8,315);
+   var left=window.innerWidth-width;
+   var x=Math.max(0,Math.min(width,rect.left+rect.width/2-left));
+   var y=Math.max(0,Math.min(window.innerHeight,rect.top+rect.height/2));
+   menu.style.transformOrigin=x+'px '+y+'px';
+ }
+ function show(){
+   setOrigin();
+   backdrop.hidden=false;
+   menu.setAttribute('aria-hidden','false');
+   trigger.setAttribute('aria-expanded','true');
+   document.body.classList.add('ng-profile-open');
+   menu.offsetWidth;
+   menu.classList.add('is-open');
+   if(window.NGWorkspace&&typeof window.NGWorkspace.syncAuthState==='function'){
+     window.NGWorkspace.syncAuthState().catch(function(error){console.warn('NextGen profile auth sync:',error);});
+   }
+   if(!history.state||!history.state.ngProfileMenu){
+     try{history.pushState(Object.assign({},history.state||{},{ngProfileMenu:true}),'',location.href);historyOpen=true;}catch(e){}
+   }else historyOpen=true;
+ }
+ function hide(restoreHistory){
+   if(!menu.classList.contains('is-open'))return;
+   menu.classList.remove('is-open');
+   menu.setAttribute('aria-hidden','true');
+   trigger.setAttribute('aria-expanded','false');
+   document.body.classList.remove('ng-profile-open');
+   try{sessionStorage.removeItem('ng-profile-open');}catch(e){}
+   window.setTimeout(function(){if(!menu.classList.contains('is-open'))backdrop.hidden=true;},280);
+   if(restoreHistory&&historyOpen&&!closing){
+     closing=true;
+     try{history.back();}catch(e){}
+   }
+ }
+ trigger.addEventListener('click',function(){
+   if(menu.classList.contains('is-open'))hide(false);
+   else show();
+ });
+ var closeButton=menu.querySelector('.ng-profile-popup-close');
+ if(closeButton)closeButton.addEventListener('click',function(){hide(true);});
+ backdrop.addEventListener('click',function(){hide(true);});
+ document.addEventListener('keydown',function(event){if(event.key==='Escape')hide(true);});
+ menu.querySelectorAll('a[href]').forEach(function(link){
+   link.addEventListener('click',function(){try{sessionStorage.removeItem('ng-profile-open');}catch(e){}},true);
+ });
+ window.addEventListener('popstate',function(){
+   closing=false;historyOpen=false;
+   if(menu.classList.contains('is-open'))hide(false);
+ });
+ window.addEventListener('resize',function(){if(menu.classList.contains('is-open'))setOrigin();});
 })();
 </script>
 <script id="ng-facebook-menu-script">
@@ -1188,7 +1189,7 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 </script>
 
 
-<script src="./nextgen-workspace.js?v=20261104-profile-pull-refresh-v3"></script>
+<script src="./nextgen-workspace.js?v=20261104-profile-native-refresh-v4"></script>
 
 <style id="ng-hamburger-main-point-icons-size">
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
@@ -1265,7 +1266,7 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 }
 
 
-<script src="./nextgen-workspace.js?v=20261104-profile-pull-refresh-v3"></script>
+<script src="./nextgen-workspace.js?v=20261104-profile-native-refresh-v4"></script>
 
 <style id="ng-menu-compact-spacing-v1">
 /* Compact only the three marked menu sections; preserve all typography, icons and colours. */
