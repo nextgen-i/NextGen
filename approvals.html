@@ -923,21 +923,21 @@ body.ng-menu-open .ng-menu-drawer{
 }
 </style>
 <style id="ng-profile-menu-row-normal-flow-v20">
-/* One stable row layout: no negative offsets, no translated icon/label, no clipping. */
+/* Align icon and label together at the RF avatar's left edge. */
 body.ng-profile-open #ng-profile-menu .ng-profile-links{
  position:relative!important;left:0!important;width:100%!important;max-width:100%!important;
  margin:0!important;padding:0!important;box-sizing:border-box!important;overflow:visible!important;
 }
 body.ng-profile-open #ng-profile-menu .ng-profile-links a{
  display:flex!important;flex-direction:row!important;align-items:center!important;
- justify-content:flex-start!important;gap:10px!important;
+ justify-content:flex-start!important;gap:8px!important;
  width:100%!important;min-width:0!important;box-sizing:border-box!important;
- padding:7px 3px 7px 26px!important;overflow:visible!important;
- color:#eaf4ff!important;font-size:16px!important;line-height:1.25!important;
+ padding:7px 3px 7px 0!important;overflow:visible!important;
+ text-align:left!important;color:#eaf4ff!important;font-size:16px!important;line-height:1.25!important;
 }
 body.ng-profile-open #ng-profile-menu .ng-profile-links a>.ng-profile-icon{
- position:static!important;inset:auto!important;left:auto!important;right:auto!important;top:auto!important;
- transform:none!important;margin:0!important;padding:0!important;
+ position:static!important;inset:auto!important;transform:none!important;
+ margin:0!important;padding:0!important;
  display:inline-flex!important;visibility:visible!important;opacity:1!important;
  flex:0 0 34px!important;width:34px!important;min-width:34px!important;height:34px!important;
  align-items:center!important;justify-content:center!important;overflow:visible!important;
@@ -948,8 +948,9 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>.ng-profile-icon svg{
 }
 body.ng-profile-open #ng-profile-menu .ng-profile-links a>.ng-profile-label{
  position:static!important;inset:auto!important;transform:none!important;
- display:inline-block!important;flex:1 1 auto!important;min-width:0!important;
+ display:inline-block!important;flex:0 1 auto!important;min-width:0!important;
  margin:0!important;padding:0!important;white-space:nowrap!important;
+ text-align:left!important;align-self:center!important;
  color:inherit!important;font-size:16px!important;line-height:1.25!important;
 }
 body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
