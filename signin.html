@@ -167,11 +167,10 @@ identifier.addEventListener('change',saveIdentifier);
 switchButton.addEventListener('click',()=>{createMode=!createMode;heading.textContent=createMode?'Create account':'Sign in';submit.textContent=createMode?'Create account':'Sign in';password.autocomplete=createMode?'new-password':'current-password';switchButton.textContent=createMode?'Back to Sign in':'Create a new Account';status.textContent='';});
 let supabaseClient=null;
 try{
- const cfg=window.NEXTGEN_SUPABASE_CONFIG||{};
- if(window.supabase?.createClient&&/^https:\/\//.test(cfg.url||'')&&cfg.anonKey&&!cfg.url.includes('PASTE_')&&!cfg.anonKey.includes('PASTE_')){
-  supabaseClient=window.supabase.createClient(cfg.url,cfg.anonKey);
+ if(typeof window.getNextGenSupabaseClient==='function'){
+  supabaseClient=window.getNextGenSupabaseClient();
  }
-}catch(err){console.error('NextGen auth setup:',err);}
+}catch(err){console.error('NextGen shared auth setup:',err);}
 form.addEventListener('submit',async e=>{
  e.preventDefault();saveIdentifier();
  const email=identifier.value.trim();
@@ -187,8 +186,12 @@ form.addEventListener('submit',async e=>{
   }else{
    const {data,error}=await supabaseClient.auth.signInWithPassword({email,password:password.value});
    if(error)throw error;
+   if(!data||!data.session)throw new Error('Login succeeded but no active session was returned. Please try again.');
+   const verified=await supabaseClient.auth.getSession();
+   if(verified.error)throw verified.error;
+   if(!verified.data||!verified.data.session)throw new Error('Your login session could not be confirmed. Please sign in again.');
    status.textContent='Signed in successfully. Opening NextGen…';
-   setTimeout(()=>location.href='./index.html',600);
+   location.replace('./dashboard.html');
   }
  }catch(err){status.textContent=err?.message||'Authentication failed. Check your email/password and Supabase settings.';}
  finally{submit.disabled=false;}
