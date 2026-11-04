@@ -681,7 +681,94 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
 .ng-profile-action-divider{height:1px;background:#174c83;margin:9px 0 5px}.ng-profile-action-spacer{height:62px}.ng-profile-links a.ng-profile-delete{color:#ff315b!important}.ng-profile-links a.ng-profile-delete span{color:#ff315b!important}
 
 
+</style>
+
 <script src="./nextgen-workspace.js?v=20261102-profile-auth-final"></script>
+<style id="ng-profile-popup-single-authority-v11">
+/* One profile popup contract: top-right compact panel; original page remains visible. */
+#ng-profile-menu.ng-profile-menu{
+  position:fixed!important;z-index:9999!important;top:calc(52px + env(safe-area-inset-top,0px))!important;
+  right:max(8px,calc((100vw - 430px)/2 + 8px))!important;left:auto!important;bottom:auto!important;
+  width:min(315px,calc(100vw - 24px))!important;max-width:315px!important;min-width:0!important;
+  height:auto!important;max-height:calc(100dvh - 68px - env(safe-area-inset-top,0px))!important;
+  margin:0!important;padding:12px!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;
+  overflow-x:hidden!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
+  overscroll-behavior-y:contain!important;touch-action:pan-y!important;
+  border:1px solid #00cfff!important;border-radius:16px!important;
+  background:linear-gradient(155deg,#061a3b,#030b24 72%)!important;
+  box-shadow:0 12px 38px #0009,0 0 16px #087bff33!important;
+  transform:scale(.96)!important;transform-origin:top right!important;opacity:0!important;visibility:hidden!important;
+  pointer-events:none!important;transition:transform .2s ease,opacity .18s ease,visibility .18s ease!important;
+}
+#ng-profile-menu.ng-profile-menu.is-open{transform:scale(1)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+body.ng-profile-open{overflow:hidden!important}
+body.ng-profile-open>.app>header,body.ng-profile-open .app>header,
+body.ng-profile-open nav.ng-bottom-nav,body.ng-profile-open>.app>nav.ng-bottom-nav{
+  display:flex!important;visibility:visible!important;pointer-events:auto!important;
+}
+#ng-profile-backdrop.ng-profile-backdrop[hidden]{display:none!important}
+body.ng-profile-open #ng-profile-backdrop.ng-profile-backdrop{
+  position:fixed!important;inset:0!important;z-index:9998!important;display:block!important;
+  background:rgba(3,11,36,.18)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+#ng-profile-menu .ng-profile-account{
+  position:relative!important;display:flex!important;flex:0 0 auto!important;flex-direction:row!important;
+  align-items:center!important;gap:7px!important;width:100%!important;min-width:0!important;
+  box-sizing:border-box!important;padding:4px 42px 12px 2px!important;margin:0!important;
+}
+#ng-profile-menu .ng-profile-brand-avatar{flex:0 0 54px!important;width:54px!important;height:54px!important}
+#ng-profile-menu .ng-profile-account-copy{flex:1 1 auto!important;min-width:0!important;overflow:hidden!important}
+#ng-profile-menu .ng-profile-edit{flex:0 0 26px!important;width:26px!important}
+#ng-profile-menu .ng-profile-popup-close{
+  position:absolute!important;top:2px!important;right:2px!important;left:auto!important;bottom:auto!important;z-index:6!important;
+  display:grid!important;place-items:center!important;width:34px!important;height:34px!important;
+  min-width:34px!important;min-height:34px!important;margin:0!important;padding:0!important;
+  border:1px solid #2857a4!important;border-radius:50%!important;background:#102c55!important;
+  color:#fff!important;font-size:26px!important;line-height:1!important;
+}
+#ng-profile-menu .ng-profile-account-actions{
+  display:grid!important;flex:0 0 auto!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:7px!important;width:100%!important;margin:0!important;padding:4px 0 12px!important;
+}
+#ng-profile-menu .ng-profile-account-actions button{
+  display:flex!important;min-width:0!important;min-height:44px!important;align-items:center!important;
+  justify-content:center!important;gap:5px!important;padding:5px 3px!important;white-space:nowrap!important;
+}
+#ng-profile-menu .ng-profile-links{
+  display:flex!important;flex:0 0 auto!important;flex-direction:column!important;min-height:0!important;
+  width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;
+  overflow:visible!important;overscroll-behavior-y:auto!important;touch-action:pan-y!important;
+}
+@media(max-width:380px){#ng-profile-menu.ng-profile-menu{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;right:10px!important}}
+.ng-menu-drawer{overflow-x:hidden!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;touch-action:pan-y!important}
+</style>
+<script id="ng-menu-shared-pull-refresh-v11">
+(function(){
+ 'use strict';
+ if(window.__ngSharedMenuPullRefreshV11)return;
+ window.__ngSharedMenuPullRefreshV11=true;
+ function bindPullRefresh(scroller){
+   if(!scroller||scroller.dataset.ngPullRefreshBound==='1')return;
+   scroller.dataset.ngPullRefreshBound='1';
+   var startY=null,startX=null,busy=false;
+   scroller.addEventListener('touchstart',function(event){
+     if(event.touches&&event.touches.length===1&&scroller.scrollTop<=2){startY=event.touches[0].clientY;startX=event.touches[0].clientX}
+     else{startY=null;startX=null}
+   },{passive:true});
+   scroller.addEventListener('touchend',function(event){
+     if(startY===null||busy||!event.changedTouches||!event.changedTouches.length)return;
+     var touch=event.changedTouches[0],dy=touch.clientY-startY,dx=Math.abs(touch.clientX-startX);
+     startY=null;startX=null;
+     if(dy<72||dy<dx*1.25||scroller.scrollTop>2)return;
+     busy=true;scroller.setAttribute('aria-busy','true');window.location.reload();
+   },{passive:true});
+   scroller.addEventListener('touchcancel',function(){startY=null;startX=null},{passive:true});
+ }
+ function init(){bindPullRefresh(document.getElementById('ng-menu-drawer'));bindPullRefresh(document.getElementById('ng-profile-menu'))}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+ window.addEventListener('load',init,{once:true});
+ if(document.body&&window.MutationObserver){var observer=new MutationObserver(init);observer.observe(document.body,{childList:true,subtree:true})}
+})();
+</script>
 </body>
 </html>
-
