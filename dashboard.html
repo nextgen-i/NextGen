@@ -1388,7 +1388,18 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 (function(){
  var drawer=document.getElementById('ng-menu-drawer');if(!drawer||drawer.dataset.facebookMenuReady==='1')return;drawer.dataset.facebookMenuReady='1';
  drawer.querySelectorAll('.ng-menu-accordion-trigger').forEach(function(btn){btn.addEventListener('click',function(){var panel=btn.nextElementSibling,open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',String(!open));panel.hidden=open;var icon=btn.querySelector('i');if(icon)icon.textContent=open?'⌄':'⌃';});});
- var less=document.getElementById('ng-menu-see-less'),links=drawer.querySelector('.ng-menu-main-links');if(less&&links)less.addEventListener('click',function(){var collapsed=links.classList.toggle('is-collapsed');less.textContent=collapsed?'See more':'See less';});
+ var less=document.getElementById('ng-menu-see-less'),links=drawer.querySelector('.ng-menu-main-links');
+ if(less&&links){
+   links.classList.add('is-collapsed');
+   less.textContent='See more';
+   less.setAttribute('aria-expanded','false');
+   less.addEventListener('click',function(){
+     var expanding=links.classList.contains('is-collapsed');
+     links.classList.toggle('is-collapsed',!expanding);
+     less.textContent=expanding?'See less':'See more';
+     less.setAttribute('aria-expanded',String(expanding));
+   });
+ }
 })();
 </script>
 
