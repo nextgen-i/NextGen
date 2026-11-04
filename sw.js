@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v57-login-flow-fix";
+const CACHE_NAME = "nextgen-shell-v58-single-logout-handler";
 const APP_SHELL = [
   "./",
   "./index.html",
