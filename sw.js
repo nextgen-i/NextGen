@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v84-profile-icons-unclipped";
+const CACHE_NAME = "nextgen-shell-v85-profile-menu-normal-flow";
 const APP_SHELL = [
   "./",
   "./index.html",
