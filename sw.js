@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v74-top-circular-refresh";
+const CACHE_NAME = "nextgen-shell-v75-scroll-lock-popup-fit";
 const APP_SHELL = [
   "./",
   "./index.html",
