@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v55";
+const CACHE_NAME = "nextgen-shell-v56-auth-rebuild";
 const APP_SHELL = [
   "./",
   "./index.html",
