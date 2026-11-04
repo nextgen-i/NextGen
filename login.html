@@ -1342,13 +1342,13 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
 </nav>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./supabase-config.js?v=20261103-production-auth"></script>
+<script src="./supabase-config.js?v=20261104-auth-rebuild-v1"></script>
 <script>
 (function(){
  const $=id=>document.getElementById(id);
  const form=$('authForm'),email=$('email'),password=$('password'),confirmPassword=$('confirmPassword');
  let mode='login',client=null;
- try{const cfg=window.NEXTGEN_SUPABASE_CONFIG||{};if(window.supabase&&cfg.url&&cfg.anonKey&&/^https:\/\//.test(cfg.url))client=window.supabase.createClient(cfg.url,cfg.anonKey);window.NGAuthClient=client;}catch(e){console.error('NextGen auth setup error',e);}
+ try{if(window.getNextGenSupabaseClient)client=window.getNextGenSupabaseClient();}catch(e){console.error('NextGen auth setup error',e);}
  function message(text,type=''){const el=$('status');el.textContent=text;el.className='status'+(type?' '+type:'');}
  const authStepKey='nextgen-login-active-step';
  function saveAuthStep(step){try{sessionStorage.setItem(authStepKey,step);}catch(e){}try{localStorage.setItem(authStepKey,step);}catch(e){}}
@@ -1408,7 +1408,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
  document.querySelectorAll(".ng-menu-accordion-trigger").forEach(btn=>btn.addEventListener("click",()=>{const panel=btn.nextElementSibling;const open=btn.getAttribute("aria-expanded")==="true";btn.setAttribute("aria-expanded",String(!open));if(panel)panel.hidden=open}));
 })();
 </script>
-<script src="./nextgen-workspace.js?v=20261103-login-menu-auth-v1"></script>
+<script src="./nextgen-workspace.js?v=20261104-auth-rebuild-v1"></script>
 </div>
 <style id="ng-menu-accordion-alignment-final">
 #ng-menu-drawer .ng-menu-accordion>.ng-menu-accordion-trigger{box-sizing:border-box!important;display:flex!important;align-items:center!important;gap:9px!important;padding-left:21px!important;padding-right:14px!important;text-align:left!important}
