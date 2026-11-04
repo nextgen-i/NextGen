@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v76-profile-menu-left-edge";
+const CACHE_NAME = "nextgen-shell-v77-remove-18px-menu-offset";
 const APP_SHELL = [
   "./",
   "./index.html",
