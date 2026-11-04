@@ -1058,44 +1058,6 @@ body.ng-profile-open #ng-profile-backdrop.ng-profile-backdrop{
   overscroll-behavior-y:contain!important;touch-action:pan-y!important;
 }
 </style>
-<script id="ng-menu-shared-pull-refresh-v11">
-(function(){
- 'use strict';
- if(window.__ngSharedMenuPullRefreshV11)return;
- window.__ngSharedMenuPullRefreshV11=true;
- function bindPullRefresh(scroller){
-   if(!scroller||scroller.dataset.ngPullRefreshBound==='1')return;
-   scroller.dataset.ngPullRefreshBound='1';
-   var startY=null,startX=null,busy=false;
-   scroller.addEventListener('touchstart',function(event){
-     if(event.touches&&event.touches.length===1&&scroller.scrollTop<=2){
-       startY=event.touches[0].clientY;startX=event.touches[0].clientX;
-     }else{startY=null;startX=null;}
-   },{passive:true});
-   scroller.addEventListener('touchend',function(event){
-     if(startY===null||busy||!event.changedTouches||!event.changedTouches.length)return;
-     var touch=event.changedTouches[0],dy=touch.clientY-startY,dx=Math.abs(touch.clientX-startX);
-     startY=null;startX=null;
-     if(dy<72||dy<dx*1.25||scroller.scrollTop>2)return;
-     busy=true;scroller.setAttribute('aria-busy','true');
-     window.location.reload();
-   },{passive:true});
-   scroller.addEventListener('touchcancel',function(){startY=null;startX=null;},{passive:true});
- }
- function init(){
-   bindPullRefresh(document.getElementById('ng-menu-drawer'));
-   bindPullRefresh(document.getElementById('ng-profile-menu'));
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
- window.addEventListener('load',init,{once:true});
- if(document.body&&window.MutationObserver){
-   var menuObserver=new MutationObserver(init);
-   menuObserver.observe(document.body,{childList:true,subtree:true});
- }
-})();
-</script>
-
-
 <style id="ng-profile-popup-layout-final-v11">
 /* Single final authority for profile popup geometry. Preserve Master Design v32. */
 body.ng-profile-open{overflow:hidden!important}
@@ -1151,8 +1113,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
  body.ng-profile-open #ng-profile-menu.ng-profile-menu{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;right:10px!important;inset-inline-end:10px!important}
 }
 </style>
-
-
 <script id="ng-unified-drawer-pull-refresh-v11">
 (function(){
  'use strict';
@@ -1213,7 +1173,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-
 </body>
 </html>
 
