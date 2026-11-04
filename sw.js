@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v80-profile-icons-visible";
+const CACHE_NAME = "nextgen-shell-v81-settings-back-arrow";
 const APP_SHELL = [
   "./",
   "./index.html",
