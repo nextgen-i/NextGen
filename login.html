@@ -1306,7 +1306,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
       <div class="field" id="confirmWrap" hidden><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirm password" aria-label="Confirm password" minlength="8"></div>
       <div class="auth-mode-switch"><button type="button" id="loginModeButton" class="mode-link active">Log in</button><span>·</span><button type="button" id="signupModeButton" class="mode-link">Sign up</button></div>
     </div>
-    <button class="primary email-continue" id="submitButton" type="button" onclick="(function(){var p=document.getElementById('passwordStep'),e=document.getElementById('email');if(!e||!e.value.trim()||!e.checkValidity()){var st=document.getElementById('status');if(st){st.textContent='Enter a valid email address.';st.className='status error';}if(e)e.focus();return;}p.hidden=false;p.removeAttribute('hidden');p.style.display='block';var first=document.getElementById('submitButton');first.hidden=true;first.style.display='none';var b=document.getElementById('passwordSubmitButton');b.hidden=false;b.removeAttribute('hidden');b.style.display='block';document.getElementById('password').required=true;document.getElementById('password').focus();})();">Login</button>
+    <button class="primary email-continue" id="submitButton" type="button">Login</button>
     <button class="primary password-continue" id="passwordSubmitButton" type="submit" hidden>Login</button>
     <section id="recoveryStep" hidden aria-live="polite">
       <div class="field"><label for="recoveryPassword">New password</label><input id="recoveryPassword" type="password" autocomplete="new-password" minlength="8" placeholder="New password" required></div>
@@ -1348,7 +1348,7 @@ body.ng-auth-second-step main.auth-scroll>.ng-shared-footer{
  const $=id=>document.getElementById(id);
  const form=$('authForm'),email=$('email'),password=$('password'),confirmPassword=$('confirmPassword');
  let mode='login',client=null;
- try{const cfg=window.NEXTGEN_SUPABASE_CONFIG||{};if(window.supabase&&cfg.url&&cfg.anonKey&&/^https:\/\//.test(cfg.url))client=window.supabase.createClient(cfg.url,cfg.anonKey);}catch(e){console.error('NextGen auth setup error',e);}
+ try{const cfg=window.NEXTGEN_SUPABASE_CONFIG||{};if(window.supabase&&cfg.url&&cfg.anonKey&&/^https:\/\//.test(cfg.url))client=window.supabase.createClient(cfg.url,cfg.anonKey);window.NGAuthClient=client;}catch(e){console.error('NextGen auth setup error',e);}
  function message(text,type=''){const el=$('status');el.textContent=text;el.className='status'+(type?' '+type:'');}
  const authStepKey='nextgen-login-active-step';
  function saveAuthStep(step){try{sessionStorage.setItem(authStepKey,step);}catch(e){}try{localStorage.setItem(authStepKey,step);}catch(e){}}
