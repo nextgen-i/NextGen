@@ -1095,6 +1095,125 @@ body.ng-profile-open #ng-profile-backdrop.ng-profile-backdrop{
 })();
 </script>
 
+
+<style id="ng-profile-popup-layout-final-v11">
+/* Single final authority for profile popup geometry. Preserve Master Design v32. */
+body.ng-profile-open{overflow:hidden!important}
+body.ng-profile-open #ng-profile-backdrop.ng-profile-backdrop{
+ position:fixed!important;inset:0!important;z-index:9998!important;
+ background:rgba(3,11,36,.18)!important;display:block!important;
+}
+body.ng-profile-open #ng-profile-menu.ng-profile-menu{
+ position:fixed!important;z-index:9999!important;
+ top:calc(52px + env(safe-area-inset-top,0px))!important;
+ right:max(8px,calc((100vw - 430px)/2 + 8px))!important;
+ left:auto!important;bottom:auto!important;inset:auto max(8px,calc((100vw - 430px)/2 + 8px)) auto auto!important;
+ width:min(315px,calc(100vw - 24px))!important;max-width:315px!important;min-width:0!important;
+ height:auto!important;max-height:calc(100dvh - 68px - env(safe-area-inset-top,0px))!important;
+ box-sizing:border-box!important;margin:0!important;padding:12px!important;
+ display:flex!important;flex-direction:column!important;overflow:hidden!important;
+ border:1px solid #00cfff!important;border-radius:16px!important;
+ background:linear-gradient(155deg,#061a3b,#030b24 72%)!important;
+ box-shadow:0 12px 38px #0009,0 0 16px #087bff33!important;
+ transform:translateX(12px) scale(.98)!important;transform-origin:top right!important;
+ opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+ transition:transform .2s ease,opacity .18s ease,visibility .18s ease!important;
+}
+body.ng-profile-open #ng-profile-menu.ng-profile-menu.is-open{
+ transform:translateX(0) scale(1)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-account{
+ position:relative!important;flex:0 0 auto!important;width:100%!important;
+ box-sizing:border-box!important;padding:4px 42px 12px 2px!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-popup-close{
+ position:absolute!important;top:2px!important;right:2px!important;left:auto!important;bottom:auto!important;
+ order:9!important;display:grid!important;place-items:center!important;
+ width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;
+ margin:0!important;padding:0!important;border:1px solid #2857a4!important;border-radius:50%!important;
+ background:#102c55!important;color:#fff!important;font-size:26px!important;line-height:1!important;z-index:10!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-links{
+ flex:1 1 auto!important;min-height:0!important;max-height:calc(100dvh - 190px)!important;
+ overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;
+ -webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;
+}
+.ng-menu-drawer{overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}
+.ng-menu-drawer .ng-pull-refresh-indicator,.ng-profile-links .ng-pull-refresh-indicator{
+ display:block!important;flex:0 0 auto!important;min-height:0!important;height:0!important;overflow:hidden!important;
+ opacity:0!important;text-align:center!important;color:#7ddcff!important;font-size:12px!important;
+ transition:height .15s ease,opacity .15s ease!important;
+}
+.ng-menu-drawer .ng-pull-refresh-indicator.is-visible,.ng-profile-links .ng-pull-refresh-indicator.is-visible{
+ height:30px!important;min-height:30px!important;opacity:1!important;padding:7px 0!important;
+}
+@media(max-width:380px){
+ body.ng-profile-open #ng-profile-menu.ng-profile-menu{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;right:10px!important;inset-inline-end:10px!important}
+}
+</style>
+
+
+<script id="ng-unified-drawer-pull-refresh-v11">
+(function(){
+ 'use strict';
+ if(window.__ngUnifiedPullRefreshV11)return;
+ window.__ngUnifiedPullRefreshV11=true;
+ function attach(scroller){
+  if(!scroller||scroller.dataset.ngPullRefreshV11==='1')return;
+  scroller.dataset.ngPullRefreshV11='1';
+  var startY=null,tracking=false,refreshing=false,indicator=null;
+  function getIndicator(){
+   if(indicator)return indicator;
+   indicator=document.createElement('div');
+   indicator.className='ng-pull-refresh-indicator';
+   indicator.setAttribute('role','status');indicator.setAttribute('aria-live','polite');
+   indicator.textContent='Pull down to refresh';
+   scroller.insertBefore(indicator,scroller.firstChild);
+   return indicator;
+  }
+  function reset(){
+   tracking=false;startY=null;
+   if(indicator){indicator.classList.remove('is-visible');indicator.textContent='Pull down to refresh';}
+  }
+  scroller.addEventListener('touchstart',function(e){
+   if(refreshing||!e.touches||e.touches.length!==1)return reset();
+   if(scroller.scrollTop<=2){startY=e.touches[0].clientY;tracking=true;getIndicator();}
+   else reset();
+  },{passive:true});
+  scroller.addEventListener('touchmove',function(e){
+   if(!tracking||startY===null||!e.touches||e.touches.length!==1)return;
+   var distance=e.touches[0].clientY-startY;
+   if(distance>8){indicator.classList.add('is-visible');indicator.textContent=distance>=72?'Release to refresh':'Pull down to refresh';}
+   if(distance<0||scroller.scrollTop>2)reset();
+  },{passive:true});
+  scroller.addEventListener('touchend',function(e){
+   if(!tracking||startY===null||refreshing||!e.changedTouches||!e.changedTouches.length)return reset();
+   var distance=e.changedTouches[0].clientY-startY;reset();
+   if(distance<72||scroller.scrollTop>2)return;
+   refreshing=true;var note=getIndicator();note.classList.add('is-visible');note.textContent='Refreshing…';
+   var task=window.NGWorkspace&&typeof window.NGWorkspace.refresh==='function'
+    ?window.NGWorkspace.refresh()
+    :Promise.resolve().then(function(){window.location.reload();});
+   Promise.resolve(task).then(function(){
+    if(indicator){indicator.textContent='Updated';}
+   }).catch(function(error){
+    if(indicator){indicator.textContent='Refresh failed — pull to retry';}
+    console.warn('NextGen pull-to-refresh failed:',error);
+   }).finally(function(){
+    refreshing=false;
+    window.setTimeout(function(){if(indicator){indicator.classList.remove('is-visible');indicator.textContent='Pull down to refresh';}},900);
+   });
+  },{passive:true});
+  scroller.addEventListener('touchcancel',reset,{passive:true});
+ }
+ function init(){
+  attach(document.querySelector('#ng-profile-menu .ng-profile-links'));
+  attach(document.getElementById('ng-menu-drawer'));
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
 </body>
 </html>
 
