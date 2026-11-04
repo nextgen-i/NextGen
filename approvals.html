@@ -994,6 +994,24 @@ body.ng-menu-open .ng-menu-drawer{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
+
+<style id="ng-profile-popup-full-height-v12">
+/* Profile popup: full viewport height, keep the existing 80vw side width. */
+body.ng-profile-open #ng-profile-menu.ng-profile-menu,
+body.ng-profile-open #ng-profile-menu.ng-profile-menu.is-open{
+  position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:auto!important;
+  width:80vw!important;min-width:80vw!important;max-width:80vw!important;
+  height:100vh!important;height:100dvh!important;max-height:100vh!important;max-height:100dvh!important;
+  margin:0!important;border:0!important;outline:0!important;border-radius:0!important;box-shadow:none!important;
+  box-sizing:border-box!important;
+  padding-top:calc(12px + env(safe-area-inset-top,0px))!important;
+  padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;
+}
+body.ng-profile-open #ng-profile-menu .ng-profile-links{
+  max-height:none!important;height:auto!important;flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;
+}
+</style>
+
 </body>
 </html>
 
