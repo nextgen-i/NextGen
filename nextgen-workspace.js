@@ -419,15 +419,30 @@
           event.preventDefault();
           item.style.pointerEvents='none';
           item.style.opacity='.65';
+          if(item.dataset.signingOut==='true')return;
+          item.dataset.signingOut='true';
           try{
             const {error}=await client.auth.signOut({scope:'local'});
             if(error)throw error;
+            const verification=await client.auth.getSession();
+            if(verification.error)throw verification.error;
+            if(verification.data&&verification.data.session)throw new Error('The session is still active. Please try again.');
             user=null;
             showAuth();
             location.replace('./login.html#options');
           }catch(error){
             item.setAttribute('aria-label','Logout failed — '+(error&&error.message?error.message:'try again'));
+            let status=item.parentElement&&item.parentElement.querySelector('[data-ng-logout-status]');
+            if(!status&&item.parentElement){
+              status=document.createElement('p');
+              status.dataset.ngLogoutStatus='true';
+              status.setAttribute('role','alert');
+              status.style.cssText='margin:6px 0 0;color:#ffb4b4;font-size:12px;line-height:1.4';
+              item.parentElement.append(status);
+            }
+            if(status)status.textContent='Logout failed: '+(error&&error.message?error.message:'Please try again.');
           }finally{
+            item.dataset.signingOut='false';
             item.style.pointerEvents='';
             item.style.opacity='';
           }
