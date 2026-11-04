@@ -564,33 +564,6 @@
     if(user)setTimeout(()=>{if(user)refresh();},0);
   });
 
-  // Profile popup pull-to-refresh: only trigger at the top of its own scroll area.
-  (function(){
-    const popup=document.getElementById('ng-profile-menu');
-    if(!popup||popup.dataset.pullRefreshReady==='1')return;
-    popup.dataset.pullRefreshReady='1';
-    let startY=0,startX=0,tracking=false,refreshing=false;
-    popup.addEventListener('touchstart',event=>{
-      if(!document.body.classList.contains('ng-profile-open')||event.touches.length!==1)return;
-      const touch=event.touches[0];
-      const scroller=popup.querySelector('.ng-profile-links');
-      if(scroller&&scroller.scrollTop>0)return;
-      startY=touch.clientY;startX=touch.clientX;tracking=true;refreshing=false;
-    },{passive:true});
-    popup.addEventListener('touchmove',event=>{
-      if(!tracking||event.touches.length!==1)return;
-      const touch=event.touches[0],dy=touch.clientY-startY,dx=touch.clientX-startX;
-      if(Math.abs(dx)>Math.abs(dy)||dy<0){tracking=false;return;}
-      if(dy>12)event.preventDefault();
-      if(dy>78&&!refreshing){
-        refreshing=true;tracking=false;
-        const scroller=popup.querySelector('.ng-profile-links');
-        if(scroller)scroller.scrollTop=0;
-        window.location.reload();
-      }
-    },{passive:false});
-    popup.addEventListener('touchend',()=>{tracking=false;},{passive:true});
-    popup.addEventListener('touchcancel',()=>{tracking=false;},{passive:true});
-  })();
+  // Profile refresh uses the same native scroll/overscroll behavior as the hamburger drawer.
 
 })();
