@@ -195,6 +195,16 @@ header .ng-hamburger:before,header .ng-hamburger:after{display:none!important;co
 .page-intro{display:flex;align-items:center;gap:12px;padding:14px 11px 12px}.page-icon{width:42px;height:42px;flex:0 0 42px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#168bff,#4a4cff);box-shadow:0 0 10px #2a6bff55;color:#fff;font-size:23px}.page-intro h1{font-size:24px;line-height:1.1;font-weight:800}.page-intro p{font-size:12px;color:#8fa6d6;margin-top:4px}.page-panel{margin:8px 11px 14px;padding:17px 14px;border:1px solid #17436c;border-radius:15px;background:linear-gradient(145deg,#081f3a,#06172c);box-shadow:0 10px 30px #0002}.page-panel h2{font-size:19px;color:#f4f8ff;margin-bottom:12px}.page-panel .muted{font-size:13px;line-height:1.55;color:#a8c1e8}.page-empty{min-height:145px;margin-top:14px;padding:18px 12px;border:1px dashed #2857a4;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:#071634}.page-empty>span{font-size:27px;color:#4DB8FF}.page-empty strong{font-size:15px;color:#fff}.page-empty small{font-size:12px;color:#8fa6d6}.mode-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #17385c;color:#eaf3ff;font-size:14px}.mode-on,.mode-off{font-size:12px;padding:5px 10px;border-radius:8px}.mode-on{background:#063e37;color:#45e4b0}.mode-off{background:#3b2630;color:#ff9bab}.time-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}.time-slots>div{padding:13px 5px;border:1px solid #1c5790;border-radius:12px;background:#071a36;text-align:center}.time-slots strong{display:block;font-size:20px;color:#fff}.time-slots small{display:block;margin-top:5px;color:#8fa6d6;font-size:11px}@media(max-width:350px){.time-slots strong{font-size:17px}.page-panel{margin-left:8px;margin-right:8px}}
 </style>
 
+<style id="ng-settings-back-arrow-v1">
+.page-intro .ng-settings-back{
+ flex:0 0 36px!important;width:36px!important;height:36px!important;min-width:36px!important;
+ display:grid!important;place-items:center!important;margin:0!important;padding:0!important;
+ border:1px solid #258de0!important;border-radius:50%!important;
+ background:linear-gradient(145deg,#0c2b58,#071a39)!important;color:#eaf7ff!important;
+ box-shadow:0 0 9px #168bff44!important;cursor:pointer!important;
+}
+.page-intro .ng-settings-back svg{display:block!important;width:21px!important;height:21px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+</style>
 <style id="ng-settings-content">
 .settings-list{padding:2px 12px 12px;color:#fff}
 .settings-list h2{font-size:19px;font-weight:800;margin:20px 0 8px;color:#fff}
@@ -533,7 +543,7 @@ body.ng-header-popup-open{overflow:hidden}
 
 
 <main>
-<section class="page-intro"><div class="page-icon">⚙</div><div><h1>Settings</h1></div></section>
+<section class="page-intro"><button type="button" class="ng-settings-back" id="ng-settings-back" aria-label="Go back" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="page-icon">⚙</div><div><h1>Settings</h1></div></section>
 <section class="settings-list" aria-label="Settings options">
   <h2>Account</h2>
   <div class="settings-row"><span class="settings-icon"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></span><div class="settings-copy"><strong>Push notifications</strong><small>Choose your preferences</small></div><span class="settings-arrow">›</span></div>
@@ -1114,6 +1124,20 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>.ng-profile-icon>svg{
   attach(document.getElementById('ng-menu-drawer'));
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+<script id="ng-settings-back-action-v1">
+(function(){
+ var back=document.getElementById('ng-settings-back');
+ if(!back||back.dataset.bound==='1')return;
+ back.dataset.bound='1';
+ back.addEventListener('click',function(){
+  var ref=document.referrer;
+  var sameOrigin=false;
+  try{sameOrigin=!!ref&&new URL(ref,location.href).origin===location.origin;}catch(e){}
+  if(history.length>1&&sameOrigin){history.back();}
+  else{location.href='./dashboard.html';}
+ });
 })();
 </script>
 </body>
