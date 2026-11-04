@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v65-profile-popup";
+const CACHE_NAME = "nextgen-shell-v66-profile-popup";
 const APP_SHELL = [
   "./",
   "./index.html",
