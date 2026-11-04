@@ -876,8 +876,9 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
  transition:opacity .12s ease,visibility .12s ease!important;
 }
 .ng-menu-drawer>.ng-pull-refresh-indicator.is-visible{opacity:1!important;visibility:visible!important}
-.ng-menu-drawer>.ng-pull-refresh-indicator.is-refreshing{animation:ngPullRefreshSpin .72s linear infinite!important}
+.ng-menu-drawer>.ng-pull-refresh-indicator.is-refreshing{animation:ngMenuPullRefreshSpin .72s linear infinite!important}
 @keyframes ngPullRefreshSpin{to{transform:translateX(-50%) rotate(360deg)}}
+@keyframes ngMenuPullRefreshSpin{to{transform:rotate(360deg)}}
 .ng-menu-drawer>.ng-pull-refresh-indicator.is-refreshing{transform-origin:center!important}
 
 @media(max-width:380px){
