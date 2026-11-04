@@ -1278,6 +1278,13 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 }
 </style>
 
+
+<style id="ng-profile-popup-close-final-v14">
+/* Closing state: hide immediately so no legacy bordered panel can flash. */
+#ng-profile-menu.ng-profile-menu:not(.is-open){opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:none!important;transition:none!important;border:0!important;outline:0!important;box-shadow:none!important}
+#ng-profile-menu.ng-profile-menu.is-open{border:0!important;outline:0!important;border-radius:0!important;box-shadow:none!important}
+</style>
+
 </body>
 </html>
 
