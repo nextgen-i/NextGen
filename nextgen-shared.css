@@ -512,28 +512,6 @@ html body.ng-menu-open nav.ng-bottom-nav{
   }
 }
 
-/* Profile popup pull-to-refresh indicator with a visible rotating circular spinner. */
-@keyframes ngProfileRefreshSpin{to{transform:rotate(360deg)}}
-@media(max-width:700px){
-  body.ng-profile-open .ng-profile-pull-indicator{
-    display:flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;
-    gap:9px!important;height:0!important;min-height:0!important;overflow:hidden!important;
-    opacity:0!important;color:#8edfff!important;font-size:13px!important;font-weight:600!important;
-    transition:height .12s ease,opacity .12s ease!important;
-  }
-  body.ng-profile-open .ng-profile-pull-indicator.is-ready,
-  body.ng-profile-open .ng-profile-pull-indicator.is-refreshing{
-    height:38px!important;min-height:38px!important;opacity:1!important;padding:5px 0!important;
-  }
-  body.ng-profile-open .ng-profile-pull-indicator.is-refreshing::before{
-    content:""!important;display:block!important;flex:0 0 19px!important;width:19px!important;height:19px!important;
-    box-sizing:border-box!important;border:2.5px solid rgba(83,205,255,.28)!important;
-    border-top-color:#35d9ff!important;border-right-color:#35d9ff!important;border-radius:50%!important;
-    animation:ngProfileRefreshSpin .7s linear infinite!important;
-  }
-}
-
-
 /* Back arrow stays in the top account row, immediately to the left of the profile photo. */
 @media(max-width:700px){
   body.ng-profile-open .ng-profile-menu .ng-profile-account{
@@ -657,22 +635,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-ba
   }
 }
 
-
-/* PROFILE POPUP ONLY — JS owns vertical touch movement so pull-to-refresh works
-   inside the fixed overlay instead of being swallowed by the nested scroller. */
-@media(max-width:700px){
-  body.ng-profile-open #ng-profile-menu,
-  body.ng-profile-open #ng-profile-menu .ng-profile-links{
-    touch-action:pan-x!important;
-  }
-  body.ng-profile-open #ng-profile-menu .ng-profile-links{
-    overscroll-behavior-y:auto!important;
-    -webkit-overflow-scrolling:auto!important;
-  }
-}
-
-
-/* Removed the later touch-action:none override; popup top-edge gesture is handled by the profile script. */
 
 /* NEXTGEN GLOBAL HEADER STABILITY FIX — 2026-11-03
    Root cause: the shared layout guard changed .app and .app>main back to
