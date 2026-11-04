@@ -969,6 +969,19 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 
 <style id="ng-profile-extra-actions">
 .ng-profile-action-divider{height:1px;background:#174c83;margin:9px 0 5px}.ng-profile-action-spacer{height:62px}.ng-profile-links a.ng-profile-delete{color:#ff315b!important}.ng-profile-links a.ng-profile-delete span{color:#ff315b!important}
+
+/* Mobile end-of-page clearance: keep final text lines above fixed bottom navigation. */
+@media(max-width:899px){
+  html body .app>main{
+    flex:1 1 auto!important;
+    min-height:0!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important;
+    scroll-padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important;
+  }
+}
 </style>
 <style id="ng-master-design-unified-v1">
 /* Unified Master Design — Dashboard is the approved visual reference. Header, logo, hamburger and footer only. */
