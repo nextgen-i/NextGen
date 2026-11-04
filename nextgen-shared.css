@@ -681,3 +681,15 @@ html body .app>main{
   overscroll-behavior-y:auto!important;
   touch-action:pan-y!important;
 }
+
+/* PROFILE POPUP FINAL SPACING + ACCOUNT BUTTON REFINEMENT */
+@media(max-width:700px){
+ body.ng-profile-open #ng-profile-menu.ng-profile-menu{padding-left:1px!important;padding-right:1px!important;margin-left:0!important;margin-right:0!important;}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account{padding-left:0!important;padding-right:0!important;margin-left:0!important;margin-right:0!important;}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-back{display:none!important;visibility:hidden!important;width:0!important;min-width:0!important;flex:0 0 0!important;margin:0!important;padding:0!important;}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account-actions,
+ body.ng-profile-open #ng-profile-menu .ng-profile-links{margin-left:0!important;margin-right:0!important;width:100%!important;max-width:100%!important;}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account-actions{gap:5px!important;padding-left:0!important;padding-right:0!important;}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account-actions button{font-size:14px!important;font-weight:750!important;border-width:.7px!important;padding-left:2px!important;padding-right:2px!important;gap:4px!important;}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account-actions button svg{width:21px!important;height:21px!important;flex-basis:21px!important;}
+}
