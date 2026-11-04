@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v59-menu-more-less-label";
+const CACHE_NAME = "nextgen-shell-v60-central-auth-handler";
 const APP_SHELL = [
   "./",
   "./index.html",
