@@ -57,7 +57,7 @@
     const title=document.createElement('strong');title.textContent='NextGen Account';title.style.cssText='display:block;margin-bottom:6px;color:#fff;font-size:14px';
     const info=document.createElement('p');info.className='muted';info.textContent='Signed in as '+(user.email||'authenticated user');info.style.cssText='font-size:12px;line-height:1.45;margin:0 0 9px;color:#a8c1e8;overflow-wrap:anywhere';
     const button=document.createElement('button');button.type='button';button.textContent='Sign out';button.style.cssText='width:100%;min-height:40px;padding:8px 12px;border:1px solid #285a89;border-radius:9px;background:#10213d;color:#fff;font-weight:700';
-    button.addEventListener('click',async()=>{button.disabled=true;const {error}=await client.auth.signOut();if(error){button.disabled=false;info.textContent='Could not sign out: '+error.message;}});
+    button.addEventListener('click',async()=>{button.disabled=true;const {error}=await client.auth.signOut({scope:'local'});if(error){button.disabled=false;info.textContent='Could not sign out: '+error.message;}});
     authPanel.append(title,info,button);
   }
   async function requireUser(){
@@ -445,7 +445,7 @@
         button.setAttribute('aria-busy','true');
         if(label)label.textContent='Signing out…';
         try{
-          const {error}=await client.auth.signOut();
+          const {error}=await client.auth.signOut({scope:'local'});
           if(error)throw error;
           user=null;
           renderProfileAuthEntry();
@@ -507,7 +507,7 @@
     syncAuthState,
     refresh,
     signIn:async email=>client.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}}),
-    signOut:()=>client.auth.signOut()
+    signOut:()=>client.auth.signOut({scope:'local'})
   };
 
   bindPage();
