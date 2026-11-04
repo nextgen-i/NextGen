@@ -389,41 +389,9 @@
     if(profileItem)profileItem.dataset.ngAuthEntry='true';
 
     const hamburgerItem=document.querySelector('#ng-menu-drawer .ng-menu-logout');
-    // Always expose a local-session reset action, even when the UI has lost
-    // track of a persisted Supabase session. This lets the owner recover
-    // without revoking sessions on other devices.
-    const resetHosts=[profileLinks,document.querySelector('#ng-menu-drawer')].filter(Boolean);
-    resetHosts.forEach(host=>{
-      let reset=host.querySelector(':scope > [data-ng-session-reset]');
-      if(!reset){
-        reset=document.createElement('a');
-        reset.href='#';
-        reset.dataset.ngSessionReset='true';
-        reset.innerHTML='<span class="ng-profile-icon" aria-hidden="true">↪</span>Logout / Reset Session<i>›</i>';
-        host.append(reset);
-      }
-      if(!reset.dataset.resetBound){
-        reset.dataset.resetBound='1';
-        reset.addEventListener('click',async event=>{
-          event.preventDefault();
-          reset.style.pointerEvents='none';
-          reset.style.opacity='.65';
-          try{
-            const {error}=await client.auth.signOut({scope:'local'});
-            if(error)throw error;
-            const projectRef=new URL(window.NEXTGEN_SUPABASE_CONFIG.url).hostname.split('.')[0];
-            try{localStorage.removeItem('sb-'+projectRef+'-auth-token');}catch(_){}
-            user=null;
-            renderProfileAuthEntry();
-            location.href='./login.html#options';
-          }catch(error){
-            reset.setAttribute('aria-label','Session reset failed: '+(error&&error.message?error.message:'Please try again'));
-            reset.style.pointerEvents='';
-            reset.style.opacity='';
-          }
-        });
-      }
-    });
+    // Keep a single auth row in each menu. Session reset is handled by
+    // the same Login/Logout control rather than a second recovery row.
+    document.querySelectorAll('[data-ng-session-reset]').forEach(node=>node.remove());
     const entries=[profileItem,hamburgerItem].filter(Boolean);
     entries.forEach(item=>{
       const signedIn=!!user;
@@ -449,10 +417,11 @@
           item.style.pointerEvents='none';
           item.style.opacity='.65';
           try{
-            const {error}=await client.auth.signOut();
+            const {error}=await client.auth.signOut({scope:'local'});
             if(error)throw error;
             user=null;
-            renderProfileAuthEntry();
+            showAuth();
+            location.replace('./login.html#options');
           }catch(error){
             item.setAttribute('aria-label','Logout failed — '+(error&&error.message?error.message:'try again'));
           }finally{
