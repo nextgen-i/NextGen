@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v78-profile-list-avatar-alignment";
+const CACHE_NAME = "nextgen-shell-v79-profile-icons-restored";
 const APP_SHELL = [
   "./",
   "./index.html",
