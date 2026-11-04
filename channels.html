@@ -1142,13 +1142,13 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
   if(!scroller||scroller.dataset.ngPullRefreshV12==='1')return;
   scroller.dataset.ngPullRefreshV12='1';
   var startY=null,tracking=false,refreshing=false,indicator=null;
+  var scrollRegion=scroller.id==='ng-profile-menu'?(scroller.querySelector('.ng-profile-links')||scroller):scroller;
   function getIndicator(){
    if(indicator)return indicator;
    indicator=document.createElement('div');
    indicator.className='ng-pull-refresh-indicator';
    indicator.setAttribute('role','status');indicator.setAttribute('aria-label','Refreshing');
-   var host=scroller.matches('#ng-profile-menu .ng-profile-links')?scroller.closest('#ng-profile-menu'):scroller;
-   host.insertBefore(indicator,host.firstChild);
+   scroller.insertBefore(indicator,scroller.firstChild);
    return indicator;
   }
   function reset(){
@@ -1157,7 +1157,7 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
   }
   scroller.addEventListener('touchstart',function(e){
    if(refreshing||!e.touches||e.touches.length!==1)return reset();
-   if(scroller.scrollTop<=2){startY=e.touches[0].clientY;tracking=true;getIndicator();}
+   if(scrollRegion.scrollTop<=2){startY=e.touches[0].clientY;tracking=true;getIndicator();}
    else reset();
   },{passive:true});
   scroller.addEventListener('touchmove',function(e){
@@ -1167,12 +1167,12 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
     indicator.classList.add('is-visible');
     indicator.style.setProperty('--ng-pull-rotation',Math.min(360,distance*4)+'deg');
    }
-   if(distance<0||scroller.scrollTop>2)reset();
+   if(distance<0||scrollRegion.scrollTop>2)reset();
   },{passive:true});
   scroller.addEventListener('touchend',function(e){
    if(!tracking||startY===null||refreshing||!e.changedTouches||!e.changedTouches.length)return reset();
    var distance=e.changedTouches[0].clientY-startY;tracking=false;startY=null;
-   if(distance<72||scroller.scrollTop>2){reset();return;}
+   if(distance<72||scrollRegion.scrollTop>2){reset();return;}
    refreshing=true;var note=getIndicator();
    note.classList.add('is-visible','is-refreshing');note.style.removeProperty('--ng-pull-rotation');
    var task=window.NGWorkspace&&typeof window.NGWorkspace.refresh==='function'
@@ -1188,8 +1188,8 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
   scroller.addEventListener('touchcancel',reset,{passive:true});
  }
  function init(){
-  var profileLinks=document.querySelector('#ng-profile-menu .ng-profile-links');
-  attach(profileLinks);
+  var profileMenu=document.getElementById('ng-profile-menu');
+  attach(profileMenu);
   attach(document.getElementById('ng-menu-drawer'));
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
