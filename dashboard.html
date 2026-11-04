@@ -851,7 +851,6 @@ body.ng-header-popup-open{overflow:hidden}
     <a href="./content.html"><span class="ng-profile-icon" data-icon="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></span>Find in chat<i>›</i></a>
     <a href="#" data-profile-action="home"><span class="ng-profile-icon" data-icon="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1Z"/></svg></span>Add to home<i>›</i></a>
 <a href="./login.html" data-ng-auth-entry="true"><span class="ng-profile-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span>Login<i>›</i></a>
-    <a href="./login.html#options" data-ng-session-reset="true"><span class="ng-profile-icon" aria-hidden="true">↪</span>Logout / Reset Session<i>›</i></a>
   </div>
 </aside>
 
@@ -1591,31 +1590,7 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 }
 
 
-<script src="./nextgen-workspace.js?v=20261104-session-reset-v2"></script>
-<script>
-document.addEventListener('click',async function(event){
-  const link=event.target.closest('[data-ng-session-reset]');
-  if(!link)return;
-  event.preventDefault();
-  link.style.pointerEvents='none';
-  link.style.opacity='.6';
-  try{
-    const client=window.NGWorkspace&&window.NGWorkspace.client;
-    if(client){
-      const result=await client.auth.signOut({scope:'local'});
-      if(result.error)throw result.error;
-    }else if(window.NEXTGEN_SUPABASE_CONFIG&&window.NEXTGEN_SUPABASE_CONFIG.url){
-      const ref=new URL(window.NEXTGEN_SUPABASE_CONFIG.url).hostname.split('.')[0];
-      try{localStorage.removeItem('sb-'+ref+'-auth-token');}catch(_){}
-    }
-    location.replace('./login.html#options');
-  }catch(error){
-    link.style.pointerEvents='';
-    link.style.opacity='';
-    link.textContent='Logout failed — tap to retry';
-  }
-});
-</script>
+<script src="./nextgen-workspace.js?v=20261104-single-logout-v1"></script>
 </body>
 </html>
 
