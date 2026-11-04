@@ -671,64 +671,7 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
   window.addEventListener('popstate',function(){
     closing=false;clear();hide();
   });
-    // PROFILE POPUP ONLY: top-of-popup pull refresh; menu list scroll stays JS-controlled.
-  var list=menu.querySelector('.ng-profile-links'),touchY=null,touchX=null,
-      startY=0,startListTop=0,startedInList=false,startedAtPopupTop=false,
-      pullReady=false,pullIndicator=null,refreshing=false;
-  if(list){
-    pullIndicator=document.createElement('div');
-    pullIndicator.className='ng-profile-pull-indicator';
-    pullIndicator.textContent='↓ Pull to refresh';
-    pullIndicator.setAttribute('aria-live','polite');
-    var account=menu.querySelector('.ng-profile-account');
-    menu.insertBefore(pullIndicator,account||menu.firstChild);
-    function resetGesture(){
-      touchY=null;touchX=null;startedInList=false;startedAtPopupTop=false;pullReady=false;
-      pullIndicator.classList.remove('is-ready');
-      pullIndicator.textContent='↓ Pull to refresh';
-    }
-    document.addEventListener('touchstart',function(e){
-      if(refreshing||!menu.classList.contains('is-open')||!e.touches||e.touches.length!==1||!menu.contains(e.target)){
-        resetGesture();return;
-      }
-      var t=e.touches[0],rect=menu.getBoundingClientRect();
-      touchY=t.clientY;touchX=t.clientX;startY=t.clientY;
-      startListTop=list.scrollTop;
-      startedInList=!!(e.target&&list.contains(e.target));
-      startedAtPopupTop=t.clientY<=rect.top+145;
-      pullReady=false;
-      pullIndicator.classList.remove('is-ready');
-      pullIndicator.textContent='↓ Pull to refresh';
-    },{capture:true,passive:true});
-    document.addEventListener('touchmove',function(e){
-      if(touchY===null||refreshing||!menu.classList.contains('is-open')||!e.touches||e.touches.length!==1)return;
-      var t=e.touches[0],dy=t.clientY-startY,dx=t.clientX-touchX;
-      if(Math.abs(dx)>Math.abs(dy)){resetGesture();return;}
-      if(startedAtPopupTop&&dy>0){
-        if(e.cancelable)e.preventDefault();
-        pullReady=dy>=64;
-        pullIndicator.classList.toggle('is-ready',pullReady);
-        pullIndicator.textContent=pullReady?'↻ Release to refresh':'↓ Pull to refresh';
-      }else if(startedInList){
-        if(e.cancelable)e.preventDefault();
-        list.scrollTop=Math.max(0,startListTop-dy);
-      }
-    },{capture:true,passive:false});
-    document.addEventListener('touchend',function(){
-      if(touchY===null)return;
-      var shouldRefresh=pullReady;
-      resetGesture();
-      if(shouldRefresh&&!refreshing){
-        refreshing=true;
-        pullIndicator.classList.add('is-ready');
-        pullIndicator.classList.add('is-refreshing');
-        pullIndicator.textContent='Refreshing…';
-        try{sessionStorage.setItem(key,'1');}catch(err){}
-        setTimeout(function(){window.location.reload();},1000);
-      }
-    },{capture:true,passive:true});
-    document.addEventListener('touchcancel',resetGesture,{capture:true,passive:true});
-  }
+      // Custom pull-to-refresh removed; native page refresh is not intercepted.
   try{if(sessionStorage.getItem(key)==='1')show();}catch(e){}
 })();
 </script>
@@ -884,6 +827,28 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 }
 #ng-profile-backdrop.ng-profile-backdrop{position:fixed!important;inset:0!important;z-index:1001!important;background:rgba(0,5,18,.68)!important;backdrop-filter:blur(2px)!important}
 @media(max-width:380px){#ng-profile-menu.ng-profile-menu{width:calc(100vw - 24px)!important;max-width:calc(100vw - 24px)!important;max-height:80dvh!important}}
+</style>
+
+<style id="ng-profile-narrow-fullheight-v4">
+@media(max-width:700px){
+ body.ng-profile-open .ng-profile-backdrop{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;background:#06122f!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;z-index:9998!important;}
+ body.ng-profile-open #ng-profile-menu.ng-profile-menu{
+  position:fixed!important;top:0!important;bottom:0!important;left:50%!important;right:auto!important;inset-block:0!important;inset-inline:auto auto!important;
+  transform:translateX(-50%)!important;box-sizing:border-box!important;
+  width:75vw!important;max-width:290px!important;min-width:0!important;
+  height:100dvh!important;max-height:100dvh!important;margin:0!important;
+  padding:calc(12px + env(safe-area-inset-top,0px)) 10px calc(10px + env(safe-area-inset-bottom,0px))!important;
+  overflow:hidden!important;display:flex!important;flex-direction:column!important;
+  border:1px solid #174a83!important;border-radius:0!important;
+  background:linear-gradient(155deg,#061a3b,#030b24 72%)!important;
+  box-shadow:0 0 24px #0008!important;z-index:9999!important;
+ }
+ body.ng-profile-open #ng-profile-menu.ng-profile-menu.is-open{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateX(-50%)!important}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account{flex:0 0 auto!important;min-width:0!important;gap:7px!important;padding:3px 0 10px!important}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account-actions{flex:0 0 auto!important;grid-template-columns:minmax(0,1fr)!important;gap:7px!important;padding:5px 0 10px!important}
+ body.ng-profile-open #ng-profile-menu .ng-profile-account-actions button{min-height:42px!important;white-space:normal!important;font-size:12px!important;padding:5px!important}
+ body.ng-profile-open #ng-profile-menu .ng-profile-links{flex:1 1 auto!important;min-height:0!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}
+}
 </style>
 </body>
 </html>
