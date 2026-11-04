@@ -1,9 +1,11 @@
 (function(){
   'use strict';
-  // Keep the profile menu closed on page refresh; do not restore stale menu state.
-  if (!window.supabase || !window.NEXTGEN_SUPABASE_CONFIG) return;
-  const client = window.NGAuthClient || window.supabase.createClient(window.NEXTGEN_SUPABASE_CONFIG.url, window.NEXTGEN_SUPABASE_CONFIG.anonKey);
-  window.NGAuthClient = client;
+  // Pages may include this script more than once; initialize auth/workspace only once.
+  if (window.NGWorkspace && window.NGWorkspace.__initialized) return;
+  if (!window.supabase || !window.NEXTGEN_SUPABASE_CONFIG || typeof window.getNextGenSupabaseClient !== 'function') return;
+  let client;
+  try { client = window.getNextGenSupabaseClient(); }
+  catch (error) { console.error('NextGen shared auth initialization failed:', error); return; }
   const $ = id => document.getElementById(id);
   const main = document.querySelector('.app main');
   const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -506,6 +508,7 @@
     return user;
   }
   window.NGWorkspace={
+    __initialized:true,
     client,
     getUser:()=>user,
     syncAuthState,
