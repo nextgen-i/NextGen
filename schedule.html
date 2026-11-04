@@ -842,6 +842,24 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 .ng-menu-section-title{margin:0 4px!important}
 .ng-menu-shortcuts{padding:0 2px 4px!important}
 </style>
+
+<style id="ng-profile-compact-right-panel-v1">
+/* Compact right-side profile panel, proportioned like the hamburger drawer. */
+.ng-profile-menu{
+  box-sizing:border-box!important;
+  left:auto!important;
+  right:8px!important;
+  width:min(360px,88vw)!important;
+  max-width:calc(100vw - 16px)!important;
+  max-height:calc(100dvh - 112px)!important;
+  overflow-y:auto!important;
+  transform:translateX(14px)!important;
+  border-radius:16px!important;
+  transition:opacity .18s ease,transform .18s ease,visibility .18s ease!important;
+}
+.ng-profile-menu.is-open{transform:translateX(0)!important}
+@media(max-width:380px){.ng-profile-menu{right:6px!important;width:88vw!important;max-width:calc(100vw - 12px)!important}}
+</style>
 </body>
 </html>
 
