@@ -54,13 +54,23 @@
     authPanel.append(title,authMessage,input,passwordWrap,button);
     drawer.append(authPanel);
   }
+  async function signOutAndVerify(){
+    const result=await client.auth.signOut({scope:'local'});
+    if(result.error)throw result.error;
+    const verification=await client.auth.getSession();
+    if(verification.error)throw verification.error;
+    if(verification.data&&verification.data.session)throw new Error('The session is still active. Please try again.');
+    user=null;
+    showAuth();
+    return {error:null};
+  }
   function setSignedIn(){
     if(!authPanel)return;
     authPanel.innerHTML='';
     const title=document.createElement('strong');title.textContent='NextGen Account';title.style.cssText='display:block;margin-bottom:6px;color:#fff;font-size:14px';
     const info=document.createElement('p');info.className='muted';info.textContent='Signed in as '+(user.email||'authenticated user');info.style.cssText='font-size:12px;line-height:1.45;margin:0 0 9px;color:#a8c1e8;overflow-wrap:anywhere';
     const button=document.createElement('button');button.type='button';button.textContent='Sign out';button.style.cssText='width:100%;min-height:40px;padding:8px 12px;border:1px solid #285a89;border-radius:9px;background:#10213d;color:#fff;font-weight:700';
-    button.addEventListener('click',async()=>{button.disabled=true;const {error}=await client.auth.signOut({scope:'local'});if(error){button.disabled=false;info.textContent='Could not sign out: '+error.message;}});
+    button.addEventListener('click',async()=>{button.disabled=true;try{await signOutAndVerify();info.textContent='Signed out.';}catch(error){button.disabled=false;info.textContent='Could not sign out: '+(error&&error.message?error.message:'Please try again.');}});
     authPanel.append(title,info,button);
   }
   async function requireUser(){
@@ -422,13 +432,7 @@
           if(item.dataset.signingOut==='true')return;
           item.dataset.signingOut='true';
           try{
-            const {error}=await client.auth.signOut({scope:'local'});
-            if(error)throw error;
-            const verification=await client.auth.getSession();
-            if(verification.error)throw verification.error;
-            if(verification.data&&verification.data.session)throw new Error('The session is still active. Please try again.');
-            user=null;
-            showAuth();
+            await signOutAndVerify();
             location.replace('./login.html#options');
           }catch(error){
             item.setAttribute('aria-label','Logout failed — '+(error&&error.message?error.message:'try again'));
@@ -529,7 +533,7 @@
     syncAuthState,
     refresh,
     signIn:async email=>client.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}}),
-    signOut:()=>client.auth.signOut({scope:'local'})
+    signOut:signOutAndVerify
   };
 
   bindPage();
