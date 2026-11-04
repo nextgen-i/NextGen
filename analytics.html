@@ -1264,7 +1264,20 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
 .ng-menu-main-links a span{font-size:35px!important;line-height:1!important;width:40px!important;flex:0 0 40px!important;}
 </style>
-<style id="ng-menu-reference-line-icons">.ng-menu-main-links a span.ng-point-icon{width:40px!important;flex:0 0 40px!important;height:40px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;color:#26caff!important;font-size:initial!important;line-height:1!important}.ng-menu-main-links a span.ng-point-icon svg{width:35px!important;height:35px!important;display:block!important;fill:none!important;stroke:currentColor!important;stroke-width:2.6!important;stroke-linecap:round!important;stroke-linejoin:round!important;overflow:visible!important}</style>
+<style id="ng-menu-reference-line-icons">.ng-menu-main-links a span.ng-point-icon{width:40px!important;flex:0 0 40px!important;height:40px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;color:#26caff!important;font-size:initial!important;line-height:1!important}.ng-menu-main-links a span.ng-point-icon svg{width:35px!important;height:35px!important;display:block!important;fill:none!important;stroke:currentColor!important;stroke-width:2.6!important;stroke-linecap:round!important;stroke-linejoin:round!important;overflow:visible!important}
+/* Mobile end-of-page clearance: keep final text lines above fixed bottom navigation. */
+@media(max-width:899px){
+  html body .app>main{
+    flex:1 1 auto!important;
+    min-height:0!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important;
+    scroll-padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important;
+  }
+}
+</style>
 <style id="ng-master-design-unified-v1">
 /* Unified Master Design — Dashboard is the approved visual reference. Header, logo, hamburger and footer only. */
 html body .app>header{
