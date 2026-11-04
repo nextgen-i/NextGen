@@ -637,20 +637,7 @@ body.ng-header-popup-open{overflow:hidden}
  }
  syncHamburgerAuth(!!(window.NGWorkspace&&window.NGWorkspace.getUser&&window.NGWorkspace.getUser()));
  window.addEventListener('nextgen-auth-state',function(e){syncHamburgerAuth(!!(e.detail&&e.detail.signedIn));});
- if(authLink&&!authLink.dataset.authBound){
-   authLink.dataset.authBound='1';
-   authLink.addEventListener('click',function(e){
-     if(authLink.getAttribute('href')!=='#')return;
-     e.preventDefault();
-     if(window.NGWorkspace&&window.NGWorkspace.signOut){
-       authLink.style.pointerEvents='none';
-       window.NGWorkspace.signOut().then(function(result){
-         if(result&&result.error){authLink.style.pointerEvents='';return;}
-         syncHamburgerAuth(false);authLink.style.pointerEvents='';
-       }).catch(function(){authLink.style.pointerEvents='';});
-     }
-   });
- }
+ // Shared workspace auth handler owns Login/Logout clicks on every page.
  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeMenu);});
 })();
 </script>
