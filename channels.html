@@ -1015,6 +1015,10 @@ html body .app main>footer.ng-shared-footer>.ng-credit{font-size:10px!important;
 }
 #ng-profile-menu.ng-profile-menu.is-open{transform:scale(1)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
 body.ng-profile-open{overflow:hidden!important}
+body.ng-profile-open>.app>header,body.ng-profile-open .app>header,
+body.ng-profile-open nav.ng-bottom-nav,body.ng-profile-open>.app>nav.ng-bottom-nav{
+  display:flex!important;visibility:visible!important;pointer-events:auto!important;
+}
 #ng-profile-backdrop.ng-profile-backdrop[hidden]{display:none!important}
 body.ng-profile-open #ng-profile-backdrop.ng-profile-backdrop{
   position:fixed!important;inset:0!important;z-index:9998!important;display:block!important;
@@ -1084,6 +1088,10 @@ body.ng-profile-open #ng-profile-backdrop.ng-profile-backdrop{
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
  window.addEventListener('load',init,{once:true});
+ if(document.body&&window.MutationObserver){
+   var menuObserver=new MutationObserver(init);
+   menuObserver.observe(document.body,{childList:true,subtree:true});
+ }
 })();
 </script>
 
