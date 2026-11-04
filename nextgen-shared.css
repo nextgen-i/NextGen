@@ -532,8 +532,8 @@ body.ng-profile-open #ng-profile-menu .ng-profile-account > .ng-profile-popup-ba
   }
   body.ng-profile-open #ng-profile-menu .ng-profile-account-actions,
   body.ng-profile-open #ng-profile-menu .ng-profile-links{
-    margin-left:18px!important;
-    width:calc(100% - 18px)!important;
+    margin-left:0!important;
+    width:100%!important;
   }
 }
 
