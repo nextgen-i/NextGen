@@ -693,3 +693,55 @@ html body .app>main{
  body.ng-profile-open #ng-profile-menu .ng-profile-account-actions button{font-size:14px!important;font-weight:750!important;border-width:.7px!important;padding-left:2px!important;padding-right:2px!important;gap:4px!important;}
  body.ng-profile-open #ng-profile-menu .ng-profile-account-actions button svg{width:21px!important;height:21px!important;flex-basis:21px!important;}
 }
+
+/* FINAL PROFILE DRAWER — anchored to profile icon, native refresh chaining */
+@media(max-width:700px){
+ #ng-profile-menu.ng-profile-menu{
+  position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:auto!important;
+  width:80vw!important;max-width:315px!important;min-width:0!important;height:100dvh!important;max-height:100dvh!important;
+  margin:0!important;padding:calc(8px + env(safe-area-inset-top,0px)) 0 calc(8px + env(safe-area-inset-bottom,0px))!important;
+  box-sizing:border-box!important;display:block!important;overflow-x:hidden!important;overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;overscroll-behavior-y:auto!important;touch-action:pan-y!important;
+  border:0!important;outline:0!important;border-radius:0!important;
+  background:linear-gradient(155deg,#061a3b,#030b24 72%)!important;
+  box-shadow:-10px 0 28px #0008!important;z-index:10002!important;
+  transform:translateX(100%) scale(.06)!important;transform-origin:var(--ng-profile-origin,calc(100% - 24px) 80px)!important;
+  opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+  transition:transform .28s cubic-bezier(.2,.75,.25,1),opacity .18s ease,visibility 0s linear .28s!important;
+ }
+ #ng-profile-menu.ng-profile-menu.is-open{
+  transform:translateX(0) scale(1)!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important;
+  transition:transform .28s cubic-bezier(.2,.75,.25,1),opacity .18s ease,visibility 0s!important;
+ }
+ #ng-profile-backdrop{position:fixed!important;inset:0!important;z-index:10001!important;background:#020718b8!important;backdrop-filter:none!important}
+ #ng-profile-menu .ng-profile-account{
+  display:flex!important;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important;
+  gap:6px!important;width:100%!important;box-sizing:border-box!important;
+  margin:0!important;padding:8px 5px 12px 0!important;
+ }
+ #ng-profile-menu .ng-profile-popup-back{display:none!important}
+ #ng-profile-menu .ng-profile-brand-avatar{order:0!important;flex:0 0 54px!important;width:54px!important;height:54px!important}
+ #ng-profile-menu .ng-profile-account-copy{order:1!important;flex:1 1 0!important;min-width:0!important;max-width:none!important;overflow:hidden!important}
+ #ng-profile-menu .ng-profile-edit{order:2!important;position:static!important;flex:0 0 26px!important;width:26px!important;margin:0!important;padding:2px!important}
+ #ng-profile-menu .ng-profile-popup-close{
+  order:3!important;position:static!important;inset:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 32px!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;
+  margin:0 0 0 auto!important;padding:0!important;border:0!important;border-radius:50%!important;background:transparent!important;
+  color:#fff!important;font-size:29px!important;line-height:1!important;
+ }
+ #ng-profile-menu .ng-profile-account-actions{
+  display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:stretch!important;
+  gap:6px!important;width:100%!important;box-sizing:border-box!important;padding:4px 0 12px!important;margin:0!important;
+ }
+ #ng-profile-menu .ng-profile-account-actions button{
+  display:flex!important;flex:1 1 0!important;min-width:0!important;width:50%!important;max-width:50%!important;min-height:46px!important;
+  align-items:center!important;justify-content:center!important;gap:5px!important;padding:5px 3px!important;
+  white-space:nowrap!important;font-size:14px!important;font-weight:750!important;border-width:.7px!important;
+ }
+ #ng-profile-menu .ng-profile-account-actions button svg{width:21px!important;height:21px!important;flex:0 0 21px!important}
+ #ng-profile-menu .ng-profile-links{
+  display:flex!important;flex-direction:column!important;flex:0 0 auto!important;min-height:0!important;
+  overflow:visible!important;overscroll-behavior-y:auto!important;touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch!important;margin:0!important;padding:0!important;width:100%!important;max-width:100%!important;
+ }
+}
