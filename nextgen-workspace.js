@@ -738,6 +738,12 @@
     if(!drawer||drawer.dataset.drawerPullRefreshV2==='1')return;
     drawer.dataset.drawerPullRefreshV2='1';
 
+    /* Apply critical gesture settings inline: later page-level CSS was overriding
+       the injected stylesheet and restoring touch-action:pan-y. */
+    drawer.style.setProperty('touch-action','pan-x','important');
+    drawer.style.setProperty('-webkit-overflow-scrolling','auto','important');
+    drawer.style.setProperty('overscroll-behavior-y','contain','important');
+
     var indicator=document.createElement('div');
     indicator.className='ng-drawer-pull-refresh';
     indicator.setAttribute('role','status');
