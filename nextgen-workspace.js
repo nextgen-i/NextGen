@@ -7,10 +7,10 @@
   style.textContent=
     'html{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important;}'+
     'body{height:auto!important;min-height:100%!important;overflow:visible!important;overscroll-behavior-y:auto!important;}'+
-    '.app{height:auto!important;min-height:100dvh!important;overflow:visible!important;}'+
-    '.app>main{flex:1 0 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important;overscroll-behavior-y:auto!important;touch-action:auto!important;-webkit-overflow-scrolling:touch!important;}'+
-    '.app>header{position:sticky!important;top:0!important;}'+
-    '.app>nav{position:sticky!important;bottom:0!important;margin-top:auto!important;}'+
+    'html body .app{height:auto!important;min-height:100dvh!important;overflow:visible!important;}'+
+    'html body .app>main{flex:1 0 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important;overscroll-behavior-y:auto!important;touch-action:auto!important;-webkit-overflow-scrolling:touch!important;}'+
+    'html body .app>header{position:sticky!important;top:0!important;}'+
+    'html body .app>nav,html body .app nav.ng-bottom-nav{position:sticky!important;bottom:0!important;margin-top:auto!important;}'+
     'body.ng-menu-open{overflow:hidden!important;}';
   (document.head||document.documentElement).appendChild(style);
 })();
