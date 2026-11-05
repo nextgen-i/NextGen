@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#06152b">
+<title>NextGen – Mobile Number Update</title>
+<style>
+:root{color-scheme:dark;--bg:#06152b;--panel:#0a2342;--line:#174c83;--cyan:#25caff;--text:#f3f8ff;--muted:#a9bfd8}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+body{min-height:100vh;display:flex;flex-direction:column}
+header{height:46px;min-height:46px;display:flex;align-items:center;gap:12px;padding:0 14px;background:#071a33;border-bottom:1px solid var(--line)}
+.back{width:30px;height:30px;display:grid;place-items:center;border:1px solid #167ac0;border-radius:50%;color:var(--cyan);text-decoration:none;font-size:22px;line-height:1}
+.brand{font-size:18px;font-weight:750;letter-spacing:.3px}
+.brand small{display:block;margin-top:1px;color:var(--cyan);font-size:9px;font-weight:500;letter-spacing:.2px}
+main{width:min(560px,100%);margin:0 auto;padding:24px 16px;flex:1}
+h1{margin:0 0 8px;font-size:22px}
+.lead{margin:0 0 20px;color:var(--muted);font-size:14px;line-height:1.55}
+.panel{padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+label{display:block;margin:14px 0 7px;color:var(--muted);font-size:13px}
+.phone-row{display:grid;grid-template-columns:minmax(118px,36%) 1fr;gap:8px}
+input,select{width:100%;min-width:0;height:44px;padding:0 10px;border:1px solid var(--line);border-radius:9px;background:#06152b;color:var(--text);font:inherit}
+input:disabled,select:disabled{opacity:.7}
+button{width:100%;margin-top:12px;padding:12px;border:1px solid #167ac0;border-radius:9px;background:#123456;color:#a9bfd8;font-size:14px;font-weight:700;opacity:.65;cursor:not-allowed}
+.status{margin:14px 0 0;color:var(--muted);font-size:12px;line-height:1.6}
+footer{padding:13px 12px 15px;text-align:center;border-top:1px solid var(--line);color:#a9bfd8;font-size:11px;line-height:1.7}
+footer strong{display:block;color:var(--cyan);font-size:10px;letter-spacing:.2px}
+@media(min-width:600px){main{padding-top:34px}}
+</style>
+</head>
+<body>
+<header><a class="back" href="./privacy-settings.html" aria-label="Back to Privacy Settings">‹</a><div class="brand">NextGen<small>Smart Automation. Smarter Growth.</small></div></header>
+<main>
+<h1>Mobile Number Update</h1>
+<p class="lead">Link and verify a mobile number on your existing signed-in NextGen account. This will not create a separate account.</p>
+<section class="panel" aria-label="Mobile number verification">
+<label for="country-code">Country code and mobile number</label>
+<div class="phone-row">
+<select id="country-code" disabled aria-label="Country code"><option value="+91" selected>India (+91)</option></select>
+<input id="mobile-number" type="tel" inputmode="tel" autocomplete="tel" placeholder="Enter mobile number" disabled>
+</div>
+<button type="button" disabled>Send Verification OTP</button>
+<label for="verification-code">Verification OTP</label>
+<input id="verification-code" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter OTP" disabled>
+<button type="button" disabled>Verify and Update Number</button>
+<p class="status" role="status">Mobile number linking and OTP/SMS verification are pending. These controls are intentionally disabled for now. Google Account sign-in remains the active login method.</p>
+</section>
+</main>
+<footer>©2026 NextGen. All Rights Reserved.<strong>Powered by ABDUS SATTAR</strong></footer>
+</body>
+</html>
