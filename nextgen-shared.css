@@ -673,3 +673,9 @@ html body .ng-menu-drawer #ng-menu-close{display:grid!important;place-items:cent
 html body .app>header #ng-hamburger{flex:0 0 48px!important;width:48px!important;min-width:48px!important;height:48px!important;min-height:48px!important;padding:0!important;margin:0 10px 0 0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:7px!important;background:#fff!important;background-color:#fff!important;border:1px solid #e5e7eb!important;border-radius:50%!important;box-shadow:0 2px 8px rgba(0,0,0,.16)!important;}
 html body .app>header #ng-hamburger span{display:block!important;flex:0 0 4px!important;width:32px!important;height:4px!important;min-height:4px!important;transform:none!important;border-radius:999px!important;background:#111!important;}
 html body .app>header #ng-hamburger span:nth-child(2){width:22px!important;}
+
+
+/* Exact compact reference menu: small white circle, two left-aligned black bars. */
+html body .app>header #ng-hamburger{flex:0 0 26px!important;width:26px!important;min-width:26px!important;height:26px!important;min-height:26px!important;padding:0 0 0 4px!important;margin:0 8px 0 0!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:4px!important;box-sizing:border-box!important;background:#fff!important;background-color:#fff!important;border:1px solid #e5e7eb!important;border-radius:50%!important;box-shadow:0 1px 4px rgba(0,0,0,.12)!important;}
+html body .app>header #ng-hamburger span{display:block!important;flex:0 0 2.5px!important;height:2.5px!important;min-height:2.5px!important;width:14px!important;transform:none!important;border-radius:999px!important;background:#111!important;}
+html body .app>header #ng-hamburger span:nth-child(2){width:10px!important;}
