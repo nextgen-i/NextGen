@@ -725,3 +725,14 @@ html body .app>header #ng-hamburger span:nth-child(2){width:10px!important;}
 .ng-menu-drawer .ng-menu-shortcuts a span{width:66px!important;height:66px!important;border-radius:15px!important;font-size:20px!important;}
 .ng-menu-drawer .ng-menu-shortcuts a small{font-size:12px!important;max-width:86px!important;}
 @media(max-width:380px){.ng-menu-drawer .ng-menu-reference-card{height:84px!important;padding:8px!important;gap:7px!important;border-radius:19px!important}.ng-menu-drawer .ng-menu-user-avatar{width:48px!important;height:48px!important;flex-basis:48px!important}.ng-menu-drawer .ng-menu-profile-name-wrap strong{font-size:15px!important}.ng-menu-drawer .ng-menu-channel-switch{width:46px!important;height:52px!important;flex-basis:46px!important}.ng-menu-drawer .ng-menu-channel-logo{width:36px!important;height:36px!important}.ng-menu-drawer .ng-menu-channel-refresh{width:46px!important;height:52px!important}.ng-menu-drawer .ng-menu-profile-dropdown{width:42px!important;height:42px!important;flex-basis:42px!important}.ng-menu-drawer .ng-menu-profile-dropdown svg{width:26px!important;height:26px!important}.ng-menu-drawer .ng-menu-reference-top{gap:5px!important}.ng-menu-drawer #ng-menu-close{width:32px!important;flex-basis:32px!important}}
+
+
+/* HAMBURGER DRAWER THEME MATCH — remove white surfaces only inside drawer */
+.ng-menu-drawer .ng-menu-reference-card{background:linear-gradient(145deg,#102b55 0%,#081a3b 58%,#06132e 100%)!important;color:#edf7ff!important;border:1px solid #1d70a8!important;box-shadow:0 5px 18px rgba(0,0,0,.34),inset 0 0 0 1px rgba(65,190,255,.08)!important;}
+.ng-menu-drawer .ng-menu-profile-name-wrap strong{color:#f4f9ff!important;}
+.ng-menu-drawer .ng-menu-profile-name-wrap small{color:#9db9dc!important;}
+.ng-menu-drawer .ng-menu-user-avatar{background:#071936!important;border:2px solid #28b9ed!important;box-shadow:0 0 0 2px rgba(39,145,255,.2)!important;}
+.ng-menu-drawer .ng-menu-channel-refresh{stroke:#69d9ff!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown{background:linear-gradient(145deg,#173b68,#0a1d40)!important;border:1px solid #276da2!important;color:#eaf8ff!important;box-shadow:0 2px 9px rgba(0,0,0,.25)!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown svg{stroke:#eaf8ff!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown span{background:#e52b50!important;color:#fff!important;}
