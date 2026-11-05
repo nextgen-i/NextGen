@@ -66,6 +66,71 @@
         if(chevron)chevron.textContent=expanded?"⌄":"⌃";
       });
     });
+    // Drawer-only pull-to-refresh: reloads this menu component without refreshing its host page.
+    var pullStartY=null,pullDistance=0,pullActive=false,pullBusy=false;
+    function refreshDrawerOnly(){
+      if(pullBusy)return;
+      pullBusy=true;
+      var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");
+      if(indicator){indicator.classList.add("is-refreshing");var label=indicator.querySelector(".ng-drawer-refresh-label");if(label)label.textContent="Refreshing menu…";}
+      fetch("./hamburger-menu.html?v="+Date.now(),{cache:"no-store"})
+        .then(function(response){if(!response.ok)throw new Error("Menu refresh failed");return response.text();})
+        .then(function(markup){
+          var parsed=document.createElement("div");parsed.innerHTML=markup;
+          var freshDrawer=parsed.querySelector("#ng-menu-drawer");
+          if(!freshDrawer)throw new Error("Updated menu markup unavailable");
+          drawer.innerHTML=freshDrawer.innerHTML;
+          if(!drawer.dataset.refreshDelegation){
+            drawer.dataset.refreshDelegation="1";
+            drawer.addEventListener("click",function(event){
+              var target=event.target;
+              var profile=target.closest&&target.closest("#ng-menu-profile-switch");
+              if(profile){var expanded=profile.getAttribute("aria-expanded")==="true";profile.setAttribute("aria-expanded",String(!expanded));var shortcuts=drawer.querySelector(".ng-menu-shortcuts");if(shortcuts)shortcuts.classList.toggle("ng-profiles-expanded",!expanded);return;}
+              var accordion=target.closest&&target.closest(".ng-menu-accordion-trigger");
+              if(accordion){var panel=accordion.nextElementSibling;if(panel){var open=accordion.getAttribute("aria-expanded")==="true";accordion.setAttribute("aria-expanded",String(!open));panel.hidden=open;var chevron=accordion.querySelector("i");if(chevron)chevron.textContent=open?"⌄":"⌃";}return;}
+              var more=target.closest&&target.closest("#ng-menu-see-less");
+              if(more){var links=drawer.querySelector(".ng-menu-main-links");if(links){var collapsed=links.classList.toggle("is-collapsed");more.textContent=collapsed?"See more":"See less";}return;}
+              var auth=target.closest&&target.closest(".ng-menu-logout");
+              if(auth&&auth.getAttribute("href")==="#"){event.preventDefault();if(window.NGWorkspace&&typeof window.NGWorkspace.signOut==="function"){auth.style.pointerEvents="none";window.NGWorkspace.signOut().then(function(result){auth.style.pointerEvents="";if(!(result&&result.error))syncAuthMenu(false);}).catch(function(){auth.style.pointerEvents="";});}return;}
+              var link=target.closest&&target.closest("a[href]");
+              if(link&&link.getAttribute("href")!=="#")closeMenu();
+            });
+          }
+          syncProfileHeader();syncFromWorkspace();
+          drawer.scrollTop=0;
+        })
+        .catch(function(error){console.error("NextGen hamburger menu refresh:",error);})
+        .finally(function(){
+          pullBusy=false;pullActive=false;pullStartY=null;pullDistance=0;
+          var current=drawer.querySelector("#ng-drawer-refresh-indicator");
+          if(current){current.classList.remove("is-refreshing","is-pulling");current.style.height="0px";var label=current.querySelector(".ng-drawer-refresh-label");if(label)label.textContent="Pull to refresh";}
+        });
+    }
+    drawer.addEventListener("touchstart",function(event){
+      if(pullBusy||!drawer.classList.contains("is-open")||drawer.scrollTop>0||!event.touches||event.touches.length!==1)return;
+      pullStartY=event.touches[0].clientY;pullDistance=0;pullActive=true;
+    },{passive:true});
+    drawer.addEventListener("touchmove",function(event){
+      if(!pullActive||pullStartY===null||pullBusy||!event.touches||event.touches.length!==1)return;
+      var delta=event.touches[0].clientY-pullStartY;
+      if(delta<=0){pullActive=false;return;}
+      if(drawer.scrollTop>0){pullActive=false;return;}
+      pullDistance=Math.min(delta,90);
+      var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");
+      if(indicator){indicator.classList.add("is-pulling");indicator.style.height=Math.min(42,pullDistance*.48)+"px";var label=indicator.querySelector(".ng-drawer-refresh-label");if(label)label.textContent=pullDistance>=72?"Release to refresh":"Pull to refresh";}
+      if(event.cancelable)event.preventDefault();
+    },{passive:false});
+    drawer.addEventListener("touchend",function(){
+      if(!pullActive)return;
+      if(pullDistance>=72)refreshDrawerOnly();
+      else{var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");if(indicator){indicator.classList.remove("is-pulling");indicator.style.height="0px";}}
+      pullActive=false;pullStartY=null;pullDistance=0;
+    },{passive:true});
+    drawer.addEventListener("touchcancel",function(){
+      pullActive=false;pullStartY=null;pullDistance=0;
+      var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");
+      if(indicator){indicator.classList.remove("is-pulling");indicator.style.height="0px";}
+    },{passive:true});
     var seeLess=document.getElementById("ng-menu-see-less");
     var mainLinks=drawer.querySelector(".ng-menu-main-links");
     if(seeLess&&mainLinks){
@@ -77,13 +142,14 @@
     if(mainLinks){mainLinks.querySelectorAll('a[href*="login.html"],a[href*="logout"]').forEach(function(link){link.remove();});}
     var authLink=drawer.querySelector(".ng-menu-logout");
     function syncAuthMenu(signedIn){
-      if(!authLink)return;
-      authLink.textContent=signedIn?"↪ Logout":"↪ Login";
-      authLink.href=signedIn?"#":"./login.html";
-      authLink.setAttribute("aria-label",signedIn?"Logout":"Login");
-      authLink.classList.add("ng-menu-login-active");
-      authLink.removeAttribute("disabled");
-      authLink.removeAttribute("aria-disabled");
+      var currentAuthLink=drawer.querySelector(".ng-menu-logout");
+      if(!currentAuthLink)return;
+      currentAuthLink.textContent=signedIn?"↪ Logout":"↪ Login";
+      currentAuthLink.href=signedIn?"#":"./login.html";
+      currentAuthLink.setAttribute("aria-label",signedIn?"Logout":"Login");
+      currentAuthLink.classList.add("ng-menu-login-active");
+      currentAuthLink.removeAttribute("disabled");
+      currentAuthLink.removeAttribute("aria-disabled");
     }
     function syncFromWorkspace(){
       syncAuthMenu(!!(window.NGWorkspace&&typeof window.NGWorkspace.getUser==="function"&&window.NGWorkspace.getUser()));
