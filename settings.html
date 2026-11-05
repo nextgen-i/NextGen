@@ -632,7 +632,7 @@ html,body{height:100%;overflow:hidden!important}
  close.addEventListener('click',closeMenu);
  backdrop.addEventListener('click',closeMenu);
  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
- try{if(sessionStorage.getItem('ngNextGenMenuOpen')==='1')openMenu();}catch(e){}
+ try{sessionStorage.removeItem('ngNextGenMenuOpen');}catch(e){}
  var mainLinks=drawer.querySelector('.ng-menu-main-links');
  if(mainLinks){mainLinks.querySelectorAll('a[href*="login.html"],a[href*="logout"]').forEach(function(a){a.remove();});}
  var authLink=drawer.querySelector('.ng-menu-logout');
