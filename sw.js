@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v88-profile-pull-refresh";
+const CACHE_NAME = "nextgen-shell-v89-native-pull-refresh";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -51,6 +51,22 @@ self.addEventListener("fetch", event => {
   // Auth configuration must always be fetched fresh; never serve a cached project URL.
   if (/\/supabase-config\.js(?:\?|$)/i.test(new URL(request.url).pathname + new URL(request.url).search)) {
     event.respondWith(fetch(request.url, { cache: "no-store" }));
+    return;
+  }
+
+  // Shared workspace runtime is network-first so global behavior fixes are not trapped in a stale JS cache.
+  if (/nextgen-workspace\\.js(?:\\?|$)/i.test(new URL(request.url).pathname + new URL(request.url).search)) {
+    event.respondWith(
+      fetch(request.url, { cache: "no-store" })
+        .then(response => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(request))
+    );
     return;
   }
 
