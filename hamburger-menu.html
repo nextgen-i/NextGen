@@ -1,5 +1,15 @@
+<style id="ng-drawer-refresh-styles">
+#ng-menu-drawer{position:relative;overscroll-behavior-y:contain}
+#ng-menu-drawer .ng-drawer-refresh-indicator{height:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;color:#79d9ff;font:500 12px/1.2 system-ui,sans-serif;transition:height .16s ease;pointer-events:none}
+#ng-menu-drawer .ng-drawer-refresh-indicator.is-refreshing{height:48px}
+#ng-menu-drawer .ng-drawer-refresh-spinner{width:17px;height:17px;border:2px solid rgba(105,217,255,.25);border-top-color:#69d9ff;border-radius:50%;display:none;animation:ngDrawerRefreshSpin .7s linear infinite}
+#ng-menu-drawer .ng-drawer-refresh-indicator.is-refreshing .ng-drawer-refresh-spinner{display:block}
+#ng-menu-drawer .ng-drawer-refresh-indicator.is-pulling{height:42px}
+@keyframes ngDrawerRefreshSpin{to{transform:rotate(360deg)}}
+</style>
 <div class="ng-menu-backdrop" id="ng-menu-backdrop" hidden></div>
 <aside class="ng-menu-drawer ng-facebook-style-menu" id="ng-menu-drawer" aria-label="Navigation menu" aria-hidden="true">
+  <div class="ng-drawer-refresh-indicator" id="ng-drawer-refresh-indicator" aria-live="polite"><span class="ng-drawer-refresh-spinner" aria-hidden="true"></span><span class="ng-drawer-refresh-label">Pull to refresh</span></div>
   <div class="ng-menu-reference-top">
     <div class="ng-menu-reference-card">
       <img class="ng-menu-user-avatar" id="ng-menu-user-avatar" src="./profile-icon.jpg" alt="Profile photo">
