@@ -31,4 +31,36 @@ html body.ng-unified-subpage .ng-subpage-title{
 }
 @media(max-width:480px){html body.ng-unified-subpage .ng-subpage-title{font-size:25px!important;font-weight:900!important}}
 </style>
+<style id="ng-subpage-final-layout-fix">
+/* Override the shared app viewport lock only on secondary pages. */
+html body.ng-unified-subpage:has(> .app){
+ display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;
+ overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important;
+}
+html body.ng-unified-subpage .app{
+ display:block!important;position:relative!important;width:100%!important;max-width:430px!important;
+ height:auto!important;min-height:0!important;max-height:none!important;margin:0 auto!important;overflow:visible!important;
+}
+html body.ng-unified-subpage .app>header.subpage-header{
+ display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;
+ width:100%!important;height:70px!important;min-height:70px!important;max-height:70px!important;
+ align-items:center!important;justify-content:center!important;overflow:visible!important;
+}
+html body.ng-unified-subpage .app>header.subpage-header .ng-subpage-back,
+html body.ng-unified-subpage .app>header.subpage-header .ng-subpage-title{
+ display:grid!important;visibility:visible!important;opacity:1!important;
+}
+html body.ng-unified-subpage .app>header.subpage-header .ng-subpage-title{
+ display:block!important;position:absolute!important;left:50%!important;top:50%!important;
+ transform:translate(-50%,-50%)!important;width:max-content!important;max-width:calc(100% - 112px)!important;
+ color:#fff!important;font-size:25px!important;font-weight:900!important;line-height:1.15!important;
+ text-align:center!important;white-space:nowrap!important;text-shadow:2px 2px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000!important;
+}
+html body.ng-unified-subpage .app>main{
+ display:block!important;position:relative!important;flex:none!important;width:100%!important;max-width:720px!important;
+ height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;
+ touch-action:pan-y!important;overscroll-behavior-y:auto!important;-webkit-overflow-scrolling:touch!important;
+}
+html body.ng-unified-subpage footer,html body.ng-unified-subpage nav.ng-bottom-nav,html body.ng-unified-subpage .app>nav{display:none!important}
+</style>
 </head><body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Accounts Center</strong></header><main><p class="lead">Review the account currently signed in to NextGen. This page displays account information only; it does not change your Google or Supabase security settings.</p><section class="card"><h2>Account information</h2><div class="row"><span>Account name</span><span class="value" id="name">Loading…</span></div><div class="row"><span>Email</span><span class="value" id="email">Loading…</span></div><div class="row"><span>Account ID</span><span class="value" id="uid">—</span></div><p class="status" id="state" role="status">Checking sign-in status…</p></section><section class="card"><h2>Security and privacy</h2><a class="link" href="./login.html">Sign-in and password help →</a><a class="link" href="./privacy-settings.html">Privacy Settings →</a><a class="link" href="./subscription-package.html">Subscriptions and payments →</a></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="./supabase-config.js?v=20261104-auth-rebuild-v1"></script><script> (async function(){var state=document.getElementById('state');try{if(!window.getNextGenSupabaseClient)throw new Error('Account service is unavailable.');var client=window.getNextGenSupabaseClient();var r=await client.auth.getUser();if(r.error)throw r.error;var u=r.data&&r.data.user;if(!u){state.textContent='No account is currently signed in. Sign in to view account details.';document.getElementById('name').textContent='Not signed in';document.getElementById('email').textContent='—';document.getElementById('uid').textContent='—';return;}var m=u.user_metadata||{};document.getElementById('name').textContent=m.full_name||m.name||m.display_name||'NextGen user';document.getElementById('email').textContent=u.email||'—';document.getElementById('uid').textContent=u.id?u.id.slice(0,8)+'…':'—';state.textContent='Signed-in account verified.';}catch(e){state.textContent='Could not load account details: '+(e.message||'Please try again.');}})();</script></body></html>
