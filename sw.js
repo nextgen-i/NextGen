@@ -55,7 +55,7 @@ self.addEventListener("fetch", event => {
   }
 
   // Shared workspace runtime is network-first so global behavior fixes are not trapped in a stale JS cache.
-  if (/nextgen-workspace\\.js(?:\\?|$)/i.test(new URL(request.url).pathname + new URL(request.url).search)) {
+  if (new URL(request.url).pathname.endsWith("/nextgen-workspace.js")) {
     event.respondWith(
       fetch(request.url, { cache: "no-store" })
         .then(response => {
