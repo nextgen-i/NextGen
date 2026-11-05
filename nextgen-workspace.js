@@ -735,7 +735,23 @@
 
   function mount(){
     var drawer=document.getElementById('ng-menu-drawer');
-    if(!drawer||drawer.dataset.drawerPullRefreshV1==='1')return;
+    if(!drawer){
+      // The shared Hamburger Menu is fetched and inserted asynchronously by
+      // hamburger-menu.js, so wait for its drawer instead of giving up at DOM ready.
+      if(!window.__ngHamburgerDrawerPullRefreshObserver){
+        var observer=new MutationObserver(function(){
+          if(document.getElementById('ng-menu-drawer')){
+            observer.disconnect();
+            window.__ngHamburgerDrawerPullRefreshObserver=null;
+            mount();
+          }
+        });
+        window.__ngHamburgerDrawerPullRefreshObserver=observer;
+        observer.observe(document.documentElement,{childList:true,subtree:true});
+      }
+      return;
+    }
+    if(drawer.dataset.drawerPullRefreshV1==='1')return;
     drawer.dataset.drawerPullRefreshV1='1';
 
     var indicator=document.createElement('div');
