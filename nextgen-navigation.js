@@ -74,7 +74,7 @@
   }
   window.NGNavigation = { version: 1, back: back, remember: rememberDestination };
   document.addEventListener("click", function (event) {
-    var backControl = event.target.closest && event.target.closest("[data-ng-back]");
+    var backControl = event.target.closest && event.target.closest("[data-ng-back],a.back,button[aria-label^=\"Back\" i],a[aria-label^=\"Back\" i],button[title^=\"Back\" i]");
     if (backControl) {
       event.preventDefault();
       back(backControl.getAttribute("data-ng-back-fallback") || "");
