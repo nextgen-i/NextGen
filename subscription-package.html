@@ -388,27 +388,29 @@ html,body{background-color:#030b24!important;background-image:none!important}
 .ng-menu-drawer .ng-point-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
 .ng-menu-main-links>a>span,.ng-menu-accordion-panel a .ng-point-icon{filter:drop-shadow(0 0 2px currentColor)}
 </style> 
-<style id="ng-subscription-page-shell-v2">
-/* Subscription page: visible compact header + normal document scrolling (native Android pull-to-refresh). */
+<style id="ng-subscription-page-shell-v3">
+/* Let the page itself own vertical scrolling; retain browser-native pull-to-refresh. */
 html,body.ng-subscription-page{
-  height:auto!important;min-height:100%!important;
+  display:block!important;width:100%!important;height:auto!important;
+  min-height:0!important;max-height:none!important;
   overflow-x:hidden!important;overflow-y:auto!important;
   overscroll-behavior-y:auto!important;
 }
-body.ng-subscription-page{padding:0 0 env(safe-area-inset-bottom,0px)!important}
+body.ng-subscription-page{
+  margin:0!important;padding:0 0 env(safe-area-inset-bottom,0px)!important;
+}
 body.ng-subscription-page .app{
   display:block!important;width:100%!important;max-width:430px!important;
-  height:auto!important;min-height:100vh!important;min-height:100dvh!important;
+  height:auto!important;min-height:0!important;max-height:none!important;
   margin:0 auto!important;overflow:visible!important;
 }
 body.ng-subscription-page .app>header.ng-subscription-header{
- display:flex!important;visibility:visible!important;opacity:1!important;
   display:flex!important;visibility:visible!important;opacity:1!important;
-  position:sticky!important;top:0!important;left:auto!important;right:auto!important;
+  position:relative!important;top:auto!important;left:auto!important;right:auto!important;
   z-index:100!important;width:100%!important;height:52px!important;min-height:52px!important;
   max-height:52px!important;box-sizing:border-box!important;
-  align-items:center!important;justify-content:flex-start!important;gap:12px!important;
-  padding:0 14px!important;background:#071633!important;
+  align-items:center!important;justify-content:center!important;gap:0!important;
+  padding:0 58px!important;background:#071633!important;
   border:0!important;border-bottom:1px solid rgba(77,157,225,.3)!important;
   border-radius:0!important;box-shadow:none!important;color:#fff!important;
 }
@@ -416,8 +418,8 @@ body.ng-subscription-page .app>header.ng-subscription-header::before,
 body.ng-subscription-page .app>header.ng-subscription-header::after{display:none!important;content:none!important}
 body.ng-subscription-page .ng-subscription-back{
   display:grid!important;visibility:visible!important;opacity:1!important;
-  place-items:center!important;flex:0 0 36px!important;
-  width:36px!important;min-width:36px!important;height:44px!important;
+  position:absolute!important;left:14px!important;top:50%!important;transform:translateY(-50%)!important;
+  place-items:center!important;width:36px!important;min-width:36px!important;height:44px!important;
   color:#fff!important;text-decoration:none!important;
 }
 body.ng-subscription-page .ng-subscription-back svg{
@@ -427,7 +429,10 @@ body.ng-subscription-page .ng-subscription-back svg{
 }
 body.ng-subscription-page .ng-subscription-header strong{
   display:block!important;visibility:visible!important;opacity:1!important;
-  color:#fff!important;font-size:18px!important;font-weight:750!important;line-height:1.2!important;
+  position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;
+  width:max-content!important;max-width:calc(100% - 112px)!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+  margin:0!important;color:#fff!important;font-size:18px!important;font-weight:750!important;line-height:1.2!important;text-align:center!important;
 }
 body.ng-subscription-page .app>main{
   display:block!important;width:100%!important;height:auto!important;min-height:0!important;
