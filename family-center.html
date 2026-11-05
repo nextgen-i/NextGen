@@ -63,4 +63,28 @@ html body.ng-unified-subpage .app>main{
 }
 html body.ng-unified-subpage footer,html body.ng-unified-subpage nav.ng-bottom-nav,html body.ng-unified-subpage .app>nav{display:none!important}
 </style>
+<style id="ng-subpage-header-outside-app-v1">
+html body.ng-unified-subpage{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important}
+html body.ng-unified-subpage>header.subpage-header{
+ display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:1000!important;
+ width:100%!important;height:70px!important;min-height:70px!important;max-height:70px!important;box-sizing:border-box!important;
+ align-items:center!important;justify-content:center!important;margin:0!important;padding:0 58px!important;
+ background:#050d2b!important;border:0!important;border-bottom:1px solid #1b2c52!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;
+}
+html body.ng-unified-subpage>header.subpage-header .ng-subpage-back{
+ display:grid!important;visibility:visible!important;opacity:1!important;position:absolute!important;left:18px!important;top:50%!important;transform:translateY(-50%)!important;
+ place-items:center!important;width:40px!important;height:44px!important;min-width:40px!important;margin:0!important;padding:0!important;
+ color:#fff!important;background:transparent!important;border:0!important;text-decoration:none!important;font-size:0!important;
+}
+html body.ng-unified-subpage>header.subpage-header .ng-subpage-back svg{display:block!important;width:30px!important;height:30px!important;fill:none!important;stroke:#fff!important;stroke-width:3!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+html body.ng-unified-subpage>header.subpage-header .ng-subpage-title{
+ display:block!important;visibility:visible!important;opacity:1!important;position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;
+ width:max-content!important;max-width:calc(100% - 112px)!important;margin:0!important;padding:0!important;
+ color:#fff!important;font-size:25px!important;font-weight:900!important;line-height:1.15!important;text-align:center!important;white-space:nowrap!important;
+ text-shadow:2px 2px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000!important;
+}
+html body.ng-unified-subpage .app{display:block!important;width:100%!important;max-width:430px!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0 auto!important;overflow:visible!important}
+html body.ng-unified-subpage .app>main{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
+@media(max-width:480px){html body.ng-unified-subpage>header.subpage-header .ng-subpage-title{font-size:24px!important}html body.ng-unified-subpage>header.subpage-header .ng-subpage-back{left:12px!important}}
+</style>
 </head><body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Family Center</strong></header><main><section class="card"><h2>Family and supervised accounts</h2><p>Family Center is not connected to a family-management or parental-supervision service yet. No family members are linked and no supervision controls are active.</p><p class="status">Status: Not configured</p></section><section class="card"><h2>What is available now?</h2><p>You can review your privacy settings and choose your default audience. Adding family members, invitations, approvals, and supervision controls will remain unavailable until a secure family-account system is implemented.</p><p><a href="./privacy-settings.html" style="color:#25caff">Open Privacy Settings →</a></p></section></main></body></html>
