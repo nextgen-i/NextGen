@@ -770,3 +770,33 @@ html body .app>header #ng-hamburger span:nth-child(2){width:10px!important;}
 .ng-menu-drawer .ng-menu-profile-dropdown{background:transparent!important;background-color:transparent!important;box-shadow:none!important;border:1px solid rgba(55,190,255,.28)!important;}
 .ng-menu-drawer .ng-menu-user-avatar{background:transparent!important;}
 .ng-menu-drawer .ng-menu-channel-switch{background:transparent!important;}
+
+
+/* COMPACT HAMBURGER ACCOUNT HEADER — reduce circle sizes and vertical spacing only */
+.ng-menu-drawer .ng-menu-reference-top{gap:2px!important;margin:0!important;padding:0!important;}
+.ng-menu-drawer .ng-menu-reference-card{
+  min-height:0!important;height:76px!important;padding:7px 9px!important;
+  gap:8px!important;border-radius:16px!important;
+  margin:0 0 2px!important;
+}
+.ng-menu-drawer .ng-menu-user-avatar{
+  width:48px!important;height:48px!important;flex:0 0 48px!important;
+}
+.ng-menu-drawer .ng-menu-profile-name-wrap{gap:1px!important;min-width:0!important;}
+.ng-menu-drawer .ng-menu-profile-name-wrap strong{font-size:14px!important;line-height:1.2!important;}
+.ng-menu-drawer .ng-menu-profile-name-wrap small{font-size:11px!important;line-height:1.2!important;}
+.ng-menu-drawer .ng-menu-channel-switch{
+  width:48px!important;height:48px!important;min-width:48px!important;flex:0 0 48px!important;
+  padding:3px!important;margin:0!important;
+}
+.ng-menu-drawer .ng-menu-channel-logo{width:38px!important;height:38px!important;font-size:15px!important;}
+.ng-menu-drawer .ng-menu-channel-refresh{width:38px!important;height:38px!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown{
+  width:40px!important;height:40px!important;min-width:40px!important;flex:0 0 40px!important;
+  margin:0!important;padding:0!important;
+}
+.ng-menu-drawer .ng-menu-profile-dropdown svg{width:22px!important;height:22px!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown span{
+  top:-4px!important;right:-4px!important;min-width:23px!important;height:23px!important;
+  font-size:11px!important;padding:0 3px!important;
+}
