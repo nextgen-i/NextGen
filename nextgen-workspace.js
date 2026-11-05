@@ -564,7 +564,70 @@
     if(user)setTimeout(()=>{if(user)refresh();},0);
   });
 
-  // Profile refresh uses the same native scroll/overscroll behavior as the hamburger drawer.
+  // Profile-menu-only pull-to-refresh (replaces the previous inactive placeholder).
+  (function initProfileMenuPullToRefresh(){
+    if(window.__ngProfileMenuPullRefreshV1)return;
+    window.__ngProfileMenuPullRefreshV1=true;
+    function mount(){
+      const menu=document.getElementById('ng-profile-menu');
+      if(!menu||menu.dataset.pullRefreshReady==='v1')return;
+      menu.dataset.pullRefreshReady='v1';
+      const indicator=document.createElement('div');
+      indicator.className='ng-profile-pull-indicator';
+      indicator.setAttribute('role','status');
+      indicator.setAttribute('aria-live','polite');
+      indicator.innerHTML='<span class="ng-profile-pull-spinner" aria-hidden="true"></span><span class="ng-profile-pull-label">Pull down to refresh</span>';
+      menu.insertBefore(indicator,menu.firstChild);
+      const style=document.createElement('style');
+      style.id='ng-profile-pull-refresh-v1-style';
+      style.textContent=
+        '#ng-profile-menu .ng-profile-pull-indicator{height:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;color:#a9dfff;font:600 12px/1.2 system-ui,sans-serif;opacity:0;transition:height .12s ease,opacity .12s ease;pointer-events:none;}'+
+        '#ng-profile-menu .ng-profile-pull-spinner{width:17px;height:17px;border:2px solid #2a6b9d;border-top-color:#25d9ff;border-radius:50%;display:none;animation:ngProfilePullSpin .7s linear infinite;}'+
+        '#ng-profile-menu.ng-profile-pull-loading .ng-profile-pull-indicator{height:42px;opacity:1;}'+
+        '#ng-profile-menu.ng-profile-pull-loading .ng-profile-pull-spinner{display:block;}'+
+        '@keyframes ngProfilePullSpin{to{transform:rotate(360deg)}}'+
+        '@media(prefers-reduced-motion:reduce){#ng-profile-menu .ng-profile-pull-indicator{transition:none}#ng-profile-menu .ng-profile-pull-spinner{animation-duration:1.5s}}';
+      if(!document.getElementById(style.id))document.head.appendChild(style);
+      let startY=0,tracking=false,pullDistance=0,loading=false;
+      const threshold=76,maxPull=112;
+      function reset(){
+        tracking=false;pullDistance=0;
+        if(!loading){menu.classList.remove('ng-profile-pull-loading');indicator.style.height='0px';indicator.style.opacity='0';}
+      }
+      menu.addEventListener('touchstart',function(event){
+        if(loading||event.touches.length!==1)return;
+        if(menu.scrollTop>0)return;
+        startY=event.touches[0].clientY;tracking=true;pullDistance=0;
+      },{passive:true});
+      menu.addEventListener('touchmove',function(event){
+        if(!tracking||loading||event.touches.length!==1)return;
+        const delta=event.touches[0].clientY-startY;
+        if(delta<=0){reset();return;}
+        if(menu.scrollTop>0){reset();return;}
+        if(event.cancelable)event.preventDefault();
+        pullDistance=Math.min(maxPull,delta*.62);
+        indicator.style.height=Math.max(0,pullDistance)+'px';
+        indicator.style.opacity=String(Math.min(1,pullDistance/threshold));
+        const label=indicator.querySelector('.ng-profile-pull-label');
+        if(label)label.textContent=pullDistance>=threshold?'Release to refresh':'Pull down to refresh';
+      },{passive:false});
+      function finish(){
+        if(!tracking)return;
+        tracking=false;
+        if(!loading&&pullDistance>=threshold){
+          loading=true;
+          menu.classList.add('ng-profile-pull-loading');
+          indicator.style.height='42px';indicator.style.opacity='1';
+          const label=indicator.querySelector('.ng-profile-pull-label');
+          if(label)label.textContent='Refreshing…';
+          window.setTimeout(function(){window.location.reload();},320);
+        }else reset();
+      }
+      menu.addEventListener('touchend',finish,{passive:true});
+      menu.addEventListener('touchcancel',reset,{passive:true});
+    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
+  })();
 
 })();
 
