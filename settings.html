@@ -422,17 +422,25 @@ body.ng-header-popup-open{overflow:hidden}
 }
 
 </style>
+<style id="ng-settings-page-header-v2">
+html,body{height:100%;overflow:hidden!important}
+.app{height:100dvh!important;min-height:0!important}
+.app>header.ng-settings-shell-header{height:46px!important;min-height:46px!important;flex:0 0 46px!important;position:relative!important;display:flex!important;align-items:center!important;gap:12px!important;padding:0 12px!important}
+.ng-settings-shell-title{flex:1;min-width:0;font-size:17px;font-weight:750;letter-spacing:.2px;color:#f4f8ff}
+.ng-settings-search-toggle{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border:0;border-radius:50%;background:transparent;color:#fff}
+.ng-settings-search-toggle svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.ng-settings-search{width:42%;height:32px;padding:0 9px;border:1px solid #258bd4;border-radius:8px;background:#06152b;color:#fff}
+.ng-settings-search[hidden],.ng-settings-search-toggle[hidden]{display:none!important}
+.app>main{min-height:0!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;padding-top:8px!important}
+</style>
 </head>
 <body>
 <div class="app">
-<header>
+<header class="ng-settings-shell-header">
   <button type="button" class="ng-hamburger" id="ng-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="ng-menu-drawer"><span></span><span></span><span></span></button>
-  <img class="logo" src="./file_000000005ab0820896e23efe9cf142bb.png" alt="NextGen — Smart Automation. Smarter Growth.">
-  <div class="hr">
-    <button type="button" class="circ plus ng-header-action" aria-label="Create" aria-haspopup="dialog" aria-controls="ng-quick-create-backdrop"><svg width="24" height="24" viewBox="0 0 16 16" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M8 1v14M1 8h14"/></svg></button>
-    <button type="button" class="bell ng-header-action" aria-label="Notifications" aria-haspopup="dialog" aria-controls="ng-notifications-backdrop"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2.1a2.45 2.45 0 0 0-2.45 2.45v.63C6.18 6.25 4 9.18 4 12.65v4.02l-1.4 1.66c-.45.54-.07 1.36.63 1.36h17.54c.7 0 1.08-.82.63-1.36L20 16.67v-4.02c0-3.47-2.18-6.4-5.55-7.47v-.63A2.45 2.45 0 0 0 12 2.1Z"/><path fill="#fff" d="M8.4 21.1a3.7 3.7 0 0 0 7.2 0Z"/></svg><u></u></button>
-    <button type="button" class="circ av ng-profile-trigger" id="ng-profile-trigger" aria-label="Open profile menu" aria-expanded="false" aria-controls="ng-profile-menu">RF</button>
-  </div>
+  <strong class="ng-settings-shell-title">Settings &amp; Privacy</strong>
+  <button type="button" id="ng-settings-search-toggle" class="ng-settings-search-toggle" aria-label="Search Settings" title="Search Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+  <input id="ng-settings-search" class="ng-settings-search" type="search" placeholder="Search Settings..." aria-label="Search Settings" hidden>
 </header>
 <div class="ng-header-popup-backdrop" id="ng-quick-create-backdrop" hidden>
  <section class="ng-header-popup" role="dialog" aria-modal="true" aria-labelledby="ng-quick-create-title">
@@ -534,7 +542,6 @@ body.ng-header-popup-open{overflow:hidden}
 
 
 <main>
-<section class="page-intro"><div class="page-icon">⚙</div><div class="ng-settings-title"><h1>Settings</h1></div><button type="button" class="ng-settings-close" id="ng-settings-close" aria-label="Close Settings" title="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></section>
 <section class="settings-list" aria-label="Settings options">
   <h2>Account</h2>
 <div class="settings-row"><span class="settings-icon"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></span><div class="settings-copy"><strong>Push notifications</strong><small>Choose your preferences</small></div><span class="settings-arrow">›</span></div>
@@ -570,7 +577,7 @@ body.ng-header-popup-open{overflow:hidden}
 <section class="page-panel" id="ng-notification-preferences"><h2>Notification Preferences</h2><p class="muted">Choose which workspace updates you want to receive.</p><div id="ng-notification-controls"><p class="muted">Sign in to load notification preferences.</p></div><p id="ng-notification-note" class="muted">Preferences are saved to your NextGen account.</p></section>
 <section class="page-panel" id="team"><h2>Team Management</h2><p class="muted">Invitations, roles and channel-level access will be enabled after authentication and workspace permissions are connected.</p><div class="ng-settings-line"><b>Owner</b><span>Workspace owner</span></div><div class="ng-settings-line"><b>Team members</b><span>Not configured</span></div></section>
 <section class="page-panel" id="publishing"><h2>Publishing Safety</h2><p class="muted">Manual approval remains the default. Auto approval is OFF unless explicitly switched on. Publishing is not connected in this prototype.</p><a href="./approvals.html">Open Approval Controls →</a></section>
-<section class="page-panel"><h2>Analytics</h2><p class="muted">Only verified account performance will be shown.</p><a href="./analytics.html">Open Channel Analytics →</a></section><footer class="ng-shared-footer"><span class="ng-copyright">©2026 NextGen. All Rights Reserved. Smart Automation. Smarter Growth.</span><span class="ng-credit">Powered by ABDUS SATTAR</span></footer>
+<section class="page-panel"><h2>Analytics</h2><p class="muted">Only verified account performance will be shown.</p><a href="./analytics.html">Open Channel Analytics →</a></section>
 </main>
 <nav class="ng-bottom-nav" aria-label="Main navigation">
   <a href="index.html"><span class="dashboard-master-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 7 Q5 4 9 4 H19 Q23 4 23 8 V13 Q23 17 19 17 H9 Q5 17 5 13 Z" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linejoin="round"/><path d="M28 8 Q28 4 32 4 H39 Q43 4 43 8 V17 Q43 21 39 21 H35 M28 15 V12" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 29 V25 Q5 21 9 21 H19 Q23 21 23 25 V39 Q23 43 19 43 H9 Q5 43 5 39 V33" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 29 Q28 25 32 25 H39 Q43 25 43 29 V39 Q43 43 39 43 H32 Q28 43 28 39 Z" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linejoin="round"/><defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient></defs></svg></span><small>Dashboard</small></a>
@@ -1190,23 +1197,41 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
 .page-intro .ng-settings-close{position:relative!important;order:3!important;flex:0 0 36px!important;width:36px!important;min-width:36px!important;max-width:36px!important;height:36px!important;min-height:36px!important;max-height:36px!important;margin:0 2px 0 auto!important;padding:0!important;box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border:1px solid #258de0!important;border-radius:50%!important;background:linear-gradient(145deg,#0c2b58,#071a39)!important;color:#eaf7ff!important;box-shadow:0 0 9px #168bff44!important;cursor:pointer!important}
 .page-intro .ng-settings-close svg{display:block!important;width:18px!important;height:18px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
 </style>
-<script id="ng-settings-close-action-live-v1">(function(){var b=document.getElementById('ng-settings-close');if(!b||b.dataset.bound==='1')return;b.dataset.bound='1';b.addEventListener('click',function(){var ref='';try{ref=document.referrer?new URL(document.referrer).href:'';}catch(e){}if(ref&&new URL(ref).origin===location.origin&&history.length>1){history.back();return;}location.replace('./dashboard.html');});})();</script>
 <script id="ng-return-to-settings-privacy">
 (function(){
-  var params=new URLSearchParams(window.location.search);
+  var params=new URLSearchParams(location.search);
   if(params.get('open')!=='settings-privacy')return;
   var drawer=document.getElementById('ng-menu-drawer');
   var backdrop=document.getElementById('ng-menu-backdrop');
   var trigger=document.getElementById('ng-hamburger');
-  if(drawer){drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');}
-  if(backdrop)backdrop.hidden=false;
-  if(trigger){trigger.setAttribute('aria-expanded','true');trigger.setAttribute('aria-label','Close navigation menu');}
+  var accordion=drawer&&Array.from(drawer.querySelectorAll('.ng-menu-accordion-trigger')).find(function(b){return /Settings\\s*&\\s*Privacy/i.test(b.textContent);});
+  if(!drawer||!backdrop||!trigger||!accordion)return;
+  drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');
+  backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');trigger.setAttribute('aria-label','Close navigation menu');
   document.body.classList.add('ng-menu-open');
-  var accordion=drawer&&drawer.querySelector('.ng-menu-accordion');
-  var button=accordion&&accordion.querySelector('.ng-menu-accordion-trigger');
-  var panel=button&&button.nextElementSibling;
-  if(button){button.setAttribute('aria-expanded','true');var icon=button.querySelector('i');if(icon)icon.textContent='⌃';}
-  if(panel)panel.hidden=false;
+  drawer.querySelectorAll('.ng-menu-accordion-trigger').forEach(function(b){
+    var p=b.nextElementSibling,active=b===accordion;
+    b.setAttribute('aria-expanded',String(active));
+    if(p)p.hidden=!active;
+    var icon=b.querySelector('i');if(icon)icon.textContent=active?'⌃':'⌄';
+  });
+  try{sessionStorage.setItem('ngNextGenMenuOpen','1');}catch(e){}
+})();
+</script>
+<script id="ng-settings-search-v1">
+(function(){
+ var toggle=document.getElementById('ng-settings-search-toggle'),input=document.getElementById('ng-settings-search');
+ var list=document.querySelector('.settings-list');if(!toggle||!input||!list)return;
+ toggle.addEventListener('click',function(){
+   input.hidden=false;input.focus();toggle.hidden=true;
+ });
+ input.addEventListener('input',function(){
+   var q=input.value.trim().toLowerCase(),children=Array.from(list.children);
+   children.forEach(function(el){if(el.matches('h2')){el.hidden=!!q&&!el.textContent.toLowerCase().includes(q);}
+     else if(el.matches('.settings-row,.page-panel')){el.hidden=!!q&&!el.textContent.toLowerCase().includes(q);}
+   });
+ });
+ input.addEventListener('keydown',function(e){if(e.key==='Escape'){input.value='';input.dispatchEvent(new Event('input'));input.hidden=true;toggle.hidden=false;toggle.focus();}});
 })();
 </script>
 </body>
