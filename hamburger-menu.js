@@ -43,7 +43,7 @@
       if(historyEntry&&!fromBack){historyEntry=false;ignorePop=true;try{history.back();}catch(e){ignorePop=false;}}
     }
     trigger.addEventListener("click",function(){drawer.classList.contains("is-open")?closeMenu():openMenu();});
-    close.addEventListener("click",closeMenu);
+    if(close) close.addEventListener("click",closeMenu);
     backdrop.addEventListener("click",closeMenu);
     document.addEventListener("keydown",function(e){if(e.key==="Escape"&&drawer.classList.contains("is-open"))closeMenu();});
     window.addEventListener("popstate",function(){if(ignorePop){ignorePop=false;return;}if(drawer.classList.contains("is-open")){historyEntry=false;closeMenu(true);}});
