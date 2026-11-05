@@ -736,3 +736,29 @@ html body .app>header #ng-hamburger span:nth-child(2){width:10px!important;}
 .ng-menu-drawer .ng-menu-profile-dropdown{background:linear-gradient(145deg,#173b68,#0a1d40)!important;border:1px solid #276da2!important;color:#eaf8ff!important;box-shadow:0 2px 9px rgba(0,0,0,.25)!important;}
 .ng-menu-drawer .ng-menu-profile-dropdown svg{stroke:#eaf8ff!important;}
 .ng-menu-drawer .ng-menu-profile-dropdown span{background:#e52b50!important;color:#fff!important;}
+
+
+/* APPROVED HAMBURGER DRAWER PREVIEW — navy/cyan, no white surfaces */
+/* All selectors are scoped to the side drawer; main pages are untouched. */
+.ng-menu-drawer .ng-menu-reference-top{align-items:flex-start!important;}
+.ng-menu-drawer .ng-menu-reference-card{background:linear-gradient(145deg,#071b3c 0%,#06142e 60%,#041027 100%)!important;color:#eaf6ff!important;border:1px solid #174f83!important;border-radius:20px!important;box-shadow:0 8px 22px rgba(0,0,0,.28),inset 0 0 0 1px rgba(49,176,255,.08)!important;}
+.ng-menu-drawer .ng-menu-user-avatar{background:#06142e!important;border:2px solid #159ee8!important;box-shadow:0 0 0 2px rgba(35,142,255,.22)!important;}
+.ng-menu-drawer .ng-menu-profile-name-wrap strong{color:#f4f9ff!important;}
+.ng-menu-drawer .ng-menu-profile-name-wrap small{color:#9bbbe2!important;}
+.ng-menu-drawer .ng-menu-channel-logo{background:radial-gradient(circle,#092a50 52%,#031126 56%)!important;border:3px solid #168cff!important;box-shadow:0 0 0 3px #09274a,0 0 0 5px rgba(38,187,255,.25)!important;color:#4edaff!important;}
+.ng-menu-drawer .ng-menu-channel-refresh{stroke:#38c8ff!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown{background:linear-gradient(145deg,#12365f,#081a38)!important;border:1px solid #1c6da5!important;color:#f0f8ff!important;box-shadow:0 3px 10px rgba(0,0,0,.28)!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown svg{stroke:#f0f8ff!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown span{background:#e52b50!important;color:#fff!important;}
+.ng-menu-drawer .ng-menu-reference-top #ng-menu-close{background:#102b55!important;border:1px solid #2367a3!important;border-radius:10px!important;color:#f5fbff!important;}
+.ng-menu-drawer .ng-menu-section-title{color:#55c7ff!important;}
+.ng-menu-drawer .ng-menu-shortcuts a span{background:linear-gradient(145deg,#0b2c55,#071a39)!important;border:1px solid #1879b5!important;color:#f2f9ff!important;box-shadow:inset 0 0 0 1px rgba(60,185,255,.07)!important;}
+.ng-menu-drawer .ng-menu-shortcuts a small{color:#d6eaff!important;}
+.ng-menu-drawer .ng-menu-see-less{background:linear-gradient(100deg,#0e3765,#0a2850)!important;border:1px solid #1e9bd7!important;color:#e8f7ff!important;box-shadow:0 3px 12px rgba(0,0,0,.22)!important;}
+.ng-menu-drawer .ng-menu-accordion-trigger{border-color:#17416d!important;color:#e8f4ff!important;}
+.ng-menu-drawer .ng-menu-accordion-trigger i{color:#5acbff!important;}
+.ng-menu-drawer .ng-menu-accordion-panel{background:#071a38!important;}
+.ng-menu-drawer .ng-menu-accordion-panel a{color:#d9ecff!important;}
+.ng-menu-drawer .ng-menu-logout{background:linear-gradient(100deg,#103b68,#0a2b53)!important;border:1px solid #209bd4!important;color:#eaf7ff!important;}
+.ng-menu-drawer .ng-menu-logout::first-letter{color:#ff3869!important;}
+@media(max-width:380px){.ng-menu-drawer .ng-menu-reference-card{background:linear-gradient(145deg,#071b3c 0%,#06142e 60%,#041027 100%)!important;}}
