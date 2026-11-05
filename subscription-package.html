@@ -565,9 +565,12 @@ body.ng-subscription-page .app>.ng-bottom-nav{display:none!important} body.ng-su
  // Keep only the intended square menu button, logo and right-side actions in the header.
  var header=document.querySelector('.app>header');
  var trigger=document.getElementById('ng-hamburger');
- function cleanHeader(){if(!header)return;Array.prototype.slice.call(header.children).forEach(function(el){if(el!==trigger&&!el.classList.contains('logo')&&!el.classList.contains('hr'))el.remove();});}
- cleanHeader();
- if(header&&window.MutationObserver){new MutationObserver(cleanHeader).observe(header,{childList:true});}
+ function cleanHeader(){if(!header||header.classList.contains('ng-subscription-header'))return;Array.prototype.slice.call(header.children).forEach(function(el){if(el!==trigger&&!el.classList.contains('logo')&&!el.classList.contains('hr'))el.remove();});}
+ // Subscription page has its own compact back/title header; never let the legacy hamburger cleaner remove it.
+ if(header&&!header.classList.contains('ng-subscription-header')){
+   cleanHeader();
+   if(window.MutationObserver){new MutationObserver(cleanHeader).observe(header,{childList:true});}
+ }
  if(trigger){trigger.querySelectorAll('span').forEach(function(line,i){if(i>2)line.remove();});}
 
  var drawer=document.getElementById('ng-menu-drawer');
