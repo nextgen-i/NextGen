@@ -1,7 +1,7 @@
 (function(){
   "use strict";
   function init(){
-    if(document.getElementById("ng-menu-drawer")) return;
+    if(document.getElementById("ng-menu-drawer")){bind();return;}
     fetch("./hamburger-menu.html?v=20261106-reference-v2",{cache:"no-store"})
       .then(function(r){if(!r.ok)throw new Error("Menu component unavailable");return r.text();})
       .then(function(html){
@@ -20,6 +20,20 @@
     var close=document.getElementById("ng-menu-close");
     if(!trigger||!drawer||!backdrop||drawer.dataset.sharedReady==="1")return;
     drawer.dataset.sharedReady="1";
+    if(!drawer.querySelector("#ng-drawer-refresh-indicator")){
+      var refreshIndicator=document.createElement("div");
+      refreshIndicator.className="ng-drawer-refresh-indicator";
+      refreshIndicator.id="ng-drawer-refresh-indicator";
+      refreshIndicator.setAttribute("aria-live","polite");
+      refreshIndicator.innerHTML='<span class="ng-drawer-refresh-spinner" aria-hidden="true"></span><span class="ng-drawer-refresh-label">Pull to refresh</span>';
+      drawer.insertBefore(refreshIndicator,drawer.firstChild);
+    }
+    if(!document.getElementById("ng-drawer-refresh-styles")){
+      var refreshStyle=document.createElement("style");
+      refreshStyle.id="ng-drawer-refresh-styles";
+      refreshStyle.textContent='#ng-menu-drawer{overscroll-behavior-y:contain}#ng-menu-drawer .ng-drawer-refresh-indicator{height:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;color:#79d9ff;font:500 12px/1.2 system-ui,sans-serif;transition:height .16s ease;pointer-events:none}#ng-menu-drawer .ng-drawer-refresh-spinner{width:17px;height:17px;border:2px solid rgba(105,217,255,.25);border-top-color:#69d9ff;border-radius:50%;display:none;animation:ngDrawerRefreshSpin .7s linear infinite}#ng-menu-drawer .ng-drawer-refresh-indicator.is-refreshing .ng-drawer-refresh-spinner{display:block}@keyframes ngDrawerRefreshSpin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(refreshStyle);
+    }
     var historyEntry=false,ignorePop=false;
     function openMenu(){
       drawer.classList.add("is-open");
@@ -109,7 +123,7 @@
     drawer.addEventListener("touchstart",function(event){
       if(pullBusy||!drawer.classList.contains("is-open")||drawer.scrollTop>0||!event.touches||event.touches.length!==1)return;
       pullStartY=event.touches[0].clientY;pullDistance=0;pullActive=true;
-    },{passive:true});
+    },{passive:true,capture:true});
     drawer.addEventListener("touchmove",function(event){
       if(!pullActive||pullStartY===null||pullBusy||!event.touches||event.touches.length!==1)return;
       var delta=event.touches[0].clientY-pullStartY;
@@ -119,18 +133,18 @@
       var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");
       if(indicator){indicator.classList.add("is-pulling");indicator.style.height=Math.min(42,pullDistance*.48)+"px";var label=indicator.querySelector(".ng-drawer-refresh-label");if(label)label.textContent=pullDistance>=72?"Release to refresh":"Pull to refresh";}
       if(event.cancelable)event.preventDefault();
-    },{passive:false});
+    },{passive:false,capture:true});
     drawer.addEventListener("touchend",function(){
       if(!pullActive)return;
       if(pullDistance>=72)refreshDrawerOnly();
       else{var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");if(indicator){indicator.classList.remove("is-pulling");indicator.style.height="0px";}}
       pullActive=false;pullStartY=null;pullDistance=0;
-    },{passive:true});
+    },{passive:true,capture:true});
     drawer.addEventListener("touchcancel",function(){
       pullActive=false;pullStartY=null;pullDistance=0;
       var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");
       if(indicator){indicator.classList.remove("is-pulling");indicator.style.height="0px";}
-    },{passive:true});
+    },{passive:true,capture:true});
     var seeLess=document.getElementById("ng-menu-see-less");
     var mainLinks=drawer.querySelector(".ng-menu-main-links");
     if(seeLess&&mainLinks){
