@@ -789,7 +789,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
    document.body.classList.remove('ng-menu-open');
  }
  trigger.addEventListener('click',function(){if(drawer.classList.contains('is-open'))closeMenu();else openMenu();});
- close.addEventListener('click',closeMenu);
+ if(close)close.addEventListener('click',closeMenu);
  backdrop.addEventListener('click',closeMenu);
  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
  try{if(sessionStorage.getItem('ngNextGenMenuOpen')==='1')openMenu();}catch(e){}
