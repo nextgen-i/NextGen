@@ -28,9 +28,16 @@ footer{padding:13px 12px 15px;text-align:center;border-top:1px solid var(--line)
 footer strong{display:block;color:var(--cyan);font-size:10px;letter-spacing:.2px}
 @media(min-width:600px){main{padding-top:34px}}
 </style>
+<style id="ng-subpage-fixed-header-v2">
+html,body{height:100%;overflow:hidden!important}
+body{height:100dvh!important;min-height:0!important;display:flex!important;flex-direction:column!important}
+.subpage-header{height:46px!important;min-height:46px!important;flex:0 0 46px!important;position:relative!important;z-index:5!important;display:flex!important;align-items:center!important;gap:12px!important;padding:0 14px!important;background:#071a33!important;border-bottom:1px solid #174c83!important}
+.subpage-header strong{font-size:17px!important;font-weight:750!important;letter-spacing:.2px!important;color:#f3f8ff!important}
+main{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important}
+</style>
 </head>
 <body>
-<header><a class="back" href="./privacy-settings.html" aria-label="Back to Privacy Settings">‹</a><div class="brand">NextGen<small>Smart Automation. Smarter Growth.</small></div></header>
+<header class="subpage-header"><a class="back" href="./privacy-settings.html" aria-label="Back to Privacy Settings">‹</a><strong>Mobile Number Update</strong></header>
 <main>
 <h1>Mobile Number Update</h1>
 <p class="lead">Link and verify a mobile number on your existing signed-in NextGen account. This will not create a separate account.</p>
@@ -47,6 +54,6 @@ footer strong{display:block;color:var(--cyan);font-size:10px;letter-spacing:.2px
 <p class="status" role="status">Mobile number linking and OTP/SMS verification are pending. These controls are intentionally disabled for now. Google Account sign-in remains the active login method.</p>
 </section>
 </main>
-<footer>©2026 NextGen. All Rights Reserved.<strong>Powered by ABDUS SATTAR</strong></footer>
+
 </body>
 </html>
