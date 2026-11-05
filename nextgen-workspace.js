@@ -565,6 +565,70 @@
   });
 
 
+
+  // Shared, profile-menu-only pull-to-refresh controller for all pages.
+  (function(){
+    if(window.__ngProfileMenuPullRefreshV2)return;
+    window.__ngProfileMenuPullRefreshV2=true;
+    function mount(){
+      var menu=document.getElementById('ng-profile-menu');
+      var region=menu&&menu.querySelector('.ng-profile-links');
+      if(!menu||!region||region.dataset.pullRefreshV2==='1')return;
+      region.dataset.pullRefreshV2='1';
+      var indicator=document.createElement('div');
+      indicator.className='ng-profile-pull-v2';
+      indicator.setAttribute('role','status');
+      indicator.setAttribute('aria-live','polite');
+      indicator.innerHTML='<span class="ng-profile-pull-v2-spinner" aria-hidden="true"></span><span class="ng-profile-pull-v2-text">Pull down to refresh</span>';
+      region.insertBefore(indicator,region.firstChild);
+      var css=document.createElement('style');
+      css.id='ng-profile-pull-refresh-v2-css';
+      css.textContent=
+        '#ng-profile-menu .ng-profile-pull-v2{height:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;color:#b9e7ff;font:600 12px/1.2 system-ui,sans-serif;opacity:0;transition:height .12s ease,opacity .12s ease;pointer-events:none;}'+
+        '#ng-profile-menu .ng-profile-pull-v2-spinner{display:none;width:18px;height:18px;border:2px solid #28618d;border-top-color:#25d9ff;border-radius:50%;animation:ngProfilePullV2Spin .7s linear infinite;}'+
+        '#ng-profile-menu .ng-profile-pull-v2.is-loading{height:44px;opacity:1;}'+
+        '#ng-profile-menu .ng-profile-pull-v2.is-loading .ng-profile-pull-v2-spinner{display:block;}'+
+        '@keyframes ngProfilePullV2Spin{to{transform:rotate(360deg)}}'+
+        '#ng-profile-menu .ng-profile-links{overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;}';
+      if(!document.getElementById(css.id))document.head.appendChild(css);
+      var startY=0,distance=0,tracking=false,loading=false;
+      var threshold=68,maxDistance=92;
+      function paint(value){
+        distance=Math.max(0,Math.min(maxDistance,value));
+        indicator.style.height=distance+'px';
+        indicator.style.opacity=String(Math.min(1,distance/threshold));
+        indicator.querySelector('.ng-profile-pull-v2-text').textContent=distance>=threshold?'Release to refresh':'Pull down to refresh';
+      }
+      function clear(){
+        tracking=false;distance=0;
+        if(!loading){indicator.classList.remove('is-loading');indicator.style.height='0px';indicator.style.opacity='0';}
+      }
+      region.addEventListener('touchstart',function(e){
+        if(loading||e.touches.length!==1||region.scrollTop>1){clear();return;}
+        startY=e.touches[0].clientY;tracking=true;distance=0;
+      },{passive:true});
+      region.addEventListener('touchmove',function(e){
+        if(!tracking||loading||e.touches.length!==1)return;
+        var dy=e.touches[0].clientY-startY;
+        if(dy<=0||region.scrollTop>1){clear();return;}
+        if(e.cancelable)e.preventDefault();
+        paint(dy*.72);
+      },{passive:false});
+      region.addEventListener('touchend',function(){
+        if(!tracking)return;
+        tracking=false;
+        if(distance<threshold){clear();return;}
+        loading=true;
+        indicator.classList.add('is-loading');
+        indicator.style.height='44px';indicator.style.opacity='1';
+        indicator.querySelector('.ng-profile-pull-v2-text').textContent='Refreshing…';
+        window.setTimeout(function(){window.location.reload();},450);
+      },{passive:true});
+      region.addEventListener('touchcancel',clear,{passive:true});
+    }
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
+  })();
+
 })();
 
 /* Facebook-style navigation gestures: edge-swipe open, drawer-swipe close, outside tap and Android Back. */
