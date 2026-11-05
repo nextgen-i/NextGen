@@ -444,7 +444,8 @@ html,body{height:100%;overflow:hidden!important}
 <header class="ng-settings-shell-header">
   <button type="button" class="ng-hamburger" id="ng-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="ng-menu-drawer"><span></span><span></span><span></span></button>
   <strong class="ng-settings-shell-title">Settings &amp; Privacy</strong>
-  <a href="./settings.html" id="ng-settings-refresh" class="ng-settings-refresh" aria-label="Refresh Settings" title="Refresh Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.6-2L20 12M4 12l2.8 5a7 7 0 0 0 11.6-2"/></svg></a>
+  <form class="ng-settings-refresh-form" action="./settings.html" method="get"><button type="submit" id="ng-settings-refresh" class="ng-settings-refresh" aria-label="Refresh Settings" title="Refresh Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.6-2L20 12M4 12l2.8 5a7 7 0 0 0 11.6-2"/></svg></button></form>
+  <button type="button" id="ng-settings-close" class="ng-settings-close" aria-label="Close menu" title="Close menu">×</button>
   <button type="button" id="ng-settings-search-toggle" class="ng-settings-search-toggle" aria-label="Search Settings" title="Search Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
   <input id="ng-settings-search" class="ng-settings-search" type="search" placeholder="Search Settings..." aria-label="Search Settings" hidden>
 </header>
@@ -1235,6 +1236,60 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
    });
  });
  input.addEventListener('keydown',function(e){if(e.key==='Escape'){input.value='';input.dispatchEvent(new Event('input'));input.hidden=true;toggle.hidden=false;toggle.focus();}});
+})();
+</script>
+
+<style id="ng-settings-header-final-override">
+html body .app>header.ng-settings-shell-header{
+ display:flex!important;visibility:visible!important;opacity:1!important;
+ position:relative!important;z-index:120!important;flex:0 0 46px!important;
+ height:46px!important;min-height:46px!important;max-height:46px!important;
+ width:100%!important;overflow:visible!important;align-items:center!important;
+ justify-content:space-between!important;gap:7px!important;padding:0 9px!important;
+}
+html body .app>header.ng-settings-shell-header>.ng-settings-shell-title{
+ display:block!important;visibility:visible!important;opacity:1!important;
+ position:static!important;flex:1 1 auto!important;min-width:0!important;
+ color:#fff!important;font-size:16px!important;font-weight:750!important;
+ line-height:1.2!important;white-space:nowrap!important;overflow:visible!important;
+}
+html body .app>header.ng-settings-shell-header>#ng-hamburger{
+ display:flex!important;visibility:visible!important;opacity:1!important;
+ flex:0 0 30px!important;width:30px!important;min-width:30px!important;
+ height:34px!important;min-height:34px!important;margin:0!important;
+}
+html body .app>header.ng-settings-shell-header>.ng-settings-close{
+ display:grid!important;visibility:visible!important;opacity:1!important;
+ place-items:center!important;flex:0 0 30px!important;width:30px!important;
+ min-width:30px!important;height:30px!important;min-height:30px!important;
+ padding:0!important;border:1px solid #258bd4!important;border-radius:50%!important;
+ background:#0a2450!important;color:#fff!important;font-size:22px!important;line-height:1!important;
+}
+html body .app>header.ng-settings-shell-header>.ng-settings-refresh-form{
+ display:block!important;flex:0 0 30px!important;width:30px!important;margin:0!important;padding:0!important;
+}
+html body .app>header.ng-settings-shell-header .ng-settings-refresh{
+ display:grid!important;visibility:visible!important;opacity:1!important;
+ place-items:center!important;flex:0 0 30px!important;width:30px!important;
+ height:30px!important;min-height:30px!important;padding:0!important;
+ border:0!important;background:transparent!important;color:#fff!important;
+}
+html body .app>header.ng-settings-shell-header>.ng-settings-search-toggle{
+ display:grid!important;visibility:visible!important;opacity:1!important;
+ flex:0 0 30px!important;width:30px!important;height:30px!important;min-height:30px!important;
+}
+</style>
+<script id="ng-settings-header-controls-final">
+(function(){
+ var x=document.getElementById('ng-settings-close');
+ var drawer=document.getElementById('ng-menu-drawer');
+ var trigger=document.getElementById('ng-hamburger');
+ if(x&&drawer&&trigger&&!x.dataset.bound){
+  x.dataset.bound='1';
+  x.addEventListener('click',function(){
+   if(drawer.classList.contains('is-open'))trigger.click();
+  });
+ }
 })();
 </script>
 </body>
