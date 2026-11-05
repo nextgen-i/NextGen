@@ -1,0 +1,10 @@
+/* NextGen subpage shell policy: subpages use content-only layout without a page header or footer. Keep this file linked only from subpages. */
+body > header,
+body > .head,
+body > .subpage-header,
+.app > header,
+body > footer,
+body > .ng-shared-footer,
+.app > footer {
+  display: none !important;
+}
