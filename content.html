@@ -1089,6 +1089,42 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 #ng-profile-menu.ng-profile-menu.is-open{border:0!important;outline:0!important;border-radius:0!important;box-shadow:none!important}
 </style>
 
+
+<style id="ng-profile-popup-final-80vw-v15">
+/* Profile menu: flush to top/right/bottom, 80vw wide; only its links scroll. */
+#ng-profile-menu.ng-profile-menu,
+#ng-profile-menu.ng-profile-menu.is-open{
+ position:fixed!important;
+ top:0!important;right:0!important;bottom:0!important;left:auto!important;
+ inset:0 0 0 auto!important;
+ width:80vw!important;min-width:80vw!important;max-width:80vw!important;
+ height:100vh!important;height:100dvh!important;
+ min-height:100vh!important;min-height:100dvh!important;
+ max-height:100vh!important;max-height:100dvh!important;
+ margin:0!important;
+ padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px))!important;
+ box-sizing:border-box!important;
+ border:0!important;border-width:0!important;outline:0!important;
+ border-radius:0!important;box-shadow:none!important;
+ display:flex!important;flex-direction:column!important;
+ overflow:hidden!important;
+}
+#ng-profile-menu .ng-profile-account,
+#ng-profile-menu .ng-profile-account-actions{
+ flex:0 0 auto!important;min-height:0!important;
+}
+#ng-profile-menu .ng-profile-links{
+ display:block!important;
+ flex:1 1 0!important;min-height:0!important;
+ height:0!important;max-height:none!important;
+ overflow-x:hidden!important;overflow-y:auto!important;
+ -webkit-overflow-scrolling:touch!important;
+ overscroll-behavior-y:contain!important;
+ touch-action:pan-y!important;
+ padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))!important;
+}
+</style>
+
 </body>
 </html>
 
