@@ -1204,7 +1204,7 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
   var drawer=document.getElementById('ng-menu-drawer');
   var backdrop=document.getElementById('ng-menu-backdrop');
   var trigger=document.getElementById('ng-hamburger');
-  var accordion=drawer&&Array.from(drawer.querySelectorAll('.ng-menu-accordion-trigger')).find(function(b){return /Settings\\s*&\\s*Privacy/i.test(b.textContent);});
+  var accordion=drawer&&Array.from(drawer.querySelectorAll('.ng-menu-accordion-trigger')).find(function(b){return /Settings\s*&\s*Privacy/i.test(b.textContent);});
   if(!drawer||!backdrop||!trigger||!accordion)return;
   drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');
   backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');trigger.setAttribute('aria-label','Close navigation menu');
