@@ -545,6 +545,7 @@ body.ng-header-popup-open{overflow:hidden}
 <section class="page-intro"><button type="button" class="ng-settings-back" id="ng-settings-back" aria-label="Go back" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="page-icon">⚙</div><div><h1>Settings</h1></div></section>
 <section class="settings-list" aria-label="Settings options">
   <h2>Account</h2>
+  <a class="settings-row" href="#phone-account-link" style="color:inherit;text-decoration:none"><span class="settings-icon">☎</span><div class="settings-copy"><strong>Mobile Number Login</strong><small>Link and verify your mobile number</small></div><span class="settings-arrow">›</span></a>
   <div class="settings-row"><span class="settings-icon"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></span><div class="settings-copy"><strong>Push notifications</strong><small>Choose your preferences</small></div><span class="settings-arrow">›</span></div>
 
   <h2>Channel</h2>
@@ -731,14 +732,14 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
  const normalized=()=>number.value.trim().replace(/[\s()-]/g,'');
  async function signedIn(){const {data,error}=await client.auth.getUser();if(error)throw error;if(!data||!data.user)throw new Error('Please sign in with your existing NextGen account first.');return data.user;}
  send.addEventListener('click',async()=>{
-  const phone=normalized();if(!/^\\+[1-9]\d{7,14}$/.test(phone)){status.textContent='Enter a valid number with country code, for example +91XXXXXXXXXX.';return;}
+  const phone=normalized();if(!/^\+[1-9]\d{7,14}$/.test(phone)){status.textContent='Enter a valid number with country code, for example +91XXXXXXXXXX.';return;}
   send.disabled=true;status.textContent='Checking your existing account…';
   try{await signedIn();const {error}=await client.auth.updateUser({phone});if(error)throw error;status.textContent='Verification OTP requested. Enter the code sent to your mobile number.';otp.focus({preventScroll:true});}
   catch(e){status.textContent=e&&e.message?e.message:'Could not request phone verification. Check SMS provider configuration.';}
   finally{send.disabled=false;}
  });
  verify.addEventListener('click',async()=>{
-  const phone=normalized(),token=otp.value.trim();if(!/^\\+[1-9]\d{7,14}$/.test(phone)||!/^\d{6}$/.test(token)){status.textContent='Enter the valid mobile number and 6-digit OTP.';return;}
+  const phone=normalized(),token=otp.value.trim();if(!/^\+[1-9]\d{7,14}$/.test(phone)||!/^\d{6}$/.test(token)){status.textContent='Enter the valid mobile number and 6-digit OTP.';return;}
   verify.disabled=true;status.textContent='Verifying number…';
   try{await signedIn();const {error}=await client.auth.verifyOtp({phone,token,type:'phone_change'});if(error)throw error;status.textContent='Mobile number verified and linked to this NextGen account. Phone login is now enabled for this number.';}
   catch(e){status.textContent=e&&e.message?e.message:'Phone verification failed.';}
