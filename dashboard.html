@@ -1245,7 +1245,7 @@ html body #ng-profile-menu.ng-profile-menu.is-open{opacity:1!important;visibilit
  var authLink=drawer.querySelector('.ng-menu-logout');
  function syncHamburgerAuth(signedIn){
    if(!authLink)return;
-   authLink.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5M15 12H3M14 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg><span>'+(signedIn?'Logout':'Login')+'</span>';
+   authLink.innerHTML=(signedIn?'<svg viewBox="0 0 24 24" aria-hidden="true" width="32" height="32" fill="none" stroke="#ff315b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v9"/><path d="M5.6 5.6a9 9 0 1 0 12.8 0"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5M15 12H3M14 4h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg>')+'<span>'+(signedIn?'Logout':'Login')+'</span>';
    authLink.href=signedIn?'#':'./login.html';
    authLink.setAttribute('aria-label',signedIn?'Logout':'Login');
    authLink.classList.add('ng-menu-login-active');
