@@ -577,7 +577,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
  var drawer=document.getElementById('ng-menu-drawer');
  var backdrop=document.getElementById('ng-menu-backdrop');
  var close=document.getElementById('ng-menu-close');
- if(!trigger||!drawer||!backdrop||!close||trigger.dataset.ready==='1')return;
+ if(!trigger||!drawer||!backdrop||trigger.dataset.ready==='1')return;
  trigger.dataset.ready='1';
  function openMenu(){
    drawer.classList.add('is-open');try{sessionStorage.setItem('ngNextGenMenuOpen','1');}catch(e){}drawer.setAttribute('aria-hidden','false');
