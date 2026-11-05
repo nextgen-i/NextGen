@@ -39,14 +39,11 @@ footer strong{display:block;color:var(--cyan);font-size:10px;letter-spacing:.2px
 <p>Privacy controls are not connected yet. No account privacy, data-sharing, or security settings have been changed by adding this page. These controls will be added only after their behavior and permissions are defined.</p>
 </section>
 
-<section class="panel mobile-number" aria-labelledby="mobile-number-heading">
-<h2 id="mobile-number-heading">Mobile Number</h2>
-<p>Update your account mobile number here. This section is now in Privacy Settings. Mobile number verification is planned but is not connected yet. Google Account sign-in remains the active login method for now.</p>
-<label for="mobile-number-input" style="display:block;margin-top:14px;margin-bottom:6px;color:var(--muted);font-size:13px">Mobile Number</label>
-<input id="mobile-number-input" type="tel" inputmode="tel" autocomplete="tel" placeholder="Enter mobile number" disabled style="width:100%;height:43px;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:#06152b;color:var(--text);font:inherit">
-<button class="mobile-update-btn" type="button" disabled style="margin-top:10px;padding:11px 15px;border:1px solid #167ac0;border-radius:9px;background:#123456;color:#a9bfd8;font-size:14px;font-weight:700;opacity:.65;cursor:not-allowed">Update Mobile Number</button>
-<p class="delete-note" role="status">OTP/SMS verification remains pending and is not enabled yet.</p>
-</section>
+<a class="panel mobile-number-link" href="./mobile-number-update.html" style="display:flex;align-items:center;gap:12px;margin-top:16px;color:inherit;text-decoration:none">
+  <span aria-hidden="true" style="width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;color:var(--cyan);font-size:20px">☎</span>
+  <span style="min-width:0;flex:1"><strong style="display:block;color:var(--text);font-size:15px">Mobile Number Update</strong><small style="display:block;margin-top:4px;color:var(--muted);font-size:12px">Link and verify your mobile number</small></span>
+  <span aria-hidden="true" style="color:var(--cyan);font-size:24px">›</span>
+</a>
 <section class="panel danger" aria-labelledby="delete-account-heading">
 <h2 id="delete-account-heading">Delete Profile/Account</h2>
 <p>Use this option to begin a profile or account deletion request. Account deletion is not connected yet, so this control will not delete your profile or any data.</p>
