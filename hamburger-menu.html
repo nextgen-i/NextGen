@@ -1,7 +1,10 @@
 <div class="ng-menu-backdrop" id="ng-menu-backdrop" hidden></div>
 <aside class="ng-menu-drawer ng-facebook-style-menu" id="ng-menu-drawer" aria-label="Navigation menu" aria-hidden="true">
-  <div class="ng-menu-title"><span>NextGen Menu</span><button type="button" id="ng-menu-close" aria-label="Close navigation menu">×</button></div>
-  <div class="ng-menu-account"><span class="ng-menu-logo">NG</span><div><strong>NextGen</strong><small>Smart Automation. Smarter Growth.</small></div></div>
+  <div class="ng-menu-account ng-menu-profile-header">
+    <img class="ng-menu-user-avatar" id="ng-menu-user-avatar" src="./profile-icon.jpg" alt="Profile photo">
+    <div class="ng-menu-profile-name-wrap"><strong id="ng-menu-profile-name">NextGen Account</strong><small id="ng-menu-profile-subtitle">Smart Automation. Smarter Growth.</small></div>
+    <button type="button" class="ng-menu-profile-switch" id="ng-menu-profile-switch" aria-label="Show all profiles" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.5-3.5 2.7-5.3 6.5-5.3s6 1.8 6.5 5.3M16 5.5a3 3 0 0 1 0 5.8M17 15c2.5.3 4 2 4.5 5"/></svg></button>
+  </div>
   <h3 class="ng-menu-section-title">Your shortcuts</h3>
   <div class="ng-menu-shortcuts">
     <a href="./channels.html"><span>RF</span><small>Royal Furniture</small></a>
@@ -17,7 +20,6 @@
     <a href="./content.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 17a14 14 0 1 1 2 12"/><path d="M7 7v10h10M20 11v10l7 4"/></svg></span>Memories</a>
     <a href="./channels.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="6"/><circle cx="8" cy="19" r="4"/><circle cx="32" cy="19" r="4"/><path d="M8 34c0-7 5-11 12-11s12 4 12 11M2 34c0-5 2-8 7-9M38 34c0-5-2-8-7-9"/></svg></span>Groups</a>
     <a href="./settings.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 17v7h7l18 9V8l-18 9zM12 24l4 11h7l-5-8"/></svg></span>Ad Center</a>
-    <a href="./subscription-package.html"><span class="ng-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 10h14M9 5c5 0 7 2 7 5s-2 5-7 5h-4m4 0 8 5"/></svg></span>Subscription Package</a>
     <a href="./schedule.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="7" width="30" height="29" rx="5"/><path d="M12 4v7M28 4v7M5 15h30"/><path d="m20 19 2 4 4 .5-3 3 .8 4.5-3.8-2.2-3.8 2.2.8-4.5-3-3 4-.5z"/></svg></span>Events</a>
     <a href="./channels.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="15" cy="12" r="6"/><path d="M4 34c0-7 4-11 11-11s11 4 11 11"/><circle cx="30" cy="13" r="4"/><path d="M28 24c5 0 8 3 8 8"/></svg></span>Explore People</a>
     <a href="./dashboard.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 6c16 0 28 12 28 28M6 17c10 0 17 7 17 17"/><circle cx="8" cy="32" r="2" fill="currentColor" stroke="none"/></svg></span>Feeds</a>
@@ -37,6 +39,7 @@
       <a href="./channels.html"><span class="ng-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>Channel Management</a>
       
       <a href="./privacy-settings.html"><span class="ng-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 6v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>Privacy Settings</a>
+      <a href="./subscription-package.html" class="ng-menu-upgrade-link"><span class="ng-point-icon" aria-hidden="true">✦</span>Upgrade <small>NextGen+</small></a>
       <a href="./send-feedback.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="8" width="32" height="24" rx="3"/><path d="m5 10 15 12L35 10"/></svg></span>Send Feedback</a>
       <a href="./help-centre.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15"/><path d="M14.5 14.5a5.8 5.8 0 1 1 9.4 4.6c-2.3 1.8-3.9 2.7-3.9 6"/><path d="M20 30v.2"/></svg></span>Help Centre</a>
       <a href="./privacy-policy.html"><span class="ng-point-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M9 5h22a3 3 0 0 1 3 3v24a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z"/><path d="M12 13h16M12 20h16M12 27h12"/></svg></span>Privacy Policy</a>
