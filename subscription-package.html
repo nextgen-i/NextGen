@@ -390,8 +390,10 @@ html,body{background-color:#030b24!important;background-image:none!important}
 </style>
 <link rel="stylesheet" href="./subpage-clean.css?v=20261105-4">
 <style id="ng-subscription-page-shell-v1">
-html,body.ng-subscription-page{height:100%;min-height:100%;overflow:hidden!important}
-body.ng-subscription-page .app{height:100vh;height:100dvh;display:flex!important;flex-direction:column!important;overflow:hidden!important}
+/* Use the document as the scroll surface so Android Chrome can perform native pull-to-refresh. */
+html,body.ng-subscription-page{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important}
+body.ng-subscription-page{padding-bottom:0!important}
+body.ng-subscription-page .app{height:auto!important;min-height:100vh!important;min-height:100dvh!important;display:flex!important;flex-direction:column!important;overflow:visible!important}
 body.ng-subscription-page .app>header.ng-subscription-header{
  display:flex!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;
  z-index:20!important;flex:0 0 52px!important;height:52px!important;min-height:52px!important;max-height:52px!important;
@@ -404,7 +406,7 @@ body.ng-subscription-page .app>header.ng-subscription-header::after{display:none
 body.ng-subscription-page .ng-subscription-back{display:grid!important;place-items:center!important;flex:0 0 34px!important;width:34px!important;height:40px!important;color:#fff!important;text-decoration:none!important}
 body.ng-subscription-page .ng-subscription-back svg{width:27px!important;height:27px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.3!important;stroke-linecap:round!important;stroke-linejoin:round!important}
 body.ng-subscription-page .ng-subscription-header strong{font-size:18px!important;font-weight:750!important;color:#fff!important}
-body.ng-subscription-page .app>main{display:block!important;flex:1 1 auto!important;min-height:0!important;height:auto!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;padding-bottom:18px!important}
+body.ng-subscription-page .app>main{display:block!important;flex:0 0 auto!important;min-height:0!important;height:auto!important;overflow:visible!important;overscroll-behavior-y:auto!important;touch-action:pan-y!important;padding-bottom:18px!important}
 body.ng-subscription-page .app>.ng-bottom-nav{display:none!important} body.ng-subscription-page footer,body.ng-subscription-page nav.ng-bottom-nav{display:none!important}
 </style>
 <script id="ng-subscription-back-behavior">
@@ -502,7 +504,7 @@ body.ng-subscription-page .app>.ng-bottom-nav{display:none!important} body.ng-su
 
 
 <main>
-<section class="page-intro"><div class="page-icon">⚙</div><div><h1>Subscription Package</h1></div></section>
+
 <section class="subscription-plans" aria-label="Subscription plans">
   <article class="subscription-plan subscription-plan-free">
     <h2>7 Days Free Package</h2>
