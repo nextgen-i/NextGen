@@ -454,7 +454,9 @@ body.ng-header-popup-open{overflow:hidden}
     <a href="#" data-profile-action="share"><span class="ng-profile-icon" data-icon="share"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4"/></svg></span><span class="ng-profile-label">Share</span><i>›</i></a>
     <a href="#" data-profile-action="pin"><span class="ng-profile-icon" data-icon="pin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 8 0-1 6 3 4H6l3-4-1-6ZM12 13v8"/></svg></span><span class="ng-profile-label">Pin</span><i>›</i></a>
     <a href="#" data-profile-action="lock"><span class="ng-profile-icon" data-icon="lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span><span class="ng-profile-label">Lock chat</span><i>›</i></a>
-    <div class="ng-profile-action-spacer" aria-hidden="true"></div>
+    <div class="ng-profile-action-spacer" aria-hidden="true">
+    <a href="./login.html#options" data-ng-auth-entry="true" aria-label="Login"><span class="ng-profile-icon" data-icon="login"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span><span class="ng-profile-label">Login</span><i>›</i></a>
+</div>
     <a href="./content.html"><span class="ng-profile-icon" data-icon="files"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8l4 4v14H8zM16 3v5h4M4 7v14"/></svg></span><span class="ng-profile-label">Uploaded files</span><i>›</i></a>
     <a href="./content.html"><span class="ng-profile-icon" data-icon="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></span><span class="ng-profile-label">Find in chat</span><i>›</i></a>
     <a href="#" data-profile-action="home"><span class="ng-profile-icon" data-icon="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1Z"/></svg></span><span class="ng-profile-label">Add to home</span><i>›</i></a>
@@ -1125,6 +1127,49 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 }
 </style>
 
+<script id="ng-auth-menu-session-fallback-v1">
+(function(){
+ 'use strict';
+ if(typeof window.getNextGenSupabaseClient!=='function')return;
+ var client;
+ try{client=window.getNextGenSupabaseClient();}catch(error){console.error('NextGen auth menu client unavailable:',error);return;}
+ function render(signedIn){
+  var item=document.querySelector('#ng-profile-menu .ng-profile-links [data-ng-auth-entry]');
+  if(!item)return;
+  item.innerHTML=signedIn
+   ? '<span class="ng-profile-icon" data-icon="logout"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M5.6 5.6a9 9 0 1 0 12.8 0"/></svg></span><span class="ng-profile-label">Logout</span><i>›</i>'
+   : '<span class="ng-profile-icon" data-icon="login"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 17 5-5-5-5m5 5H4m10-8h5a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5"/></svg></span><span class="ng-profile-label">Login</span><i>›</i>';
+  item.href=signedIn?'#':'./login.html#options';
+  item.dataset.signedIn=String(!!signedIn);
+  item.setAttribute('aria-label',signedIn?'Logout':'Login');
+  item.classList.add('ng-menu-login-active');
+  if(!item.dataset.authBound){
+   item.dataset.authBound='1';
+   item.addEventListener('click',async function(event){
+    if(item.dataset.signedIn!=='true')return;
+    event.preventDefault();item.style.pointerEvents='none';
+    try{
+     var result=await client.auth.signOut({scope:'local'});
+     if(result.error)throw result.error;
+     var check=await client.auth.getSession();
+     if(check.error)throw check.error;
+     if(check.data&&check.data.session)throw new Error('Session remains active.');
+     location.replace('./login.html#options');
+    }catch(error){
+     console.error('NextGen sign out failed:',error);item.style.pointerEvents='';
+     alert('Could not sign out. Please try again.');
+    }
+   });
+  }
+  window.dispatchEvent(new CustomEvent('nextgen-auth-state',{detail:{signedIn:!!signedIn}}));
+ }
+ client.auth.getSession().then(function(result){
+  if(result.error){console.error('NextGen auth menu session check failed:',result.error);return;}
+  render(!!(result.data&&result.data.session));
+ }).catch(function(error){console.error('NextGen auth menu session check failed:',error);});
+ client.auth.onAuthStateChange(function(_event,session){render(!!(session&&session.user));});
+})();
+</script>
 </body>
 </html>
 
