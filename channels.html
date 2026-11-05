@@ -904,7 +904,7 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 </script>
 
 
-<script src="./nextgen-workspace.js?v=20261104-profile-native-refresh-v4"></script>
+<script src="./nextgen-workspace.js?v=20261106-profile-pull-refresh-v1"></script>
 
 <style id="ng-hamburger-main-point-icons-size">
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
@@ -1212,79 +1212,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  flex:0 0 auto!important;margin-left:auto!important;
 }
 </style>
-<script id="ng-unified-drawer-pull-refresh-v12">
-(function(){
- 'use strict';
- if(window.__ngUnifiedPullRefreshV12)return;
- window.__ngUnifiedPullRefreshV12=true;
- function attach(scroller){
-  if(!scroller||scroller.dataset.ngPullRefreshV12==='1')return;
-  scroller.dataset.ngPullRefreshV12='1';
-  var startY=null,tracking=false,refreshing=false,indicator=null;
-  var scrollRegion=scroller.id==='ng-profile-menu'?(scroller.querySelector('.ng-profile-links')||scroller):scroller;
-  function getIndicator(){
-   if(indicator)return indicator;
-   indicator=document.createElement('div');
-   indicator.className='ng-pull-refresh-indicator';
-   indicator.setAttribute('role','status');indicator.setAttribute('aria-label','Refreshing');
-   scroller.insertBefore(indicator,scroller.firstChild);
-   return indicator;
-  }
-  function reset(){
-   tracking=false;startY=null;
-   if(indicator&&!refreshing){indicator.classList.remove('is-visible');indicator.style.removeProperty('--ng-pull-rotation');}
-  }
-  scroller.addEventListener('touchstart',function(e){
-   if(refreshing||!e.touches||e.touches.length!==1)return reset();
-   if(scrollRegion.scrollTop<=2){startY=e.touches[0].clientY;tracking=true;getIndicator();}
-   else reset();
-  },{passive:true});
-  scroller.addEventListener('touchmove',function(e){
-   if(!tracking||startY===null||!e.touches||e.touches.length!==1)return;
-   var distance=e.touches[0].clientY-startY;
-   if(distance>8&&scrollRegion.scrollTop<=2){
-    if(e.cancelable)e.preventDefault();
-    indicator.classList.add('is-visible');
-    indicator.style.setProperty('--ng-pull-rotation',Math.min(360,distance*4)+'deg');
-   }
-   if(distance<0||scrollRegion.scrollTop>2)reset();
-  },{passive:false});
-  scroller.addEventListener('touchend',function(e){
-   if(!tracking||startY===null||refreshing||!e.changedTouches||!e.changedTouches.length)return reset();
-   var distance=e.changedTouches[0].clientY-startY;tracking=false;startY=null;
-   if(distance<72||scrollRegion.scrollTop>2){reset();return;}
-   refreshing=true;var note=getIndicator();
-   note.classList.add('is-visible','is-refreshing');note.style.removeProperty('--ng-pull-rotation');
-   var pageMain=document.querySelector('.app main');
-   var savedPageTop=pageMain?pageMain.scrollTop:0;
-   var savedPopupTop=scrollRegion.scrollTop;
-   var task=window.NGWorkspace&&typeof window.NGWorkspace.refresh==='function'
-    ?window.NGWorkspace.refresh()
-    :Promise.resolve();
-   Promise.resolve(task).catch(function(error){
-    console.warn('NextGen pull-to-refresh failed:',error);
-   }).finally(function(){
-    function restorePosition(){
-     if(pageMain&&pageMain.isConnected)pageMain.scrollTop=savedPageTop;
-     if(scrollRegion&&scrollRegion.isConnected)scrollRegion.scrollTop=savedPopupTop;
-    }
-    restorePosition();
-    window.requestAnimationFrame(restorePosition);
-    refreshing=false;
-    window.setTimeout(function(){if(indicator){indicator.classList.remove('is-visible','is-refreshing');}},900);
-   });
-  },{passive:true});
-  scroller.addEventListener('touchcancel',reset,{passive:true});
- }
- function init(){
-  var profileMenu=document.getElementById('ng-profile-menu');
-  attach(profileMenu);
-  attach(document.getElementById('ng-menu-drawer'));
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-})();
-</script>
-
 <style id="ng-profile-popup-full-height-v12">
 /* Profile popup: full viewport height, keep the existing 80vw side width. */
 body.ng-profile-open #ng-profile-menu.ng-profile-menu,
