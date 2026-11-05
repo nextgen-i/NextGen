@@ -2003,6 +2003,26 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 <script id="ng-menu-reference-controls">
 (function(){var d=document.getElementById('ng-menu-drawer');if(!d||d.dataset.referenceControls==='1')return;d.dataset.referenceControls='1';var sw=d.querySelector('#ng-menu-profile-switch'),shortcuts=d.querySelector('.ng-menu-shortcuts'),profile=d.querySelector('#ng-menu-profile-dropdown');if(sw&&shortcuts)sw.addEventListener('click',function(){var open=sw.getAttribute('aria-expanded')==='true';sw.setAttribute('aria-expanded',String(!open));shortcuts.classList.toggle('ng-profiles-expanded',!open);});var sync=function(){var u=window.NGWorkspace&&typeof window.NGWorkspace.getUser==='function'?window.NGWorkspace.getUser():null;var name=u&&(u.user_metadata&&(u.user_metadata.full_name||u.user_metadata.name||u.user_metadata.display_name)||u.email);var avatar=u&&u.user_metadata&&(u.user_metadata.avatar_url||u.user_metadata.picture||u.user_metadata.photo_url);var n=d.querySelector('#ng-menu-profile-name'),img=d.querySelector('#ng-menu-user-avatar');if(n&&name)n.textContent=name;if(img&&avatar&&img.getAttribute('src')!==avatar)img.src=avatar;};sync();window.addEventListener('nextgen-auth-state',sync);})();
 </script>
+
+<script id="ng-facebook-edge-home-gesture">
+(function(){
+  if(window.__ngFacebookEdgeHomeGesture)return;window.__ngFacebookEdgeHomeGesture=true;
+  var startX=0,startY=0,tracking=false,drawer=document.getElementById('ng-menu-drawer');
+  document.addEventListener('touchstart',function(e){
+    if(!e.touches||e.touches.length!==1|| (drawer&&drawer.classList.contains('is-open'))) {tracking=false;return;}
+    var t=e.touches[0];startX=t.clientX;startY=t.clientY;
+    tracking=startX<=26;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(!tracking||!e.changedTouches||!e.changedTouches.length){tracking=false;return;}
+    tracking=false;var t=e.changedTouches[0],dx=t.clientX-startX,dy=t.clientY-startY;
+    if(dx>=85&&Math.abs(dy)<=Math.max(65,dx*.65)){
+      var file=(location.pathname.split('/').pop()||'dashboard.html').toLowerCase();
+      if(file!=='dashboard.html'&&file!=='index.html')location.href='./dashboard.html';
+    }
+  },{passive:true});
+})();
+</script>
 </body>
 </html>
 
