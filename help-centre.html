@@ -907,7 +907,7 @@ html body.ng-unified-subpage .ng-subpage-title{
    },{passive:true});
    scroller.addEventListener('touchcancel',function(){startY=null;startX=null},{passive:true});
  }
- function init(){bindPullRefresh(document.getElementById('ng-menu-drawer'));bindPullRefresh(document.getElementById('ng-profile-menu'))}
+ function init(){bindPullRefresh(document.getElementById('ng-profile-menu'))}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
  window.addEventListener('load',init,{once:true});
  if(document.body&&window.MutationObserver){var observer=new MutationObserver(init);observer.observe(document.body,{childList:true,subtree:true})}
