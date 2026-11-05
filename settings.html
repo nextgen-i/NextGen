@@ -728,17 +728,17 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
  const send=$('ngPhoneSendLinkOtp'),verify=$('ngPhoneVerifyLinkOtp');
  if(!send||!verify||!window.getNextGenSupabaseClient)return;
  let client;try{client=window.getNextGenSupabaseClient()}catch(e){}
- const normalized=()=>number.value.trim().replace(/[\\s()-]/g,'');
+ const normalized=()=>number.value.trim().replace(/[\s()-]/g,'');
  async function signedIn(){const {data,error}=await client.auth.getUser();if(error)throw error;if(!data||!data.user)throw new Error('Please sign in with your existing NextGen account first.');return data.user;}
  send.addEventListener('click',async()=>{
-  const phone=normalized();if(!/^\\+[1-9]\\d{7,14}$/.test(phone)){status.textContent='Enter a valid number with country code, for example +91XXXXXXXXXX.';return;}
+  const phone=normalized();if(!/^\\+[1-9]\d{7,14}$/.test(phone)){status.textContent='Enter a valid number with country code, for example +91XXXXXXXXXX.';return;}
   send.disabled=true;status.textContent='Checking your existing account…';
   try{await signedIn();const {error}=await client.auth.updateUser({phone});if(error)throw error;status.textContent='Verification OTP requested. Enter the code sent to your mobile number.';otp.focus({preventScroll:true});}
   catch(e){status.textContent=e&&e.message?e.message:'Could not request phone verification. Check SMS provider configuration.';}
   finally{send.disabled=false;}
  });
  verify.addEventListener('click',async()=>{
-  const phone=normalized(),token=otp.value.trim();if(!/^\\+[1-9]\\d{7,14}$/.test(phone)||!/^\\d{6}$/.test(token)){status.textContent='Enter the valid mobile number and 6-digit OTP.';return;}
+  const phone=normalized(),token=otp.value.trim();if(!/^\\+[1-9]\d{7,14}$/.test(phone)||!/^\d{6}$/.test(token)){status.textContent='Enter the valid mobile number and 6-digit OTP.';return;}
   verify.disabled=true;status.textContent='Verifying number…';
   try{await signedIn();const {error}=await client.auth.verifyOtp({phone,token,type:'phone_change'});if(error)throw error;status.textContent='Mobile number verified and linked to this NextGen account. Phone login is now enabled for this number.';}
   catch(e){status.textContent=e&&e.message?e.message:'Phone verification failed.';}
