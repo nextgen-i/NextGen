@@ -87,7 +87,7 @@
     var href = anchor.getAttribute("href") || "";
     if (!href || href.charAt(0) === "#" || /^(mailto:|tel:|javascript:)/i.test(href)) return;
     if (!sameOrigin(href)) return;
-    if (anchor.closest("dialog,[role=dialog],.ng-profile-menu,.ng-menu-drawer,.ng-header-popup,.ng-header-popup-backdrop")) return;
+    if (anchor.closest("dialog,[role=dialog]")) return;
     rememberDestination(new URL(href, location.href).href);
   }, true);
   function restoreScroll() {
