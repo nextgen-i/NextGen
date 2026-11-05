@@ -762,3 +762,11 @@ html body .app>header #ng-hamburger span:nth-child(2){width:10px!important;}
 .ng-menu-drawer .ng-menu-logout{background:linear-gradient(100deg,#103b68,#0a2b53)!important;border:1px solid #209bd4!important;color:#eaf7ff!important;}
 .ng-menu-drawer .ng-menu-logout::first-letter{color:#ff3869!important;}
 @media(max-width:380px){.ng-menu-drawer .ng-menu-reference-card{background:linear-gradient(145deg,#071b3c 0%,#06142e 60%,#041027 100%)!important;}}
+
+
+/* TRANSPARENT SURFACES: replace white fills inside hamburger drawer */
+/* Keep white typography and the original profile image; make only surfaces transparent. */
+.ng-menu-drawer .ng-menu-reference-card{background:transparent!important;background-color:transparent!important;box-shadow:none!important;border:1px solid rgba(55,190,255,.32)!important;}
+.ng-menu-drawer .ng-menu-profile-dropdown{background:transparent!important;background-color:transparent!important;box-shadow:none!important;border:1px solid rgba(55,190,255,.28)!important;}
+.ng-menu-drawer .ng-menu-user-avatar{background:transparent!important;}
+.ng-menu-drawer .ng-menu-channel-switch{background:transparent!important;}
