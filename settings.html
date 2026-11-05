@@ -1209,6 +1209,10 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
   drawer.classList.add('is-open');drawer.setAttribute('aria-hidden','false');
   backdrop.hidden=false;trigger.setAttribute('aria-expanded','true');trigger.setAttribute('aria-label','Close navigation menu');
   document.body.classList.add('ng-menu-open');
+  var mainLinks=drawer.querySelector('.ng-menu-main-links');
+  var seeMore=drawer.querySelector('#ng-menu-see-less');
+  if(mainLinks)mainLinks.classList.add('is-collapsed');
+  if(seeMore)seeMore.textContent='See more';
   drawer.querySelectorAll('.ng-menu-accordion-trigger').forEach(function(b){
     var p=b.nextElementSibling,active=b===accordion;
     b.setAttribute('aria-expanded',String(active));
