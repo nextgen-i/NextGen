@@ -235,9 +235,7 @@ svg{display:block}
 </style>
 
 <style id="ng-hamburger-final-fix">
-/* The screenshot shows a second standalone hamburger between the square menu button and logo. Keep only the square menu button, logo and right-side actions. */
-.app>header>:not(#ng-hamburger):not(.logo):not(.hr){display:none!important}
-.app>header #ng-hamburger{display:flex!important}
+/* Legacy hide rule removed: reference header account elements must remain visible. */
 </style>
 
 <style id="ng-hamburger-single-fix">
@@ -820,7 +818,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
 </head>
 <body>
 <div class="app">
-<header id="ng-master-header" aria-label="Account and channel controls">
+<div class="ng-reference-header-shell"><header id="ng-master-header" aria-label="Account and channel controls">
   <div class="ng-ref-user">
     <img class="ng-ref-avatar" src="./profile-icon.jpg" alt="Profile photo">
     <span class="ng-ref-user-name" id="ng-ref-user-name">Abdus Sattar</span>
@@ -833,7 +831,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7"/></svg><span class="ng-ref-badge">9+</span>
   </button>
 </header>
-<button type="button" class="ng-hamburger ng-ref-menu" id="ng-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="ng-menu-drawer"><span></span><span></span><span></span></button>
+<button type="button" class="ng-hamburger ng-ref-menu" id="ng-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="ng-menu-drawer"><span></span><span></span><span></span></button></div>
 <div class="ng-header-popup-backdrop" id="ng-quick-create-backdrop" hidden>
  <section class="ng-header-popup" role="dialog" aria-modal="true" aria-labelledby="ng-quick-create-title">
   <div class="ng-header-popup-head"><span id="ng-quick-create-title">Create</span><button type="button" class="ng-header-popup-close" data-ng-popup-close aria-label="Close">×</button></div>
