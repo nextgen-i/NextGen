@@ -729,7 +729,7 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
  const send=$('ngPhoneSendLinkOtp'),verify=$('ngPhoneVerifyLinkOtp');
  if(!send||!verify||!window.getNextGenSupabaseClient)return;
  let client;try{client=window.getNextGenSupabaseClient()}catch(e){}
- const normalized=()=>number.value.trim().replace(/[\s()-]/g,'');
+ const normalized=()=>{const n=number.value.trim().replace(/[\s()-]/g,'');return /^\d{10}$/.test(n)?'+91'+n:n;};
  async function signedIn(){const {data,error}=await client.auth.getUser();if(error)throw error;if(!data||!data.user)throw new Error('Please sign in with your existing NextGen account first.');return data.user;}
  send.addEventListener('click',async()=>{
   const phone=normalized();if(!/^\+[1-9]\d{7,14}$/.test(phone)){status.textContent='Enter a valid number with country code, for example +91XXXXXXXXXX.';return;}
