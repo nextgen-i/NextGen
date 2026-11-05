@@ -195,16 +195,6 @@ header .ng-hamburger:before,header .ng-hamburger:after{display:none!important;co
 .page-intro{display:flex;align-items:center;gap:12px;padding:14px 11px 12px}.page-icon{width:42px;height:42px;flex:0 0 42px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#168bff,#4a4cff);box-shadow:0 0 10px #2a6bff55;color:#fff;font-size:23px}.page-intro h1{font-size:24px;line-height:1.1;font-weight:800}.page-intro p{font-size:12px;color:#8fa6d6;margin-top:4px}.page-panel{margin:8px 11px 14px;padding:17px 14px;border:1px solid #17436c;border-radius:15px;background:linear-gradient(145deg,#081f3a,#06172c);box-shadow:0 10px 30px #0002}.page-panel h2{font-size:19px;color:#f4f8ff;margin-bottom:12px}.page-panel .muted{font-size:13px;line-height:1.55;color:#a8c1e8}.page-empty{min-height:145px;margin-top:14px;padding:18px 12px;border:1px dashed #2857a4;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:#071634}.page-empty>span{font-size:27px;color:#4DB8FF}.page-empty strong{font-size:15px;color:#fff}.page-empty small{font-size:12px;color:#8fa6d6}.mode-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #17385c;color:#eaf3ff;font-size:14px}.mode-on,.mode-off{font-size:12px;padding:5px 10px;border-radius:8px}.mode-on{background:#063e37;color:#45e4b0}.mode-off{background:#3b2630;color:#ff9bab}.time-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}.time-slots>div{padding:13px 5px;border:1px solid #1c5790;border-radius:12px;background:#071a36;text-align:center}.time-slots strong{display:block;font-size:20px;color:#fff}.time-slots small{display:block;margin-top:5px;color:#8fa6d6;font-size:11px}@media(max-width:350px){.time-slots strong{font-size:17px}.page-panel{margin-left:8px;margin-right:8px}}
 </style>
 
-<style id="ng-settings-back-arrow-v1">
-.page-intro .ng-settings-back{
- flex:0 0 30px!important;width:30px!important;height:30px!important;min-width:30px!important;
- display:grid!important;place-items:center!important;margin:0!important;padding:0!important;
- border:1px solid #258de0!important;border-radius:50%!important;
- background:linear-gradient(145deg,#0c2b58,#071a39)!important;color:#eaf7ff!important;
- box-shadow:0 0 9px #168bff44!important;cursor:pointer!important;
-}
-.page-intro .ng-settings-back svg{display:block!important;width:17px!important;height:17px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
-</style>
 <style id="ng-settings-content">
 .settings-list{padding:2px 12px 12px;color:#fff}
 .settings-list h2{font-size:19px;font-weight:800;margin:20px 0 8px;color:#fff}
@@ -1089,33 +1079,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-<script id="ng-settings-close-action-v2">
-(function(){
- var close=document.getElementById('ng-settings-close');
- if(!close||close.dataset.bound==='1')return;
- close.dataset.bound='1';
- close.addEventListener('click',function(){
-  var ref=document.referrer;
-  var sameOrigin=false;
-  try{sameOrigin=!!ref&&new URL(ref,location.href).origin===location.origin;}catch(e){}
-  if(sameOrigin&&history.length>1){
-   history.back();
-   return;
-  }
-  if(sameOrigin){
-   location.replace(ref);
-   return;
-  }
-  if(history.length>1){
-   history.back();
-   return;
-  }
-  /* Only used when Settings was opened directly with no return history. */
-  location.replace('./dashboard.html');
- });
-})();
-</script>
-
 <style id="ng-profile-popup-final-80vw-v15">
 /* Profile menu: flush to top/right/bottom, 80vw wide; only its links scroll. */
 #ng-profile-menu.ng-profile-menu,
@@ -1195,31 +1158,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
 })();
 </script>
 
-<style id="ng-settings-compact-header-v2">
-/* Settings page: compact title row and correctly sized circular back control. */
-.page-intro{
-  gap:9px!important;
-  padding:6px 11px 4px!important;
-  min-height:0!important;
-}
-.page-intro .ng-settings-back{
-  box-sizing:border-box!important;
-  display:inline-flex!important;
-  flex:0 0 36px!important;
-  width:36px!important;min-width:36px!important;max-width:36px!important;
-  height:36px!important;min-height:36px!important;max-height:36px!important;
-  aspect-ratio:1/1!important;
-  align-items:center!important;justify-content:center!important;
-  padding:0!important;margin:0!important;
-  border-radius:50%!important;
-}
-.page-intro .ng-settings-back svg{
-  width:18px!important;height:18px!important;
-}
-.settings-list h2:first-child{margin-top:4px!important;margin-bottom:4px!important}
-.settings-list h2{margin-top:14px!important;margin-bottom:5px!important}
-</style>
-
 <style id="ng-settings-global-spacing-compact-v3">
 /* Compact vertical rhythm across the ENTIRE Settings page, not only the title area. */
 .settings-list{
@@ -1246,14 +1184,19 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
 .settings-note{padding:7px 4px 2px!important;line-height:1.4!important}
 </style>
 
-<style id="ng-settings-close-control-v1">
-/* Replace the Settings back arrow with a top-right close control. */
-.page-intro{display:flex!important;align-items:center!important;gap:9px!important}
+<style id="ng-settings-close-control-v2">
+/* Settings: no left-side back arrow; one visible circular close button at the far right. */
+.page-intro{
+ display:flex!important;align-items:center!important;gap:9px!important;
+ padding:6px 11px 4px!important;min-height:0!important;
+}
 .page-intro .ng-settings-title{flex:1 1 auto!important;min-width:0!important}
 .page-intro .ng-settings-close{
- flex:0 0 34px!important;width:34px!important;min-width:34px!important;height:34px!important;
- min-height:34px!important;margin:0 2px 0 auto!important;padding:0!important;
- display:grid!important;place-items:center!important;box-sizing:border-box!important;
+ position:relative!important;inset:auto!important;order:3!important;
+ flex:0 0 36px!important;width:36px!important;min-width:36px!important;max-width:36px!important;
+ height:36px!important;min-height:36px!important;max-height:36px!important;aspect-ratio:1/1!important;
+ margin:0 2px 0 auto!important;padding:0!important;box-sizing:border-box!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
  border:1px solid #258de0!important;border-radius:50%!important;
  background:linear-gradient(145deg,#0c2b58,#071a39)!important;color:#eaf7ff!important;
  box-shadow:0 0 9px #168bff44!important;cursor:pointer!important;
@@ -1261,6 +1204,7 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
 .page-intro .ng-settings-close svg{display:block!important;width:18px!important;height:18px!important;
  fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;
  stroke-linecap:round!important;stroke-linejoin:round!important}
+.page-intro .ng-settings-back{display:none!important}
 </style>
 <script src="./nextgen-navigation.js?v=20261105-global-return-v1"></script>
 </body>
