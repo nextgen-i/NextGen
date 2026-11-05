@@ -544,7 +544,7 @@ body.ng-header-popup-open{overflow:hidden}
 
 
 <main>
-<section class="page-intro"><button type="button" class="ng-settings-back" id="ng-settings-back" aria-label="Go back" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="page-icon">⚙</div><div><h1>Settings</h1></div></section>
+<section class="page-intro"><div class="page-icon">⚙</div><div class="ng-settings-title"><h1>Settings</h1></div><button type="button" class="ng-settings-close" id="ng-settings-close" aria-label="Close Settings" title="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></section>
 <section class="settings-list" aria-label="Settings options">
   <h2>Account</h2>
   <button class="settings-row" id="ngOpenPhoneModal" type="button" style="width:100%;text-align:left;color:inherit;background:transparent;border:0;font:inherit;cursor:pointer"><span class="settings-icon">☎</span><div class="settings-copy"><strong>Mobile Number Update</strong><small>Link and verify your mobile number</small></div><span class="settings-arrow">›</span></button>
@@ -1143,17 +1143,13 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-<script id="ng-settings-back-action-v1">
+<script id="ng-settings-close-action-v1">
 (function(){
- var back=document.getElementById('ng-settings-back');
- if(!back||back.dataset.bound==='1')return;
- back.dataset.bound='1';
- back.addEventListener('click',function(){
-  var ref=document.referrer;
-  var sameOrigin=false;
-  try{sameOrigin=!!ref&&new URL(ref,location.href).origin===location.origin;}catch(e){}
-  if(history.length>1&&sameOrigin){history.back();}
-  else{location.href='./dashboard.html';}
+ var close=document.getElementById('ng-settings-close');
+ if(!close||close.dataset.bound==='1')return;
+ close.dataset.bound='1';
+ close.addEventListener('click',function(){
+  location.href='./dashboard.html';
  });
 })();
 </script>
@@ -1286,6 +1282,23 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
 .settings-copy strong{line-height:1.2!important}
 .settings-copy small{line-height:1.3!important}
 .settings-note{padding:7px 4px 2px!important;line-height:1.4!important}
+</style>
+
+<style id="ng-settings-close-control-v1">
+/* Replace the Settings back arrow with a top-right close control. */
+.page-intro{display:flex!important;align-items:center!important;gap:9px!important}
+.page-intro .ng-settings-title{flex:1 1 auto!important;min-width:0!important}
+.page-intro .ng-settings-close{
+ flex:0 0 34px!important;width:34px!important;min-width:34px!important;height:34px!important;
+ min-height:34px!important;margin:0 2px 0 auto!important;padding:0!important;
+ display:grid!important;place-items:center!important;box-sizing:border-box!important;
+ border:1px solid #258de0!important;border-radius:50%!important;
+ background:linear-gradient(145deg,#0c2b58,#071a39)!important;color:#eaf7ff!important;
+ box-shadow:0 0 9px #168bff44!important;cursor:pointer!important;
+}
+.page-intro .ng-settings-close svg{display:block!important;width:18px!important;height:18px!important;
+ fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important}
 </style>
 </body>
 </html>
