@@ -2022,6 +2022,26 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 }
 </style>
 
+
+
+<!-- PROFILE MENU SCROLL OVERRIDE — dashboard test branch only.
+     The earlier v20 rule sets overflow:visible!important at higher specificity.
+     This explicit, higher-specificity rule restores the intended inner scroll area. -->
+<style id="ng-profile-menu-scroll-conflict-fix-v1">
+html body.ng-profile-open #ng-profile-menu.ng-profile-menu .ng-profile-links {
+  display: block !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  max-height: none !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
+  touch-action: pan-y !important;
+}
+</style>
+
 </body>
 </html>
 
