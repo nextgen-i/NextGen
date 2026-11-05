@@ -35,7 +35,7 @@ footer strong{display:block;color:var(--cyan);font-size:10px;letter-spacing:.2px
 </style>
 </head>
 <body>
-<header><a class="back" href="./settings.html" aria-label="Back to Settings">‹</a><div class="brand">NextGen<small>Smart Automation. Smarter Growth.</small></div></header>
+<header><a class="back" href="./settings.html" data-ng-back data-ng-back-fallback="./dashboard.html" aria-label="Back to previous page">‹</a><div class="brand">NextGen<small>Smart Automation. Smarter Growth.</small></div></header>
 <main>
 <h1>Privacy Settings</h1>
 <p class="lead">Manage your privacy preferences in one place.</p>
@@ -67,5 +67,6 @@ document.getElementById("delete-account-btn").addEventListener("click",function(
 });
 </script>
 <footer>©2026 NextGen. All Rights Reserved.<strong>Powered by ABDUS SATTAR</strong></footer>
+<script src="./nextgen-navigation.js?v=20261105-global-return-v1"></script>
 </body>
 </html>
