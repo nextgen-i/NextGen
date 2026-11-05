@@ -442,11 +442,9 @@ html,body{height:100%;overflow:hidden!important}
 <body>
 <div class="app">
 <header class="ng-settings-shell-header">
-  <button type="button" class="ng-hamburger" id="ng-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="ng-menu-drawer" hidden><span></span><span></span><span></span></button>
+  <button type="button" id="ng-settings-back" class="ng-settings-back" aria-label="Go back" title="Go back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
   <strong class="ng-settings-shell-title">Settings &amp; Privacy</strong>
-  <button type="button" id="ng-settings-search-toggle" class="ng-settings-search-toggle" aria-label="Search Settings" title="Search Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
-  <button type="button" id="ng-settings-close" class="ng-settings-close" aria-label="Close menu" title="Close menu">×</button>
-  <input id="ng-settings-search" class="ng-settings-search" type="search" placeholder="Search Settings..." aria-label="Search Settings" hidden>
+  <button type="button" id="ng-settings-search-toggle" class="ng-settings-search-toggle" aria-label="Focus Search Settings" title="Search Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
 </header>
 <div class="ng-header-popup-backdrop" id="ng-quick-create-backdrop" hidden>
  <section class="ng-header-popup" role="dialog" aria-modal="true" aria-labelledby="ng-quick-create-title">
@@ -548,6 +546,7 @@ html,body{height:100%;overflow:hidden!important}
 
 
 <main>
+<div class="ng-settings-searchbar"><input id="ng-settings-search" type="search" placeholder="Search Settings..." aria-label="Search Settings"></div>
 <section class="settings-list" aria-label="Settings options">
   <h2>Account</h2>
 <div class="settings-row"><span class="settings-icon"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></span><div class="settings-copy"><strong>Push notifications</strong><small>Choose your preferences</small></div><span class="settings-arrow">›</span></div>
@@ -1222,20 +1221,28 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
   try{sessionStorage.setItem('ngNextGenMenuOpen','1');}catch(e){}
 })();
 </script>
-<script id="ng-settings-search-v1">
+<script id="ng-settings-search-v2">
 (function(){
- var toggle=document.getElementById('ng-settings-search-toggle'),input=document.getElementById('ng-settings-search');
- var list=document.querySelector('.settings-list');if(!toggle||!input||!list)return;
- toggle.addEventListener('click',function(){
-   input.hidden=false;input.focus();toggle.hidden=true;
- });
+ var toggle=document.getElementById('ng-settings-search-toggle');
+ var input=document.getElementById('ng-settings-search');
+ var list=document.querySelector('.settings-list');
+ if(!toggle||!input||!list)return;
+ toggle.addEventListener('click',function(){input.focus();});
  input.addEventListener('input',function(){
-   var q=input.value.trim().toLowerCase(),children=Array.from(list.children);
-   children.forEach(function(el){if(el.matches('h2')){el.hidden=!!q&&!el.textContent.toLowerCase().includes(q);}
-     else if(el.matches('.settings-row,.page-panel')){el.hidden=!!q&&!el.textContent.toLowerCase().includes(q);}
-   });
+  var q=input.value.trim().toLowerCase(),children=Array.from(list.children);
+  children.forEach(function(el){
+   if(el.matches('h2'))el.hidden=!!q&&!el.textContent.toLowerCase().includes(q);
+   else if(el.matches('.settings-row,.page-panel,.settings-note'))el.hidden=!!q&&!el.textContent.toLowerCase().includes(q);
+  });
  });
- input.addEventListener('keydown',function(e){if(e.key==='Escape'){input.value='';input.dispatchEvent(new Event('input'));input.hidden=true;toggle.hidden=false;toggle.focus();}});
+ input.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){input.value='';input.dispatchEvent(new Event('input'));input.blur();}
+ });
+ var back=document.getElementById('ng-settings-back');
+ if(back)back.addEventListener('click',function(){
+  if(window.history.length>1)window.history.back();
+  else window.location.href='./index.html';
+ });
 })();
 </script>
 
@@ -1327,4 +1334,57 @@ html body .app>header.ng-settings-shell-header>#ng-settings-close{
 .app>main>.ng-pull-refresh-indicator.is-visible{opacity:1!important;visibility:visible!important}
 .app>main>.ng-pull-refresh-indicator.is-refreshing{animation:ngSettingsPullRefreshSpin .72s linear infinite!important}
 @keyframes ngSettingsPullRefreshSpin{to{transform:rotate(360deg)}}
+</style>
+
+<style id="ng-settings-meta-inspired-dark-layout-v1">
+/* Settings page adopts the reference information architecture while retaining NextGen navy styling. */
+html body .app>header.ng-settings-shell-header{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:12px!important;padding:0 14px!important;height:54px!important;min-height:54px!important;max-height:54px!important;
+ border:0!important;border-bottom:1px solid rgba(111,151,211,.22)!important;border-radius:0!important;box-shadow:none!important;
+ background:#050d29!important;overflow:visible!important;
+}
+html body .app>header.ng-settings-shell-header::before,
+html body .app>header.ng-settings-shell-header::after{display:none!important;content:none!important}
+html body .app>header.ng-settings-shell-header>#ng-settings-back{
+ display:grid!important;place-items:center!important;flex:0 0 34px!important;width:34px!important;height:38px!important;
+ min-width:34px!important;min-height:38px!important;padding:0!important;border:0!important;background:transparent!important;color:#fff!important;
+}
+html body .app>header.ng-settings-shell-header>#ng-settings-back svg{width:27px!important;height:27px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.4!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+html body .app>header.ng-settings-shell-header>.ng-settings-shell-title{
+ flex:1 1 auto!important;text-align:center!important;font-size:19px!important;font-weight:750!important;color:#fff!important;
+}
+html body .app>header.ng-settings-shell-header>#ng-settings-search-toggle{
+ display:grid!important;place-items:center!important;flex:0 0 36px!important;width:36px!important;height:38px!important;
+ min-width:36px!important;min-height:38px!important;padding:0!important;border:0!important;background:transparent!important;color:#fff!important;
+}
+html body .app>header.ng-settings-shell-header>#ng-settings-search-toggle svg{width:27px!important;height:27px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.1!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.app>.ng-settings-shell-header~main{padding-top:0!important}
+.app>main>.ng-settings-searchbar{
+ position:sticky;top:0;z-index:4;padding:17px 18px 15px;background:#050d29;
+}
+.app>main>.ng-settings-searchbar input{
+ display:block;width:100%;height:48px;padding:0 18px;border:1px solid #263c69;border-radius:28px;
+ outline:none;background:#101d40;color:#fff;font:inherit;font-size:16px;
+}
+.app>main>.ng-settings-searchbar input::placeholder{color:#9aadd0;opacity:1}
+.settings-list{padding:4px 15px 18px!important;display:block!important}
+.settings-list h2{margin:23px 0 10px!important;color:#fff!important;font-size:20px!important;font-weight:750!important;line-height:1.25!important}
+.settings-row{
+ min-height:68px!important;padding:12px 5px!important;display:flex!important;align-items:center!important;gap:14px!important;
+ border:0!important;border-bottom:1px solid rgba(106,139,193,.2)!important;border-radius:0!important;background:transparent!important;
+}
+.settings-icon{flex:0 0 40px!important;width:40px!important;height:40px!important;display:grid!important;place-items:center!important;
+ color:#65caff!important;font-size:26px!important;background:transparent!important}
+.settings-icon svg{width:29px!important;height:29px!important}
+.settings-copy{flex:1 1 auto!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:3px!important}
+.settings-copy strong{font-size:16px!important;line-height:1.25!important;color:#f4f7ff!important}
+.settings-copy small{font-size:13px!important;line-height:1.35!important;color:#9eafd0!important}
+.settings-arrow{color:#73baff!important;font-size:25px!important}
+.settings-note{color:#9eafd0!important;font-size:13px!important}
+@media(max-width:380px){
+ html body .app>header.ng-settings-shell-header>.ng-settings-shell-title{font-size:17px!important}
+ .settings-list h2{font-size:19px!important}
+ .settings-copy strong{font-size:15px!important}
+}
 </style>
