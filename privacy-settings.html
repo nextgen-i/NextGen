@@ -51,6 +51,25 @@ body.ng-unified-subpage .ng-subpage-title{display:block!important;visibility:vis
 body.ng-unified-subpage main,body.ng-unified-subpage .app>main{display:block!important;width:100%!important;max-width:720px!important;height:auto!important;min-height:0!important;max-height:none!important;flex:none!important;margin:0 auto!important;padding:24px 16px!important;overflow:visible!important;overscroll-behavior-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
 body.ng-unified-subpage footer,body.ng-unified-subpage nav.ng-bottom-nav,body.ng-unified-subpage .app>nav{display:none!important}
 @media(max-width:480px){body.ng-unified-subpage .ng-subpage-title{font-size:23px!important}body.ng-unified-subpage .ng-subpage-back{left:14px!important}}
+/* Higher-specificity override for the shared viewport lock on subpages. */
+html body.ng-unified-subpage:has(> .app){
+  display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;
+  overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important;
+}
+html body.ng-unified-subpage .app{
+  display:block!important;width:100%!important;max-width:430px!important;
+  height:auto!important;min-height:0!important;max-height:none!important;
+  margin:0 auto!important;overflow:visible!important;position:relative!important;
+}
+html body.ng-unified-subpage .app>main{
+  display:block!important;flex:none!important;width:100%!important;
+  height:auto!important;min-height:0!important;max-height:none!important;
+  overflow:visible!important;touch-action:pan-y!important;overscroll-behavior-y:auto!important;
+}
+html body.ng-unified-subpage .ng-subpage-title{
+  font-size:30px!important;font-weight:900!important;letter-spacing:.1px!important;
+}
+@media(max-width:480px){html body.ng-unified-subpage .ng-subpage-title{font-size:25px!important;font-weight:900!important}}
 </style>
 </head>
 <body class="ng-unified-subpage">
