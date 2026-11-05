@@ -5,6 +5,7 @@ body > .subpage-header,
 .app > header,
 body > footer,
 body > .ng-shared-footer,
-.app > footer {
+.app > footer,
+.app main > footer.ng-shared-footer {
   display: none !important;
 }
