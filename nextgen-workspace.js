@@ -572,6 +572,7 @@
       const menu=document.getElementById('ng-profile-menu');
       if(!menu||menu.dataset.pullRefreshReady==='v1')return;
       menu.dataset.pullRefreshReady='v1';
+      const scrollRegion=menu.querySelector('.ng-profile-links')||menu;
       const indicator=document.createElement('div');
       indicator.className='ng-profile-pull-indicator';
       indicator.setAttribute('role','status');
@@ -596,14 +597,14 @@
       }
       menu.addEventListener('touchstart',function(event){
         if(loading||event.touches.length!==1)return;
-        if(menu.scrollTop>0)return;
+        if(scrollRegion.scrollTop>0)return;
         startY=event.touches[0].clientY;tracking=true;pullDistance=0;
       },{passive:true});
       menu.addEventListener('touchmove',function(event){
         if(!tracking||loading||event.touches.length!==1)return;
         const delta=event.touches[0].clientY-startY;
         if(delta<=0){reset();return;}
-        if(menu.scrollTop>0){reset();return;}
+        if(scrollRegion.scrollTop>0){reset();return;}
         if(event.cancelable)event.preventDefault();
         pullDistance=Math.min(maxPull,delta*.62);
         indicator.style.height=Math.max(0,pullDistance)+'px';
