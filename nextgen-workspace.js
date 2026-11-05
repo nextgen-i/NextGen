@@ -725,3 +725,85 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
+
+
+/* Hamburger Drawer Pull-to-Refresh v2 — controlled vertical touch handling. */
+(function(){
+  'use strict';
+  if(window.__ngHamburgerDrawerPullRefreshV2)return;
+  window.__ngHamburgerDrawerPullRefreshV2=true;
+
+  function mount(){
+    var drawer=document.getElementById('ng-menu-drawer');
+    if(!drawer||drawer.dataset.drawerPullRefreshV2==='1')return;
+    drawer.dataset.drawerPullRefreshV2='1';
+
+    var indicator=document.createElement('div');
+    indicator.className='ng-drawer-pull-refresh';
+    indicator.setAttribute('role','status');
+    indicator.setAttribute('aria-live','polite');
+    indicator.innerHTML='<span class="ng-drawer-pull-spinner" aria-hidden="true"></span><span class="ng-drawer-pull-label">Pull down to refresh</span>';
+    drawer.insertBefore(indicator,drawer.firstChild);
+
+    var style=document.createElement('style');
+    style.id='ng-drawer-pull-refresh-v2-css';
+    style.textContent=
+      '#ng-menu-drawer{position:relative!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:auto!important;touch-action:pan-x!important;}'+
+      '#ng-menu-drawer>.ng-drawer-pull-refresh{position:absolute!important;top:calc(env(safe-area-inset-top,0px) + 8px)!important;left:50%!important;z-index:100!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;width:max-content!important;max-width:calc(100% - 28px)!important;min-height:34px!important;padding:7px 12px!important;border:1px solid #2367a5!important;border-radius:999px!important;background:#071a3a!important;color:#c9f3ff!important;font:600 12px/1.2 system-ui,sans-serif!important;box-shadow:0 5px 18px #0008!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translate(-50%,-42px)!important;transition:opacity .12s ease,transform .12s ease,visibility .12s ease!important;}'+
+      '#ng-menu-drawer>.ng-drawer-pull-refresh.is-visible{opacity:1!important;visibility:visible!important;}'+
+      '#ng-menu-drawer>.ng-drawer-pull-refresh .ng-drawer-pull-spinner{display:block!important;width:16px!important;height:16px!important;flex:0 0 16px!important;border:2px solid #28618d!important;border-top-color:#25d9ff!important;border-radius:50%!important;}'+
+      '#ng-menu-drawer>.ng-drawer-pull-refresh.is-refreshing .ng-drawer-pull-spinner{animation:ngDrawerPullSpinV2 .7s linear infinite!important;}'+
+      '@keyframes ngDrawerPullSpinV2{to{transform:rotate(360deg)}}';
+    if(!document.getElementById(style.id))document.head.appendChild(style);
+
+    var startY=0,startScrollTop=0,distance=0,tracking=false,loading=false;
+    var threshold=72,maxDistance=105;
+    function label(value){var n=indicator.querySelector('.ng-drawer-pull-label');if(n)n.textContent=value;}
+    function paint(value){
+      distance=Math.max(0,Math.min(maxDistance,value));
+      indicator.classList.toggle('is-visible',distance>3);
+      indicator.style.transform='translate(-50%,'+Math.min(42,distance*.55)+'px)';
+      label(distance>=threshold?'Release to refresh':'Pull down to refresh');
+    }
+    function reset(){
+      tracking=false;distance=0;
+      if(!loading){
+        indicator.classList.remove('is-visible','is-refreshing');
+        indicator.style.transform='translate(-50%,-42px)';
+        label('Pull down to refresh');
+      }
+    }
+    drawer.addEventListener('touchstart',function(e){
+      if(loading||!e.touches||e.touches.length!==1){reset();return;}
+      startY=e.touches[0].clientY;
+      startScrollTop=drawer.scrollTop;
+      tracking=true;distance=0;
+    },{passive:true});
+    drawer.addEventListener('touchmove',function(e){
+      if(!tracking||loading||!e.touches||e.touches.length!==1)return;
+      var dy=e.touches[0].clientY-startY;
+      if(startScrollTop<=1&&dy>0){
+        if(e.cancelable)e.preventDefault();
+        paint(dy*.78);
+      }else{
+        indicator.classList.remove('is-visible');
+        distance=0;
+        drawer.scrollTop=Math.max(0,startScrollTop-dy);
+      }
+    },{passive:false});
+    drawer.addEventListener('touchend',function(){
+      if(!tracking)return;
+      tracking=false;
+      if(distance<threshold){reset();return;}
+      loading=true;
+      indicator.classList.add('is-visible','is-refreshing');
+      indicator.style.transform='translate(-50%,42px)';
+      label('Refreshing…');
+      window.setTimeout(function(){window.location.reload();},500);
+    },{passive:true});
+    drawer.addEventListener('touchcancel',reset,{passive:true});
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});
+  else mount();
+})();;
