@@ -567,3 +567,98 @@
   // Profile refresh uses the same native scroll/overscroll behavior as the hamburger drawer.
 
 })();
+
+/* Facebook-style navigation gestures: edge-swipe open, drawer-swipe close, outside tap and Android Back. */
+(function(){
+ 'use strict';
+ if(window.__ngFacebookDrawerGesturesV1)return;
+ window.__ngFacebookDrawerGesturesV1=true;
+ function init(){
+  var drawer=document.getElementById('ng-menu-drawer');
+  var backdrop=document.getElementById('ng-menu-backdrop');
+  if(!drawer||!backdrop)return;
+  var app=document.querySelector('.app');
+  var trigger=document.getElementById('ng-hamburger');
+  var historyEntry=false,ignorePop=false;
+  function isOpen(){return drawer.classList.contains('is-open');}
+  function open(){
+   if(isOpen())return;
+   if(trigger)trigger.click();
+   if(isOpen()&&!historyEntry){
+    try{history.pushState({ngDrawerOpen:true},'',location.href);historyEntry=true;}catch(e){}
+   }
+  }
+  function close(){
+   if(!isOpen())return;
+   if(backdrop&&!backdrop.hidden)backdrop.click();
+   else{
+    drawer.classList.remove('is-open');drawer.setAttribute('aria-hidden','true');
+    document.body.classList.remove('ng-menu-open');
+    if(trigger)trigger.setAttribute('aria-expanded','false');
+   }
+   if(historyEntry){
+    historyEntry=false;ignorePop=true;
+    try{history.back();}catch(e){ignorePop=false;}
+   }
+  }
+  // Keep Android's system Back inside the drawer instead of leaving the current page.
+  window.addEventListener('popstate',function(){
+   if(ignorePop){ignorePop=false;return;}
+   if(isOpen()){
+    historyEntry=false;
+    if(backdrop&&!backdrop.hidden)backdrop.click();
+    else{drawer.classList.remove('is-open');drawer.setAttribute('aria-hidden','true');document.body.classList.remove('ng-menu-open');}
+   }
+  });
+  // Watch the existing hamburger controller so opening from its button gets a Back-stack entry too.
+  var observer=new MutationObserver(function(){
+   if(isOpen()&&!historyEntry){
+    try{history.pushState({ngDrawerOpen:true},'',location.href);historyEntry=true;}catch(e){}
+   }else if(!isOpen()&&historyEntry){
+    historyEntry=false;ignorePop=true;
+    try{history.back();}catch(e){ignorePop=false;}
+   }
+  });
+  observer.observe(drawer,{attributes:true,attributeFilter:['class']});
+  var start=null;
+  function onStart(e){
+   if(!e.touches||e.touches.length!==1)return;
+   var t=e.touches[0];
+   start={x:t.clientX,y:t.clientY,mode:isOpen()?'drawer':'page'};
+  }
+  function onMove(e){
+   if(!start||!e.touches||e.touches.length!==1)return;
+   var t=e.touches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;
+   if(Math.abs(dx)<12||Math.abs(dx)<Math.abs(dy)*1.25)return;
+   if(start.mode==='page'&&start.x<=26&&dx>35&&app){
+    if(e.cancelable)e.preventDefault();
+   }else if(start.mode==='drawer'&&dx<-35){
+    if(e.cancelable)e.preventDefault();
+   }
+  }
+  function onEnd(e){
+   if(!start||!e.changedTouches||!e.changedTouches.length){start=null;return;}
+   var t=e.changedTouches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;
+   if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.25){
+    if(start.mode==='page'&&start.x<=26&&dx>0)open();
+    else if(start.mode==='drawer'&&dx<0)close();
+   }
+   start=null;
+  }
+  if(app){
+   app.addEventListener('touchstart',onStart,{passive:true});
+   app.addEventListener('touchmove',onMove,{passive:false});
+   app.addEventListener('touchend',onEnd,{passive:true});
+   app.addEventListener('touchcancel',function(){start=null;},{passive:true});
+  }
+  // The drawer closes naturally when the dimmed page/backdrop is tapped.
+  backdrop.addEventListener('click',function(){
+   if(historyEntry){historyEntry=false;ignorePop=true;try{history.back();}catch(e){ignorePop=false;}}
+  });
+  var style=document.createElement('style');
+  style.id='ng-facebook-drawer-gesture-style-v1';
+  style.textContent='#ng-menu-close,.ng-menu-account>button{display:none!important}#ng-menu-drawer{touch-action:pan-y!important;will-change:transform}';
+  document.head.appendChild(style);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
