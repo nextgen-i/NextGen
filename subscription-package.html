@@ -387,8 +387,7 @@ html,body{background-color:#030b24!important;background-image:none!important}
 .ng-menu-accordion-panel a:nth-child(6n) .ng-point-icon{color:#34d399!important}
 .ng-menu-drawer .ng-point-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
 .ng-menu-main-links>a>span,.ng-menu-accordion-panel a .ng-point-icon{filter:drop-shadow(0 0 2px currentColor)}
-</style>
-<link rel="stylesheet" href="./subpage-clean.css?v=20261105-4">
+</style> 
 <style id="ng-subscription-page-shell-v2">
 /* Subscription page: visible compact header + normal document scrolling (native Android pull-to-refresh). */
 html,body.ng-subscription-page{
@@ -403,6 +402,7 @@ body.ng-subscription-page .app{
   margin:0 auto!important;overflow:visible!important;
 }
 body.ng-subscription-page .app>header.ng-subscription-header{
+ display:flex!important;visibility:visible!important;opacity:1!important;
   display:flex!important;visibility:visible!important;opacity:1!important;
   position:sticky!important;top:0!important;left:auto!important;right:auto!important;
   z-index:100!important;width:100%!important;height:52px!important;min-height:52px!important;
@@ -974,16 +974,22 @@ body.ng-profile-open #ng-profile-backdrop.ng-profile-backdrop{
 </script>
 <script id="ng-subscription-header-guard">
 (function(){
-  function restoreSubscriptionHeader(){
-    var h=document.querySelector('body.ng-subscription-page .app>header.ng-subscription-header');
-    if(!h)return;
-    if(!h.querySelector('#ng-subscription-back')||!h.querySelector('strong')){
-      h.innerHTML='<a href="./settings.html" id="ng-subscription-back" class="ng-subscription-back" aria-label="Go back to previous page" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong>Subscription Package</strong>';
-    }
+ function fix(){
+  var h=document.querySelector('body.ng-subscription-page .app>header.ng-subscription-header');
+  if(!h)return;
+  h.style.setProperty('display','flex','important');
+  h.style.setProperty('visibility','visible','important');
+  h.style.setProperty('opacity','1','important');
+  if(!document.getElementById('ng-subscription-back')||!h.querySelector('strong')){
+   h.innerHTML='<a href="./settings.html" id="ng-subscription-back" class="ng-subscription-back" aria-label="Go back to previous page" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong>Subscription Package</strong>';
   }
-  restoreSubscriptionHeader();
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',restoreSubscriptionHeader,{once:true});
-  window.addEventListener('load',restoreSubscriptionHeader,{once:true});
+  var a=h.querySelector('#ng-subscription-back'),t=h.querySelector('strong');
+  if(a){a.style.setProperty('display','grid','important');a.style.setProperty('visibility','visible','important');}
+  if(t){t.textContent='Subscription Package';t.style.setProperty('display','block','important');t.style.setProperty('visibility','visible','important');}
+ }
+ fix();
+ document.addEventListener('DOMContentLoaded',fix,{once:true});
+ window.addEventListener('load',fix,{once:true});
 })();
 </script>
 </body>
