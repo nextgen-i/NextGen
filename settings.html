@@ -103,7 +103,7 @@ svg{display:block}
 
 <style id="ng-hamburger-final-fix">
 /* The screenshot shows a second standalone hamburger between the square menu button and logo. Keep only the square menu button, logo and right-side actions. */
-.app>header>:not(#ng-hamburger):not(.logo):not(.hr){display:none!important}
+.app>header:not(.ng-settings-shell-header)>:not(#ng-hamburger):not(.logo):not(.hr){display:none!important}
 .app>header #ng-hamburger{display:flex!important}
 </style>
 
@@ -432,12 +432,19 @@ html,body{height:100%;overflow:hidden!important}
 .ng-settings-search{width:42%;height:32px;padding:0 9px;border:1px solid #258bd4;border-radius:8px;background:#06152b;color:#fff}
 .ng-settings-search[hidden],.ng-settings-search-toggle[hidden]{display:none!important}
 .app>main{min-height:0!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;padding-top:8px!important}
+ .ng-settings-refresh{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer}.ng-settings-refresh svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app>header.ng-settings-shell-header>.ng-settings-shell-title{display:block!important;visibility:visible!important;opacity:1!important}
+.app>header.ng-settings-shell-header>.ng-hamburger{display:flex!important;visibility:visible!important;opacity:1!important}
+.app>header.ng-settings-shell-header>.ng-settings-refresh,.app>header.ng-settings-shell-header>.ng-settings-search-toggle{display:grid!important;visibility:visible!important;opacity:1!important}
+.app>main{flex:1 1 auto!important;min-height:0!important;height:auto!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="ng-settings-shell-header">
+  <button type="button" class="ng-hamburger" id="ng-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="ng-menu-drawer"><span></span><span></span><span></span></button>
   <strong class="ng-settings-shell-title">Settings &amp; Privacy</strong>
+  <button type="button" id="ng-settings-refresh" class="ng-settings-refresh" aria-label="Refresh Settings" title="Refresh Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.6-2L20 12M4 12l2.8 5a7 7 0 0 0 11.6-2"/></svg></button>
   <button type="button" id="ng-settings-search-toggle" class="ng-settings-search-toggle" aria-label="Search Settings" title="Search Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
   <input id="ng-settings-search" class="ng-settings-search" type="search" placeholder="Search Settings..." aria-label="Search Settings" hidden>
 </header>
