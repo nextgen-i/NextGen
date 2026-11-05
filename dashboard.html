@@ -1983,6 +1983,45 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 }
 </style>
 
+
+
+<!-- DASHBOARD-ONLY CONTROLLED SCROLL TEST — 2026-11-05
+     Restore document-level vertical scrolling on this page only.
+     Keep the 46px header sticky and the bottom navigation fixed.
+     Overlay-open states retain body scroll locking. -->
+<style id="ng-dashboard-native-refresh-test-v1">
+@media (max-width: 700px) {
+  html body:has(> .app):not(.ng-menu-open):not(.ng-profile-open):not(.ng-header-popup-open) {
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-y: auto !important;
+  }
+  html body:has(> .app) > .app {
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+  }
+  html body:has(> .app) > .app > header {
+    position: sticky !important;
+    top: 0 !important;
+    flex: 0 0 46px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    z-index: 30 !important;
+  }
+  html body:has(> .app) > .app > main {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    overscroll-behavior-y: auto !important;
+    touch-action: auto !important;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+</style>
+
 </body>
 </html>
 
