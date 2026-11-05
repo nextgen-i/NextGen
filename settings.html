@@ -574,6 +574,19 @@ body.ng-header-popup-open{overflow:hidden}
   <div class="settings-row"><span class="settings-icon">☾</span><div class="settings-copy"><strong>Dark mode</strong></div><span class="settings-arrow">›</span></div>
   <div class="settings-row"><span class="settings-icon">▥</span><div class="settings-copy"><strong>Cellular Data Usage</strong></div><span class="settings-arrow">›</span></div>
 </section>
+<section class="page-panel" id="phone-account-link" style="margin:12px">
+  <h2>Mobile Number Login</h2>
+  <p class="muted">Link and verify a mobile number on your existing signed-in NextGen account. This will not create a separate account.</p>
+  <div class="ng-phone-link-form" style="display:grid;gap:10px;margin-top:12px">
+    <label for="ngPhoneLinkNumber">Mobile number (with country code)</label>
+    <input id="ngPhoneLinkNumber" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91XXXXXXXXXX" style="width:100%;min-height:44px;padding:10px;border:1px solid #285b91;border-radius:9px;background:#071a39;color:#fff">
+    <button id="ngPhoneSendLinkOtp" type="button" style="min-height:44px;border:1px solid #168bd4;border-radius:9px;background:#0b3970;color:#fff;font-weight:700">Send verification OTP</button>
+    <label for="ngPhoneLinkOtp">6-digit OTP</label>
+    <input id="ngPhoneLinkOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="Enter OTP" style="width:100%;min-height:44px;padding:10px;border:1px solid #285b91;border-radius:9px;background:#071a39;color:#fff">
+    <button id="ngPhoneVerifyLinkOtp" type="button" style="min-height:44px;border:1px solid #168bd4;border-radius:9px;background:#0b3970;color:#fff;font-weight:700">Verify and link number</button>
+    <p id="ngPhoneLinkStatus" class="muted" role="status" aria-live="polite">Sign in with your existing Google or Email account first. SMS provider setup is required.</p>
+  </div>
+</section>
 <section class="page-panel" id="integrations"><h2>Platform Integrations</h2><p class="muted">Connection state is shown honestly; connect each platform before using its data or publishing features.</p><div class="ng-settings-line"><b>YouTube</b><span>Connection pending</span></div><div class="ng-settings-line"><b>Facebook</b><span>Connection pending</span></div><div class="ng-settings-line"><b>Instagram</b><span>Connection pending</span></div><div class="ng-settings-line"><b>Threads</b><span>Connection pending</span></div></section>
 <section class="page-panel" id="ng-notification-preferences"><h2>Notification Preferences</h2><p class="muted">Choose which workspace updates you want to receive.</p><div id="ng-notification-controls"><p class="muted">Sign in to load notification preferences.</p></div><p id="ng-notification-note" class="muted">Preferences are saved to your NextGen account.</p></section>
 <section class="page-panel" id="team"><h2>Team Management</h2><p class="muted">Invitations, roles and channel-level access will be enabled after authentication and workspace permissions are connected.</p><div class="ng-settings-line"><b>Owner</b><span>Workspace owner</span></div><div class="ng-settings-line"><b>Team members</b><span>Not configured</span></div></section>
@@ -708,6 +721,32 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js?v=20261104-auth-rebuild-v1"></script>
 <script src="./nextgen-workspace.js?v=20261104-profile-native-refresh-v4"></script>
+<script id="ng-phone-account-link-v1">
+(function(){
+ if(window.__ngPhoneAccountLinkV1)return;window.__ngPhoneAccountLinkV1=true;
+ const $=id=>document.getElementById(id),number=$('ngPhoneLinkNumber'),otp=$('ngPhoneLinkOtp'),status=$('ngPhoneLinkStatus');
+ const send=$('ngPhoneSendLinkOtp'),verify=$('ngPhoneVerifyLinkOtp');
+ if(!send||!verify||!window.getNextGenSupabaseClient)return;
+ let client;try{client=window.getNextGenSupabaseClient()}catch(e){}
+ const normalized=()=>number.value.trim().replace(/[\\s()-]/g,'');
+ async function signedIn(){const {data,error}=await client.auth.getUser();if(error)throw error;if(!data||!data.user)throw new Error('Please sign in with your existing NextGen account first.');return data.user;}
+ send.addEventListener('click',async()=>{
+  const phone=normalized();if(!/^\\+[1-9]\\d{7,14}$/.test(phone)){status.textContent='Enter a valid number with country code, for example +91XXXXXXXXXX.';return;}
+  send.disabled=true;status.textContent='Checking your existing account…';
+  try{await signedIn();const {error}=await client.auth.updateUser({phone});if(error)throw error;status.textContent='Verification OTP requested. Enter the code sent to your mobile number.';otp.focus({preventScroll:true});}
+  catch(e){status.textContent=e&&e.message?e.message:'Could not request phone verification. Check SMS provider configuration.';}
+  finally{send.disabled=false;}
+ });
+ verify.addEventListener('click',async()=>{
+  const phone=normalized(),token=otp.value.trim();if(!/^\\+[1-9]\\d{7,14}$/.test(phone)||!/^\\d{6}$/.test(token)){status.textContent='Enter the valid mobile number and 6-digit OTP.';return;}
+  verify.disabled=true;status.textContent='Verifying number…';
+  try{await signedIn();const {error}=await client.auth.verifyOtp({phone,token,type:'phone_change'});if(error)throw error;status.textContent='Mobile number verified and linked to this NextGen account. Phone login is now enabled for this number.';}
+  catch(e){status.textContent=e&&e.message?e.message:'Phone verification failed.';}
+  finally{verify.disabled=false;}
+ });
+})();
+</script>
+
 
 <style id="ng-hamburger-main-point-icons-size">
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
