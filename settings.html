@@ -1143,13 +1143,29 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-<script id="ng-settings-close-action-v1">
+<script id="ng-settings-close-action-v2">
 (function(){
  var close=document.getElementById('ng-settings-close');
  if(!close||close.dataset.bound==='1')return;
  close.dataset.bound='1';
  close.addEventListener('click',function(){
-  location.href='./dashboard.html';
+  var ref=document.referrer;
+  var sameOrigin=false;
+  try{sameOrigin=!!ref&&new URL(ref,location.href).origin===location.origin;}catch(e){}
+  if(sameOrigin&&history.length>1){
+   history.back();
+   return;
+  }
+  if(sameOrigin){
+   location.replace(ref);
+   return;
+  }
+  if(history.length>1){
+   history.back();
+   return;
+  }
+  /* Only used when Settings was opened directly with no return history. */
+  location.replace('./dashboard.html');
  });
 })();
 </script>
