@@ -647,3 +647,19 @@ html body .app>main{
     padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))!important;
   }
 }
+
+/* Profile header and drawer controls based on the supplied Facebook reference. */
+.ng-menu-profile-header{display:flex!important;align-items:center!important;gap:12px!important;min-height:74px!important;padding:8px 5px 13px!important}
+.ng-menu-user-avatar{width:54px!important;height:54px!important;flex:0 0 54px!important;border-radius:50%!important;object-fit:cover!important;border:2px solid #d7e5f8!important}
+.ng-menu-profile-name-wrap{flex:1 1 auto!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:3px!important}
+.ng-menu-profile-name-wrap strong{font-size:16px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;color:#fff!important}
+.ng-menu-profile-name-wrap small{font-size:10px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.ng-menu-profile-switch{width:42px!important;height:42px!important;flex:0 0 42px!important;border:1px solid #315b91!important;border-radius:50%!important;background:#10274d!important;color:#fff!important;display:grid!important;place-items:center!important;padding:8px!important}
+.ng-menu-profile-switch svg{width:25px!important;height:25px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.ng-menu-shortcuts.ng-profiles-expanded{outline:1px solid #278bce!important;border-radius:10px!important;background:#091b3a!important}
+.ng-menu-upgrade-link{display:flex!important;align-items:center!important;gap:10px!important;min-height:40px!important;padding:7px 8px!important;color:#fff!important;text-decoration:none!important;font-size:15px!important}
+.ng-menu-upgrade-link small{margin-left:auto!important;color:#55d8ff!important;font-weight:800!important}
+.ng-menu-logout{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;font-size:15px!important;line-height:1.2!important}
+.ng-menu-logout svg,.ng-menu-logout .ng-profile-icon{width:20px!important;height:20px!important;flex:0 0 20px!important;font-size:18px!important}
+.ng-menu-drawer #ng-menu-close,.ng-menu-drawer .ng-menu-title{display:none!important}
+.ng-menu-drawer{touch-action:pan-y!important;overscroll-behavior:contain!important}
