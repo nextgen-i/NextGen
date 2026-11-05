@@ -18,7 +18,7 @@
     var drawer=document.getElementById("ng-menu-drawer");
     var backdrop=document.getElementById("ng-menu-backdrop");
     var close=document.getElementById("ng-menu-close");
-    if(!trigger||!drawer||!backdrop||!close||drawer.dataset.sharedReady==="1")return;
+    if(!trigger||!drawer||!backdrop||drawer.dataset.sharedReady==="1")return;
     drawer.dataset.sharedReady="1";
     var historyEntry=false,ignorePop=false;
     function openMenu(){
