@@ -445,13 +445,23 @@ body.ng-subscription-page nav.ng-bottom-nav{display:none!important}
 <script id="ng-subscription-back-behavior">
 (function(){var b=document.getElementById('ng-subscription-back');if(!b)return;b.addEventListener('click',function(e){if(window.history.length>1){e.preventDefault();window.history.back();}});})();
 </script>
+<style id="ng-unified-subpage-header-v1">
+html,body.ng-unified-subpage{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important}
+body.ng-unified-subpage{margin:0!important;padding:0 0 env(safe-area-inset-bottom,0px)!important}
+body.ng-unified-subpage .app{display:block!important;width:100%!important;max-width:430px!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0 auto!important;overflow:visible!important;position:relative!important}
+body.ng-unified-subpage>header,body.ng-unified-subpage .app>header.subpage-header{display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;z-index:100!important;width:100%!important;height:70px!important;min-height:70px!important;max-height:70px!important;box-sizing:border-box!important;align-items:center!important;justify-content:center!important;gap:0!important;padding:0 58px!important;margin:0!important;background:#050d2b!important;border:0!important;border-bottom:1px solid #1b2c52!important;border-radius:0!important;box-shadow:none!important;color:#fff!important}
+body.ng-unified-subpage>header::before,body.ng-unified-subpage>header::after,body.ng-unified-subpage .app>header.subpage-header::before,body.ng-unified-subpage .app>header.subpage-header::after{display:none!important;content:none!important}
+body.ng-unified-subpage .ng-subpage-back{display:grid!important;visibility:visible!important;opacity:1!important;position:absolute!important;left:22px!important;top:50%!important;transform:translateY(-50%)!important;place-items:center!important;width:38px!important;height:44px!important;min-width:38px!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#fff!important;text-decoration:none!important;font-size:0!important}
+body.ng-unified-subpage .ng-subpage-back svg{display:block!important;width:30px!important;height:30px!important;fill:none!important;stroke:currentColor!important;stroke-width:3!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+body.ng-unified-subpage .ng-subpage-title{display:block!important;visibility:visible!important;opacity:1!important;position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:max-content!important;max-width:calc(100% - 112px)!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;margin:0!important;padding:0!important;text-align:center!important;color:#fff!important;font-size:28px!important;font-weight:800!important;line-height:1.15!important;letter-spacing:0!important;text-shadow:2px 2px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000!important}
+body.ng-unified-subpage main,body.ng-unified-subpage .app>main{display:block!important;width:100%!important;max-width:720px!important;height:auto!important;min-height:0!important;max-height:none!important;flex:none!important;margin:0 auto!important;padding:24px 16px!important;overflow:visible!important;overscroll-behavior-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
+body.ng-unified-subpage footer,body.ng-unified-subpage nav.ng-bottom-nav,body.ng-unified-subpage .app>nav{display:none!important}
+@media(max-width:480px){body.ng-unified-subpage .ng-subpage-title{font-size:23px!important}body.ng-unified-subpage .ng-subpage-back{left:14px!important}}
+</style>
 </head>
-<body class="ng-subscription-page">
+<body class="ng-unified-subpage">
 <div class="app">
-<header class="ng-subscription-header">
-  <a href="./settings.html" id="ng-subscription-back" class="ng-subscription-back" aria-label="Go back to previous page" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a>
-  <strong>Subscription Package</strong>
-</header>
+<header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 
 <div class="ng-profile-backdrop" id="ng-profile-backdrop" hidden></div>
 <aside class="ng-profile-menu" id="ng-profile-menu" aria-label="Profile menu" aria-hidden="true">
