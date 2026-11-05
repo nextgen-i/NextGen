@@ -195,16 +195,6 @@ header .ng-hamburger:before,header .ng-hamburger:after{display:none!important;co
 .page-intro{display:flex;align-items:center;gap:12px;padding:14px 11px 12px}.page-icon{width:42px;height:42px;flex:0 0 42px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#168bff,#4a4cff);box-shadow:0 0 10px #2a6bff55;color:#fff;font-size:23px}.page-intro h1{font-size:24px;line-height:1.1;font-weight:800}.page-intro p{font-size:12px;color:#8fa6d6;margin-top:4px}.page-panel{margin:8px 11px 14px;padding:17px 14px;border:1px solid #17436c;border-radius:15px;background:linear-gradient(145deg,#081f3a,#06172c);box-shadow:0 10px 30px #0002}.page-panel h2{font-size:19px;color:#f4f8ff;margin-bottom:12px}.page-panel .muted{font-size:13px;line-height:1.55;color:#a8c1e8}.page-empty{min-height:145px;margin-top:14px;padding:18px 12px;border:1px dashed #2857a4;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;background:#071634}.page-empty>span{font-size:27px;color:#4DB8FF}.page-empty strong{font-size:15px;color:#fff}.page-empty small{font-size:12px;color:#8fa6d6}.mode-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #17385c;color:#eaf3ff;font-size:14px}.mode-on,.mode-off{font-size:12px;padding:5px 10px;border-radius:8px}.mode-on{background:#063e37;color:#45e4b0}.mode-off{background:#3b2630;color:#ff9bab}.time-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0}.time-slots>div{padding:13px 5px;border:1px solid #1c5790;border-radius:12px;background:#071a36;text-align:center}.time-slots strong{display:block;font-size:20px;color:#fff}.time-slots small{display:block;margin-top:5px;color:#8fa6d6;font-size:11px}@media(max-width:350px){.time-slots strong{font-size:17px}.page-panel{margin-left:8px;margin-right:8px}}
 </style>
 
-<style id="ng-settings-back-arrow-v1">
-.page-intro .ng-settings-back{
- flex:0 0 30px!important;width:30px!important;height:30px!important;min-width:30px!important;
- display:grid!important;place-items:center!important;margin:0!important;padding:0!important;
- border:1px solid #258de0!important;border-radius:50%!important;
- background:linear-gradient(145deg,#0c2b58,#071a39)!important;color:#eaf7ff!important;
- box-shadow:0 0 9px #168bff44!important;cursor:pointer!important;
-}
-.page-intro .ng-settings-back svg{display:block!important;width:17px!important;height:17px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
-</style>
 <style id="ng-settings-content">
 .settings-list{padding:2px 12px 12px;color:#fff}
 .settings-list h2{font-size:19px;font-weight:800;margin:20px 0 8px;color:#fff}
@@ -544,11 +534,10 @@ body.ng-header-popup-open{overflow:hidden}
 
 
 <main>
-<section class="page-intro"><button type="button" class="ng-settings-back" id="ng-settings-back" aria-label="Go back" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="page-icon">⚙</div><div><h1>Settings</h1></div></section>
+<section class="page-intro"><div class="page-icon">⚙</div><div class="ng-settings-title"><h1>Settings</h1></div><button type="button" class="ng-settings-close" id="ng-settings-close" aria-label="Close Settings" title="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></section>
 <section class="settings-list" aria-label="Settings options">
   <h2>Account</h2>
-  <button class="settings-row" id="ngOpenPhoneModal" type="button" style="width:100%;text-align:left;color:inherit;background:transparent;border:0;font:inherit;cursor:pointer"><span class="settings-icon">☎</span><div class="settings-copy"><strong>Mobile Number Update</strong><small>Link and verify your mobile number</small></div><span class="settings-arrow">›</span></button>
-  <div class="settings-row"><span class="settings-icon"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></span><div class="settings-copy"><strong>Push notifications</strong><small>Choose your preferences</small></div><span class="settings-arrow">›</span></div>
+<div class="settings-row"><span class="settings-icon"><svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></span><div class="settings-copy"><strong>Push notifications</strong><small>Choose your preferences</small></div><span class="settings-arrow">›</span></div>
 
   <h2>Channel</h2>
   <div class="settings-row"><span class="settings-icon">▣</span><div class="settings-copy"><strong>Audience</strong><small>Not made for children</small></div><span class="settings-arrow">›</span></div>
@@ -577,22 +566,6 @@ body.ng-header-popup-open{overflow:hidden}
   <div class="settings-row"><span class="settings-icon">☾</span><div class="settings-copy"><strong>Dark mode</strong></div><span class="settings-arrow">›</span></div>
   <div class="settings-row"><span class="settings-icon">▥</span><div class="settings-copy"><strong>Cellular Data Usage</strong></div><span class="settings-arrow">›</span></div>
 </section>
-<dialog id="phone-account-link" aria-labelledby="ngPhoneModalTitle" style="position:fixed;inset:0;width:100vw;max-width:none;height:100dvh;max-height:100dvh;min-height:100dvh;overflow-x:hidden;overflow-y:auto;margin:0;padding:calc(20px + env(safe-area-inset-top,0px)) 18px calc(20px + env(safe-area-inset-bottom,0px));border:0;border-radius:0;background:linear-gradient(155deg,#081f45,#06132e);color:#fff;box-shadow:none;box-sizing:border-box">
-  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px"><h2 id="ngPhoneModalTitle" style="font-size:20px">Mobile Number Update</h2><button id="ngClosePhoneModal" type="button" aria-label="Close" style="box-sizing:border-box;display:inline-flex;flex:0 0 40px;width:40px;min-width:40px;max-width:40px;height:40px;min-height:40px;max-height:40px;aspect-ratio:1/1;align-items:center;justify-content:center;padding:0;margin:0;border:1px solid #285b91;border-radius:50%;background:#102c55;color:#fff;font-size:24px;line-height:1;appearance:none;-webkit-appearance:none">×</button></div>
-  <p class="muted">Link and verify a mobile number on your existing signed-in NextGen account. This will not create a separate account.</p>
-  <div class="ng-phone-link-form" style="display:grid;gap:10px;margin-top:12px">
-    <label for="ngPhoneCountryCode">Country code and mobile number</label>
-    <div style="display:grid;grid-template-columns:minmax(112px,34%) 1fr;gap:8px">
-      <select id="ngPhoneCountryCode" aria-label="Country code" style="width:100%;min-height:44px;padding:8px;border:1px solid #285b91;border-radius:9px;background:#071a39;color:#fff"><option value="+93">Afghanistan (+93)</option><option value="+355">Albania (+355)</option><option value="+213">Algeria (+213)</option><option value="+1684">American Samoa (+1684)</option><option value="+244">Angola (+244)</option><option value="+1264">Anguilla (+1264)</option><option value="+1268">Antigua and Barbuda (+1268)</option><option value="+54">Argentina (+54)</option><option value="+374">Armenia (+374)</option><option value="+297">Aruba (+297)</option><option value="+61">Australia (+61)</option><option value="+43">Austria (+43)</option><option value="+994">Azerbaijan (+994)</option><option value="+973">Bahrain (+973)</option><option value="+880">Bangladesh (+880)</option><option value="+1246">Barbados (+1246)</option><option value="+375">Belarus (+375)</option><option value="+32">Belgium (+32)</option><option value="+501">Belize (+501)</option><option value="+229">Benin (+229)</option><option value="+1441">Bermuda (+1441)</option><option value="+975">Bhutan (+975)</option><option value="+591">Bolivia (+591)</option><option value="+387">Bosnia and Herzegovina (+387)</option><option value="+267">Botswana (+267)</option><option value="+55">Brazil (+55)</option><option value="+246">British Indian Ocean Territory (+246)</option><option value="+673">Brunei (+673)</option><option value="+359">Bulgaria (+359)</option><option value="+226">Burkina Faso (+226)</option><option value="+257">Burundi (+257)</option><option value="+855">Cambodia (+855)</option><option value="+237">Cameroon (+237)</option><option value="+1">Canada (+1)</option><option value="+238">Cape Verde (+238)</option><option value="+1345">Cayman Islands (+1345)</option><option value="+236">Central African Republic (+236)</option><option value="+235">Chad (+235)</option><option value="+56">Chile (+56)</option><option value="+86">China (+86)</option><option value="+61">Christmas Island (+61)</option><option value="+61">Cocos (Keeling) Islands (+61)</option><option value="+57">Colombia (+57)</option><option value="+269">Comoros (+269)</option><option value="+682">Cook Islands (+682)</option><option value="+506">Costa Rica (+506)</option><option value="+385">Croatia (+385)</option><option value="+53">Cuba (+53)</option><option value="+357">Cyprus (+357)</option><option value="+420">Czech Republic (+420)</option><option value="+243">Democratic Republic of the Congo (+243)</option><option value="+45">Denmark (+45)</option><option value="+253">Djibouti (+253)</option><option value="+1767">Dominica (+1767)</option><option value="+1829">Dominican Republic (+1829)</option><option value="+1809">Dominican Republic (+1809)</option><option value="+1849">Dominican Republic (+1849)</option><option value="+670">East Timor (+670)</option><option value="+593">Ecuador (+593)</option><option value="+20">Egypt (+20)</option><option value="+503">El Salvador (+503)</option><option value="+240">Equatorial Guinea (+240)</option><option value="+291">Eritrea (+291)</option><option value="+372">Estonia (+372)</option><option value="+251">Ethiopia (+251)</option><option value="+500">Falkland Islands (+500)</option><option value="+298">Faroe Islands (+298)</option><option value="+691">Federated States of Micronesia (+691)</option><option value="+679">Fiji (+679)</option><option value="+358">Finland (+358)</option><option value="+33">France (+33)</option><option value="+594">French Guiana (+594)</option><option value="+689">French Polynesia (+689)</option><option value="+241">Gabon (+241)</option><option value="+995">Georgia (+995)</option><option value="+49">Germany (+49)</option><option value="+233">Ghana (+233)</option><option value="+350">Gibraltar (+350)</option><option value="+30">Greece (+30)</option><option value="+299">Greenland (+299)</option><option value="+1473">Grenada (+1473)</option><option value="+590">Guadeloupe (+590)</option><option value="+1671">Guam (+1671)</option><option value="+502">Guatemala (+502)</option><option value="+44">Guernsey (+44)</option><option value="+224">Guinea (+224)</option><option value="+245">Guinea-Bissau (+245)</option><option value="+592">Guyana (+592)</option><option value="+509">Haiti (+509)</option><option value="+504">Honduras (+504)</option><option value="+852">Hong Kong (+852)</option><option value="+36">Hungary (+36)</option><option value="+354">Iceland (+354)</option><option value="+91" selected>India (+91)</option><option value="+62">Indonesia (+62)</option><option value="+98">Iran (+98)</option><option value="+964">Iraq (+964)</option><option value="+353">Ireland (+353)</option><option value="+44">Isle of Man (+44)</option><option value="+972">Israel (+972)</option><option value="+39">Italy (+39)</option><option value="+225">Ivory Coast (+225)</option><option value="+1876">Jamaica (+1876)</option><option value="+81">Japan (+81)</option><option value="+44">Jersey (+44)</option><option value="+962">Jordan (+962)</option><option value="+77">Kazakhstan (+77)</option><option value="+76">Kazakhstan (+76)</option><option value="+254">Kenya (+254)</option><option value="+686">Kiribati (+686)</option><option value="+965">Kuwait (+965)</option><option value="+996">Kyrgyzstan (+996)</option><option value="+856">Laos (+856)</option><option value="+371">Latvia (+371)</option><option value="+961">Lebanon (+961)</option><option value="+266">Lesotho (+266)</option><option value="+231">Liberia (+231)</option><option value="+218">Libya (+218)</option><option value="+423">Liechtenstein (+423)</option><option value="+370">Lithuania (+370)</option><option value="+352">Luxembourg (+352)</option><option value="+853">Macau (+853)</option><option value="+261">Madagascar (+261)</option><option value="+265">Malawi (+265)</option><option value="+60">Malaysia (+60)</option><option value="+960">Maldives (+960)</option><option value="+223">Mali (+223)</option><option value="+356">Malta (+356)</option><option value="+692">Marshall Islands (+692)</option><option value="+596">Martinique (+596)</option><option value="+222">Mauritania (+222)</option><option value="+230">Mauritius (+230)</option><option value="+262">Mayotte (+262)</option><option value="+52">Mexico (+52)</option><option value="+373">Moldova (+373)</option><option value="+377">Monaco (+377)</option><option value="+976">Mongolia (+976)</option><option value="+1664">Montserrat (+1664)</option><option value="+212">Morocco (+212)</option><option value="+258">Mozambique (+258)</option><option value="+264">Namibia (+264)</option><option value="+674">Nauru (+674)</option><option value="+977">Nepal (+977)</option><option value="+31">Netherlands (+31)</option><option value="+687">New Caledonia (+687)</option><option value="+64">New Zealand (+64)</option><option value="+505">Nicaragua (+505)</option><option value="+227">Niger (+227)</option><option value="+234">Nigeria (+234)</option><option value="+683">Niue (+683)</option><option value="+672">Norfolk Island (+672)</option><option value="+850">North Korea (+850)</option><option value="+1670">Northern Mariana Islands (+1670)</option><option value="+47">Norway (+47)</option><option value="+968">Oman (+968)</option><option value="+92">Pakistan (+92)</option><option value="+680">Palau (+680)</option><option value="+507">Panama (+507)</option><option value="+675">Papua New Guinea (+675)</option><option value="+595">Paraguay (+595)</option><option value="+51">Peru (+51)</option><option value="+63">Philippines (+63)</option><option value="+64">Pitcairn Islands (+64)</option><option value="+48">Poland (+48)</option><option value="+351">Portugal (+351)</option><option value="+1787">Puerto Rico (+1787)</option><option value="+1939">Puerto Rico (+1939)</option><option value="+974">Qatar (+974)</option><option value="+389">Republic of Macedonia (+389)</option><option value="+242">Republic of the Congo (+242)</option><option value="+40">Romania (+40)</option><option value="+7">Russia (+7)</option><option value="+250">Rwanda (+250)</option><option value="+262">Réunion (+262)</option><option value="+290">Saint Helena (+290)</option><option value="+1869">Saint Kitts and Nevis (+1869)</option><option value="+1758">Saint Lucia (+1758)</option><option value="+508">Saint Pierre and Miquelon (+508)</option><option value="+1784">Saint Vincent and the Grenadines (+1784)</option><option value="+685">Samoa (+685)</option><option value="+378">San Marino (+378)</option><option value="+966">Saudi Arabia (+966)</option><option value="+221">Senegal (+221)</option><option value="+381">Serbia (+381)</option><option value="+248">Seychelles (+248)</option><option value="+232">Sierra Leone (+232)</option><option value="+65">Singapore (+65)</option><option value="+421">Slovakia (+421)</option><option value="+386">Slovenia (+386)</option><option value="+677">Solomon Islands (+677)</option><option value="+252">Somalia (+252)</option><option value="+27">South Africa (+27)</option><option value="+500">South Georgia (+500)</option><option value="+82">South Korea (+82)</option><option value="+211">South Sudan (+211)</option><option value="+34">Spain (+34)</option><option value="+94">Sri Lanka (+94)</option><option value="+249">Sudan (+249)</option><option value="+597">Suriname (+597)</option><option value="+4779">Svalbard and Jan Mayen (+4779)</option><option value="+268">Swaziland (+268)</option><option value="+46">Sweden (+46)</option><option value="+41">Switzerland (+41)</option><option value="+963">Syria (+963)</option><option value="+239">São Tomé and Príncipe (+239)</option><option value="+886">Taiwan (+886)</option><option value="+992">Tajikistan (+992)</option><option value="+255">Tanzania (+255)</option><option value="+66">Thailand (+66)</option><option value="+1242">The Bahamas (+1242)</option><option value="+220">The Gambia (+220)</option><option value="+228">Togo (+228)</option><option value="+690">Tokelau (+690)</option><option value="+676">Tonga (+676)</option><option value="+1868">Trinidad and Tobago (+1868)</option><option value="+216">Tunisia (+216)</option><option value="+90">Turkey (+90)</option><option value="+993">Turkmenistan (+993)</option><option value="+688">Tuvalu (+688)</option><option value="+256">Uganda (+256)</option><option value="+380">Ukraine (+380)</option><option value="+971">United Arab Emirates (+971)</option><option value="+44">United Kingdom (+44)</option><option value="+1">United States (+1)</option><option value="+598">Uruguay (+598)</option><option value="+998">Uzbekistan (+998)</option><option value="+678">Vanuatu (+678)</option><option value="+58">Venezuela (+58)</option><option value="+84">Vietnam (+84)</option><option value="+681">Wallis and Futuna (+681)</option><option value="+212">Western Sahara (+212)</option><option value="+967">Yemen (+967)</option><option value="+260">Zambia (+260)</option><option value="+263">Zimbabwe (+263)</option></select>
-      <input id="ngPhoneLinkNumber" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Mobile number" style="width:100%;min-height:44px;padding:10px;border:1px solid #285b91;border-radius:9px;background:#071a39;color:#fff">
-    </div>
-    <button id="ngPhoneSendLinkOtp" type="button" style="min-height:44px;border:1px solid #168bd4;border-radius:9px;background:#0b3970;color:#fff;font-weight:700">Send verification OTP</button>
-    <label for="ngPhoneLinkOtp">6-digit OTP</label>
-    <input id="ngPhoneLinkOtp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="Enter OTP" style="width:100%;min-height:44px;padding:10px;border:1px solid #285b91;border-radius:9px;background:#071a39;color:#fff">
-    <button id="ngPhoneVerifyLinkOtp" type="button" style="min-height:44px;border:1px solid #168bd4;border-radius:9px;background:#0b3970;color:#fff;font-weight:700">Verify and link number</button>
-    <p id="ngPhoneLinkStatus" class="muted" role="status" aria-live="polite">Sign in with your existing Google or Email account first. SMS provider setup is required.</p>
-  </div>
-</dialog>
 <section class="page-panel" id="integrations"><h2>Platform Integrations</h2><p class="muted">Connection state is shown honestly; connect each platform before using its data or publishing features.</p><div class="ng-settings-line"><b>YouTube</b><span>Connection pending</span></div><div class="ng-settings-line"><b>Facebook</b><span>Connection pending</span></div><div class="ng-settings-line"><b>Instagram</b><span>Connection pending</span></div><div class="ng-settings-line"><b>Threads</b><span>Connection pending</span></div></section>
 <section class="page-panel" id="ng-notification-preferences"><h2>Notification Preferences</h2><p class="muted">Choose which workspace updates you want to receive.</p><div id="ng-notification-controls"><p class="muted">Sign in to load notification preferences.</p></div><p id="ng-notification-note" class="muted">Preferences are saved to your NextGen account.</p></section>
 <section class="page-panel" id="team"><h2>Team Management</h2><p class="muted">Invitations, roles and channel-level access will be enabled after authentication and workspace permissions are connected.</p><div class="ng-settings-line"><b>Owner</b><span>Workspace owner</span></div><div class="ng-settings-line"><b>Team members</b><span>Not configured</span></div></section>
@@ -727,43 +700,6 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js?v=20261104-auth-rebuild-v1"></script>
 <script src="./nextgen-workspace.js?v=20261104-profile-native-refresh-v4"></script>
-<script id="ng-phone-account-link-v1">
-(function(){
- if(window.__ngPhoneAccountLinkV1)return;window.__ngPhoneAccountLinkV1=true;
- const $=id=>document.getElementById(id),number=$('ngPhoneLinkNumber'),otp=$('ngPhoneLinkOtp'),status=$('ngPhoneLinkStatus');
- const send=$('ngPhoneSendLinkOtp'),verify=$('ngPhoneVerifyLinkOtp');
- const modal=$('phone-account-link'),openModal=$('ngOpenPhoneModal'),closeModal=$('ngClosePhoneModal');
- const modalStateKey='ng-phone-account-link-open';
- function openPhoneModal(){if(!modal)return;try{sessionStorage.setItem(modalStateKey,'1');}catch(e){}if(typeof modal.showModal==='function'&&!modal.open)modal.showModal();else modal.setAttribute('open','');}
- function closePhoneModal(){if(!modal)return;try{sessionStorage.removeItem(modalStateKey);}catch(e){}if(typeof modal.close==='function'&&modal.open)modal.close();else modal.removeAttribute('open');}
- if(modal&&openModal){openModal.addEventListener('click',openPhoneModal);}
- if(modal&&closeModal){closeModal.addEventListener('click',closePhoneModal);}
- if(modal){modal.addEventListener('click',e=>{if(e.target===modal)closePhoneModal();});modal.addEventListener('close',()=>{try{sessionStorage.removeItem(modalStateKey);}catch(e){}});}
- /* Restore the update panel after a browser refresh instead of leaving the user on a blank/closed overlay. */
- try{if(modal&&sessionStorage.getItem(modalStateKey)==='1')openPhoneModal();}catch(e){}
-
- if(!send||!verify||!window.getNextGenSupabaseClient)return;
- let client;try{client=window.getNextGenSupabaseClient()}catch(e){}
- const normalized=()=>{const n=number.value.trim().replace(/\D/g,'');return $('ngPhoneCountryCode').value+n;};
- async function signedIn(){const {data,error}=await client.auth.getUser();if(error)throw error;if(!data||!data.user)throw new Error('Please sign in with your existing NextGen account first.');return data.user;}
- send.addEventListener('click',async()=>{
-  const phone=normalized();if(!/^\+[1-9]\d{7,14}$/.test(phone)){status.textContent='Enter a valid number with country code, for example +91XXXXXXXXXX.';return;}
-  send.disabled=true;status.textContent='Checking your existing account…';
-  try{await signedIn();const {error}=await client.auth.updateUser({phone});if(error)throw error;status.textContent='Verification OTP requested. Enter the code sent to your mobile number.';otp.focus({preventScroll:true});}
-  catch(e){status.textContent=e&&e.message?e.message:'Could not request phone verification. Check SMS provider configuration.';}
-  finally{send.disabled=false;}
- });
- verify.addEventListener('click',async()=>{
-  const phone=normalized(),token=otp.value.trim();if(!/^\+[1-9]\d{7,14}$/.test(phone)||!/^\d{6}$/.test(token)){status.textContent='Enter the valid mobile number and 6-digit OTP.';return;}
-  verify.disabled=true;status.textContent='Verifying number…';
-  try{await signedIn();const {error}=await client.auth.verifyOtp({phone,token,type:'phone_change'});if(error)throw error;status.textContent='Mobile number verified and linked to this NextGen account. Phone login is now enabled for this number.';}
-  catch(e){status.textContent=e&&e.message?e.message:'Phone verification failed.';}
-  finally{verify.disabled=false;}
- });
-})();
-</script>
-
-
 <style id="ng-hamburger-main-point-icons-size">
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
 .ng-menu-main-links a span{font-size:35px!important;line-height:1!important;width:40px!important;flex:0 0 40px!important;}
@@ -1143,21 +1079,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script>
-<script id="ng-settings-back-action-v1">
-(function(){
- var back=document.getElementById('ng-settings-back');
- if(!back||back.dataset.bound==='1')return;
- back.dataset.bound='1';
- back.addEventListener('click',function(){
-  var ref=document.referrer;
-  var sameOrigin=false;
-  try{sameOrigin=!!ref&&new URL(ref,location.href).origin===location.origin;}catch(e){}
-  if(history.length>1&&sameOrigin){history.back();}
-  else{location.href='./dashboard.html';}
- });
-})();
-</script>
-
 <style id="ng-profile-popup-final-80vw-v15">
 /* Profile menu: flush to top/right/bottom, 80vw wide; only its links scroll. */
 #ng-profile-menu.ng-profile-menu,
@@ -1237,31 +1158,6 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
 })();
 </script>
 
-<style id="ng-settings-compact-header-v2">
-/* Settings page: compact title row and correctly sized circular back control. */
-.page-intro{
-  gap:9px!important;
-  padding:6px 11px 4px!important;
-  min-height:0!important;
-}
-.page-intro .ng-settings-back{
-  box-sizing:border-box!important;
-  display:inline-flex!important;
-  flex:0 0 36px!important;
-  width:36px!important;min-width:36px!important;max-width:36px!important;
-  height:36px!important;min-height:36px!important;max-height:36px!important;
-  aspect-ratio:1/1!important;
-  align-items:center!important;justify-content:center!important;
-  padding:0!important;margin:0!important;
-  border-radius:50%!important;
-}
-.page-intro .ng-settings-back svg{
-  width:18px!important;height:18px!important;
-}
-.settings-list h2:first-child{margin-top:4px!important;margin-bottom:4px!important}
-.settings-list h2{margin-top:14px!important;margin-bottom:5px!important}
-</style>
-
 <style id="ng-settings-global-spacing-compact-v3">
 /* Compact vertical rhythm across the ENTIRE Settings page, not only the title area. */
 .settings-list{
@@ -1287,6 +1183,14 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
 .settings-copy small{line-height:1.3!important}
 .settings-note{padding:7px 4px 2px!important;line-height:1.4!important}
 </style>
+
+<style id="ng-settings-close-control-live-v1">
+.page-intro{display:flex!important;align-items:center!important;gap:9px!important;padding:6px 11px 4px!important;min-height:0!important}
+.page-intro .ng-settings-title{flex:1 1 auto!important;min-width:0!important}
+.page-intro .ng-settings-close{position:relative!important;order:3!important;flex:0 0 36px!important;width:36px!important;min-width:36px!important;max-width:36px!important;height:36px!important;min-height:36px!important;max-height:36px!important;margin:0 2px 0 auto!important;padding:0!important;box-sizing:border-box!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border:1px solid #258de0!important;border-radius:50%!important;background:linear-gradient(145deg,#0c2b58,#071a39)!important;color:#eaf7ff!important;box-shadow:0 0 9px #168bff44!important;cursor:pointer!important}
+.page-intro .ng-settings-close svg{display:block!important;width:18px!important;height:18px!important;fill:none!important;stroke:currentColor!important;stroke-width:2.2!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+</style>
+<script id="ng-settings-close-action-live-v1">(function(){var b=document.getElementById('ng-settings-close');if(!b||b.dataset.bound==='1')return;b.dataset.bound='1';b.addEventListener('click',function(){var ref='';try{ref=document.referrer?new URL(document.referrer).href:'';}catch(e){}if(ref&&new URL(ref).origin===location.origin&&history.length>1){history.back();return;}location.replace('./dashboard.html');});})();</script>
 </body>
 </html>
 
