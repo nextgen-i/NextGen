@@ -18,7 +18,8 @@
     var drawer=document.getElementById("ng-menu-drawer");
     var backdrop=document.getElementById("ng-menu-backdrop");
     var close=document.getElementById("ng-menu-close");
-    if(!trigger||!drawer||!backdrop||drawer.dataset.sharedReady==="1")return;
+    if(!trigger||!drawer||!backdrop)return;
+    if(drawer.dataset.sharedReady==="1"&&drawer.dataset.pullRefreshReady==="1")return;
     drawer.dataset.sharedReady="1";
     if(!drawer.querySelector("#ng-drawer-refresh-indicator")){
       var refreshIndicator=document.createElement("div");
@@ -31,7 +32,7 @@
     if(!document.getElementById("ng-drawer-refresh-styles")){
       var refreshStyle=document.createElement("style");
       refreshStyle.id="ng-drawer-refresh-styles";
-      refreshStyle.textContent='#ng-menu-drawer{overscroll-behavior-y:contain}#ng-menu-drawer .ng-drawer-refresh-indicator{height:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;color:#79d9ff;font:500 12px/1.2 system-ui,sans-serif;transition:height .16s ease;pointer-events:none}#ng-menu-drawer .ng-drawer-refresh-spinner{width:17px;height:17px;border:2px solid rgba(105,217,255,.25);border-top-color:#69d9ff;border-radius:50%;display:none;animation:ngDrawerRefreshSpin .7s linear infinite}#ng-menu-drawer .ng-drawer-refresh-indicator.is-refreshing .ng-drawer-refresh-spinner{display:block}@keyframes ngDrawerRefreshSpin{to{transform:rotate(360deg)}}';
+      refreshStyle.textContent='#ng-menu-drawer{overscroll-behavior-y:contain}#ng-menu-drawer .ng-drawer-refresh-indicator{height:0;min-height:0;flex:0 0 auto;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;color:#79d9ff;font:500 12px/1.2 system-ui,sans-serif;transition:height .16s ease;pointer-events:none}#ng-menu-drawer .ng-drawer-refresh-spinner{width:17px;height:17px;border:2px solid rgba(105,217,255,.25);border-top-color:#69d9ff;border-radius:50%;display:none;animation:ngDrawerRefreshSpin .7s linear infinite}#ng-menu-drawer .ng-drawer-refresh-indicator.is-refreshing .ng-drawer-refresh-spinner{display:block}@keyframes ngDrawerRefreshSpin{to{transform:rotate(360deg)}}';
       document.head.appendChild(refreshStyle);
     }
     var historyEntry=false,ignorePop=false;
@@ -81,6 +82,8 @@
       });
     });
     // Drawer-only pull-to-refresh: reloads this menu component without refreshing its host page.
+    if(drawer.dataset.pullRefreshReady==="1")return;
+    drawer.dataset.pullRefreshReady="1";
     var pullStartY=null,pullDistance=0,pullActive=false,pullBusy=false;
     function refreshDrawerOnly(){
       if(pullBusy)return;
@@ -121,7 +124,7 @@
         });
     }
     drawer.addEventListener("touchstart",function(event){
-      if(pullBusy||!drawer.classList.contains("is-open")||drawer.scrollTop>0||!event.touches||event.touches.length!==1)return;
+      if(pullBusy||!drawer.classList.contains("is-open")||drawer.scrollTop>1||!event.touches||event.touches.length!==1)return;
       pullStartY=event.touches[0].clientY;pullDistance=0;pullActive=true;
     },{passive:true,capture:true});
     drawer.addEventListener("touchmove",function(event){
@@ -131,7 +134,7 @@
       if(drawer.scrollTop>0){pullActive=false;return;}
       pullDistance=Math.min(delta,90);
       var indicator=drawer.querySelector("#ng-drawer-refresh-indicator");
-      if(indicator){indicator.classList.add("is-pulling");indicator.style.height=Math.min(42,pullDistance*.48)+"px";var label=indicator.querySelector(".ng-drawer-refresh-label");if(label)label.textContent=pullDistance>=72?"Release to refresh":"Pull to refresh";}
+      if(indicator){indicator.classList.add("is-pulling");indicator.style.height=Math.min(42,pullDistance*.48)+"px";var label=indicator.querySelector(".ng-drawer-refresh-label");if(label)label.textContent=pullDistance>=55?"Release to refresh":"Pull to refresh";}
       if(event.cancelable)event.preventDefault();
     },{passive:false,capture:true});
     drawer.addEventListener("touchend",function(){
