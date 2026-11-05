@@ -1131,21 +1131,7 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 }
 #ng-profile-menu>.ng-pull-refresh-indicator.is-visible{opacity:1!important;visibility:visible!important}
 #ng-profile-menu>.ng-pull-refresh-indicator.is-refreshing{animation:ngPullRefreshSpin .72s linear infinite!important}
-.ng-menu-drawer>.ng-pull-refresh-indicator{
- position:sticky!important;top:5px!important;z-index:30!important;
- width:25px!important;height:25px!important;min-height:25px!important;flex:0 0 25px!important;
- margin:5px auto -25px!important;padding:0!important;
- border:3px solid rgba(65,177,255,.25)!important;border-top-color:#35d7ff!important;
- border-right-color:#35d7ff!important;border-radius:50%!important;
- opacity:0!important;visibility:hidden!important;pointer-events:none!important;
- transform:rotate(var(--ng-pull-rotation,0deg))!important;
- transition:opacity .12s ease,visibility .12s ease!important;
-}
-.ng-menu-drawer>.ng-pull-refresh-indicator.is-visible{opacity:1!important;visibility:visible!important}
-.ng-menu-drawer>.ng-pull-refresh-indicator.is-refreshing{animation:ngMenuPullRefreshSpin .72s linear infinite!important}
 @keyframes ngPullRefreshSpin{to{transform:translateX(-50%) rotate(360deg)}}
-@keyframes ngMenuPullRefreshSpin{to{transform:rotate(360deg)}}
-.ng-menu-drawer>.ng-pull-refresh-indicator.is-refreshing{transform-origin:center!important}
 
 @media(max-width:380px){
  body.ng-profile-open #ng-profile-menu.ng-profile-menu{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;right:10px!important;inset-inline-end:10px!important}
