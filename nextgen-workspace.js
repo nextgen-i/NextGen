@@ -1,3 +1,20 @@
+/* Native Pull-to-Refresh: use the document viewport as the single page scroller. */
+(function(){
+  'use strict';
+  if(!document.querySelector('.app>main')||document.getElementById('ng-native-pull-refresh-layout'))return;
+  var style=document.createElement('style');
+  style.id='ng-native-pull-refresh-layout';
+  style.textContent=
+    'html{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important;}'+
+    'body{height:auto!important;min-height:100%!important;overflow:visible!important;overscroll-behavior-y:auto!important;}'+
+    '.app{height:auto!important;min-height:100dvh!important;overflow:visible!important;}'+
+    '.app>main{flex:1 0 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;overflow-x:visible!important;overflow-y:visible!important;overscroll-behavior-y:auto!important;touch-action:auto!important;-webkit-overflow-scrolling:touch!important;}'+
+    '.app>header{position:sticky!important;top:0!important;}'+
+    '.app>nav{position:sticky!important;bottom:0!important;margin-top:auto!important;}'+
+    'body.ng-menu-open{overflow:hidden!important;}';
+  (document.head||document.documentElement).appendChild(style);
+})();
+
 (function(){
   'use strict';
   // Pages may include this script more than once; initialize auth/workspace only once.
@@ -566,69 +583,6 @@
 
 
 
-  // Shared, profile-menu-only pull-to-refresh controller for all pages.
-  (function(){
-    if(window.__ngProfileMenuPullRefreshV2)return;
-    window.__ngProfileMenuPullRefreshV2=true;
-    function mount(){
-      var menu=document.getElementById('ng-profile-menu');
-      var region=menu&&menu.querySelector('.ng-profile-links');
-      if(!menu||!region||region.dataset.pullRefreshV2==='1')return;
-      region.dataset.pullRefreshV2='1';
-      var indicator=document.createElement('div');
-      indicator.className='ng-profile-pull-v2';
-      indicator.setAttribute('role','status');
-      indicator.setAttribute('aria-live','polite');
-      indicator.innerHTML='<span class="ng-profile-pull-v2-spinner" aria-hidden="true"></span><span class="ng-profile-pull-v2-text">Pull down to refresh</span>';
-      region.insertBefore(indicator,region.firstChild);
-      var css=document.createElement('style');
-      css.id='ng-profile-pull-refresh-v2-css';
-      css.textContent=
-        '#ng-profile-menu .ng-profile-pull-v2{height:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;color:#b9e7ff;font:600 12px/1.2 system-ui,sans-serif;opacity:0;transition:height .12s ease,opacity .12s ease;pointer-events:none;}'+
-        '#ng-profile-menu .ng-profile-pull-v2-spinner{display:none;width:18px;height:18px;border:2px solid #28618d;border-top-color:#25d9ff;border-radius:50%;animation:ngProfilePullV2Spin .7s linear infinite;}'+
-        '#ng-profile-menu .ng-profile-pull-v2.is-loading{height:44px;opacity:1;}'+
-        '#ng-profile-menu .ng-profile-pull-v2.is-loading .ng-profile-pull-v2-spinner{display:block;}'+
-        '@keyframes ngProfilePullV2Spin{to{transform:rotate(360deg)}}'+
-        '#ng-profile-menu .ng-profile-links{overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;}';
-      if(!document.getElementById(css.id))document.head.appendChild(css);
-      var startY=0,distance=0,tracking=false,loading=false;
-      var threshold=68,maxDistance=92;
-      function paint(value){
-        distance=Math.max(0,Math.min(maxDistance,value));
-        indicator.style.height=distance+'px';
-        indicator.style.opacity=String(Math.min(1,distance/threshold));
-        indicator.querySelector('.ng-profile-pull-v2-text').textContent=distance>=threshold?'Release to refresh':'Pull down to refresh';
-      }
-      function clear(){
-        tracking=false;distance=0;
-        if(!loading){indicator.classList.remove('is-loading');indicator.style.height='0px';indicator.style.opacity='0';}
-      }
-      region.addEventListener('touchstart',function(e){
-        if(loading||e.touches.length!==1||region.scrollTop>1){clear();return;}
-        startY=e.touches[0].clientY;tracking=true;distance=0;
-      },{passive:true});
-      region.addEventListener('touchmove',function(e){
-        if(!tracking||loading||e.touches.length!==1)return;
-        var dy=e.touches[0].clientY-startY;
-        if(dy<=0||region.scrollTop>1){clear();return;}
-        if(e.cancelable)e.preventDefault();
-        paint(dy*.72);
-      },{passive:false});
-      region.addEventListener('touchend',function(){
-        if(!tracking)return;
-        tracking=false;
-        if(distance<threshold){clear();return;}
-        loading=true;
-        indicator.classList.add('is-loading');
-        indicator.style.height='44px';indicator.style.opacity='1';
-        indicator.querySelector('.ng-profile-pull-v2-text').textContent='Refreshing…';
-        window.setTimeout(function(){window.location.reload();},450);
-      },{passive:true});
-      region.addEventListener('touchcancel',clear,{passive:true});
-    }
-    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();
-  })();
-
 })();
 
 /* Facebook-style navigation gestures: edge-swipe open, drawer-swipe close, outside tap and Android Back. */
@@ -724,67 +678,4 @@
   document.head.appendChild(style);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-})();
-
-
-/* Hamburger Drawer Pull-to-Refresh v2 — delegated touch handling and visible fixed indicator. */
-(function(){
-  'use strict';
-  if(window.__ngHamburgerDrawerPullRefreshV2)return;
-  window.__ngHamburgerDrawerPullRefreshV2=true;
-
-  var indicator=document.createElement('div');
-  indicator.id='ng-hamburger-pull-refresh-indicator';
-  indicator.setAttribute('role','status');
-  indicator.setAttribute('aria-live','polite');
-  indicator.innerHTML='<span class="ng-hpr-spinner" aria-hidden="true"></span><span class="ng-hpr-label">Pull down to refresh</span>';
-  indicator.style.cssText='position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;z-index:2147483000;display:flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:7px 14px;border:1px solid #2367a5;border-radius:999px;background:#071a3a;color:#c9f3ff;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 5px 18px #0008;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,-14px);transition:opacity .12s ease,transform .12s ease,visibility .12s ease;';
-  var css=document.createElement('style');
-  css.id='ng-hamburger-pull-refresh-v2-css';
-  css.textContent='#ng-hamburger-pull-refresh-indicator .ng-hpr-spinner{display:block;width:16px;height:16px;flex:0 0 16px;border:2px solid #28618d;border-top-color:#25d9ff;border-radius:50%;}#ng-hamburger-pull-refresh-indicator.is-refreshing .ng-hpr-spinner{animation:ngHprSpin .7s linear infinite}@keyframes ngHprSpin{to{transform:rotate(360deg)}}';
-  document.head.appendChild(css);
-  document.body.appendChild(indicator);
-
-  var startY=0,distance=0,tracking=false,loading=false,activeDrawer=null;
-  var threshold=58,maxDistance=100;
-  function show(label,amount){
-    indicator.style.opacity='1';
-    indicator.style.visibility='visible';
-    indicator.style.transform='translate(-50%,'+Math.min(12,amount*.22)+'px)';
-    indicator.querySelector('.ng-hpr-label').textContent=label;
-  }
-  function clear(){
-    tracking=false;distance=0;activeDrawer=null;
-    if(!loading){
-      indicator.classList.remove('is-refreshing');
-      indicator.style.opacity='0';indicator.style.visibility='hidden';
-      indicator.style.transform='translate(-50%,-14px)';
-      indicator.querySelector('.ng-hpr-label').textContent='Pull down to refresh';
-    }
-  }
-  document.addEventListener('touchstart',function(e){
-    if(loading||!e.touches||e.touches.length!==1)return;
-    var drawer=e.target&&e.target.closest?e.target.closest('#ng-menu-drawer'):null;
-    if(!drawer||!drawer.classList.contains('is-open')||drawer.scrollTop>1){clear();return;}
-    activeDrawer=drawer;startY=e.touches[0].clientY;distance=0;tracking=true;
-  },{passive:true,capture:true});
-  document.addEventListener('touchmove',function(e){
-    if(!tracking||loading||!activeDrawer||!e.touches||e.touches.length!==1)return;
-    if(!activeDrawer.isConnected||!activeDrawer.classList.contains('is-open')){clear();return;}
-    var dy=e.touches[0].clientY-startY;
-    if(dy<=0||activeDrawer.scrollTop>1){clear();return;}
-    if(dy>6&&e.cancelable)e.preventDefault();
-    distance=Math.min(maxDistance,dy);
-    show(distance>=threshold?'Release to refresh':'Pull down to refresh',distance);
-  },{passive:false,capture:true});
-  document.addEventListener('touchend',function(){
-    if(!tracking)return;
-    tracking=false;
-    if(distance<threshold){clear();return;}
-    loading=true;
-    indicator.classList.add('is-refreshing');
-    show('Refreshing…',threshold);
-    window.setTimeout(function(){window.location.reload();},450);
-  },{passive:true,capture:true});
-  document.addEventListener('touchcancel',clear,{passive:true,capture:true});
 })();
