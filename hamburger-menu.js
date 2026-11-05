@@ -2,7 +2,7 @@
   "use strict";
   function init(){
     if(document.getElementById("ng-menu-drawer")) return;
-    fetch("./hamburger-menu.html?v=20261106-pull-refresh-v1",{cache:"no-store"})
+    fetch("./hamburger-menu.html?v=20261106-reference-v2",{cache:"no-store"})
       .then(function(r){if(!r.ok)throw new Error("Menu component unavailable");return r.text();})
       .then(function(html){
         var holder=document.createElement("div");
@@ -50,56 +50,6 @@
     var drawerTouch=null;
     drawer.addEventListener("touchstart",function(e){if(e.touches&&e.touches.length===1)drawerTouch={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
     drawer.addEventListener("touchend",function(e){if(!drawerTouch||!e.changedTouches||!e.changedTouches.length)return;var t=e.changedTouches[0],dx=t.clientX-drawerTouch.x,dy=t.clientY-drawerTouch.y;if(dx<-65&&Math.abs(dx)>Math.abs(dy)*1.2)closeMenu();drawerTouch=null;},{passive:true});
-
-    /* HAMBURGER DRAWER ONLY: pull down at the top to refresh this page. */
-    var pullStartY=0,pullActive=false,pullDistance=0,pullRefreshing=false;
-    var pullIndicator=document.createElement("div");
-    pullIndicator.id="ng-menu-pull-refresh";
-    pullIndicator.setAttribute("role","status");
-    pullIndicator.setAttribute("aria-live","polite");
-    pullIndicator.textContent="↓  Pull to refresh";
-    pullIndicator.style.cssText="height:0;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;color:#65d5ff;font-size:13px;font-weight:600;letter-spacing:.2px;opacity:0;transition:height .16s ease,opacity .16s ease;flex:0 0 auto;pointer-events:none;";
-    drawer.insertBefore(pullIndicator,drawer.firstChild);
-    function resetPull(){
-      pullActive=false;pullDistance=0;pullStartY=0;
-      pullIndicator.style.height="0px";
-      pullIndicator.style.opacity="0";
-      pullIndicator.textContent="↓  Pull to refresh";
-    }
-    drawer.addEventListener("touchstart",function(e){
-      if(pullRefreshing||!drawer.classList.contains("is-open")||!e.touches||e.touches.length!==1)return;
-      if(drawer.scrollTop>0)return;
-      pullStartY=e.touches[0].clientY;
-      pullActive=true;
-      pullDistance=0;
-    },{passive:true});
-    drawer.addEventListener("touchmove",function(e){
-      if(!pullActive||pullRefreshing||!e.touches||e.touches.length!==1)return;
-      var delta=e.touches[0].clientY-pullStartY;
-      if(delta<=0){resetPull();return;}
-      if(drawer.scrollTop>0){resetPull();return;}
-      pullDistance=Math.min(104,delta*.52);
-      if(pullDistance>3){
-        e.preventDefault();
-        pullIndicator.style.height=Math.round(pullDistance)+"px";
-        pullIndicator.style.opacity="1";
-        pullIndicator.textContent=pullDistance>=76?"↑  Release to refresh":"↓  Pull to refresh";
-      }
-    },{passive:false});
-    drawer.addEventListener("touchend",function(){
-      if(!pullActive)return;
-      var shouldRefresh=pullDistance>=76&&!pullRefreshing;
-      if(shouldRefresh){
-        pullRefreshing=true;
-        pullIndicator.style.height="48px";
-        pullIndicator.style.opacity="1";
-        pullIndicator.textContent="⟳  Refreshing…";
-        try{sessionStorage.setItem("ng-hamburger-open","1");}catch(e){}
-        window.setTimeout(function(){window.location.reload();},120);
-      }else resetPull();
-    },{passive:true});
-    drawer.addEventListener("touchcancel",resetPull,{passive:true});
-
     document.addEventListener("touchstart",function(e){if(!drawer.classList.contains("is-open")||!e.touches||e.touches.length!==1)return;var x=e.touches[0].clientX;if(x>drawer.getBoundingClientRect().right)closeMenu();},{passive:true});
     var profileSwitch=document.getElementById("ng-menu-profile-switch"),shortcuts=document.querySelector(".ng-menu-shortcuts");
     if(profileSwitch&&shortcuts)profileSwitch.addEventListener("click",function(){var expanded=profileSwitch.getAttribute("aria-expanded")==="true";profileSwitch.setAttribute("aria-expanded",String(!expanded));shortcuts.classList.toggle("ng-profiles-expanded",!expanded);});
