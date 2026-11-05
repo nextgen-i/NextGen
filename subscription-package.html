@@ -514,6 +514,25 @@ html body.ng-unified-subpage .app{display:block!important;width:100%!important;m
 html body.ng-unified-subpage .app>main{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}
 @media(max-width:480px){html body.ng-unified-subpage>header.subpage-header .ng-subpage-title{font-size:24px!important}html body.ng-unified-subpage>header.subpage-header .ng-subpage-back{left:12px!important}}
 </style>
+<style id="ng-subscription-compact-spacing-v1">
+/* Compact excess vertical whitespace without changing plan content or scroll. */
+html body.ng-unified-subpage>main{
+  padding-top:10px!important;padding-bottom:12px!important;
+}
+html body.ng-unified-subpage .subscription-plans{
+  padding-top:4px!important;padding-bottom:4px!important;gap:16px!important;
+}
+html body.ng-unified-subpage .subscription-plan{
+  padding:20px!important;border-radius:24px!important;
+}
+html body.ng-unified-subpage .subscription-plan h2{
+  margin-top:4px!important;margin-bottom:24px!important;
+}
+@media(max-width:480px){
+ html body.ng-unified-subpage>main{padding-top:8px!important}
+ html body.ng-unified-subpage .subscription-plan{padding:18px!important}
+}
+</style>
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
