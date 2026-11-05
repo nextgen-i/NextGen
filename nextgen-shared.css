@@ -679,3 +679,28 @@ html body .app>header #ng-hamburger span:nth-child(2){width:22px!important;}
 html body .app>header #ng-hamburger{flex:0 0 26px!important;width:26px!important;min-width:26px!important;height:26px!important;min-height:26px!important;padding:0 0 0 4px!important;margin:0 8px 0 0!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:4px!important;box-sizing:border-box!important;background:#fff!important;background-color:#fff!important;border:1px solid #e5e7eb!important;border-radius:50%!important;box-shadow:0 1px 4px rgba(0,0,0,.12)!important;}
 html body .app>header #ng-hamburger span{display:block!important;flex:0 0 2.5px!important;height:2.5px!important;min-height:2.5px!important;width:14px!important;transform:none!important;border-radius:999px!important;background:#111!important;}
 html body .app>header #ng-hamburger span:nth-child(2){width:10px!important;}
+
+
+/* NextGen Hamburger Menu — final global consistency override */
+.ng-menu-drawer .ng-menu-main-links a,
+.ng-menu-drawer .ng-menu-accordion-trigger,
+.ng-menu-drawer .ng-menu-accordion-panel a{
+  font-size:17px!important;
+  line-height:1.3!important;
+}
+.ng-menu-drawer .ng-menu-main-links a{min-height:44px!important;gap:9px!important}
+.ng-menu-drawer .ng-menu-main-links a .ng-point-icon,
+.ng-menu-drawer .ng-menu-main-links a>span{
+  width:25px!important;min-width:25px!important;max-width:25px!important;
+  height:25px!important;flex:0 0 25px!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+}
+.ng-menu-drawer .ng-menu-main-links a .ng-point-icon svg,
+.ng-menu-drawer .ng-menu-main-links a>span svg,
+.ng-menu-drawer .ng-menu-accordion-panel a .ng-point-icon svg{
+  width:25px!important;height:25px!important;min-width:25px!important;
+  max-width:25px!important;flex:0 0 25px!important;
+}
+.ng-menu-drawer .ng-menu-main-links.is-collapsed>a:nth-child(n+7){display:none!important}
+.ng-menu-drawer .ng-menu-see-less{font-size:16px!important;min-height:42px!important}
+.ng-menu-drawer .ng-menu-profile-name-wrap strong{font-size:17px!important}
