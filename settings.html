@@ -1236,6 +1236,31 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  client.auth.onAuthStateChange(function(_event,session){render(!!(session&&session.user));});
 })();
 </script>
+
+<style id="ng-settings-compact-header-v2">
+/* Settings page: compact title row and correctly sized circular back control. */
+.page-intro{
+  gap:9px!important;
+  padding:6px 11px 4px!important;
+  min-height:0!important;
+}
+.page-intro .ng-settings-back{
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  flex:0 0 36px!important;
+  width:36px!important;min-width:36px!important;max-width:36px!important;
+  height:36px!important;min-height:36px!important;max-height:36px!important;
+  aspect-ratio:1/1!important;
+  align-items:center!important;justify-content:center!important;
+  padding:0!important;margin:0!important;
+  border-radius:50%!important;
+}
+.page-intro .ng-settings-back svg{
+  width:18px!important;height:18px!important;
+}
+.settings-list h2:first-child{margin-top:4px!important;margin-bottom:4px!important}
+.settings-list h2{margin-top:14px!important;margin-bottom:5px!important}
+</style>
 </body>
 </html>
 
