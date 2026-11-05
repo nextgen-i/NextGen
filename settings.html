@@ -442,11 +442,10 @@ html,body{height:100%;overflow:hidden!important}
 <body>
 <div class="app">
 <header class="ng-settings-shell-header">
-  <button type="button" class="ng-hamburger" id="ng-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="ng-menu-drawer"><span></span><span></span><span></span></button>
+  <button type="button" class="ng-hamburger" id="ng-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="ng-menu-drawer" hidden><span></span><span></span><span></span></button>
   <strong class="ng-settings-shell-title">Settings &amp; Privacy</strong>
-  <form class="ng-settings-refresh-form" action="./settings.html" method="get"><button type="submit" id="ng-settings-refresh" class="ng-settings-refresh" aria-label="Refresh Settings" title="Refresh Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.6-2L20 12M4 12l2.8 5a7 7 0 0 0 11.6-2"/></svg></button></form>
-  <button type="button" id="ng-settings-close" class="ng-settings-close" aria-label="Close menu" title="Close menu">×</button>
   <button type="button" id="ng-settings-search-toggle" class="ng-settings-search-toggle" aria-label="Search Settings" title="Search Settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+  <button type="button" id="ng-settings-close" class="ng-settings-close" aria-label="Close menu" title="Close menu">×</button>
   <input id="ng-settings-search" class="ng-settings-search" type="search" placeholder="Search Settings..." aria-label="Search Settings" hidden>
 </header>
 <div class="ng-header-popup-backdrop" id="ng-quick-create-backdrop" hidden>
@@ -1082,6 +1081,7 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
   var profileMenu=document.getElementById('ng-profile-menu');
   attach(profileMenu);
   attach(document.getElementById('ng-menu-drawer'));
+  attach(document.querySelector('.app>main'));
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
@@ -1296,3 +1296,35 @@ html body .app>header.ng-settings-shell-header>.ng-settings-search-toggle{
 </html>
 
 
+
+<style id="ng-settings-header-requested-adjustments-v2">
+/* Settings-only header: remove menu glyph and decorative border; keep title and move close to the far right. */
+html body .app>header.ng-settings-shell-header{
+ border:0!important;border-bottom:0!important;border-radius:0!important;box-shadow:none!important;
+ justify-content:flex-start!important;gap:10px!important;padding-left:14px!important;padding-right:12px!important;
+}
+html body .app>header.ng-settings-shell-header::before,
+html body .app>header.ng-settings-shell-header::after{display:none!important;content:none!important}
+html body .app>header.ng-settings-shell-header>#ng-hamburger{display:none!important}
+html body .app>header.ng-settings-shell-header>.ng-settings-shell-title{flex:1 1 auto!important}
+html body .app>header.ng-settings-shell-header>.ng-settings-refresh-form,
+html body .app>header.ng-settings-shell-header>#ng-settings-refresh{display:none!important}
+html body .app>header.ng-settings-shell-header>#ng-settings-search-toggle{order:2!important;flex:0 0 30px!important}
+html body .app>header.ng-settings-shell-header>#ng-settings-close{
+ order:3!important;flex:0 0 34px!important;width:34px!important;min-width:34px!important;
+ height:34px!important;min-height:34px!important;margin-left:2px!important;
+}
+.app>main>.ng-pull-refresh-indicator{
+ position:sticky!important;top:7px!important;z-index:30!important;
+ display:block!important;width:25px!important;height:25px!important;min-height:25px!important;
+ flex:0 0 25px!important;margin:5px auto -30px!important;padding:0!important;
+ border:3px solid rgba(65,177,255,.25)!important;border-top-color:#35d7ff!important;
+ border-right-color:#35d7ff!important;border-radius:50%!important;
+ opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+ transform:rotate(var(--ng-pull-rotation,0deg))!important;
+ transition:opacity .12s ease,visibility .12s ease!important;
+}
+.app>main>.ng-pull-refresh-indicator.is-visible{opacity:1!important;visibility:visible!important}
+.app>main>.ng-pull-refresh-indicator.is-refreshing{animation:ngSettingsPullRefreshSpin .72s linear infinite!important}
+@keyframes ngSettingsPullRefreshSpin{to{transform:rotate(360deg)}}
+</style>
