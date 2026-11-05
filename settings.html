@@ -731,9 +731,14 @@ document.querySelectorAll('.settings-toggle').forEach(function(button){
  const $=id=>document.getElementById(id),number=$('ngPhoneLinkNumber'),otp=$('ngPhoneLinkOtp'),status=$('ngPhoneLinkStatus');
  const send=$('ngPhoneSendLinkOtp'),verify=$('ngPhoneVerifyLinkOtp');
  const modal=$('phone-account-link'),openModal=$('ngOpenPhoneModal'),closeModal=$('ngClosePhoneModal');
- if(modal&&openModal){openModal.addEventListener('click',()=>{if(typeof modal.showModal==='function')modal.showModal();else modal.setAttribute('open','');});}
- if(modal&&closeModal){closeModal.addEventListener('click',()=>{if(typeof modal.close==='function')modal.close();else modal.removeAttribute('open');});}
- if(modal){modal.addEventListener('click',e=>{if(e.target===modal&&typeof modal.close==='function')modal.close();});}
+ const modalStateKey='ng-phone-account-link-open';
+ function openPhoneModal(){if(!modal)return;try{sessionStorage.setItem(modalStateKey,'1');}catch(e){}if(typeof modal.showModal==='function'&&!modal.open)modal.showModal();else modal.setAttribute('open','');}
+ function closePhoneModal(){if(!modal)return;try{sessionStorage.removeItem(modalStateKey);}catch(e){}if(typeof modal.close==='function'&&modal.open)modal.close();else modal.removeAttribute('open');}
+ if(modal&&openModal){openModal.addEventListener('click',openPhoneModal);}
+ if(modal&&closeModal){closeModal.addEventListener('click',closePhoneModal);}
+ if(modal){modal.addEventListener('click',e=>{if(e.target===modal)closePhoneModal();});modal.addEventListener('close',()=>{try{sessionStorage.removeItem(modalStateKey);}catch(e){}});}
+ /* Restore the update panel after a browser refresh instead of leaving the user on a blank/closed overlay. */
+ try{if(modal&&sessionStorage.getItem(modalStateKey)==='1')openPhoneModal();}catch(e){}
 
  if(!send||!verify||!window.getNextGenSupabaseClient)return;
  let client;try{client=window.getNextGenSupabaseClient()}catch(e){}
