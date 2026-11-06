@@ -604,8 +604,6 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     <label for="channel-url">Channel or profile link</label>
     <input id="channel-url" name="url" type="url" placeholder="https://..." required>
     <label for="channel-platform">Platform</label>
-    <label for="channel-group">Channel Group</label>
-    <select id="channel-group" name="group_number" required><option value="1">Channel Group 1</option><option value="2">Channel Group 2</option><option value="3">Channel Group 3</option></select>
     <select id="channel-platform" name="platform" required>
       <option value="">Choose platform</option><option>YouTube</option><option>Facebook</option><option>Instagram</option><option>Threads</option><option>Others</option>
     </select>
@@ -731,7 +729,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
       if(existing.error){msg.textContent='Could not check saved channels: '+existing.error.message;return;}
       var cleanHandle=handle.replace(/^@/,'').toLowerCase();
       if((existing.data||[]).some(function(row){return String(row.profile_url||'').toLowerCase()===u.toLowerCase()||String(row.handle||'').replace(/^@/,'').toLowerCase()===cleanHandle;})){msg.textContent='This channel is already saved in your NextGen workspace.';return;}
-      var groupNumber=Number(document.getElementById('channel-group').value||1);if(![1,2,3].includes(groupNumber)){msg.textContent='Choose Channel Group 1, 2 or 3.';return;}var savedChannel=await dbClient.from('channels').insert({owner_id:authResult.data.user.id,platform:p,display_name:displayName,handle:handle.replace(/^@/,''),profile_url:u,connection_status:'pending',group_number:groupNumber}).select('id').single();
+      var savedChannel=await dbClient.from('channels').insert({owner_id:authResult.data.user.id,platform:p,display_name:displayName,handle:handle.replace(/^@/,''),profile_url:u,connection_status:'pending'}).select('id').single();
       if(savedChannel.error){msg.textContent='Channel could not be saved: '+savedChannel.error.message;return;}
       msg.textContent=isVerified?'Verified profile saved. Platform authorization is still pending.':'Channel saved as Pending. The verified profile name requires platform API authorization.';
       form.reset();verifiedProfileName=false;
