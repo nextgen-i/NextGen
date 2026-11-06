@@ -656,7 +656,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
   var list=document.querySelector('.app main .list');
   if(search&&list)search.addEventListener('input',function(){
     var q=search.value.trim().toLowerCase();
-    list.querySelectorAll('.card').forEach(function(card){card.hidden=!card.textContent.toLowerCase().includes(q);});
+    list.querySelectorAll('.channel-slot').forEach(function(card){card.hidden=!card.textContent.toLowerCase().includes(q);});
     var blur=document.querySelector('.blur');if(blur)blur.hidden=!!q&&!blur.textContent.toLowerCase().includes(q);
   });
   function parseProfile(raw){
