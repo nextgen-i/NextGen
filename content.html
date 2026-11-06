@@ -532,13 +532,15 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
 <section class="page-panel"><h2>Create Content Draft</h2><form id="draftForm" class="ng-form">
 <label>Content type<select id="draftType"><option>Reels / Short Video</option><option>Long-form Video</option><option>Photo Post</option><option>Carousel Photo Post</option><option>Story</option><option>Text Post</option></select></label>
 <label>Target platform<select id="draftPlatform" required><option value="youtube">YouTube</option><option value="facebook">Facebook</option><option value="instagram">Instagram</option><option value="threads">Threads</option></select></label>
+<label>AI content brief / Topic<textarea id="draftBrief" rows="3" maxlength="1200" placeholder="What should NextGen create content about?"></textarea></label>
+<label>Content language<select id="draftLanguage"><option>English</option><option>Assamese</option><option>Bengali</option><option>Hindi</option></select></label>
 <label>Title<input id="draftTitle" required maxlength="120" placeholder="Searchable post title"></label>
 <label>Thumbnail image URL<input id="draftImage" type="url" placeholder="Optional image URL"></label>
 <label>Thumbnail prompt<textarea id="draftPrompt" rows="3" placeholder="Describe the thumbnail you want"></textarea></label>
 <label>Caption<textarea id="draftCaption" rows="4" placeholder="Write your caption"></textarea></label>
 <label>Hashtags<input id="draftHash" placeholder="#NextGen #Creator"></label>
 <label>Tags & Keywords<input id="draftTags" placeholder="Comma-separated SEO tags"></label>
-<div class="ng-actions"><button type="submit">Save Draft</button><button type="button" id="copySeo">Copy SEO Text</button></div><p id="draftNote" class="muted">Saved on this device only. Nothing is published.</p></form></section>
+<div class="ng-actions"><button type="button" id="generateAiDrafts">Generate 3 AI Drafts</button><button type="submit">Save Draft</button><button type="button" id="copySeo">Copy SEO Text</button></div><p id="draftNote" class="muted">Saved on this device only. Nothing is published.</p></form></section>
 <section class="page-panel"><h2>Draft Queue (<span id="draftCount">0</span>)</h2><div id="draftList"><p class="muted">No drafts saved yet.</p></div></section>
 <section class="page-panel"><h2>SEO Tools</h2><p class="muted">Use external tools to research keywords and optimize titles.</p><p><a href="https://vidiq.com/" target="_blank" rel="noopener">vidIQ ↗</a>　<a href="https://www.tubebuddy.com/" target="_blank" rel="noopener">TubeBuddy ↗</a></p><p class="muted">No SEO account is connected in this prototype.</p></section><footer class="ng-shared-footer"><span class="ng-copyright">©2026 NextGen. All Rights Reserved. Smart Automation. Smarter Growth.</span><span class="ng-credit">Powered by ABDUS SATTAR</span></footer>
 </main>
