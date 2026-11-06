@@ -141,6 +141,31 @@
     (actions||[]).forEach(a=>{const b=document.createElement('button');b.type='button';b.textContent=a.label;b.addEventListener('click',a.onClick);el.append(b);});
     root.append(el);
   }
+  async function generateAiDrafts(button){
+    const platform=($('draftPlatform')&&$('draftPlatform').value)||'youtube';
+    const typeMap={'Reels / Short Video':'reel','Long-form Video':'long_form_video','Photo Post':'photo_post','Carousel Photo Post':'carousel_photo_post','Story':'story','Text Post':'text_post'};
+    const brief=$('draftBrief')?$('draftBrief').value.trim():'';
+    if(!brief){setNote('draftNote','Enter a topic or brief before generating AI drafts.',true);return;}
+    const original=button.textContent;
+    button.disabled=true;button.textContent='Generating…';
+    try{
+      const {data,error}=await client.functions.invoke('ai-content-draft',{body:{
+        platform,
+        content_type:typeMap[$('draftType').value]||'reel',
+        brief,
+        language:($('draftLanguage')&&$('draftLanguage').value)||'English',
+        count:3
+      }});
+      if(error)throw error;
+      if(!data||!data.ok)throw new Error(data&&data.error?data.error:'AI draft generation failed.');
+      setNote('draftNote',data.message||'Three AI drafts saved for manual review. Nothing was published.',false);
+      await loadBase();renderContent();
+    }catch(error){
+      setNote('draftNote',error&&error.message?error.message:'AI draft generation failed.',true);
+    }finally{
+      button.disabled=false;button.textContent=original;
+    }
+  }
   async function saveDraft(form){
     const platform=($('draftPlatform')&&$('draftPlatform').value)||'youtube';
     const typeMap={'Reels / Short Video':'reel','Long-form Video':'long_form_video','Photo Post':'photo_post','Carousel Photo Post':'carousel_photo_post','Story':'story','Text Post':'text_post'};
@@ -391,6 +416,7 @@
     }
   }
   function bindPage(){
+    if($('generateAiDrafts'))$('generateAiDrafts').addEventListener('click',()=>generateAiDrafts($('generateAiDrafts')));
     if($('draftForm')){
       $('draftForm').onsubmit=null;
       $('draftForm').addEventListener('submit',async e=>{e.preventDefault();try{await saveDraft(e.currentTarget);}catch(err){setNote('draftNote',err.message,true);}});
