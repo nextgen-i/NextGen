@@ -86,9 +86,11 @@
     authPanel.innerHTML='';
     const title=document.createElement('strong');title.textContent='NextGen Account';title.style.cssText='display:block;margin-bottom:6px;color:#fff;font-size:14px';
     const info=document.createElement('p');info.className='muted';info.textContent='Signed in as '+(user.email||'authenticated user');info.style.cssText='font-size:12px;line-height:1.45;margin:0 0 9px;color:#a8c1e8;overflow-wrap:anywhere';
+    const switchButton=document.createElement('button');switchButton.type='button';switchButton.textContent='Switch Account';switchButton.style.cssText='width:100%;min-height:40px;margin:0 0 7px;padding:8px 12px;border:1px solid #21bdf1;border-radius:9px;background:#0c3154;color:#fff;font-weight:700';
+    switchButton.addEventListener('click',async()=>{switchButton.disabled=true;info.textContent='Signing out safely before account switch…';try{await signOutAndVerify();window.location.href='./login.html';}catch(error){switchButton.disabled=false;info.textContent='Could not switch account: '+(error&&error.message?error.message:'Please try again.');}});
     const button=document.createElement('button');button.type='button';button.textContent='Sign out';button.style.cssText='width:100%;min-height:40px;padding:8px 12px;border:1px solid #285a89;border-radius:9px;background:#10213d;color:#fff;font-weight:700';
     button.addEventListener('click',async()=>{button.disabled=true;try{await signOutAndVerify();info.textContent='Signed out.';}catch(error){button.disabled=false;info.textContent='Could not sign out: '+(error&&error.message?error.message:'Please try again.');}});
-    authPanel.append(title,info,button);
+    authPanel.append(title,info,switchButton,button);
   }
   async function requireUser(){
     // Re-check the authenticated user against Supabase before loading private rows.
@@ -192,34 +194,31 @@
     };
     root.classList.add('channel-groups-list');
     root.innerHTML='';
-    const grouped=[1,2,3].map(number=>channels.filter(ch=>Number(ch.group_number||1)===number));
-    [1,2,3].forEach(number=>{
-      const group=document.createElement('section');group.className='channel-group';
-      group.setAttribute('aria-labelledby','channel-group-title-'+number);
-      const heading=document.createElement('div');heading.className='channel-group-heading';
-      const title=document.createElement('h2');title.id='channel-group-title-'+number;title.textContent='Channel Group '+number;
-      const count=document.createElement('span');count.textContent=grouped[number-1].length+' saved';
-      heading.append(title,count);
-      const items=document.createElement('div');items.className='channel-group-items';
-      Object.keys(platformMeta).forEach(platform=>{
-        const ch=grouped[number-1].find(row=>String(row.platform||'').toLowerCase()===platform);
-        const meta=platformMeta[platform];
-        const slot=document.createElement('article');slot.className='channel-slot';slot.dataset.platform=platform;
-        const icon=document.createElement('span');icon.className='channel-slot-icon';icon.setAttribute('aria-hidden','true');icon.textContent=meta.icon;
-        const info=document.createElement('div');info.className='channel-slot-info';
-        const name=document.createElement('strong');name.textContent=ch?(ch.display_name||meta.label):meta.label;
-        const detail=document.createElement('small');
-        detail.textContent=ch?(ch.handle?'@'+String(ch.handle).replace(/^@/,'')+' · ':'')+'Status: '+(ch.connection_status||'pending')+(ch.is_paused?' · Paused':''):'Not added yet';
-        info.append(name,detail);
-        const review=document.createElement('button');review.type='button';review.className='channel-slot-review';review.textContent='Review';
-        review.addEventListener('click',()=>{
-          if(ch)alert(meta.label+'\n'+(ch.display_name||'Name pending')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'Handle pending')+'\nGroup: '+number+'\nConnection: '+(ch.connection_status||'pending')+(ch.is_paused?'\nChannel is paused.':'')+'\n\nPlatform authorization must be verified before publishing.');
-          else alert(meta.label+'\nChannel Group '+number+'\n\nNo channel has been added here yet. Use “Add Channel” and choose this group.');
-        });
-        slot.append(icon,info,review);items.append(slot);
+    const group=document.createElement('section');group.className='channel-group';
+    group.setAttribute('aria-labelledby','channel-group-title');
+    const heading=document.createElement('div');heading.className='channel-group-heading';
+    const title=document.createElement('h2');title.id='channel-group-title';title.textContent='Channel Group';
+    const count=document.createElement('span');count.textContent=channels.length+' saved';
+    heading.append(title,count);
+    const items=document.createElement('div');items.className='channel-group-items';
+    Object.keys(platformMeta).forEach(platform=>{
+      const ch=channels.find(row=>String(row.platform||'').toLowerCase()===platform);
+      const meta=platformMeta[platform];
+      const slot=document.createElement('article');slot.className='channel-slot';slot.dataset.platform=platform;
+      const icon=document.createElement('span');icon.className='channel-slot-icon';icon.setAttribute('aria-hidden','true');icon.textContent=meta.icon;
+      const info=document.createElement('div');info.className='channel-slot-info';
+      const name=document.createElement('strong');name.textContent=ch?(ch.display_name||meta.label):meta.label;
+      const detail=document.createElement('small');
+      detail.textContent=ch?(ch.handle?'@'+String(ch.handle).replace(/^@/,'')+' · ':'')+'Status: '+(ch.connection_status||'pending')+(ch.is_paused?' · Paused':''):'Not added yet';
+      info.append(name,detail);
+      const review=document.createElement('button');review.type='button';review.className='channel-slot-review';review.textContent='Review';
+      review.addEventListener('click',()=>{
+        if(ch)alert(meta.label+'\\n'+(ch.display_name||'Name pending')+'\\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'Handle pending')+'\\nConnection: '+(ch.connection_status||'pending')+(ch.is_paused?'\\nChannel is paused.':'')+'\\n\\nPlatform authorization must be verified before publishing.');
+        else alert(meta.label+'\\n\\nNo channel has been added to this account yet. Use “Add Channel” to add it.');
       });
-      group.append(heading,items);root.append(group);
+      slot.append(icon,info,review);items.append(slot);
     });
+    group.append(heading,items);root.append(group);
   }
   function renderContent(){
     const root=$('draftList');if(!root)return;
