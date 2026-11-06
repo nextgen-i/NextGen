@@ -173,7 +173,7 @@
     channels.forEach(ch=>{
       const platform=String(ch.platform||'').toLowerCase();
       const handleKey=String(ch.handle||'').replace(/^@/,'').trim().toLowerCase();
-      const profileKey=String(ch.profile_url||'').trim().toLowerCase().replace(/\\?.*$/,'').replace(/\\/$/,'');
+      const profileKey=String(ch.profile_url||'').trim().toLowerCase().replace(/\?.*$/,'').replace(/\/$/,'');
       const uniqueKey=platform+'|'+(handleKey||profileKey||String(ch.id||''));
       if(seenChannels.has(uniqueKey))return;
       seenChannels.add(uniqueKey);
