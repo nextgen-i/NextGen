@@ -146,7 +146,7 @@
     const typeMap={'Reels / Short Video':'reel','Long-form Video':'long_form_video','Photo Post':'photo_post','Carousel Photo Post':'carousel_photo_post','Story':'story','Text Post':'text_post'};
     const row={
       owner_id:user.id,platform,content_type:typeMap[$('draftType').value]||'reel',
-      title:$('draftTitle').value.trim(),caption:$('draftCaption').value.trim(),
+      title:$('draftTitle').value.trim(),caption:$('draftCaption').value.trim(),description:$('draftCaption').value.trim(),
       thumbnail_url:$('draftImage').value.trim()||null,thumbnail_prompt:$('draftPrompt').value.trim()||null,
       hashtags:parseList($('draftHash').value),tags:parseList($('draftTags').value),keywords:parseList($('draftTags').value),
       status:'draft',safety_checks:{manual_review_required:true,checks_completed:false,published:false,scheduled:false}
@@ -244,6 +244,16 @@
     const pending=content.filter(x=>['draft','pending_approval'].includes(x.status));
     if(!pending.length){empty(root,'No drafts awaiting review.');return;}
     pending.forEach(item=>addEntry(root,item.title,item.platform+' · '+item.content_type+' · '+item.status,item.caption,[
+      {label:'Edit',onClick:async()=>{
+        const title=prompt('Edit content title:',item.title||'');
+        if(title===null)return;
+        const caption=prompt('Edit caption / description:',item.caption||'');
+        if(caption===null)return;
+        if(!title.trim()){setNote('modeNote','Title cannot be empty.',true);return;}
+        const {error}=await client.from('content_items').update({title:title.trim(),caption:caption,description:caption,updated_at:new Date().toISOString()}).eq('id',item.id).eq('owner_id',user.id);
+        if(error){setNote('modeNote','Could not update draft: '+error.message,true);return;}
+        await loadBase();renderApprovals();
+      }},
       {label:'Approve',onClick:async()=>{const {error}=await client.rpc('review_content_item',{p_content_id:item.id,p_action:'approved',p_note:null});if(error){setNote('modeNote',error.message,true);return;}await loadBase();renderApprovals();}},
       {label:'Reject',onClick:async()=>{const note=prompt('Optional reason for rejection:')||'';const {error}=await client.rpc('review_content_item',{p_content_id:item.id,p_action:'rejected',p_note:note});if(error){setNote('modeNote',error.message,true);return;}await loadBase();renderApprovals();}}
     ]));
