@@ -107,7 +107,7 @@
     // Do not duplicate the owner predicate in the browser query: the access token
     // and the separately refreshed user object can briefly be out of sync on mobile.
     const c=await client.from('channels')
-      .select('id,platform,display_name,handle,profile_url,connection_status,is_paused')
+      .select('id,platform,display_name,handle,profile_url,connection_status,is_paused,group_number')
       .order('created_at',{ascending:false});
     if(c.error)throw c.error;
     channels=c.data||[];
@@ -183,51 +183,42 @@
   }
   function renderChannels(){
     const root=document.querySelector('.app main .list');if(!root)return;
-    const platformClass={youtube:'yt',facebook:'fb',instagram:'ig',threads:'th'};
-    const platformLabel={youtube:'YouTube',facebook:'Facebook',instagram:'Instagram',threads:'Threads'};
-    const templates={};
-    Object.keys(platformClass).forEach(platform=>{
-      const template=root.querySelector('.card.'+platformClass[platform]);
-      if(template)templates[platform]=template.cloneNode(true);
-    });
-    // Rebuild from saved channels, while retaining one starter card for
-    // every platform that has not yet been added by the user.
+    const platformMeta={
+      youtube:{label:'YouTube Channel',icon:'▶'},
+      facebook:{label:'Facebook Page or Profile',icon:'f'},
+      instagram:{label:'Instagram Page or Profile',icon:'◎'},
+      threads:{label:'Threads Page or Profile',icon:'@'},
+      others:{label:'Others Page or Profile',icon:'+'}
+    };
+    root.classList.add('channel-groups-list');
     root.innerHTML='';
-    const seenChannels=new Set();
-    const renderedPlatforms=new Set();
-    channels.forEach(ch=>{
-      const platform=String(ch.platform||'').toLowerCase();
-      const handleKey=String(ch.handle||'').replace(/^@/,'').trim().toLowerCase();
-      const profileKey=String(ch.profile_url||'').trim().toLowerCase().replace(/\\?.*$/,'').replace(/\\/$/,'');
-      const uniqueKey=platform+'|'+(handleKey||profileKey||String(ch.id||''));
-      if(seenChannels.has(uniqueKey))return;
-      seenChannels.add(uniqueKey);
-      const card=(templates[platform]||document.createElement('div')).cloneNode(true);
-      card.className='card '+(platformClass[platform]||'');
-      const nameNode=card.querySelector('.info b');
-      const handleNode=card.querySelector('.info span');
-      const statusNode=card.querySelector('.st');
-      if(nameNode)nameNode.textContent=ch.display_name||platformLabel[platform]||'Channel';
-      if(handleNode)handleNode.textContent=ch.handle?'@'+String(ch.handle).replace(/^@/,''):'Profile name pending';
-      if(statusNode)statusNode.textContent='Connection: '+(ch.connection_status||'pending')+(ch.is_paused?' · Paused':'');
-      const review=card.querySelector('[data-review]');
-      if(review){
+    const grouped=[1,2,3].map(number=>channels.filter(ch=>Number(ch.group_number||1)===number));
+    [1,2,3].forEach(number=>{
+      const group=document.createElement('section');group.className='channel-group';
+      group.setAttribute('aria-labelledby','channel-group-title-'+number);
+      const heading=document.createElement('div');heading.className='channel-group-heading';
+      const title=document.createElement('h2');title.id='channel-group-title-'+number;title.textContent='Channel Group '+number;
+      const count=document.createElement('span');count.textContent=grouped[number-1].length+' saved';
+      heading.append(title,count);
+      const items=document.createElement('div');items.className='channel-group-items';
+      Object.keys(platformMeta).forEach(platform=>{
+        const ch=grouped[number-1].find(row=>String(row.platform||'').toLowerCase()===platform);
+        const meta=platformMeta[platform];
+        const slot=document.createElement('article');slot.className='channel-slot';slot.dataset.platform=platform;
+        const icon=document.createElement('span');icon.className='channel-slot-icon';icon.setAttribute('aria-hidden','true');icon.textContent=meta.icon;
+        const info=document.createElement('div');info.className='channel-slot-info';
+        const name=document.createElement('strong');name.textContent=ch?(ch.display_name||meta.label):meta.label;
+        const detail=document.createElement('small');
+        detail.textContent=ch?(ch.handle?'@'+String(ch.handle).replace(/^@/,'')+' · ':'')+'Status: '+(ch.connection_status||'pending')+(ch.is_paused?' · Paused':''):'Not added yet';
+        info.append(name,detail);
+        const review=document.createElement('button');review.type='button';review.className='channel-slot-review';review.textContent='Review';
         review.addEventListener('click',()=>{
-          alert((ch.display_name||platformLabel[platform]||'Channel')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'')+'\nConnection: '+(ch.connection_status||'pending')+'. Connect the platform API before publishing.');
+          if(ch)alert(meta.label+'\n'+(ch.display_name||'Name pending')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'Handle pending')+'\nGroup: '+number+'\nConnection: '+(ch.connection_status||'pending')+(ch.is_paused?'\nChannel is paused.':'')+'\n\nPlatform authorization must be verified before publishing.');
+          else alert(meta.label+'\nChannel Group '+number+'\n\nNo channel has been added here yet. Use “Add Channel” and choose this group.');
         });
-      }
-      root.append(card);
-      renderedPlatforms.add(platform);
-    });
-    Object.keys(platformClass).forEach(platform=>{
-      if(renderedPlatforms.has(platform)||!templates[platform])return;
-      const card=templates[platform].cloneNode(true);
-      card.classList.add(platformClass[platform]);
-      const nameNode=card.querySelector('.info b');
-      const statusNode=card.querySelector('.st');
-      if(nameNode)nameNode.textContent=platformLabel[platform];
-      if(statusNode)statusNode.textContent='App connection: Not verified';
-      root.append(card);
+        slot.append(icon,info,review);items.append(slot);
+      });
+      group.append(heading,items);root.append(group);
     });
   }
   function renderContent(){
