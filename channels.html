@@ -713,7 +713,11 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
       if(savedChannel.error){msg.textContent='Channel could not be saved: '+savedChannel.error.message;return;}
       msg.textContent=isVerified?'Verified profile saved. Platform authorization is still pending.':'Channel saved as Pending. The verified profile name requires platform API authorization.';
       form.reset();verifiedProfileName=false;
-      if(window.NGWorkspace)window.NGWorkspace.refresh();
+      if(window.NGWorkspace){
+        try{await window.NGWorkspace.refresh();}
+        catch(refreshError){console.error('Saved channel list refresh failed:',refreshError);}
+      }
+      if(dialog&&dialog.open)dialog.close();
     }catch(err){msg.textContent='Could not save this channel: '+(err&&err.message?err.message:'Please try again.');}
   });
 })();
