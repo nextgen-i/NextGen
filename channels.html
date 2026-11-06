@@ -653,7 +653,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
         p='Threads';handle=parts[0]||'';
       }else return null;
       if(['watch','reel','reels','p','posts','stories','share','about','settings'].includes(handle.toLowerCase()))handle='';
-      return {platform:p,handle:handle.replace(/^@/,'')};
+      return {platform:p,handle:handle.replace(/^@/,''),facebookShareLink:facebookShareLink};
     }catch(e){return null;}
   }
   if(urlInput)urlInput.addEventListener('input',function(){
@@ -661,7 +661,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     if(!parsed){if(usernameInput)usernameInput.value='';if(detectStatus)detectStatus.textContent='Enter a valid YouTube, Facebook, Instagram or Threads profile link.';return;}
     platform.value=parsed.platform;
     if(usernameInput)usernameInput.value=parsed.handle?'@'+parsed.handle:'';
-    if(detectStatus)detectStatus.textContent=parsed.handle?'Platform and username detected. Looking up the verified profile name…':'Platform detected, but this link does not contain a recognizable username.';
+    if(detectStatus)detectStatus.textContent=parsed.handle?'Platform and username detected. Looking up the verified profile name…':(parsed.facebookShareLink?'Facebook Share Link detected. Enter the Page name; save will remain Pending until verified.':'Platform detected, but this link does not contain a recognizable username.');
     if(parsed.handle)lookupVerifiedName(parsed.platform,parsed.handle);
   });
   var lookupSeq=0;
@@ -697,10 +697,11 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     e.preventDefault();
     var u=urlInput.value.trim(),p=String(platform.value||'').toLowerCase(),n=nameInput.value.trim(),handle=(usernameInput&&usernameInput.value||'').trim();
     var parsedProfile=parseProfile(u);
-    if(!parsedProfile||parsedProfile.platform.toLowerCase()!==p||!parsedProfile.handle){msg.textContent='Use a valid profile URL so NextGen can detect its platform and handle.';return;}
-    if(!handle)handle='@'+parsedProfile.handle;
+    var supportedFacebookShare=!!(parsedProfile&&p==='facebook'&&parsedProfile.facebookShareLink);
+    if(!parsedProfile||parsedProfile.platform.toLowerCase()!==p||(!parsedProfile.handle&&!supportedFacebookShare)){msg.textContent='Use a valid profile URL so NextGen can detect its platform and handle.';return;}
+    if(!handle&&parsedProfile.handle)handle='@'+parsedProfile.handle;
     var isVerified=!!(verifiedProfileName&&n);
-    var displayName=isVerified?n:(p.charAt(0).toUpperCase()+p.slice(1)+' profile — verification pending');
+    var displayName=isVerified?n:(n?n+' — verification pending':p.charAt(0).toUpperCase()+p.slice(1)+' profile — verification pending');
     try{
       var dbClient=window.getNextGenSupabaseClient();
       var authResult=await dbClient.auth.getUser();
