@@ -1124,7 +1124,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     var parsed=parseProfile(urlInput.value.trim());
     if(!parsed){if(usernameInput)usernameInput.value='';if(detectStatus)detectStatus.textContent='Enter a valid YouTube, Facebook, Instagram or Threads profile link.';return;}
     platform.value=parsed.platform;
-    if(usernameInput)usernameInput.value=parsed.handle?'@'+parsed.handle:'';
+    if(usernameInput)usernameInput.value=parsed.handle?'@'+String(parsed.handle).replace(/^@+/, ''):'';
     if(detectStatus)detectStatus.textContent=parsed.handle?'Platform and username detected. Looking up the verified profile name…':'Platform detected, but this link does not contain a recognizable username.';
     if(parsed.handle)lookupVerifiedName(parsed.platform,parsed.handle);
   });
@@ -1145,7 +1145,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
       if(response.error||!response.data||!response.data.display_name||response.data.verified_by_platform!==true)throw new Error(response.data&&response.data.error||'The platform did not return a verified profile name. Check API setup and account authorization.');
       nameInput.value=response.data.display_name;
       verifiedProfileName=true;
-      if(usernameInput)usernameInput.value=response.data.handle?'@'+response.data.handle:'@'+handle;
+      if(usernameInput)usernameInput.value='@'+String(response.data.handle||handle||'').replace(/^@+/, '');
       if(detectStatus)detectStatus.textContent='Verified profile name detected from '+p+'.';
     }catch(e){if(seq!==lookupSeq)return;verifiedProfileName=false;if(nameInput)nameInput.value='';if(detectStatus)detectStatus.textContent='Profile name not verified: '+(e.message||'API authorization is required.');}
   }
@@ -1171,9 +1171,9 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
       if(authResult.error||!authResult.data.user){msg.textContent='Sign in to NextGen above before saving this channel.';return;}
       var existing=await dbClient.from('channels').select('id,profile_url,handle').eq('owner_id',authResult.data.user.id).eq('platform',p);
       if(existing.error){msg.textContent='Could not check saved channels: '+existing.error.message;return;}
-      var cleanHandle=handle.replace(/^@/,'').toLowerCase();
+      var cleanHandle=handle.replace(/^@+/, '').toLowerCase();
       if((existing.data||[]).some(function(row){return String(row.profile_url||'').toLowerCase()===u.toLowerCase()||String(row.handle||'').replace(/^@/,'').toLowerCase()===cleanHandle;})){msg.textContent='This channel is already saved in your NextGen workspace.';return;}
-      var savedChannel=await dbClient.from('channels').insert({owner_id:authResult.data.user.id,platform:p,display_name:displayName,handle:handle.replace(/^@/,''),profile_url:u,connection_status:'pending'}).select('id').single();
+      var savedChannel=await dbClient.from('channels').insert({owner_id:authResult.data.user.id,platform:p,display_name:displayName,handle:handle.replace(/^@+/, ''),profile_url:u,connection_status:'pending'}).select('id').single();
       if(savedChannel.error){msg.textContent='Channel could not be saved: '+savedChannel.error.message;return;}
       msg.textContent=isVerified?'Verified profile saved. Platform authorization is still pending.':'Channel saved as Pending. The verified profile name requires platform API authorization.';
       form.reset();verifiedProfileName=false;
