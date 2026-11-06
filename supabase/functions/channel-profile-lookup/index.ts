@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
     const body = await req.json();
     const platform = String(body.platform || "").toLowerCase();
     const profileUrl = String(body.url || "").trim();
-    const accessToken = String(body.access_token || "").trim();
+    const accessToken = String(body.access_token || (platform === "facebook" ? Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN") || "" : "")).trim();
     if (!["youtube", "facebook", "instagram", "threads"].includes(platform)) {
       return json({ error: "Unsupported platform." }, 400);
     }
@@ -74,7 +74,7 @@ Deno.serve(async (req) => {
       headers.Authorization = "Bearer " + accessToken;
       if (platform === "facebook") {
         // Requires an authorized Facebook Page access token and appropriate Graph API permissions.
-        apiUrl = "https://graph.facebook.com/v23.0/me?fields=id,name,username";
+        apiUrl = "https://graph.facebook.com/v26.0/me?fields=id,name,username";
       } else if (platform === "instagram") {
         // Requires an authorized Instagram professional-account token with profile access.
         apiUrl = "https://graph.instagram.com/v23.0/me?fields=id,username,name";
