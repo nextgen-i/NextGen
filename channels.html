@@ -637,16 +637,23 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     list.querySelectorAll('.card').forEach(function(card){card.hidden=!card.textContent.toLowerCase().includes(q);});
     var blur=document.querySelector('.blur');if(blur)blur.hidden=!!q&&!blur.textContent.toLowerCase().includes(q);
   });
+  function normalizeProfileUrl(raw){
+    var value=String(raw||'').trim().replace(/^[\\s'\"`]+|[\\s'\"`]+$/g,'');
+    if(value&&!/^https?:\\/\\//i.test(value))value='https://'+value;
+    return value;
+  }
   function parseProfile(raw){
     try{
-      var u=new URL(raw);if(u.protocol!=='https:')return null;
+      var cleanUrl=normalizeProfileUrl(raw);
+      var u=new URL(cleanUrl);if(u.protocol!=='https:')return null;
       var host=u.hostname.toLowerCase().replace(/^www\./,'').replace(/^m\./,'');
       var parts=u.pathname.split('/').filter(Boolean);
-      var p='',handle='';
+      var p='',handle='',facebookShareLink=false;
       if(host==='youtube.com'||host==='youtu.be'){
         p='YouTube';if(host==='youtu.be')handle=parts[0]||'';else handle=parts.find(function(x){return x[0]==='@';})||parts[0]||'';
       }else if(host==='facebook.com'||host==='fb.com'){
         p='Facebook';handle=parts[0]||'';
+        facebookShareLink=parts[0]==='share'&&!!parts[1];
       }else if(host==='instagram.com'){
         p='Instagram';handle=parts[0]||'';
       }else if(host==='threads.net'||host==='threads.com'){
@@ -657,7 +664,9 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     }catch(e){return null;}
   }
   if(urlInput)urlInput.addEventListener('input',function(){
-    var parsed=parseProfile(urlInput.value.trim());
+    var normalized=normalizeProfileUrl(urlInput.value);
+    if(normalized&&normalized!==urlInput.value)urlInput.value=normalized;
+    var parsed=parseProfile(normalized);
     if(!parsed){if(usernameInput)usernameInput.value='';if(detectStatus)detectStatus.textContent='Enter a valid YouTube, Facebook, Instagram or Threads profile link.';return;}
     platform.value=parsed.platform;
     if(usernameInput)usernameInput.value=parsed.handle?'@'+parsed.handle:'';
@@ -695,7 +704,8 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
   });});
   if(form)form.addEventListener('submit',async function(e){
     e.preventDefault();
-    var u=urlInput.value.trim(),p=String(platform.value||'').toLowerCase(),n=nameInput.value.trim(),handle=(usernameInput&&usernameInput.value||'').trim();
+    var u=normalizeProfileUrl(urlInput.value),p=String(platform.value||'').toLowerCase(),n=nameInput.value.trim(),handle=(usernameInput&&usernameInput.value||'').trim();
+    urlInput.value=u;
     var parsedProfile=parseProfile(u);
     var supportedFacebookShare=!!(parsedProfile&&p==='facebook'&&parsedProfile.facebookShareLink);
     if(!parsedProfile||parsedProfile.platform.toLowerCase()!==p||(!parsedProfile.handle&&!supportedFacebookShare)){msg.textContent='Use a valid profile URL so NextGen can detect its platform and handle.';return;}
@@ -909,7 +919,7 @@ body>.app>header, body>header:not(.ng-auth-master-header), body>main>header:not(
 </script>
 
 
-<script src="./nextgen-workspace.js?v=20261106-channel-card-render-v3"></script>
+<script src="./nextgen-workspace.js?v=20261106-facebook-share-detect-v1"></script>
 
 <style id="ng-hamburger-main-point-icons-size">
 /* Enlarge only the cyan point icons in the main list of the three-line menu. */
