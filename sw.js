@@ -1,4 +1,4 @@
-const CACHE_NAME = "nextgen-shell-v89-native-pull-refresh";
+const CACHE_NAME = "nextgen-shell-v90-facebook-share-detect";
 const APP_SHELL = [
   "./",
   "./index.html",
