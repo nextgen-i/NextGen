@@ -638,8 +638,8 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     var blur=document.querySelector('.blur');if(blur)blur.hidden=!!q&&!blur.textContent.toLowerCase().includes(q);
   });
   function normalizeProfileUrl(raw){
-    var value=String(raw||'').trim().replace(/^[\\s'\"`]+|[\\s'\"`]+$/g,'');
-    if(value&&!/^https?:\\/\\//i.test(value))value='https://'+value;
+    var value=String(raw||'').trim().replace(/^['\"`]+|['\"`]+$/g,'');
+    if(value&&value.indexOf('https://')!==0&&value.indexOf('http://')!==0)value='https://'+value;
     return value;
   }
   function parseProfile(raw){
