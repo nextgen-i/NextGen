@@ -96,31 +96,31 @@ Deno.serve(async (req) => {
     }
 
     let profile = platform === "youtube" ? result.items?.[0]?.snippet : result;
-    if (platform === "facebook" && !String(profile?.name || "").trim()) {
-      // A User access token returns the person's name from /me, not the Page name.
-      // Resolve managed Pages, then verify the Page username using its Page token.
+    if (platform === "facebook") {
+      const meHasUsername = Boolean(String(profile?.username || "").trim());
       const pagesResponse = await fetch(
         "https://graph.facebook.com/v26.0/me/accounts?fields=id,name,username,access_token",
         { headers: { Authorization: "Bearer " + accessToken } },
       );
       const pagesResult = await pagesResponse.json().catch(() => ({}));
-      if (pagesResponse.ok && Array.isArray(pagesResult.data)) {
-        for (const page of pagesResult.data) {
-          if (!page.id || !page.access_token) continue;
+      if (pagesResponse.ok && Array.isArray(pagesResult.data) && pagesResult.data.length) {
+        const wanted = handle.replace(/^@/, "").toLowerCase();
+        let selected = pagesResult.data.find((page: any) =>
+          String(page.username || "").replace(/^@/, "").toLowerCase() === wanted
+        );
+        if (!selected && pagesResult.data.length === 1) selected = pagesResult.data[0];
+        if (selected?.id && selected?.access_token) {
           const pageResponse = await fetch(
-            "https://graph.facebook.com/v26.0/" + encodeURIComponent(String(page.id)) + "?fields=id,name,username",
-            { headers: { Authorization: "Bearer " + String(page.access_token) } },
+            "https://graph.facebook.com/v26.0/" + encodeURIComponent(String(selected.id)) + "?fields=id,name,username",
+            { headers: { Authorization: "Bearer " + String(selected.access_token) } },
           );
           const pageProfile = await pageResponse.json().catch(() => ({}));
-          const pageUsername = String(pageProfile.username || "").replace(/^@/, "").toLowerCase();
-          if (pageResponse.ok && pageProfile.name &&
-              (pageUsername === handle.replace(/^@/, "").toLowerCase() ||
-               (pagesResult.data.length === 1 && !pageUsername))) {
-            profile = pageProfile;
-            break;
-          }
+          if (pageResponse.ok && pageProfile.name) profile = pageProfile;
         }
       }
+      if (meHasUsername &&
+          String(profile?.username || "").replace(/^@/, "").toLowerCase() !==
+          handle.replace(/^@/, "").toLowerCase()) profile = {};
     }
     const displayName = String(profile?.title || profile?.name || "").trim();
     const returnedHandle = String(profile?.customUrl || profile?.username || handle).trim();
