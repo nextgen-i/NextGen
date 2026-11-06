@@ -76,7 +76,7 @@ Deno.serve(async (req: Request) => {
   const audience = cleanString(body.target_audience || "general audience", 160);
   const brandName = cleanString(body.brand_name, 100);
   const channelId = cleanString(body.channel_id, 80) || null;
-  const count = Number.isInteger(body.count) ? Number(body.count) : 3;
+  const count = typeof body.count === "number" && Number.isInteger(body.count) ? body.count : 3;
 
   if (!allowedPlatforms.includes(platform as typeof allowedPlatforms[number])) {
     return json({ error: "platform must be youtube, facebook, instagram, or threads." }, 400);
