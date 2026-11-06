@@ -73,7 +73,8 @@ Deno.serve(async (req) => {
       }, 428);
       headers.Authorization = "Bearer " + accessToken;
       if (platform === "facebook") {
-        // Requires an authorized Facebook Page access token and appropriate Graph API permissions.
+        // Accept either a Page token (where /me is the Page) or a User token
+        // (where /me/accounts lists the Pages the user can manage).
         apiUrl = "https://graph.facebook.com/v26.0/me?fields=id,name,username";
       } else if (platform === "instagram") {
         // Requires an authorized Instagram professional-account token with profile access.
@@ -94,10 +95,40 @@ Deno.serve(async (req) => {
       }, 502);
     }
 
-    const profile = platform === "youtube" ? result.items?.[0]?.snippet : result;
+    let profile = platform === "youtube" ? result.items?.[0]?.snippet : result;
+    if (platform === "facebook" && !String(profile?.name || "").trim()) {
+      // A User access token returns the person's name from /me, not the Page name.
+      // Resolve managed Pages, then verify the Page username using its Page token.
+      const pagesResponse = await fetch(
+        "https://graph.facebook.com/v26.0/me/accounts?fields=id,name,username,access_token",
+        { headers: { Authorization: "Bearer " + accessToken } },
+      );
+      const pagesResult = await pagesResponse.json().catch(() => ({}));
+      if (pagesResponse.ok && Array.isArray(pagesResult.data)) {
+        for (const page of pagesResult.data) {
+          if (!page.id || !page.access_token) continue;
+          const pageResponse = await fetch(
+            "https://graph.facebook.com/v26.0/" + encodeURIComponent(String(page.id)) + "?fields=id,name,username",
+            { headers: { Authorization: "Bearer " + String(page.access_token) } },
+          );
+          const pageProfile = await pageResponse.json().catch(() => ({}));
+          const pageUsername = String(pageProfile.username || "").replace(/^@/, "").toLowerCase();
+          if (pageResponse.ok && pageProfile.name &&
+              (pageUsername === handle.replace(/^@/, "").toLowerCase() ||
+               (pagesResult.data.length === 1 && !pageUsername))) {
+            profile = pageProfile;
+            break;
+          }
+        }
+      }
+    }
     const displayName = String(profile?.title || profile?.name || "").trim();
     const returnedHandle = String(profile?.customUrl || profile?.username || handle).trim();
-    if (!displayName) return json({ error: "The platform did not return a profile name for this link.", platform }, 404);
+    if (!displayName) return json({
+      error: "Facebook did not return a matching Page name. Confirm the saved token is a User token with pages_show_list, or a Page token for this Page.",
+      platform,
+      code: "FACEBOOK_PAGE_LOOKUP_EMPTY",
+    }, 404);
     return json({ platform, display_name: displayName, handle: returnedHandle, verified_by_platform: true });
   } catch (error) {
     return json({ error: error instanceof Error ? error.message : "Invalid request." }, 400);
