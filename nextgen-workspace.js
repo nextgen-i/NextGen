@@ -177,18 +177,22 @@
       const uniqueKey=platform+'|'+(handleKey||profileKey||String(ch.id||''));
       if(seenChannels.has(uniqueKey))return;
       seenChannels.add(uniqueKey);
-      const card=(templates[platform]||document.createElement('div')).cloneNode(true);
+      let card=templates[platform]?templates[platform].cloneNode(true):null;
+      if(!card){
+        card=document.createElement('div');
+        card.innerHTML='<div class="ico" aria-hidden="true"></div><div class="info"><b></b><span></span></div><div class="st"></div><button class="rv" type="button" data-review>Review</button>';
+      }
       card.className='card '+(platformClass[platform]||'');
       const nameNode=card.querySelector('.info b');
       const handleNode=card.querySelector('.info span');
       const statusNode=card.querySelector('.st');
       if(nameNode)nameNode.textContent=ch.display_name||platformLabel[platform]||'Channel';
-      if(handleNode)handleNode.textContent=ch.handle?'@'+String(ch.handle).replace(/^@/,''):'Profile name pending';
+      if(handleNode)handleNode.textContent=ch.handle?'@'+String(ch.handle).replace(/^@+/, ''):'Profile name pending';
       if(statusNode)statusNode.textContent='Connection: '+(ch.connection_status||'pending')+(ch.is_paused?' · Paused':'');
       const review=card.querySelector('[data-review]');
       if(review){
         review.addEventListener('click',()=>{
-          alert((ch.display_name||platformLabel[platform]||'Channel')+'\n'+(ch.handle?'@'+String(ch.handle).replace(/^@/,''):'')+'\nConnection: '+(ch.connection_status||'pending')+'. Connect the platform API before publishing.');
+          alert((ch.display_name||platformLabel[platform]||'Channel')+'\\n'+(ch.handle?'@'+String(ch.handle).replace(/^@+/, ''):'')+'\\nConnection: '+(ch.connection_status||'pending')+'. Connect the platform API before publishing.');
         });
       }
       root.append(card);
