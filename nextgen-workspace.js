@@ -180,7 +180,7 @@
       let card=templates[platform]?templates[platform].cloneNode(true):null;
       if(!card){
         card=document.createElement('div');
-        card.innerHTML='<div class="ico" aria-hidden="true"></div><div class="info"><b></b><span></span></div><div class="st"></div><button class="rv" type="button" data-review>Review</button>';
+        card.innerHTML='<div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" focusable="false" aria-hidden="true"><path fill="#fff" d="M9 6.5v11l9-5.5z"/></svg></div><div class="info"><b></b><span></span></div><div class="st"></div><button class="rv" type="button" data-review>Review</button>';
       }
       card.className='card '+(platformClass[platform]||'');
       const nameNode=card.querySelector('.info b');
