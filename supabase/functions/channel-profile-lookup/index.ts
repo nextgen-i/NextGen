@@ -80,14 +80,6 @@ Deno.serve(async (req: Request) => {
     if (!profileUrl) return json({ error: "A channel or profile link is required." }, 400);
 
     const { handle, isShareLink } = parseProfileUrl(platform, profileUrl);
-    // A configured Page token identifies the configured Page, not the target of an arbitrary
-    // Facebook share URL. Fail closed instead of incorrectly verifying every share URL as NextGen.
-    if (platform === "facebook" && isShareLink) {
-      return json({
-        error: "Facebook share links do not reveal which Page they point to. Paste the Page's direct URL (facebook.com/PageUsername) to verify its actual name. The configured NextGen Page token cannot verify an unrelated share link.",
-        code: "FACEBOOK_SHARE_LINK_NOT_RESOLVABLE",
-      }, 422);
-    }
     let profile: Record<string, unknown> | null = null;
 
     if (platform === "youtube") {
@@ -116,16 +108,60 @@ Deno.serve(async (req: Request) => {
       }
 
       if (platform === "facebook") {
-        // Resolve the exact username/vanity path supplied by the user.
-        // Do not call /me and assume that the token owner's Page is the requested Page.
-        if (!handle) {
-          return json({
-            error: "A Facebook share link has no public Page username. Use the Facebook Page's profile URL or resolve the share link to its Page URL first.",
-            code: "FACEBOOK_SHARE_LINK_NOT_RESOLVABLE",
-          }, 422);
+        // Resolve Facebook share URLs server-side, following only Facebook-owned redirects.
+        // Never substitute the token owner's /me identity for the submitted target URL.
+        let resolvedHandle = handle;
+        let resolvedPageId = "";
+        if (isShareLink) {
+          let current = new URL(profileUrl);
+          const allowedHosts = new Set(["facebook.com", "www.facebook.com", "m.facebook.com", "fb.com", "www.fb.com"]);
+          for (let hop = 0; hop < 6; hop++) {
+            if (!allowedHosts.has(current.hostname.toLowerCase())) {
+              return json({ error: "Facebook share link redirected outside Facebook and was rejected.", code: "FACEBOOK_REDIRECT_UNSAFE" }, 422);
+            }
+            const redirectResponse = await fetch(current.toString(), {
+              method: "GET",
+              redirect: "manual",
+              headers: { "User-Agent": "Mozilla/5.0 (compatible; NextGenProfileResolver/1.0)", "Accept": "text/html,application/xhtml+xml" },
+            });
+            if ([301, 302, 303, 307, 308].includes(redirectResponse.status)) {
+              const location = redirectResponse.headers.get("location");
+              if (!location) break;
+              current = new URL(location, current);
+              continue;
+            }
+            if (!redirectResponse.ok) break;
+            const html = await redirectResponse.text();
+            const canonical = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)?.[1]
+              || html.match(/<meta[^>]+property=["']og:url["'][^>]+content=["']([^"']+)["']/i)?.[1];
+            if (canonical) {
+              const canonicalUrl = new URL(canonical, current);
+              if (allowedHosts.has(canonicalUrl.hostname.toLowerCase())) current = canonicalUrl;
+            }
+            break;
+          }
+          const finalHost = current.hostname.toLowerCase();
+          if (!allowedHosts.has(finalHost)) {
+            return json({ error: "Facebook share link did not resolve to a Facebook Page.", code: "FACEBOOK_REDIRECT_UNSAFE" }, 422);
+          }
+          const finalParts = current.pathname.split("/").filter(Boolean);
+          if (finalParts[0]?.toLowerCase() === "profile.php" || current.pathname.toLowerCase().includes("profile.php")) {
+            resolvedPageId = current.searchParams.get("id") || "";
+          } else if (finalParts[0] && !["share", "watch", "reel", "reels", "posts", "photo", "permalink.php"].includes(finalParts[0].toLowerCase())) {
+            resolvedHandle = finalParts[0];
+          }
+          if (!resolvedHandle && !resolvedPageId) {
+            return json({
+              error: "Facebook did not expose the destination Page from this share link. It may require a Facebook login or be a post/profile that cannot be resolved publicly.",
+              code: "FACEBOOK_SHARE_DESTINATION_HIDDEN",
+            }, 422);
+          }
+        }
+        if (!resolvedHandle && !resolvedPageId) {
+          return json({ error: "The Facebook URL does not contain a resolvable Page identifier.", code: "FACEBOOK_PAGE_IDENTIFIER_MISSING" }, 422);
         }
         const directUrl = "https://graph.facebook.com/v26.0/" +
-          encodeURIComponent(handle) + "?fields=id,name";
+          encodeURIComponent(resolvedPageId || resolvedHandle) + "?fields=id,name,username";
         const directResponse = await fetch(directUrl, {
           headers: { Authorization: "Bearer " + accessToken },
         });
@@ -142,7 +178,7 @@ Deno.serve(async (req: Request) => {
             provider_status: directResponse.status,
           }, 404);
         }
-        profile = directResult;
+        profile = { ...directResult, username: directResult.username || resolvedHandle };
       } else {
         const apiUrl = platform === "instagram"
           ? "https://graph.instagram.com/v23.0/me?fields=id,username,name"
