@@ -691,8 +691,9 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
       if(response.error||!response.data||!response.data.display_name||response.data.verified_by_platform!==true)throw new Error(response.data&&response.data.error||'The platform did not return a verified profile name. Check API setup and account authorization.');
       nameInput.value=response.data.display_name;
       verifiedProfileName=true;
-      if(usernameInput)usernameInput.value=response.data.handle?'@'+response.data.handle:'@'+handle;
-      if(detectStatus)detectStatus.textContent='Verified profile name detected from '+p+'.';
+      var verifiedHandle=String(response.data.handle||handle||'').replace(/^@/,'').trim();
+      if(usernameInput)usernameInput.value=verifiedHandle?'@'+verifiedHandle:'';
+      if(detectStatus)detectStatus.textContent=verifiedHandle?'Verified profile name and handle detected from '+p+'.':'Verified profile name detected from '+p+'. This share link does not expose a public username; the handle is left blank.';
     }catch(e){if(seq!==lookupSeq)return;verifiedProfileName=false;if(nameInput)nameInput.value='';if(detectStatus)detectStatus.textContent='Profile name not verified: '+(e.message||'API authorization is required.');}
   }
   if(add&&dialog)add.addEventListener('click',function(){if(dialog.showModal)dialog.showModal();else alert('Please open this page in an updated browser to add a channel.');});
