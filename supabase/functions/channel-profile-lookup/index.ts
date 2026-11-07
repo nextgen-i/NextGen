@@ -80,6 +80,14 @@ Deno.serve(async (req: Request) => {
     if (!profileUrl) return json({ error: "A channel or profile link is required." }, 400);
 
     const { handle, isShareLink } = parseProfileUrl(platform, profileUrl);
+    // A configured Page token identifies the configured Page, not the target of an arbitrary
+    // Facebook share URL. Fail closed instead of incorrectly verifying every share URL as NextGen.
+    if (platform === "facebook" && isShareLink) {
+      return json({
+        error: "Facebook share links do not reveal which Page they point to. Paste the Page's direct URL (facebook.com/PageUsername) to verify its actual name. The configured NextGen Page token cannot verify an unrelated share link.",
+        code: "FACEBOOK_SHARE_LINK_NOT_RESOLVABLE",
+      }, 422);
+    }
     let profile: Record<string, unknown> | null = null;
 
     if (platform === "youtube") {
