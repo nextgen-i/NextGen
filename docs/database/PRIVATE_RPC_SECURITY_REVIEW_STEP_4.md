@@ -62,3 +62,15 @@ A direct ACL expansion of the inspected functions confirms:
 - Production's `remove_channel_safely` is invoker and grants EXECUTE to authenticated and service_role only.
 
 This reduces the concern about anonymous/public function execution, but does not resolve whether the `nextgen_private` schema is listed in the Data API exposed schemas. Authenticated has both USAGE and EXECUTE on the private schema/functions, so direct Data API RPC reachability still depends on that project setting. No privilege changes were made.
+
+
+## Dashboard verification completed from user-provided screenshots
+
+The user supplied the open Exposed schemas dropdown for both projects.
+
+- Production (NextGen): checked schemas are `graphql_public` and `public`; `private` is unchecked. Confirmed not exposed.
+- Staging (NextGen-Staging): checked schemas are `graphql_public` and `public`; `nextgen_private` is unchecked. Confirmed not exposed.
+- The Staging screenshot also shows the separate Extra search path dropdown open; it is not the Exposed schemas control and was not used to infer exposure.
+- No selection was changed and no Save action was performed.
+
+This resolves the Data API exposure uncertainty for these two private schemas: neither is included in the exposed schemas list. Keep the existing grants as-is for now; any privilege tightening or RPC architecture migration still requires a separately reviewed, tested migration and explicit approval.
