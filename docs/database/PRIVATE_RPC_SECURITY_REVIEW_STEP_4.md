@@ -51,3 +51,14 @@ In Supabase Dashboard for BOTH projects:
 
 ## Safety
 Read-only SQL inspection only. No SQL DDL or DML was run. No migration was applied. No GitHub main-branch changes were made. No frontend or Master Design v32 files were touched.
+
+
+## Additional ACL verification (follow-up)
+
+A direct ACL expansion of the inspected functions confirms:
+- Production public SECURITY DEFINER functions grant EXECUTE to `authenticated` and `service_role`; no PUBLIC or anon EXECUTE grant appears in the effective ACL.
+- Staging private SECURITY DEFINER functions grant EXECUTE to `authenticated` and `service_role`; no PUBLIC or anon EXECUTE grant appears in the effective ACL.
+- Staging public invoker wrappers grant EXECUTE to `authenticated` and `service_role`; no PUBLIC or anon EXECUTE grant appears in the effective ACL.
+- Production's `remove_channel_safely` is invoker and grants EXECUTE to authenticated and service_role only.
+
+This reduces the concern about anonymous/public function execution, but does not resolve whether the `nextgen_private` schema is listed in the Data API exposed schemas. Authenticated has both USAGE and EXECUTE on the private schema/functions, so direct Data API RPC reachability still depends on that project setting. No privilege changes were made.
