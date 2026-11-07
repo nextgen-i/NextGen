@@ -116,47 +116,33 @@ Deno.serve(async (req: Request) => {
       }
 
       if (platform === "facebook") {
-        const meResponse = await fetch(
-          "https://graph.facebook.com/v26.0/me?fields=id,name,username,category",
-          { headers: { Authorization: "Bearer " + accessToken } },
-        );
-        const me = await readJson(meResponse);
-        if (!meResponse.ok) {
-          console.error("channel-profile-lookup provider_error", { platform, status: meResponse.status, provider_code: me.error?.code });
-          return json({ error: "Facebook rejected the saved token. Re-authorize the Facebook Page in NextGen.", provider_status: meResponse.status, code: "FACEBOOK_TOKEN_REJECTED" }, 502);
+        // Resolve the exact username/vanity path supplied by the user.
+        // Do not call /me and assume that the token owner's Page is the requested Page.
+        if (!handle) {
+          return json({
+            error: "A Facebook share link has no public Page username. Use the Facebook Page's profile URL or resolve the share link to its Page URL first.",
+            code: "FACEBOOK_SHARE_LINK_NOT_RESOLVABLE",
+          }, 422);
         }
-
-        // A Page token resolves /me directly to the Page. A User token resolves /me to a person,
-        // so fetch the Pages the user can manage and select only an unambiguous match.
-        if (me.category && me.name) {
-          profile = me;
-        } else {
-          const pagesResponse = await fetch(
-            "https://graph.facebook.com/v26.0/me/accounts?fields=id,name,username,access_token",
-            { headers: { Authorization: "Bearer " + accessToken } },
-          );
-          const pagesResult = await readJson(pagesResponse);
-          if (!pagesResponse.ok) {
-            console.error("channel-profile-lookup pages_error", { status: pagesResponse.status, provider_code: pagesResult.error?.code });
-            return json({ error: "Facebook did not allow this User Token to list Pages. Use a Page Access Token or re-authorize pages_show_list.", provider_status: pagesResponse.status, code: "FACEBOOK_PAGES_ACCESS_DENIED" }, 403);
-          }
-          const pages = Array.isArray(pagesResult.data) ? pagesResult.data : [];
-          const wanted = handle.replace(/^@/, "").toLowerCase();
-          let selected = wanted
-            ? pages.find((page: any) => String(page.username || "").replace(/^@/, "").toLowerCase() === wanted)
-            : null;
-          if (!selected && pages.length === 1) selected = pages[0];
-          if (!selected) {
-            return json({
-              error: pages.length
-                ? "More than one Facebook Page is available. Use that Page's direct Page Access Token to verify the correct Page."
-                : "No Facebook Pages were returned for this User Token.",
-              code: "FACEBOOK_PAGE_SELECTION_REQUIRED",
-              page_count: pages.length,
-            }, 409);
-          }
-          profile = { id: selected.id, name: selected.name, username: selected.username };
+        const directUrl = "https://graph.facebook.com/v26.0/" +
+          encodeURIComponent(handle) + "?fields=id,name";
+        const directResponse = await fetch(directUrl, {
+          headers: { Authorization: "Bearer " + accessToken },
+        });
+        const directResult = await readJson(directResponse);
+        if (!directResponse.ok) {
+          console.error("channel-profile-lookup facebook_direct_lookup_error", {
+            status: directResponse.status,
+            provider_code: directResult.error?.code,
+            provider_subcode: directResult.error?.error_subcode,
+          });
+          return json({
+            error: "Facebook could not resolve this Page username with the saved token. Check that the Page is accessible to this account and the URL is correct.",
+            code: "FACEBOOK_DIRECT_LOOKUP_FAILED",
+            provider_status: directResponse.status,
+          }, 404);
         }
+        profile = directResult;
       } else {
         const apiUrl = platform === "instagram"
           ? "https://graph.instagram.com/v23.0/me?fields=id,username,name"
