@@ -672,7 +672,7 @@ html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app
     platform.value=parsed.platform;
     if(usernameInput)usernameInput.value=parsed.handle?'@'+parsed.handle:'';
     if(detectStatus)detectStatus.textContent=parsed.handle?'Platform and username detected. Looking up the verified profile name…':(parsed.facebookShareLink?'Facebook Share Link detected. Enter the Page name; save will remain Pending until verified.':'Platform detected, but this link does not contain a recognizable username.');
-    if(parsed.handle)lookupVerifiedName(parsed.platform,parsed.handle);
+    if(parsed.handle || parsed.facebookShareLink)lookupVerifiedName(parsed.platform,parsed.handle||'');
   });
   var lookupSeq=0;
   var verifiedProfileName=false;
