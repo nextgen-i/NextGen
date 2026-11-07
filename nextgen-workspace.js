@@ -170,7 +170,12 @@
     root.innerHTML='';
     const seenChannels=new Set();
     const renderedPlatforms=new Set();
-    channels.forEach(ch=>{
+    const platformOrder={youtube:0,facebook:1,instagram:2,threads:3};
+    const orderedChannels=[...channels].sort((a,b)=>
+      (platformOrder[String(a.platform||'').toLowerCase()]??99)-
+      (platformOrder[String(b.platform||'').toLowerCase()]??99)
+    );
+    orderedChannels.forEach(ch=>{
       const platform=String(ch.platform||'').toLowerCase();
       const handleKey=String(ch.handle||'').replace(/^@/,'').trim().toLowerCase();
       const profileKey=String(ch.profile_url||'').trim().toLowerCase().replace(/\?.*$/,'').replace(/\/$/,'');
@@ -183,6 +188,16 @@
         card.innerHTML='<div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" focusable="false" aria-hidden="true"><path fill="#fff" d="M9 6.5v11l9-5.5z"/></svg></div><div class="info"><b></b><span></span></div><div class="st"></div><button class="rv" type="button" data-review>Review</button>';
       }
       card.className='card '+(platformClass[platform]||'');
+      const iconNode=card.querySelector('.ico');
+      if(iconNode){
+        const iconMarkup={
+          youtube:'<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="#fff"/><path d="M10 9v6l5-3z" fill="#2166e8"/></svg>',
+          facebook:'<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="#fff" d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.6V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.2v3h2.8v8z"/></svg>',
+          instagram:'<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>',
+          threads:'<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M16.8 9.1c-.5-3-2.4-4.7-5.3-4.7-3.7 0-6 2.7-6 7.1 0 4.6 2.3 7.2 6.1 7.2 3 0 5-1.7 5-4.2 0-2.2-1.5-3.5-4-3.5-2 0-3.2.9-3.2 2.4 0 1.1.8 1.8 2 1.8 1.5 0 2.4-1.1 2.4-2.8 0-3.3-1.5-5.2-4.1-5.2" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>'
+        };
+        if(iconMarkup[platform])iconNode.innerHTML=iconMarkup[platform];
+      }
       const nameNode=card.querySelector('.info b');
       const handleNode=card.querySelector('.info span');
       const statusNode=card.querySelector('.st');
