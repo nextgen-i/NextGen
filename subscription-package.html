@@ -605,6 +605,33 @@ html body.ng-unified-subpage .subscription-plan h2{
 }
 </style>
 
+
+<style id="ng-today-offer-layout-v1">
+/* Monthly: regular price on the left, personalized first-month offer on the right. */
+.subscription-plan{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:10px!important;align-items:stretch!important}
+.subscription-plan>h2,.subscription-plan>.subscription-limit,.subscription-plan>ul,.subscription-plan>.subscription-status{grid-column:1/-1!important}
+.subscription-plan>.subscription-regular-group{grid-column:1!important;grid-row:2!important;min-width:0;margin:0 0 10px!important;background:#09172f!important;border:1px solid #28466f!important}
+.subscription-plan>.subscription-offer-group{grid-column:2!important;grid-row:2!important;min-width:0;margin:0 0 10px!important;padding:10px!important;border-radius:11px!important;background:linear-gradient(145deg,#123b68,#0a2146)!important;border:1px solid #2c83c8!important;text-align:center!important}
+.subscription-offer-kicker{font-size:10px;font-weight:800;line-height:1.3;color:#c5eaff;letter-spacing:.35px}
+.subscription-offer-badge{display:inline-block;margin:5px auto;padding:4px 9px;border-radius:999px;background:#0b9d70;color:#fff;font-size:12px;font-weight:900;letter-spacing:.4px}
+.subscription-offer-group .subscription-price-label{font-size:10px!important;color:#d4eaff!important}
+.subscription-offer-group .subscription-price{font-size:clamp(23px,5.8vw,34px)!important;color:#8fffc5!important;font-weight:900!important;overflow-wrap:anywhere}
+.subscription-plan>.subscription-yearly-group{grid-column:1/-1!important;grid-row:2!important;min-width:0;margin:0 0 10px!important;padding:12px!important;border-radius:11px!important;background:#10264b!important;border:1px solid #2869b6!important}
+.subscription-plan>.subscription-yearly-group[hidden],.subscription-plan>.subscription-offer-group[hidden],.subscription-plan>.subscription-regular-group[hidden]{display:none!important}
+.subscription-plan>.subscription-yearly-group:not([hidden]){display:block!important}
+@media(max-width:520px){
+ .subscription-plan{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:8px!important}
+ .subscription-plan>.subscription-regular-group,.subscription-plan>.subscription-offer-group{grid-row:2!important}
+ .subscription-plan>.subscription-regular-group,.subscription-plan>.subscription-offer-group{padding:9px!important}
+ .subscription-offer-kicker{font-size:9px}
+ .subscription-offer-badge{font-size:11px}
+ .subscription-offer-group .subscription-price{font-size:clamp(21px,5.5vw,29px)!important}
+}
+@media(max-width:340px){
+ .subscription-plan{grid-template-columns:minmax(0,1fr)!important}
+ .subscription-plan>.subscription-regular-group,.subscription-plan>.subscription-offer-group{grid-column:1!important;grid-row:auto!important}
+}
+</style>
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
@@ -722,8 +749,10 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
-    <div class="subscription-price-group">
-      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499 / month</div>
     </div>
     <div class="subscription-regular-group">
@@ -749,8 +778,10 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan subscription-plan-featured">
     <h2>Creator Plan</h2>
-    <div class="subscription-price-group">
-      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="1499" data-price-kind="launch">₹1,499 / month</div>
     </div>
     <div class="subscription-regular-group">
@@ -777,8 +808,10 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Professional Plan</h2>
-    <div class="subscription-price-group">
-      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="4999" data-price-kind="launch">₹4,999 / month</div>
     </div>
     <div class="subscription-regular-group">
@@ -805,8 +838,10 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Premium Plan</h2>
-    <div class="subscription-price-group">
-      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="14999" data-price-kind="launch">₹14,999 / month</div>
     </div>
     <div class="subscription-regular-group">
@@ -832,8 +867,10 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Enterprise Plan</h2>
-    <div class="subscription-price-group">
-      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="49999" data-price-kind="launch">₹49,999 / month</div>
     </div>
     <div class="subscription-regular-group">
@@ -940,6 +977,28 @@ html body.ng-unified-subpage .subscription-plan h2{
   function setPeriod(next){
     period=next;
     document.querySelectorAll('.billing-option').forEach(function(btn){
+      var active=btn.getAttribute('data-period')===period;
+      btn.classList.toggle('is-active',active);
+      btn.setAttribute('aria-pressed',String(active));
+    });
+    document.querySelectorAll('.subscription-plan:not(.subscription-plan-free)').forEach(function(card){
+      var offer=card.querySelector('.subscription-offer-group');
+      var regular=card.querySelector('.subscription-regular-group');
+      var yearly=card.querySelector('.subscription-yearly-group');
+      var regularPrice=regular&&regular.querySelector('[data-price-kind="regular"]');
+      if(period==='yearly'){
+        if(offer)offer.hidden=true;
+        if(regular)regular.hidden=true;
+        if(yearly)yearly.hidden=false;
+      }else{
+        if(offer)offer.hidden=false;
+        if(regular)regular.hidden=false;
+        if(yearly)yearly.hidden=true;
+      }
+    });
+    render();
+  }
+  document.querySelectorAll('.billing-option').forEach(function(btn){
       var active=btn.getAttribute('data-period')===period;
       btn.classList.toggle('is-active',active);
       btn.setAttribute('aria-pressed',String(active));
