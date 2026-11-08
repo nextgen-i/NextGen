@@ -632,79 +632,6 @@ html body.ng-unified-subpage .subscription-plan h2{
  .subscription-plan>.subscription-regular-group,.subscription-plan>.subscription-offer-group{grid-column:1!important;grid-row:auto!important}
 }
 </style>
-
-<style id="ng-monthly-offer-reference-layout-v2">
-/* Monthly pricing follows the supplied reference: regular price left, offer right, first-month amount below. */
-.subscription-plan>.subscription-regular-group{grid-column:1!important;grid-row:2!important;align-self:center!important;margin:0 0 12px!important;padding:10px 0!important;background:transparent!important;border:0!important;min-width:0!important}
-.subscription-regular-group .subscription-price-label{font-size:clamp(13px,3.6vw,17px)!important;color:#a9bddc!important;letter-spacing:.2px!important;font-weight:600!important}
-.subscription-regular-group .subscription-regular-usd{font-size:clamp(22px,5.4vw,31px)!important;color:#eaf3ff!important;text-decoration:line-through!important;text-decoration-thickness:2px!important;overflow-wrap:anywhere!important}
-.subscription-plan>.subscription-offer-group{grid-column:2!important;grid-row:2!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;gap:8px!important;min-width:0!important;min-height:142px!important;margin:0 0 12px!important;padding:14px!important;border-radius:18px!important;background:linear-gradient(145deg,#103b3b,#0b302f)!important;border:1px solid #237d68!important;text-align:left!important}
-.subscription-offer-group .subscription-offer-badge{display:inline-block;margin:0!important;padding:6px 13px!important;border-radius:999px!important;background:#145f48!important;color:#8fffc5!important;font-size:clamp(13px,3.4vw,18px)!important;font-weight:900!important}
-.subscription-offer-headline{font-size:clamp(15px,4vw,22px)!important;line-height:1.2!important;font-weight:850!important;color:#effff8!important}
-.subscription-offer-copy{font-size:clamp(13px,3.4vw,18px)!important;line-height:1.25!important;color:#c4f3df!important;font-weight:650!important}
-.subscription-plan>.subscription-first-month-row{grid-column:1/-1!important;grid-row:3!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:18px 0 8px!important;margin:0!important;border-top:1px solid #28466f!important}
-.subscription-first-month-title{font-size:clamp(18px,4.7vw,27px)!important;font-weight:850!important;color:#eaf3ff!important;line-height:1.2!important}
-.subscription-first-month-row .subscription-price{margin:0!important;color:#39d994!important;font-size:clamp(32px,8vw,48px)!important;font-weight:900!important;line-height:1.1!important;white-space:nowrap!important}
-.subscription-first-month-note{grid-column:1/-1!important;grid-row:4!important;margin:0 0 16px!important;color:#a9bddc!important;font-size:clamp(13px,3.6vw,18px)!important;line-height:1.5!important}
-.subscription-plan>.subscription-limit{grid-row:5!important}
-.subscription-plan>ul{grid-row:6!important}
-.subscription-plan>.subscription-status{grid-row:7!important}
-.subscription-plan>.subscription-yearly-group{grid-row:2!important}
-.subscription-plan>.subscription-first-month-row[hidden],.subscription-plan>.subscription-first-month-note[hidden]{display:none!important}
-@media(max-width:380px){
- .subscription-plan>.subscription-regular-group{padding:8px 0!important}
- .subscription-plan>.subscription-offer-group{min-height:132px!important;padding:10px!important;gap:7px!important}
- .subscription-first-month-title{font-size:17px!important}
- .subscription-plan>.subscription-first-month-row{padding-top:14px!important}
-}
-@media(max-width:340px){
- .subscription-plan>.subscription-regular-group{grid-column:1!important;grid-row:2!important}
- .subscription-plan>.subscription-offer-group{grid-column:1!important;grid-row:3!important}
- .subscription-plan>.subscription-first-month-row{grid-row:4!important}
- .subscription-plan>.subscription-first-month-note{grid-row:5!important}
- .subscription-plan>.subscription-limit{grid-row:6!important}
- .subscription-plan>ul{grid-row:7!important}
- .subscription-plan>.subscription-status{grid-row:8!important}
-}
-</style>
-
-<style id="ng-yearly-monthly-row-guard-v3">
-/* If Yearly is selected, never show first-month monthly offer details beneath the annual price. */
-body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-first-month-row,
-body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-first-month-note{
-  display:none!important;
-}
-body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-yearly-group{
-  display:block!important;
-}
-body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-offer-group,
-body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-regular-group{
-  display:none!important;
-}
-</style>
-
-<style id="ng-reference-proportion-tune-v4">
-/* Match the reference card proportions: compact regular-price column and wider offer panel. */
-.subscription-plan{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)!important;column-gap:14px!important}
-.subscription-plan>.subscription-regular-group{grid-column:1!important;grid-row:2!important;padding:10px 0!important}
-.subscription-regular-group .subscription-price-label{font-size:clamp(12px,2.8vw,16px)!important;white-space:nowrap!important}
-.subscription-regular-group .subscription-regular-usd{font-size:clamp(19px,4.3vw,29px)!important;white-space:nowrap!important;overflow-wrap:normal!important}
-.subscription-plan>.subscription-offer-group{grid-column:2!important;grid-row:2!important;min-height:160px!important;padding:16px 18px!important;gap:10px!important}
-.subscription-offer-group .subscription-offer-badge{font-size:clamp(13px,3vw,17px)!important;padding:6px 14px!important}
-.subscription-offer-headline{font-size:clamp(15px,3.3vw,21px)!important;white-space:nowrap!important;letter-spacing:-.35px!important}
-.subscription-offer-copy{font-size:clamp(13px,2.8vw,17px)!important;white-space:nowrap!important}
-@media(max-width:520px){
- .subscription-plan{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)!important;column-gap:10px!important}
- .subscription-plan>.subscription-offer-group{min-height:154px!important;padding:13px 12px!important;gap:9px!important}
- .subscription-regular-group .subscription-price-label{font-size:clamp(11px,2.7vw,14px)!important}
- .subscription-regular-group .subscription-regular-usd{font-size:clamp(17px,4vw,24px)!important}
- .subscription-offer-headline{font-size:clamp(13px,3.15vw,17px)!important;white-space:normal!important}
- .subscription-offer-copy{font-size:clamp(12px,2.8vw,15px)!important;white-space:normal!important}
-}
-@media(max-width:340px){
- .subscription-plan{grid-template-columns:minmax(0,1fr)!important}
-}
-</style>
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
@@ -822,20 +749,16 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
 
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
-    <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE</div>
-      <div class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999 / month</div>
-    </div>
     <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
       <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-offer-headline">Today Offer Only for You!</div>
-      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
-    </div>
-    <div class="subscription-first-month-row">
-      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499 / month</div>
     </div>
-    <p class="subscription-first-month-note">From the 2nd month: ₹999 / month. Offer applies to the first paid month only.</p>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999 / month</div>
+    </div>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="10789" data-price-kind="annual">₹10,789 / year</div>
@@ -855,20 +778,16 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
 
   <article class="subscription-plan subscription-plan-featured">
     <h2>Creator Plan</h2>
-    <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE</div>
-      <div class="subscription-regular-usd" data-inr-price="2999" data-price-kind="regular">₹2,999 / month</div>
-    </div>
     <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
       <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-offer-headline">Today Offer Only for You!</div>
-      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
-    </div>
-    <div class="subscription-first-month-row">
-      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="1499" data-price-kind="launch">₹1,499 / month</div>
     </div>
-    <p class="subscription-first-month-note">From the 2nd month: ₹2,999 / month. Offer applies to the first paid month only.</p>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd" data-inr-price="2999" data-price-kind="regular">₹2,999 / month</div>
+    </div>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="32389" data-price-kind="annual">₹32,389 / year</div>
@@ -889,20 +808,16 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
 
   <article class="subscription-plan">
     <h2>Professional Plan</h2>
-    <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE</div>
-      <div class="subscription-regular-usd" data-inr-price="9999" data-price-kind="regular">₹9,999 / month</div>
-    </div>
     <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
       <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-offer-headline">Today Offer Only for You!</div>
-      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
-    </div>
-    <div class="subscription-first-month-row">
-      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="4999" data-price-kind="launch">₹4,999 / month</div>
     </div>
-    <p class="subscription-first-month-note">From the 2nd month: ₹9,999 / month. Offer applies to the first paid month only.</p>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd" data-inr-price="9999" data-price-kind="regular">₹9,999 / month</div>
+    </div>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="107989" data-price-kind="annual">₹1,07,989 / year</div>
@@ -923,20 +838,16 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
 
   <article class="subscription-plan">
     <h2>Premium Plan</h2>
-    <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE</div>
-      <div class="subscription-regular-usd" data-inr-price="29999" data-price-kind="regular">₹29,999 / month</div>
-    </div>
     <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
       <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-offer-headline">Today Offer Only for You!</div>
-      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
-    </div>
-    <div class="subscription-first-month-row">
-      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="14999" data-price-kind="launch">₹14,999 / month</div>
     </div>
-    <p class="subscription-first-month-note">From the 2nd month: ₹29,999 / month. Offer applies to the first paid month only.</p>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd" data-inr-price="29999" data-price-kind="regular">₹29,999 / month</div>
+    </div>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="323989" data-price-kind="annual">₹3,23,989 / year</div>
@@ -956,20 +867,16 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
 
   <article class="subscription-plan">
     <h2>Enterprise Plan</h2>
-    <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE</div>
-      <div class="subscription-regular-usd" data-inr-price="99999" data-price-kind="regular">₹99,999 / month</div>
-    </div>
     <div class="subscription-offer-group">
+      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
       <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-offer-headline">Today Offer Only for You!</div>
-      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
-    </div>
-    <div class="subscription-first-month-row">
-      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
       <div class="subscription-price" data-inr-price="49999" data-price-kind="launch">₹49,999 / month</div>
     </div>
-    <p class="subscription-first-month-note">From the 2nd month: ₹99,999 / month. Offer applies to the first paid month only.</p>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd" data-inr-price="99999" data-price-kind="regular">₹99,999 / month</div>
+    </div>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="1079989" data-price-kind="annual">₹10,79,989 / year</div>
@@ -1047,39 +954,74 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
   if(!priceNodes.length)return;
   var locale=navigator.language||'en-US';
   var region=(locale.match(/-([A-Z]{2})(?:-|$)/i)||[])[1]||'';
-  var isIndia=region==='IN',usdPerInr=null,period='monthly';
+  var isIndia=null,usdPerInr=null,period='monthly';
   function format(amount){
-    if(isIndia)return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(amount);
-    if(!usdPerInr)return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(amount);
+    if(isIndia){
+      return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(amount);
+    }
+    if(!usdPerInr)return 'USD conversion temporarily unavailable';
     return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(amount*usdPerInr);
   }
   function render(){
     priceNodes.forEach(function(el){
       var amount=Number(el.getAttribute('data-inr-price'));
       var kind=el.getAttribute('data-price-kind');
-      var suffix=(kind==='trial'?' one-time':kind==='annual'?' / year':(kind==='launch'||kind==='regular'?' / month':''));
-      el.textContent=format(amount)+suffix;
+      var label='';
+      if(kind==='trial')label=' one-time';
+      else if(kind==='launch')label=' / month';
+      else if(kind==='regular')label=' / month';
+      else if(kind==='annual')label=' / year (10% off)';
+      el.textContent=format(amount)+label;
     });
   }
   function setPeriod(next){
-    period=next==='yearly'?'yearly':'monthly';
+    period=next;
     document.querySelectorAll('.billing-option').forEach(function(btn){
       var active=btn.getAttribute('data-period')===period;
       btn.classList.toggle('is-active',active);
       btn.setAttribute('aria-pressed',String(active));
     });
     document.querySelectorAll('.subscription-plan:not(.subscription-plan-free)').forEach(function(card){
-      var regular=card.querySelector('.subscription-regular-group');
       var offer=card.querySelector('.subscription-offer-group');
-      var annual=card.querySelector('.subscription-yearly-group');
-      var first=card.querySelector('.subscription-first-month-row');
-      var note=card.querySelector('.subscription-first-month-note');
-      function show(el,display){if(!el)return;el.hidden=false;el.style.setProperty('display',display,'important');}
-      function hide(el){if(!el)return;el.hidden=true;el.style.setProperty('display','none','important');}
+      var regular=card.querySelector('.subscription-regular-group');
+      var yearly=card.querySelector('.subscription-yearly-group');
+      var regularPrice=regular&&regular.querySelector('[data-price-kind="regular"]');
       if(period==='yearly'){
-        hide(regular);hide(offer);hide(first);hide(note);show(annual,'block');
+        if(offer)offer.hidden=true;
+        if(regular)regular.hidden=true;
+        if(yearly)yearly.hidden=false;
       }else{
-        show(regular,'block');show(offer,'flex');show(first,'flex');show(note,'block');hide(annual);
+        if(offer)offer.hidden=false;
+        if(regular)regular.hidden=false;
+        if(yearly)yearly.hidden=true;
+      }
+    });
+    render();
+  }
+  document.querySelectorAll('.billing-option').forEach(function(btn){
+      var active=btn.getAttribute('data-period')===period;
+      btn.classList.toggle('is-active',active);
+      btn.setAttribute('aria-pressed',String(active));
+    });
+    document.querySelectorAll('.subscription-plan:not(.subscription-plan-free)').forEach(function(card){
+      var launch=card.querySelector('.subscription-price-group');
+      var regular=card.querySelector('.subscription-regular-group');
+      var regularPrice=regular&&regular.querySelector('[data-price-kind="regular"]');
+      var label=regular&&regular.querySelector('.subscription-price-label');
+      if(period==='yearly'){
+        if(launch)launch.hidden=true;
+        if(regular)regular.hidden=false;
+        if(regularPrice){
+          if(!regularPrice.dataset.monthlyInr)regularPrice.dataset.monthlyInr=regularPrice.getAttribute('data-inr-price');
+          var annual=Math.round(Number(regularPrice.dataset.monthlyInr)*12*0.9);
+          regularPrice.setAttribute('data-inr-price',String(annual));
+        }
+        if(label)label.textContent='YEARLY PRICE · SAVE 10% (PAID UPFRONT)';
+      }else{
+        if(launch)launch.hidden=false;
+        if(regular)regular.hidden=false;
+        if(regularPrice&&regularPrice.dataset.monthlyInr)regularPrice.setAttribute('data-inr-price',regularPrice.dataset.monthlyInr);
+        if(label)label.textContent='REGULAR PRICE · FROM 2ND MONTH';
       }
     });
     render();
@@ -1090,16 +1032,25 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
       setPeriod(btn.getAttribute('data-period'));
     });
   });
+  function applyCountry(country){
+    isIndia=String(country||'').toUpperCase()==='IN';
+    var note=document.getElementById('ng-currency-note');
+    if(note)note.textContent=isIndia
+      ?'India pricing: fixed INR package prices. Choose monthly billing or pay yearly upfront and save 10% on the regular annual total. Applicable GST is extra.'
+      :'International pricing: the same INR-defined package prices are automatically displayed in USD. Choose monthly billing or pay yearly upfront and save 10% on the regular annual total. USD values are estimates; applicable taxes are extra.';
+    render();
+  }
   fetch('https://ipapi.co/json/',{cache:'no-store'})
     .then(function(r){if(!r.ok)throw new Error('country lookup unavailable');return r.json();})
     .then(function(data){
-      var country=String(data&&data.country_code||region||'IN').toUpperCase();
-      isIndia=country==='IN';
-      if(isIndia){render();return;}
+      var country=data&&data.country_code||region||'US';
+      isIndia=String(country).toUpperCase()==='IN';
+      if(isIndia){applyCountry(country);return;}
       return fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store'})
         .then(function(r){if(!r.ok)throw new Error('rate unavailable');return r.json();})
-        .then(function(data){var rate=data&&data.result==='success'&&data.rates&&Number(data.rates.INR);if(rate)usdPerInr=1/rate;render();});
-    }).catch(function(){isIndia=region==='IN';render();});
+        .then(function(data){var rate=data&&data.result==='success'&&data.rates&&Number(data.rates.INR);if(!rate)throw new Error('INR rate unavailable');usdPerInr=1/rate;applyCountry(country);});
+    })
+    .catch(function(){isIndia=region==='IN';if(!isIndia)usdPerInr=null;applyCountry(isIndia?'IN':region||'US');});
   setPeriod('monthly');
 })();
 </script>
