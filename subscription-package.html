@@ -700,6 +700,85 @@ html body.ng-unified-subpage .subscription-plan h2{
 
 
 
+
+<style id="ng-starter-plan-user-html-exact-v1">
+/* Starter Plan visual copied from the user's supplied HTML measurements. */
+html body .subscription-plans article.subscription-plan-starter-reference{
+ display:block!important;width:auto!important;max-width:420px!important;
+ margin:10px 16px!important;padding:15px 13px 13px!important;
+ background:#fcfcfc!important;color:#111!important;border:1px solid #e1e1e1!important;
+ border-radius:20px!important;box-shadow:none!important;font-family:Roboto,"Segoe UI",system-ui,Helvetica,Arial,sans-serif!important;
+}
+@media(min-width:452px){html body .subscription-plans article.subscription-plan-starter-reference{margin:10px auto!important}}
+html body .subscription-plans article.subscription-plan-starter-reference>h2{
+ display:block!important;margin:0!important;padding:0!important;color:#111!important;
+ font-size:18px!important;font-weight:700!important;line-height:22px!important;letter-spacing:0!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-row{
+ display:flex!important;align-items:center!important;margin-top:15px!important;gap:0!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-regular{
+ flex:1 1 auto!important;min-width:0!important;background:transparent!important;border:0!important;padding:0!important;margin:0!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-label{
+ display:block!important;color:#666!important;font-size:12.5px!important;font-weight:400!important;
+ line-height:15px!important;text-transform:uppercase!important;white-space:nowrap!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .subscription-regular-usd{
+ display:block!important;margin-top:11px!important;padding:0!important;color:#111!important;
+ font-size:17.5px!important;font-weight:500!important;line-height:22px!important;white-space:nowrap!important;
+ text-decoration:line-through!important;text-decoration-thickness:1px!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-offer{
+ flex:0 0 213px!important;width:213px!important;min-height:0!important;margin:0!important;
+ padding:8px 9px 9px!important;background:#e4f5ec!important;border:0!important;border-radius:14px!important;
+ display:block!important;text-align:left!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-pill{
+ display:inline-block!important;height:20px!important;line-height:20px!important;padding:0 8px!important;
+ border-radius:10px!important;background:#c9ecda!important;color:#1b8f3e!important;
+ font-size:12.5px!important;font-weight:500!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-offer h3{
+ display:block!important;margin:8px 0 0!important;padding:0!important;color:#111!important;
+ font-size:17px!important;font-weight:700!important;line-height:22px!important;white-space:nowrap!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-offer p{
+ margin:6px 0 0!important;padding:0!important;color:#111!important;
+ font-size:14.5px!important;font-weight:400!important;line-height:20px!important;white-space:nowrap!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-divider{
+ display:block!important;height:0!important;border:0!important;border-top:1px solid #ececec!important;
+ margin:22px 0 0!important;padding:0!important;width:100%!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-total{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ margin-top:23px!important;height:32px!important;gap:5px!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-total b{
+ color:#111!important;font-size:18.5px!important;font-weight:700!important;line-height:22px!important;white-space:nowrap!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-total strong{
+ color:#0b6b2c!important;font-size:28px!important;font-weight:700!important;line-height:32px!important;white-space:nowrap!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-note{
+ margin:16px 0 0!important;padding:0!important;color:#666!important;
+ font-size:12px!important;font-weight:400!important;line-height:16.4px!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference>.subscription-yearly-group{
+ margin-top:14px!important;background:#f5f7fa!important;color:#111!important;border:1px solid #dedede!important;
+}
+html body .subscription-plans article.subscription-plan-starter-reference>.subscription-yearly-group[hidden]{display:none!important}
+html body .subscription-plans article.subscription-plan-starter-reference>.subscription-limit,
+html body .subscription-plans article.subscription-plan-starter-reference>ul,
+html body .subscription-plans article.subscription-plan-starter-reference>.subscription-status{
+ color:#27364a!important;margin-top:16px!important;
+}
+@media(max-width:451px){
+ html body .subscription-plans article.subscription-plan-starter-reference{max-width:420px!important}
+ html body .subscription-plans article.subscription-plan-starter-reference .starter-reference-offer{flex-basis:213px!important;width:213px!important}
+}
+</style>
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
@@ -817,21 +896,23 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan subscription-plan-starter-reference">
     <h2>Starter Plan</h2>
-    <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE</div>
-      <div class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999 / month</div>
+    <div class="starter-reference-row">
+      <div class="starter-reference-regular">
+        <span class="starter-reference-label">Regular Price</span>
+        <s class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999/month</s>
+      </div>
+      <div class="starter-reference-offer">
+        <span class="starter-reference-pill">50% OFF</span>
+        <h3>Today Offer Only for You!</h3>
+        <p>50% OFF for 1st Month</p>
+      </div>
     </div>
-    <div class="subscription-offer-group">
-      <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-offer-headline">Today Offer Only for You!</div>
-      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
+    <hr class="starter-reference-divider">
+    <div class="starter-reference-total">
+      <b>Your First Month Price</b>
+      <strong class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499</strong>
     </div>
-    <div class="subscription-offer-divider" aria-hidden="true"></div>
-    <div class="subscription-first-month-row">
-      <strong>Your First Month Price</strong>
-      <div class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499 / month</div>
-    </div>
-    <p class="subscription-first-month-note">From the 2nd month: ₹999/month. Offer applies to the first paid month only.</p>
+    <p class="starter-reference-note subscription-first-month-note">From the 2nd month: ₹999/month. Offer applies to the first paid month only.</p>
     <div class="subscription-yearly-group" hidden>
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="10789" data-price-kind="annual">₹10,789 / year</div>
