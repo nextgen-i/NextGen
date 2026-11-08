@@ -667,6 +667,21 @@ html body.ng-unified-subpage .subscription-plan h2{
  .subscription-plan>.subscription-status{grid-row:8!important}
 }
 </style>
+
+<style id="ng-yearly-monthly-row-guard-v3">
+/* If Yearly is selected, never show first-month monthly offer details beneath the annual price. */
+body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-first-month-row,
+body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-first-month-note{
+  display:none!important;
+}
+body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-yearly-group{
+  display:block!important;
+}
+body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-offer-group,
+body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .subscription-regular-group{
+  display:none!important;
+}
+</style>
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
