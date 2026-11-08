@@ -584,6 +584,27 @@ html body.ng-unified-subpage .subscription-plan h2{
 @media(max-width:360px){.wallet-grid,.addon-list{grid-template-columns:1fr}.wallet-panel,.addon-panel,.subscription-policy-panel{padding:17px 13px}}
 </style>
 
+
+<style id="ng-subscription-monthly-yearly-columns-v1">
+/* Monthly and yearly pricing are shown side by side on desktop and stacked on phones. */
+.subscription-billing{display:none!important}
+.subscription-plan{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12px!important;align-items:start}
+.subscription-plan>h2,.subscription-plan>.subscription-limit,.subscription-plan>ul,.subscription-plan>.subscription-status{grid-column:1/-1}
+.subscription-plan>.subscription-price-group,.subscription-plan>.subscription-regular-group,.subscription-plan>.subscription-yearly-group{min-width:0;margin:0 0 10px!important;padding:10px!important;border-radius:11px;background:#0b2146}
+.subscription-plan>.subscription-price-group{grid-column:1;grid-row:2}
+.subscription-plan>.subscription-regular-group{grid-column:1;grid-row:3;background:#09172f;border:1px solid #28466f}
+.subscription-plan>.subscription-yearly-group{grid-column:2;grid-row:2 / span 2;background:#10264b;border:1px solid #2869b6}
+.subscription-yearly-price{font-size:clamp(20px,5vw,30px);font-weight:850;color:#fff;line-height:1.15;overflow-wrap:anywhere}
+.subscription-yearly-note{margin-top:6px;color:#b8d4f5;font-size:11px;line-height:1.35}
+.subscription-plan-free{display:block!important}
+.subscription-plan-free>.subscription-price-group{margin-bottom:10px!important}
+@media(max-width:520px){
+ .subscription-plan{grid-template-columns:minmax(0,1fr)!important}
+ .subscription-plan>.subscription-price-group,.subscription-plan>.subscription-regular-group,.subscription-plan>.subscription-yearly-group{grid-column:1!important;grid-row:auto!important}
+ .subscription-plan-free{display:block!important}
+}
+</style>
+
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
@@ -709,6 +730,11 @@ html body.ng-unified-subpage .subscription-plan h2{
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
       <div class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999 / month</div>
     </div>
+    <div class="subscription-yearly-group">
+      <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
+      <div class="subscription-yearly-price" data-inr-price="10789" data-price-kind="annual">₹10,789 / year</div>
+      <div class="subscription-yearly-note">12 months · 10% off regular annual total</div>
+    </div>
     <p class="subscription-limit">1 connected channel · 1 platform</p>
     <ul>
       <li>Automatic content generation ON</li>
@@ -718,7 +744,7 @@ html body.ng-unified-subpage .subscription-plan h2{
       <li>Video generation uses purchased credits; no free AI video allocation</li>
       <li>Captions, hashtags and basic scheduling tools</li>
     </ul>
-    <div class="subscription-status">Monthly plan · Payment activation pending</div>
+    <div class="subscription-status">Plan activation pending</div>
   </article>
 
   <article class="subscription-plan subscription-plan-featured">
@@ -731,16 +757,22 @@ html body.ng-unified-subpage .subscription-plan h2{
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
       <div class="subscription-regular-usd" data-inr-price="2999" data-price-kind="regular">₹2,999 / month</div>
     </div>
+    <div class="subscription-yearly-group">
+      <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
+      <div class="subscription-yearly-price" data-inr-price="32389" data-price-kind="annual">₹32,389 / year</div>
+      <div class="subscription-yearly-note">12 months · 10% off regular annual total</div>
+    </div>
     <p class="subscription-limit">Up to 4 connected platform accounts</p>
     <ul>
       <li>Automatic content generation</li>
-      <li>Auto Approval and Auto Publishing, subject to safety checks</li>
+      <li>Manual Approval ON by default; Auto Approval OFF by default</li>
+      <li>You may enable Auto Approval and Auto Publishing manually; safety checks always apply</li>
       <li>Proposed benefit: 1 free video per day, within a monthly credit cap</li>
       <li>Captions, hashtags, SEO, tags and keywords</li>
       <li>Automatic scheduling and channel analytics</li>
       <li>Low-risk comment replies; sensitive comments go to manual review</li>
     </ul>
-    <div class="subscription-status">Monthly plan · Free-video limits to be finalized</div>
+    <div class="subscription-status">Plan activation pending · Free-video limits to be finalized</div>
   </article>
 
   <article class="subscription-plan">
@@ -752,6 +784,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <div class="subscription-regular-group">
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
       <div class="subscription-regular-usd" data-inr-price="9999" data-price-kind="regular">₹9,999 / month</div>
+    </div>
+    <div class="subscription-yearly-group">
+      <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
+      <div class="subscription-yearly-price" data-inr-price="107989" data-price-kind="annual">₹1,07,989 / year</div>
+      <div class="subscription-yearly-note">12 months · 10% off regular annual total</div>
     </div>
     <p class="subscription-limit">3 connected channels</p>
     <ul>
@@ -775,6 +812,11 @@ html body.ng-unified-subpage .subscription-plan h2{
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
       <div class="subscription-regular-usd" data-inr-price="29999" data-price-kind="regular">₹29,999 / month</div>
     </div>
+    <div class="subscription-yearly-group">
+      <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
+      <div class="subscription-yearly-price" data-inr-price="323989" data-price-kind="annual">₹3,23,989 / year</div>
+      <div class="subscription-yearly-note">12 months · 10% off regular annual total</div>
+    </div>
     <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
       <li>Higher-capacity content generation and automation</li>
@@ -796,6 +838,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <div class="subscription-regular-group">
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
       <div class="subscription-regular-usd" data-inr-price="99999" data-price-kind="regular">₹99,999 / month</div>
+    </div>
+    <div class="subscription-yearly-group">
+      <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
+      <div class="subscription-yearly-price" data-inr-price="1079989" data-price-kind="annual">₹10,79,989 / year</div>
+      <div class="subscription-yearly-note">12 months · 10% off regular annual total</div>
     </div>
     <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
@@ -884,7 +931,8 @@ html body.ng-unified-subpage .subscription-plan h2{
       var label='';
       if(kind==='trial')label=' one-time';
       else if(kind==='launch')label=' / month';
-      else if(kind==='regular')label=period==='yearly'?' / year (10% off)':' / month';
+      else if(kind==='regular')label=' / month';
+      else if(kind==='annual')label=' / year (10% off)';
       el.textContent=format(amount)+label;
     });
   }
