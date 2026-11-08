@@ -857,12 +857,16 @@ html body.ng-unified-subpage .subscription-plan h2{
   <ul>
     <li>Launch price is for the first paid month only for eligible new customers; regular pricing starts from the second month.</li>
     <li>Yearly billing will be enabled after yearly prices and discounts are approved.</li>
-    <li>Applicable GST is calculated at checkout and added to the displayed base price.</li>
+    <li><strong>India pricing:</strong> The package price is defined in INR. Show the INR package price first and its USD equivalent for reference. The India checkout target is the INR package price plus applicable GST; no undisclosed currency or gateway surcharge should be added to the customer total.</li>
+    <li><strong>Other countries:</strong> Use USD as the base package price and show an estimated local-currency equivalent. At checkout, show the converted local-currency amount and any applicable, clearly disclosed taxes or payment charges before the customer confirms.</li>
+    <li><strong>Gateway and settlement rule:</strong> NextGen aims to receive the intended INR package amount plus applicable GST in its Indian bank account after settlement. Gateway, FX and processing costs must be included in NextGen's pricing/fee model rather than silently deducted from the customer's stated package price. This target is subject to gateway support, settlement rules and final fee validation.</li>
+    <li>Applicable GST is calculated at checkout and added to the displayed India package price where required by law.</li>
     <li>AutoPay requires your explicit payment mandate. Renewal notices and cancellation controls must be provided.</li>
     <li>The ₹1 trial does not automatically convert to a paid plan. You must choose and authorize a subscription.</li>
     <li>Sensitive, uncertain, complaint-related, copyright-risk or policy-risk content stays pending for manual review.</li>
   </ul>
-  <div class="subscription-status">Payment gateway, AutoPay, tax calculation and live subscription activation are not connected yet</div>
+  <p class="subscription-tax-note">India: INR package price + applicable GST, with USD shown as a reference equivalent. Other countries: USD base price with an estimated local-currency display; final conversion, taxes and any applicable charges must be shown before payment. All displayed currency conversions are estimates until checkout.</p>
+  <div class="subscription-status">Payment gateway, INR/USD checkout routing, international local-currency collection, bank settlement, AutoPay, tax calculation and live subscription activation are not connected yet</div>
   <p class="subscription-terms-link"><a href="./terms-and-conditions.html">Read NextGen Terms &amp; Conditions →</a></p>
 </section>
 
