@@ -113,6 +113,21 @@ svg{display:block}
 .subscription-plan-free h2{color:#73e5ff}
 
 .subscription-original-price{margin:0 0 4px;color:#9eb1ce;font-size:clamp(16px,3.8vw,22px);font-weight:650;text-decoration:line-through;text-decoration-thickness:2px}.subscription-price{color:#fff}
+
+/* Subscription package compact layout: clean cards without visible outlines. */
+.subscription-plans{gap:12px!important;padding:8px 0 6px!important}
+.subscription-plan{padding:16px 17px!important;border:0!important;border-radius:16px!important;box-shadow:none!important;background:linear-gradient(145deg,#0a1b3b 0%,#06132d 100%)!important}
+.subscription-plan h2{margin:2px 0 12px!important;line-height:1.15!important}
+.subscription-price{margin:0 0 5px!important;line-height:1.08!important;font-size:clamp(30px,7vw,44px)!important}
+.subscription-original-price{margin:0 0 2px!important;font-size:clamp(13px,3.4vw,17px)!important}
+.subscription-limit{margin:0 0 12px!important;font-size:clamp(13px,3.5vw,17px)!important}
+.subscription-plan ul{margin:0 0 13px!important;padding-left:22px!important;font-size:clamp(13px,3.4vw,16px)!important;line-height:1.45!important}
+.subscription-plan li{margin:0 0 3px!important}
+.subscription-status{min-height:42px!important;padding:8px 10px!important;border:0!important;border-radius:10px!important;font-size:clamp(12px,3.2vw,15px)!important;line-height:1.35!important}
+.subscription-plan-featured,.subscription-plan-free{border:0!important;box-shadow:none!important}
+.subscription-local-price{margin:0 0 10px!important;color:#9eb7dc!important;font-size:13px!important;line-height:1.25!important}
+.subscription-tax-note{padding:0 12px!important;margin:0 0 8px!important;font-size:12px!important;line-height:1.4!important;color:#a9bddc!important}
+.subscription-important{margin:12px 4px 16px!important;padding:15px!important;line-height:1.5!important}
 </style>
 
 <style id="ng-header-logo-crop-fix">
@@ -649,11 +664,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <button type="button" class="billing-option is-active" data-period="monthly" aria-pressed="true">Monthly</button>
     <button type="button" class="billing-option" data-period="yearly" aria-pressed="false">Yearly <span>Coming soon</span></button>
   </div>
-  <p class="subscription-tax-note">All prices are in INR, excluding applicable GST. Launch price applies to the first paid month for eligible new customers; regular price applies from the second month.</p>
+  <p class="subscription-tax-note">Global base prices are shown in USD. Approximate local-currency equivalents are displayed for reference only; checkout and payment are charged in USD. Prices exclude applicable taxes. Launch price applies to the first paid month for eligible new customers; regular price applies from the second month.</p>
 
   <article class="subscription-plan subscription-plan-free">
     <h2>3-Day Trial</h2>
-    <div class="subscription-price">₹1</div>
+    <div class="subscription-price" data-usd-price="0.01">$0.01 USD</div><p class="subscription-local-price" data-local-price="0.01">≈ local currency estimate</p>
     <p class="subscription-limit">One-time trial fee · 3 days</p>
     <ul>
       <li>1 connected channel on any one supported platform</li>
@@ -668,8 +683,9 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
-    <div class="subscription-original-price">Regular ₹999/month</div>
-    <div class="subscription-price">Launch ₹499/month</div>
+    <div class="subscription-original-price">Regular $10.62 USD/month</div>
+    <div class="subscription-price" data-usd-price="5.30">Launch $5.30 USD/month</div>
+    <p class="subscription-local-price" data-local-price="5.30">≈ local currency estimate</p>
     <p class="subscription-limit">1 connected channel · 1 platform</p>
     <ul>
       <li>Automatic content generation ON</li>
@@ -684,8 +700,9 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan subscription-plan-featured">
     <h2>Creator Plan</h2>
-    <div class="subscription-original-price">Regular ₹2,999/month</div>
-    <div class="subscription-price">Launch ₹1,499/month</div>
+    <div class="subscription-original-price">Regular $31.86 USD/month</div>
+    <div class="subscription-price" data-usd-price="15.93">Launch $15.93 USD/month</div>
+    <p class="subscription-local-price" data-local-price="15.93">≈ local currency estimate</p>
     <p class="subscription-limit">Up to 4 connected platform accounts</p>
     <ul>
       <li>Automatic content generation</li>
@@ -700,8 +717,9 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Professional Plan</h2>
-    <div class="subscription-original-price">Regular ₹9,999/month</div>
-    <div class="subscription-price">Launch ₹4,999/month</div>
+    <div class="subscription-original-price">Regular $106.26 USD/month</div>
+    <div class="subscription-price" data-usd-price="53.13">Launch $53.13 USD/month</div>
+    <p class="subscription-local-price" data-local-price="53.13">≈ local currency estimate</p>
     <p class="subscription-limit">3 connected channels</p>
     <ul>
       <li>Automatic content generation</li>
@@ -716,8 +734,9 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Premium Plan</h2>
-    <div class="subscription-original-price">Regular ₹29,999/month</div>
-    <div class="subscription-price">Launch ₹14,999/month</div>
+    <div class="subscription-original-price">Regular $318.87 USD/month</div>
+    <div class="subscription-price" data-usd-price="159.44">Launch $159.44 USD/month</div>
+    <p class="subscription-local-price" data-local-price="159.44">≈ local currency estimate</p>
     <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
       <li>Higher-capacity content generation and automation</li>
@@ -732,8 +751,9 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Enterprise Plan</h2>
-    <div class="subscription-original-price">Regular ₹99,999/month</div>
-    <div class="subscription-price">Launch ₹49,999/month</div>
+    <div class="subscription-original-price">Regular $1,062.24 USD/month</div>
+    <div class="subscription-price" data-usd-price="531.12">Launch $531.12 USD/month</div>
+    <p class="subscription-local-price" data-local-price="531.12">≈ local currency estimate</p>
     <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
       <li>Custom channels, platform accounts and team-member limits</li>
@@ -795,6 +815,32 @@ html body.ng-unified-subpage .subscription-plan h2{
 </main>
 
 </div>
+<script id="ng-local-currency-estimates">
+(function(){
+  var nodes=[].slice.call(document.querySelectorAll('[data-local-price]'));
+  if(!nodes.length)return;
+  var region=(navigator.language||'en-US').split('-')[1]||'US';
+  var locale=navigator.language||'en-US';
+  var currencyByRegion={IN:'INR',US:'USD',GB:'GBP',EU:'EUR',DE:'EUR',FR:'EUR',IT:'EUR',ES:'EUR',NL:'EUR',IE:'EUR',PT:'EUR',BE:'EUR',AT:'EUR',FI:'EUR',GR:'EUR',BD:'BDT',PK:'PKR',NP:'NPR',LK:'LKR',AE:'AED',SA:'SAR',QA:'QAR',KW:'KWD',OM:'OMR',CA:'CAD',AU:'AUD',NZ:'NZD',SG:'SGD',MY:'MYR',ID:'IDR',TH:'THB',PH:'PHP',JP:'JPY',KR:'KRW',CN:'CNY',BR:'BRL',MX:'MXN',ZA:'ZAR',NG:'NGN',KE:'KES'};
+  var currency=currencyByRegion[region]||'USD';
+  function render(rates){
+    nodes.forEach(function(el){
+      var usd=Number(el.getAttribute('data-local-price'));
+      var rate=currency==='USD'?1:rates[currency];
+      if(!Number.isFinite(usd)||!rate){el.textContent='Local currency estimate unavailable';return;}
+      try{
+        var amount=usd*rate;
+        var formatted=new Intl.NumberFormat(locale,{style:'currency',currency:currency,maximumFractionDigits:currency==='JPY'||currency==='KRW'?0:2}).format(amount);
+        el.textContent='≈ '+formatted+' (estimated)';
+      }catch(e){el.textContent='≈ '+amount.toFixed(2)+' '+currency+' (estimated)';}
+    });
+  }
+  fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store'})
+    .then(function(r){if(!r.ok)throw new Error('rate unavailable');return r.json();})
+    .then(function(data){if(!data||data.result!=='success'||!data.rates)throw new Error('rate unavailable');render(data.rates);})
+    .catch(function(){nodes.forEach(function(el){el.textContent='Local currency estimate unavailable';});});
+})();
+</script>
 <script id="ng-hamburger-fix-script">
 (function(){
  // Keep only the intended square menu button, logo and right-side actions in the header.
