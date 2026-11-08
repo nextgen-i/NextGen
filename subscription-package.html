@@ -1061,15 +1061,15 @@ body:has(.billing-option[data-period="yearly"].is-active) .subscription-plan .su
       if(period==='yearly'){
         if(offer)offer.hidden=true;
         if(regular)regular.hidden=true;
-        if(firstMonth)firstMonth.hidden=true;
-        if(firstMonthNote)firstMonthNote.hidden=true;
-        if(yearly)yearly.hidden=false;
+        if(firstMonth){firstMonth.hidden=true;firstMonth.style.setProperty('display','none','important');}
+        if(firstMonthNote){firstMonthNote.hidden=true;firstMonthNote.style.setProperty('display','none','important');}
+        if(yearly){yearly.hidden=false;yearly.style.setProperty('display','block','important');}
       }else{
         if(offer)offer.hidden=false;
         if(regular)regular.hidden=false;
-        if(firstMonth)firstMonth.hidden=false;
-        if(firstMonthNote)firstMonthNote.hidden=false;
-        if(yearly)yearly.hidden=true;
+        if(firstMonth){firstMonth.hidden=false;firstMonth.style.setProperty('display','flex','important');}
+        if(firstMonthNote){firstMonthNote.hidden=false;firstMonthNote.style.setProperty('display','block','important');}
+        if(yearly){yearly.hidden=true;yearly.style.setProperty('display','none','important');}
       }
     });
     render();
