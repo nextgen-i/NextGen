@@ -534,6 +534,26 @@ html body.ng-unified-subpage .subscription-plan h2{
 }
 </style>
 <style id="ng-universal-bottom-footer-v1">html body .ng-shared-footer{display:flex!important;visibility:visible!important;position:static!important;width:100%!important;max-width:none!important;box-sizing:border-box!important;flex:0 0 auto!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;margin:24px 0 0!important;padding:16px 12px calc(16px + env(safe-area-inset-bottom,0px))!important;border:0!important;border-top:1px solid #263b59!important;border-radius:0!important;background:#050d2b!important;color:#c3d2ee!important;text-align:center!important;white-space:normal!important;line-height:1.35!important;overflow:visible!important}html body .ng-shared-footer .ng-copyright{display:block!important;flex:none!important;width:100%!important;min-width:0!important;margin:0!important;padding:0!important;text-align:center!important;white-space:normal!important;color:#c3d2ee!important;font-size:clamp(12px,3.2vw,16px)!important;font-weight:400!important;line-height:1.4!important}html body .ng-shared-footer .ng-credit{display:block!important;flex:none!important;width:100%!important;margin:0!important;padding:0!important;text-align:center!important;white-space:normal!important;color:#fff!important;font-size:clamp(13px,3.4vw,16px)!important;font-weight:800!important;line-height:1.35!important}html body.ng-unified-subpage>.ng-shared-footer,html body.ng-unified-subpage .app>.ng-shared-footer{display:flex!important;visibility:visible!important}</style>
+
+<style id="ng-subscription-policy-ui-v1">
+.subscription-billing{display:flex;gap:8px;padding:0 12px 8px}
+.billing-option{flex:1;min-height:42px;border:1px solid #2857a4;border-radius:11px;background:#0a1d3c;color:#d9e8ff;font:700 14px inherit}
+.billing-option.is-active{background:linear-gradient(90deg,#174de0,#168de8);border-color:#398dff;color:#fff}
+.billing-option span{display:block;font-size:10px;font-weight:500;opacity:.8}
+.billing-option[data-period="yearly"]{opacity:.65;cursor:not-allowed}
+.subscription-tax-note{padding:0 14px 6px;color:#a9bddb;font-size:12px;line-height:1.5}
+.wallet-panel,.addon-panel,.subscription-policy-panel{margin:18px 4px 22px;padding:20px 16px;border:1px solid #24518a;border-radius:18px;background:linear-gradient(145deg,#0b1d3d,#07142d);color:#eaf3ff}
+.wallet-panel h2,.addon-panel h2,.subscription-policy-panel h2{font-size:21px;color:#8bd8ff;margin:0 0 10px}
+.wallet-panel p,.addon-panel p{font-size:13px;line-height:1.55;color:#c6d8f1;margin-bottom:14px}
+.wallet-grid,.addon-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0 16px}
+.wallet-grid>div,.addon-list>div{padding:12px;border:1px solid #1d477a;border-radius:11px;background:#091a35;min-width:0}
+.wallet-grid strong,.addon-list strong{display:block;font-size:13px;color:#fff;line-height:1.3}
+.wallet-grid span,.addon-list span{display:block;margin-top:5px;font-size:11px;color:#a9bddb;line-height:1.4}
+.wallet-panel ul,.subscription-policy-panel ul{padding-left:19px;color:#dbe8fb;font-size:13px;line-height:1.65}
+.wallet-panel li,.subscription-policy-panel li{margin:0 0 6px}
+@media(max-width:360px){.wallet-grid,.addon-list{grid-template-columns:1fr}.wallet-panel,.addon-panel,.subscription-policy-panel{padding:17px 13px}}
+</style>
+
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
@@ -625,91 +645,151 @@ html body.ng-unified-subpage .subscription-plan h2{
 <main>
 
 <section class="subscription-plans" aria-label="Subscription plans">
+  <div class="subscription-billing" role="group" aria-label="Billing period">
+    <button type="button" class="billing-option is-active" data-period="monthly" aria-pressed="true">Monthly</button>
+    <button type="button" class="billing-option" data-period="yearly" aria-pressed="false">Yearly <span>Coming soon</span></button>
+  </div>
+  <p class="subscription-tax-note">All prices are in INR, excluding applicable GST. Launch price applies to the first paid month for eligible new customers; regular price applies from the second month.</p>
+
   <article class="subscription-plan subscription-plan-free">
     <h2>3-Day Trial</h2>
     <div class="subscription-price">₹1</div>
     <p class="subscription-limit">One-time trial fee · 3 days</p>
     <ul>
-      <li>One trial per account and eligible device</li>
-      <li>1 channel on 1 supported platform</li>
+      <li>1 connected channel on any one supported platform</li>
       <li>1 video up to 10 seconds and 1 image</li>
       <li>Basic caption and content planning</li>
-      <li>Manual approval before publishing</li>
-      <li>No automatic paid renewal</li>
+      <li>Manual review and approval before publishing</li>
+      <li>No automatic paid renewal at trial end</li>
+      <li>One trial per eligible account and device</li>
     </ul>
-    <div class="subscription-status">Trial activation and ₹1 payment setup pending</div>
+    <div class="subscription-status">Trial payment and activation setup pending</div>
   </article>
+
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
-    <div class="subscription-original-price">Regular ₹999/month</div><div class="subscription-price">Launch ₹499/month</div>
-    <p class="subscription-limit">1 channel · 1 supported platform</p>
+    <div class="subscription-original-price">Regular ₹999/month</div>
+    <div class="subscription-price">Launch ₹499/month</div>
+    <p class="subscription-limit">1 connected channel · 1 platform</p>
     <ul>
-      <li>10-second video generation using credits</li>
-      <li>Up to 3 videos daily, subject to credit balance</li>
-      <li>3 images per month</li>
-      <li>Basic captions, hashtags and scheduling</li>
-      <li>Manual approval before publishing</li>
+      <li>Automatic content generation ON</li>
+      <li>Manual approval ON by default</li>
+      <li>Auto Approval OFF · Auto Publishing OFF</li>
+      <li>Generated content stays in the review queue until you decide</li>
+      <li>Video generation uses purchased credits; no free AI video allocation</li>
+      <li>Captions, hashtags and basic scheduling tools</li>
     </ul>
-    <div class="subscription-status">Monthly and yearly billing options · Activation pending</div>
+    <div class="subscription-status">Monthly plan · Payment activation pending</div>
   </article>
+
   <article class="subscription-plan subscription-plan-featured">
     <h2>Creator Plan</h2>
-    <div class="subscription-original-price">Regular ₹2,999/month</div><div class="subscription-price">Launch ₹1,499/month</div>
-    <p class="subscription-limit">1 channel · up to 4 supported platforms</p>
+    <div class="subscription-original-price">Regular ₹2,999/month</div>
+    <div class="subscription-price">Launch ₹1,499/month</div>
+    <p class="subscription-limit">Up to 4 connected platform accounts</p>
     <ul>
-      <li>15-second and 30-second video formats</li>
-      <li>Up to 3 videos daily, subject to credit balance</li>
-      <li>Images under fair-use policy</li>
-      <li>Captions, hashtags, basic SEO and keywords</li>
-      <li>Scheduling and channel analytics</li>
-      <li>Manual approval before publishing</li>
+      <li>Automatic content generation</li>
+      <li>Auto Approval and Auto Publishing, subject to safety checks</li>
+      <li>Proposed benefit: 1 free video per day, within a monthly credit cap</li>
+      <li>Captions, hashtags, SEO, tags and keywords</li>
+      <li>Automatic scheduling and channel analytics</li>
+      <li>Low-risk comment replies; sensitive comments go to manual review</li>
     </ul>
-    <div class="subscription-status">Monthly and yearly billing options · Activation pending</div>
+    <div class="subscription-status">Monthly plan · Free-video limits to be finalized</div>
   </article>
+
   <article class="subscription-plan">
     <h2>Professional Plan</h2>
-    <div class="subscription-original-price">Regular ₹9,999/month</div><div class="subscription-price">Launch ₹4,999/month</div>
-    <p class="subscription-limit">3 channels · up to 12 connected platform accounts</p>
+    <div class="subscription-original-price">Regular ₹9,999/month</div>
+    <div class="subscription-price">Launch ₹4,999/month</div>
+    <p class="subscription-limit">3 connected channels</p>
     <ul>
-      <li>15-second, 30-second and 2–3 minute video formats</li>
-      <li>Up to 3 videos daily per channel, subject to credit balance</li>
-      <li>Images under fair-use policy</li>
+      <li>Automatic content generation</li>
+      <li>Auto Approval and Auto Publishing, subject to safety checks</li>
+      <li>Proposed benefit: 1 free video per channel per day (up to 3 daily)</li>
       <li>Advanced captions, SEO, tags and keywords</li>
-      <li>Scheduling, channel management and advanced analytics</li>
-      <li>Manual approval by default</li>
+      <li>Automatic scheduling, channel management and analytics</li>
+      <li>Low-risk comment replies; sensitive comments go to manual review</li>
     </ul>
-    <div class="subscription-status">Monthly and yearly billing options · Activation pending</div>
+    <div class="subscription-status">Monthly plan · Free-video limits to be finalized</div>
   </article>
+
   <article class="subscription-plan">
     <h2>Premium Plan</h2>
-    <div class="subscription-price">Custom Pricing</div>
-    <p class="subscription-limit">For growing agencies and high-volume creators</p>
+    <div class="subscription-original-price">Regular ₹29,999/month</div>
+    <div class="subscription-price">Launch ₹14,999/month</div>
+    <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
-      <li>Custom channel and connected-account capacity</li>
-      <li>Higher video credit allocation and longer video options</li>
-      <li>Advanced AI voiceover and subtitle options</li>
-      <li>Advanced SEO, scheduling and analytics</li>
-      <li>Optional Auto Approval with safety checks</li>
-      <li>Priority support options</li>
+      <li>Higher-capacity content generation and automation</li>
+      <li>Custom credit allocation and longer video options</li>
+      <li>Advanced AI voice, subtitles, SEO and analytics</li>
+      <li>Team workflow and priority support options</li>
+      <li>Auto Approval only with required safety checks</li>
+      <li>Final channel limits and usage allowances to be confirmed</li>
     </ul>
-    <div class="subscription-status">Custom quotation · Monthly or yearly agreement</div>
+    <div class="subscription-status">Monthly plan · Capacity details to be finalized</div>
   </article>
+
   <article class="subscription-plan">
     <h2>Enterprise Plan</h2>
-    <div class="subscription-price">Custom Pricing</div>
-    <p class="subscription-limit">For large agencies, teams and organizations</p>
+    <div class="subscription-original-price">Regular ₹99,999/month</div>
+    <div class="subscription-price">Launch ₹49,999/month</div>
+    <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
-      <li>Custom channel, platform and team-member limits</li>
+      <li>Custom channels, platform accounts and team-member limits</li>
       <li>Custom credit and video-generation allocation</li>
-      <li>Multi-team workflows and administration</li>
+      <li>Multi-team workflows and administration controls</li>
       <li>Advanced scheduling, analytics and approval controls</li>
       <li>Dedicated onboarding and support options</li>
-      <li>Service scope and pricing by quotation</li>
+      <li>Service scope and capacity confirmed before activation</li>
     </ul>
-    <div class="subscription-status">Contact NextGen for a custom quotation</div>
+    <div class="subscription-status">Monthly plan · Enterprise setup pending</div>
   </article>
 </section>
-<aside class="subscription-important"><strong>Credit &amp; billing policy:</strong> One central Credit Wallet applies across plans. Every video generation deducts credits according to video duration; extra credits can be purchased when the balance runs out. Credits for failed generations caused by provider or system errors will be refunded. Reusing the same generated video on multiple connected platforms does not create another video-generation charge. Monthly and yearly billing options are planned; yearly prices and final credit allowances will be published after cost validation. No payment, automatic renewal or subscription activation is connected yet. Publishing still requires explicit user approval.</aside>
+
+<section class="wallet-panel" aria-labelledby="wallet-heading">
+  <h2 id="wallet-heading">Central Credit Wallet</h2>
+  <p>One wallet manages usage across your NextGen services. Your balance and credit cost should be visible before each generation.</p>
+  <div class="wallet-grid">
+    <div><strong>Subscription Credits</strong><span>Monthly plan allocation</span></div>
+    <div><strong>Purchased Credits</strong><span>Extra top-ups when needed</span></div>
+    <div><strong>Video &amp; Voice Credits</strong><span>Duration-based generation cost</span></div>
+    <div><strong>Promotional Credits</strong><span>Eligible bonus credits</span></div>
+  </div>
+  <ul>
+    <li>Automatic credit deduction for successfully completed usage.</li>
+    <li>Failed generation caused by a verified system or provider error should be refunded.</li>
+    <li>Credit history, low-balance alerts and clear usage records.</li>
+    <li>Short videos, long videos, images and AI voice may have separate credit rates.</li>
+    <li>No unlimited generation; credit cost and applicable limits must be shown before confirmation.</li>
+  </ul>
+  <div class="subscription-status">Wallet display and credit deduction integration pending</div>
+</section>
+
+<section class="addon-panel" aria-labelledby="addon-heading">
+  <h2 id="addon-heading">Optional Add-ons</h2>
+  <p>Increase your content capacity whenever needed. Add-ons are optional and must never be preselected or charged without your confirmation.</p>
+  <div class="addon-list">
+    <div><strong>Extra Short Videos</strong><span>Daily or monthly packs</span></div>
+    <div><strong>Long Video Generation</strong><span>Additional duration-based credits</span></div>
+    <div><strong>Extra Images</strong><span>One-time or monthly packs</span></div>
+    <div><strong>Extra Channels &amp; Automation</strong><span>Optional capacity upgrades</span></div>
+  </div>
+  <div class="subscription-status">Add-on prices and checkout integration pending</div>
+</section>
+
+<section class="subscription-policy-panel" aria-labelledby="subscription-policy-heading">
+  <h2 id="subscription-policy-heading">Billing &amp; Safety Rules</h2>
+  <ul>
+    <li>Launch price is for the first paid month only for eligible new customers; regular pricing starts from the second month.</li>
+    <li>Yearly billing will be enabled after yearly prices and discounts are approved.</li>
+    <li>Applicable GST is calculated at checkout and added to the displayed base price.</li>
+    <li>AutoPay requires your explicit payment mandate. Renewal notices and cancellation controls must be provided.</li>
+    <li>The ₹1 trial does not automatically convert to a paid plan. You must choose and authorize a subscription.</li>
+    <li>Sensitive, uncertain, complaint-related, copyright-risk or policy-risk content stays pending for manual review.</li>
+  </ul>
+  <div class="subscription-status">Payment gateway, AutoPay, tax calculation and live subscription activation are not connected yet</div>
+</section>
 
 <footer class="ng-shared-footer"><span class="ng-copyright">©2026 NextGen. All Rights Reserved. Smart Automation. Smarter Growth.</span><span class="ng-credit">Powered by ABDUS SATTAR</span></footer>
 </main>
