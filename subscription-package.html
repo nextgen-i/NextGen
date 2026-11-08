@@ -11,7 +11,10 @@ padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bott
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--ink);font-family:Roboto,"Segoe UI",system-ui,Helvetica,Arial,sans-serif}
 .page{padding:10px 0 28px}
-.page-title{width:calc(100% - 32px);max-width:1140px;margin:8px auto 16px;color:#65caff;font-size:23px;line-height:1.25}
+.page-header{height:46px;display:flex;align-items:center;gap:12px;padding:0 16px;background:#071735;border-bottom:1px solid #28518a;position:sticky;top:0;z-index:20}
+.back-button{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#ffffff;font-size:27px;line-height:1;cursor:pointer;padding:0}
+.page-header h1{font-size:18px;font-weight:700;line-height:22px;color:#65caff}
+
 .section-title{width:calc(100% - 32px);max-width:1140px;margin:22px auto 12px;color:#65caff;font-size:19px}
 .plan-grid{width:calc(100% - 32px);max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:16px;align-items:start}
 .card{width:100%;max-width:560px;min-width:0;aspect-ratio:1.586/1;margin:0 auto;padding:15px 13px 13px;background:linear-gradient(145deg,#14366b,#102b55);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px #0005}
@@ -44,7 +47,11 @@ hr{border:0;border-top:1px solid #ececec;margin:10px 0 0}
 </head>
 <body>
 <main class="page">
-<h1 class="page-title">NextGen Subscription Packages</h1>
+<header class="page-header">
+  <button class="back-button" type="button" aria-label="Go back" onclick="if (history.length > 1) history.back(); else window.location.href='index.html'">‹</button>
+  <h1>Subscription Package</h1>
+</header>
+
 
 <div class="plan-grid">
 <section class="card">
