@@ -679,14 +679,13 @@ html body.ng-unified-subpage .subscription-plan h2{
     <button type="button" class="billing-option is-active" data-period="monthly" aria-pressed="true">Monthly</button>
     <button type="button" class="billing-option" data-period="yearly" aria-pressed="false">Yearly <span>Coming soon</span></button>
   </div>
-  <p class="subscription-tax-note">Every plan shows both the USD base price and an estimated local-currency equivalent. Launch Price is charged for the first paid month only; Regular Price applies from the second month. Local currency amounts are estimates and may vary with exchange rates. Applicable taxes are extra.</p>
+  <p class="subscription-tax-note" id="ng-currency-note">Package prices are fixed in INR. India visitors see INR; visitors outside India see an automatically converted USD equivalent. Launch Price applies to the first paid month only; Regular Price applies from the second month. Applicable taxes are extra.</p>
 
   <article class="subscription-plan subscription-plan-free">
     <h2>3-Day Trial</h2>
     <div class="subscription-price-group">
       <div class="subscription-price-label">ONE-TIME TRIAL FEE · 3 DAYS</div>
-      <div class="subscription-price">$0.01 USD</div>
-      <p class="subscription-local-price" data-local-price="0.01" data-price-kind="trial">Local currency estimate loading…</p>
+      <div class="subscription-price" data-inr-price="1" data-price-kind="trial">₹1 one-time</div>
     </div>
     <p class="subscription-limit">One-time trial fee · 3 days</p>
     <ul>
@@ -704,13 +703,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <h2>Starter Plan</h2>
     <div class="subscription-price-group">
       <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
-      <div class="subscription-price" data-usd-price="5.30">$5.30 USD / month</div>
-      <p class="subscription-local-price" data-local-price="5.30" data-price-kind="launch">Local currency estimate loading…</p>
+      <div class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499 / month</div>
     </div>
     <div class="subscription-regular-group">
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
-      <div class="subscription-regular-usd">$10.62 USD / month</div>
-      <p class="subscription-local-price subscription-regular-local" data-local-price="10.62" data-price-kind="regular">Local currency estimate loading…</p>
+      <div class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999 / month</div>
     </div>
     <p class="subscription-limit">1 connected channel · 1 platform</p>
     <ul>
@@ -728,13 +725,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <h2>Creator Plan</h2>
     <div class="subscription-price-group">
       <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
-      <div class="subscription-price" data-usd-price="15.93">$15.93 USD / month</div>
-      <p class="subscription-local-price" data-local-price="15.93" data-price-kind="launch">Local currency estimate loading…</p>
+      <div class="subscription-price" data-inr-price="1499" data-price-kind="launch">₹1,499 / month</div>
     </div>
     <div class="subscription-regular-group">
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
-      <div class="subscription-regular-usd">$31.86 USD / month</div>
-      <p class="subscription-local-price subscription-regular-local" data-local-price="31.86" data-price-kind="regular">Local currency estimate loading…</p>
+      <div class="subscription-regular-usd" data-inr-price="2999" data-price-kind="regular">₹2,999 / month</div>
     </div>
     <p class="subscription-limit">Up to 4 connected platform accounts</p>
     <ul>
@@ -752,13 +747,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <h2>Professional Plan</h2>
     <div class="subscription-price-group">
       <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
-      <div class="subscription-price" data-usd-price="53.13">$53.13 USD / month</div>
-      <p class="subscription-local-price" data-local-price="53.13" data-price-kind="launch">Local currency estimate loading…</p>
+      <div class="subscription-price" data-inr-price="4999" data-price-kind="launch">₹4,999 / month</div>
     </div>
     <div class="subscription-regular-group">
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
-      <div class="subscription-regular-usd">$106.26 USD / month</div>
-      <p class="subscription-local-price subscription-regular-local" data-local-price="106.26" data-price-kind="regular">Local currency estimate loading…</p>
+      <div class="subscription-regular-usd" data-inr-price="9999" data-price-kind="regular">₹9,999 / month</div>
     </div>
     <p class="subscription-limit">3 connected channels</p>
     <ul>
@@ -776,13 +769,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <h2>Premium Plan</h2>
     <div class="subscription-price-group">
       <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
-      <div class="subscription-price" data-usd-price="159.44">$159.44 USD / month</div>
-      <p class="subscription-local-price" data-local-price="159.44" data-price-kind="launch">Local currency estimate loading…</p>
+      <div class="subscription-price" data-inr-price="14999" data-price-kind="launch">₹14,999 / month</div>
     </div>
     <div class="subscription-regular-group">
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
-      <div class="subscription-regular-usd">$318.87 USD / month</div>
-      <p class="subscription-local-price subscription-regular-local" data-local-price="318.87" data-price-kind="regular">Local currency estimate loading…</p>
+      <div class="subscription-regular-usd" data-inr-price="29999" data-price-kind="regular">₹29,999 / month</div>
     </div>
     <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
@@ -800,13 +791,11 @@ html body.ng-unified-subpage .subscription-plan h2{
     <h2>Enterprise Plan</h2>
     <div class="subscription-price-group">
       <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
-      <div class="subscription-price" data-usd-price="531.12">$531.12 USD / month</div>
-      <p class="subscription-local-price" data-local-price="531.12" data-price-kind="launch">Local currency estimate loading…</p>
+      <div class="subscription-price" data-inr-price="49999" data-price-kind="launch">₹49,999 / month</div>
     </div>
     <div class="subscription-regular-group">
       <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
-      <div class="subscription-regular-usd">$1,062.24 USD / month</div>
-      <p class="subscription-local-price subscription-regular-local" data-local-price="1062.24" data-price-kind="regular">Local currency estimate loading…</p>
+      <div class="subscription-regular-usd" data-inr-price="99999" data-price-kind="regular">₹99,999 / month</div>
     </div>
     <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
@@ -858,14 +847,14 @@ html body.ng-unified-subpage .subscription-plan h2{
     <li>Launch price is for the first paid month only for eligible new customers; regular pricing starts from the second month.</li>
     <li>Yearly billing will be enabled after yearly prices and discounts are approved.</li>
     <li><strong>India pricing:</strong> The package price is defined in INR. Show the INR package price first and its USD equivalent for reference. The India checkout target is the INR package price plus applicable GST; no undisclosed currency or gateway surcharge should be added to the customer total.</li>
-    <li><strong>Other countries:</strong> Use USD as the base package price and show an estimated local-currency equivalent. At checkout, show the converted local-currency amount and any applicable, clearly disclosed taxes or payment charges before the customer confirms.</li>
+    <li><strong>Other countries:</strong> Package prices remain INR-defined. Automatically detect the visitor's country and display the USD equivalent outside India. At checkout, show the final supported payment currency, converted amount, applicable taxes and any disclosed payment charges before confirmation.</li>
     <li><strong>Gateway and settlement rule:</strong> NextGen aims to receive the intended INR package amount plus applicable GST in its Indian bank account after settlement. Gateway, FX and processing costs must be included in NextGen's pricing/fee model rather than silently deducted from the customer's stated package price. This target is subject to gateway support, settlement rules and final fee validation.</li>
     <li>Applicable GST is calculated at checkout and added to the displayed India package price where required by law.</li>
     <li>AutoPay requires your explicit payment mandate. Renewal notices and cancellation controls must be provided.</li>
     <li>The ₹1 trial does not automatically convert to a paid plan. You must choose and authorize a subscription.</li>
     <li>Sensitive, uncertain, complaint-related, copyright-risk or policy-risk content stays pending for manual review.</li>
   </ul>
-  <p class="subscription-tax-note">India: INR package price + applicable GST, with USD shown as a reference equivalent. Other countries: USD base price with an estimated local-currency display; final conversion, taxes and any applicable charges must be shown before payment. All displayed currency conversions are estimates until checkout.</p>
+  <p class="subscription-tax-note">India: fixed INR package price + applicable GST. Other countries: the same INR-defined package price automatically displayed as an estimated USD equivalent. Final checkout conversion, taxes and any applicable charges must be shown before payment.</p>
   <div class="subscription-status">Payment gateway, INR/USD checkout routing, international local-currency collection, bank settlement, AutoPay, tax calculation and live subscription activation are not connected yet</div>
   <p class="subscription-terms-link"><a href="./terms-and-conditions.html">Read NextGen Terms &amp; Conditions →</a></p>
 </section>
@@ -876,38 +865,46 @@ html body.ng-unified-subpage .subscription-plan h2{
 </div>
 <script id="ng-local-currency-estimates">
 (function(){
-  var nodes=[].slice.call(document.querySelectorAll('[data-local-price]'));
-  if(!nodes.length)return;
-  var region=(navigator.language||'en-US').split('-')[1]||'US';
+  var priceNodes=[].slice.call(document.querySelectorAll('[data-inr-price]'));
+  if(!priceNodes.length)return;
   var locale=navigator.language||'en-US';
-  var currencyByRegion={IN:'INR',US:'USD',GB:'GBP',EU:'EUR',DE:'EUR',FR:'EUR',IT:'EUR',ES:'EUR',NL:'EUR',IE:'EUR',PT:'EUR',BE:'EUR',AT:'EUR',FI:'EUR',GR:'EUR',BD:'BDT',PK:'PKR',NP:'NPR',LK:'LKR',AE:'AED',SA:'SAR',QA:'QAR',KW:'KWD',OM:'OMR',CA:'CAD',AU:'AUD',NZ:'NZD',SG:'SGD',MY:'MYR',ID:'IDR',TH:'THB',PH:'PHP',JP:'JPY',KR:'KRW',CN:'CNY',BR:'BRL',MX:'MXN',ZA:'ZAR',NG:'NGN',KE:'KES'};
-  var currency=currencyByRegion[region]||'USD';
-  // In India, show INR first and USD second; keep USD first in other markets.
-  if(currency==='INR'){
-    document.querySelectorAll('.subscription-price-group,.subscription-regular-group').forEach(function(group){
-      var local=group.querySelector('[data-local-price]');
-      var usd=group.querySelector('.subscription-price,.subscription-regular-usd');
-      if(local&&usd)group.insertBefore(local,usd);
-    });
-  }
-  function render(rates){
-    nodes.forEach(function(el){
-      var usd=Number(el.getAttribute('data-local-price'));
-      var rate=currency==='USD'?1:rates[currency];
-      if(!Number.isFinite(usd)||!rate){el.textContent='Local currency estimate unavailable';return;}
-      try{
-        var amount=usd*rate;
-        var formatted=new Intl.NumberFormat(locale,{style:'currency',currency:currency,maximumFractionDigits:currency==='JPY'||currency==='KRW'?0:2}).format(amount);
+  var region=(locale.match(/-([A-Z]{2})(?:-|$)/i)||[])[1]||'';
+  function applyCountry(country){
+    var isIndia=String(country||'').toUpperCase()==='IN';
+    var note=document.getElementById('ng-currency-note');
+    if(note)note.textContent=isIndia
+      ?'India pricing: fixed INR package prices. Launch Price applies to the first paid month only; Regular Price applies from the second month. Applicable GST is extra.'
+      :'International pricing: the same INR-defined package prices are automatically displayed in USD. USD values are estimates and may vary with exchange rates. Launch Price applies to the first paid month only; Regular Price applies from the second month. Applicable taxes are extra.';
+    if(isIndia){
+      priceNodes.forEach(function(el){
+        var amount=Number(el.getAttribute('data-inr-price'));
         var kind=el.getAttribute('data-price-kind');
-        var label=kind==='regular'?'Regular price: ':kind==='launch'?'Launch price: ':kind==='trial'?'Trial fee: ':'Local price: ';
-        el.textContent=label+formatted+' / '+(kind==='trial'?'one-time':'month')+' (estimated)';
-      }catch(e){el.textContent=(el.getAttribute('data-price-kind')==='regular'?'Regular price: ':'Local price: ')+amount.toFixed(2)+' '+currency+' (estimated)';}
-    });
+        var formatted=new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(amount);
+        el.textContent=formatted+(kind==='trial'?' one-time':' / month');
+      });
+      return;
+    }
+    fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('rate unavailable');return r.json();})
+      .then(function(data){
+        var inrRate=data&&data.result==='success'&&data.rates&&Number(data.rates.INR);
+        if(!inrRate)throw new Error('INR rate unavailable');
+        priceNodes.forEach(function(el){
+          var amount=Number(el.getAttribute('data-inr-price'))/inrRate;
+          var kind=el.getAttribute('data-price-kind');
+          var formatted=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(amount);
+          el.textContent=formatted+(kind==='trial'?' one-time':' / month');
+        });
+      })
+      .catch(function(){
+        priceNodes.forEach(function(el){el.textContent='USD conversion temporarily unavailable';});
+      });
   }
-  fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store'})
-    .then(function(r){if(!r.ok)throw new Error('rate unavailable');return r.json();})
-    .then(function(data){if(!data||data.result!=='success'||!data.rates)throw new Error('rate unavailable');render(data.rates);})
-    .catch(function(){nodes.forEach(function(el){el.textContent='Local currency estimate unavailable';});});
+  // Use IP-based country detection first; browser locale is the privacy-friendly fallback.
+  fetch('https://ipapi.co/json/',{cache:'no-store'})
+    .then(function(r){if(!r.ok)throw new Error('country lookup unavailable');return r.json();})
+    .then(function(data){applyCountry(data&&data.country_code||region||'US');})
+    .catch(function(){applyCountry(region||'US');});
 })();
 </script>
 <script id="ng-hamburger-fix-script">
