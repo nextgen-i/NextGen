@@ -6,25 +6,25 @@
 <title>Starter Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light;box-sizing:border-box;--bg:#fbfbfb;--card:#fcfcfc;--line:#e1e1e1;--ink:#111;--mut:#666;--green:#0b6b2c;--gt:#1b8f3e;--gbox:#e4f5ec;--gpill:#c9ecda;
+:root{color-scheme:dark;box-sizing:border-box;--bg:#030b24;--card:#081a45;--line:#17407f;--ink:#ffffff;--mut:#8fa6d6;--green:#27c4ff;--gt:#27c4ff;--gbox:#0b2a58;--gpill:#123e70;
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--ink);font-family:Roboto,"Segoe UI",system-ui,Helvetica,Arial,sans-serif}
-.card{max-width:420px;margin:10px 16px;padding:15px 13px 13px;background:var(--card);border:1px solid var(--line);border-radius:20px}
-@media(min-width:452px){.card{margin:10px auto}}
-h1{font-size:19.5px;font-weight:700;line-height:22px}
+.card{width:calc(100% - 32px);max-width:560px;aspect-ratio:1.586/1;margin:10px auto;padding:15px 13px 13px;background:linear-gradient(145deg,#081a45,#061237);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px #0005}
+
+h1{font-size:19.5px;font-weight:700;line-height:22px;color:#4DB8FF}
 .row{display:flex;align-items:center;margin-top:9px}
 .reg{flex:1;min-width:0}
 .reg small{display:block;font-size:12.5px;line-height:15px;color:var(--mut);text-transform:uppercase}
 .reg s{display:block;margin-top:9px;font-size:17.5px;font-weight:500;line-height:20px;color:var(--ink);white-space:nowrap}
-.offer{flex:none;width:213px;padding:6px 8px 8px;background:var(--gbox);border-radius:14px}
-.pill{display:inline-block;height:24px;line-height:24px;padding:0 11px;border-radius:12px;background:var(--gpill);color:var(--gt);font-size:14.5px;font-weight:500}
-.offer h2{display:block;margin-top:5px;font-size:17px;font-weight:700;line-height:20px;white-space:nowrap}
+.offer{flex:none;width:213px;padding:6px 8px 8px;background:linear-gradient(135deg,#0b2a58,#10396b);border:1px solid #1b5a91;border-radius:14px}
+.pill{display:inline-block;height:24px;line-height:24px;padding:0 11px;border-radius:12px;background:#123e70;color:#55d7ff;font-size:14.5px;font-weight:700}
+.offer h2{display:block;margin-top:5px;font-size:17px;font-weight:700;line-height:20px;white-space:nowrap;color:#ffffff}
 .offer p{margin-top:4px;font-size:14.5px;line-height:18px;white-space:nowrap}
 hr{border:0;border-top:1px solid #ececec;margin:10px 0 0}
 .total{display:flex;align-items:center;justify-content:space-between;margin-top:10px;height:32px}
 .total b{font-size:18.5px;font-weight:700}
-.total strong{font-size:28px;font-weight:700;color:var(--green)}
+.total strong{font-size:28px;font-weight:700;color:#27c4ff}
 .note{margin-top:7px;font-size:12px;line-height:14px;color:var(--mut)}
 </style>
 </head>
