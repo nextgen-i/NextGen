@@ -632,6 +632,41 @@ html body.ng-unified-subpage .subscription-plan h2{
  .subscription-plan>.subscription-regular-group,.subscription-plan>.subscription-offer-group{grid-column:1!important;grid-row:auto!important}
 }
 </style>
+
+<style id="ng-monthly-offer-reference-layout-v2">
+/* Monthly pricing follows the supplied reference: regular price left, offer right, first-month amount below. */
+.subscription-plan>.subscription-regular-group{grid-column:1!important;grid-row:2!important;align-self:center!important;margin:0 0 12px!important;padding:10px 0!important;background:transparent!important;border:0!important;min-width:0!important}
+.subscription-regular-group .subscription-price-label{font-size:clamp(13px,3.6vw,17px)!important;color:#a9bddc!important;letter-spacing:.2px!important;font-weight:600!important}
+.subscription-regular-group .subscription-regular-usd{font-size:clamp(22px,5.4vw,31px)!important;color:#eaf3ff!important;text-decoration:line-through!important;text-decoration-thickness:2px!important;overflow-wrap:anywhere!important}
+.subscription-plan>.subscription-offer-group{grid-column:2!important;grid-row:2!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;gap:8px!important;min-width:0!important;min-height:142px!important;margin:0 0 12px!important;padding:14px!important;border-radius:18px!important;background:linear-gradient(145deg,#103b3b,#0b302f)!important;border:1px solid #237d68!important;text-align:left!important}
+.subscription-offer-group .subscription-offer-badge{display:inline-block;margin:0!important;padding:6px 13px!important;border-radius:999px!important;background:#145f48!important;color:#8fffc5!important;font-size:clamp(13px,3.4vw,18px)!important;font-weight:900!important}
+.subscription-offer-headline{font-size:clamp(15px,4vw,22px)!important;line-height:1.2!important;font-weight:850!important;color:#effff8!important}
+.subscription-offer-copy{font-size:clamp(13px,3.4vw,18px)!important;line-height:1.25!important;color:#c4f3df!important;font-weight:650!important}
+.subscription-plan>.subscription-first-month-row{grid-column:1/-1!important;grid-row:3!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:18px 0 8px!important;margin:0!important;border-top:1px solid #28466f!important}
+.subscription-first-month-title{font-size:clamp(18px,4.7vw,27px)!important;font-weight:850!important;color:#eaf3ff!important;line-height:1.2!important}
+.subscription-first-month-row .subscription-price{margin:0!important;color:#39d994!important;font-size:clamp(32px,8vw,48px)!important;font-weight:900!important;line-height:1.1!important;white-space:nowrap!important}
+.subscription-first-month-note{grid-column:1/-1!important;grid-row:4!important;margin:0 0 16px!important;color:#a9bddc!important;font-size:clamp(13px,3.6vw,18px)!important;line-height:1.5!important}
+.subscription-plan>.subscription-limit{grid-row:5!important}
+.subscription-plan>ul{grid-row:6!important}
+.subscription-plan>.subscription-status{grid-row:7!important}
+.subscription-plan>.subscription-yearly-group{grid-row:2!important}
+.subscription-plan>.subscription-first-month-row[hidden],.subscription-plan>.subscription-first-month-note[hidden]{display:none!important}
+@media(max-width:380px){
+ .subscription-plan>.subscription-regular-group{padding:8px 0!important}
+ .subscription-plan>.subscription-offer-group{min-height:132px!important;padding:10px!important;gap:7px!important}
+ .subscription-first-month-title{font-size:17px!important}
+ .subscription-plan>.subscription-first-month-row{padding-top:14px!important}
+}
+@media(max-width:340px){
+ .subscription-plan>.subscription-regular-group{grid-column:1!important;grid-row:2!important}
+ .subscription-plan>.subscription-offer-group{grid-column:1!important;grid-row:3!important}
+ .subscription-plan>.subscription-first-month-row{grid-row:4!important}
+ .subscription-plan>.subscription-first-month-note{grid-row:5!important}
+ .subscription-plan>.subscription-limit{grid-row:6!important}
+ .subscription-plan>ul{grid-row:7!important}
+ .subscription-plan>.subscription-status{grid-row:8!important}
+}
+</style>
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
@@ -749,16 +784,20 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
-    <div class="subscription-offer-group">
-      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
-      <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
-      <div class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499 / month</div>
-    </div>
     <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-price-label">REGULAR PRICE</div>
       <div class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999 / month</div>
     </div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-offer-headline">Today Offer Only for You!</div>
+      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
+    </div>
+    <div class="subscription-first-month-row">
+      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499 / month</div>
+    </div>
+    <p class="subscription-first-month-note">From the 2nd month: ₹999 / month. Offer applies to the first paid month only.</p>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="10789" data-price-kind="annual">₹10,789 / year</div>
@@ -778,16 +817,20 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan subscription-plan-featured">
     <h2>Creator Plan</h2>
-    <div class="subscription-offer-group">
-      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
-      <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
-      <div class="subscription-price" data-inr-price="1499" data-price-kind="launch">₹1,499 / month</div>
-    </div>
     <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-price-label">REGULAR PRICE</div>
       <div class="subscription-regular-usd" data-inr-price="2999" data-price-kind="regular">₹2,999 / month</div>
     </div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-offer-headline">Today Offer Only for You!</div>
+      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
+    </div>
+    <div class="subscription-first-month-row">
+      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price" data-inr-price="1499" data-price-kind="launch">₹1,499 / month</div>
+    </div>
+    <p class="subscription-first-month-note">From the 2nd month: ₹2,999 / month. Offer applies to the first paid month only.</p>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="32389" data-price-kind="annual">₹32,389 / year</div>
@@ -808,16 +851,20 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Professional Plan</h2>
-    <div class="subscription-offer-group">
-      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
-      <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
-      <div class="subscription-price" data-inr-price="4999" data-price-kind="launch">₹4,999 / month</div>
-    </div>
     <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-price-label">REGULAR PRICE</div>
       <div class="subscription-regular-usd" data-inr-price="9999" data-price-kind="regular">₹9,999 / month</div>
     </div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-offer-headline">Today Offer Only for You!</div>
+      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
+    </div>
+    <div class="subscription-first-month-row">
+      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price" data-inr-price="4999" data-price-kind="launch">₹4,999 / month</div>
+    </div>
+    <p class="subscription-first-month-note">From the 2nd month: ₹9,999 / month. Offer applies to the first paid month only.</p>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="107989" data-price-kind="annual">₹1,07,989 / year</div>
@@ -838,16 +885,20 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Premium Plan</h2>
-    <div class="subscription-offer-group">
-      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
-      <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
-      <div class="subscription-price" data-inr-price="14999" data-price-kind="launch">₹14,999 / month</div>
-    </div>
     <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-price-label">REGULAR PRICE</div>
       <div class="subscription-regular-usd" data-inr-price="29999" data-price-kind="regular">₹29,999 / month</div>
     </div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-offer-headline">Today Offer Only for You!</div>
+      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
+    </div>
+    <div class="subscription-first-month-row">
+      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price" data-inr-price="14999" data-price-kind="launch">₹14,999 / month</div>
+    </div>
+    <p class="subscription-first-month-note">From the 2nd month: ₹29,999 / month. Offer applies to the first paid month only.</p>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="323989" data-price-kind="annual">₹3,23,989 / year</div>
@@ -867,16 +918,20 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Enterprise Plan</h2>
-    <div class="subscription-offer-group">
-      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
-      <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
-      <div class="subscription-price" data-inr-price="49999" data-price-kind="launch">₹49,999 / month</div>
-    </div>
     <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-price-label">REGULAR PRICE</div>
       <div class="subscription-regular-usd" data-inr-price="99999" data-price-kind="regular">₹99,999 / month</div>
     </div>
+    <div class="subscription-offer-group">
+      <div class="subscription-offer-badge">50% OFF</div>
+      <div class="subscription-offer-headline">Today Offer Only for You!</div>
+      <div class="subscription-offer-copy">50% OFF for 1st Month</div>
+    </div>
+    <div class="subscription-first-month-row">
+      <div class="subscription-first-month-title">Your First Month Price</div>
+      <div class="subscription-price" data-inr-price="49999" data-price-kind="launch">₹49,999 / month</div>
+    </div>
+    <p class="subscription-first-month-note">From the 2nd month: ₹99,999 / month. Offer applies to the first paid month only.</p>
     <div class="subscription-yearly-group">
       <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
       <div class="subscription-yearly-price" data-inr-price="1079989" data-price-kind="annual">₹10,79,989 / year</div>
@@ -985,14 +1040,20 @@ html body.ng-unified-subpage .subscription-plan h2{
       var offer=card.querySelector('.subscription-offer-group');
       var regular=card.querySelector('.subscription-regular-group');
       var yearly=card.querySelector('.subscription-yearly-group');
+      var firstMonth=card.querySelector('.subscription-first-month-row');
+      var firstMonthNote=card.querySelector('.subscription-first-month-note');
       var regularPrice=regular&&regular.querySelector('[data-price-kind="regular"]');
       if(period==='yearly'){
         if(offer)offer.hidden=true;
         if(regular)regular.hidden=true;
+        if(firstMonth)firstMonth.hidden=true;
+        if(firstMonthNote)firstMonthNote.hidden=true;
         if(yearly)yearly.hidden=false;
       }else{
         if(offer)offer.hidden=false;
         if(regular)regular.hidden=false;
+        if(firstMonth)firstMonth.hidden=false;
+        if(firstMonthNote)firstMonthNote.hidden=false;
         if(yearly)yearly.hidden=true;
       }
     });
