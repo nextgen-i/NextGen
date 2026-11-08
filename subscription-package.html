@@ -130,6 +130,19 @@ svg{display:block}
 .subscription-important{margin:12px 4px 16px!important;padding:15px!important;line-height:1.5!important}
 
 .subscription-terms-link{margin:10px 2px 0;text-align:center;font-size:13px;line-height:1.35}.subscription-terms-link a{color:#8bd8ff;text-decoration:underline;text-underline-offset:3px}
+
+/* Clear dual-currency price hierarchy for every plan. */
+.subscription-price-group,.subscription-regular-group{margin:0 0 12px;padding:10px 11px;border-radius:11px;background:#0b2146}
+.subscription-price-label{margin:0 0 5px;color:#8bd8ff;font-size:11px;font-weight:800;letter-spacing:.65px;line-height:1.3}
+.subscription-price-group .subscription-price{margin:0 0 3px!important;font-size:clamp(25px,6.2vw,36px)!important;line-height:1.12!important}
+.subscription-local-price{margin:0!important;color:#b8d4f5!important;font-size:14px!important;font-weight:700;line-height:1.35!important}
+.subscription-regular-group{background:#09172f;border:1px solid #28466f}
+.subscription-regular-group .subscription-price-label{color:#c2cde0}
+.subscription-regular-usd{font-size:18px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:3px}
+.subscription-regular-local{color:#c6d4e9!important}
+.subscription-price-group .subscription-price{color:#fff}
+@media(max-width:380px){.subscription-price-group,.subscription-regular-group{padding:9px}.subscription-regular-usd{font-size:16px}}
+
 </style>
 
 <style id="ng-header-logo-crop-fix">
@@ -666,11 +679,15 @@ html body.ng-unified-subpage .subscription-plan h2{
     <button type="button" class="billing-option is-active" data-period="monthly" aria-pressed="true">Monthly</button>
     <button type="button" class="billing-option" data-period="yearly" aria-pressed="false">Yearly <span>Coming soon</span></button>
   </div>
-  <p class="subscription-tax-note">Global base prices are shown in USD. Approximate local-currency equivalents are displayed for reference only; checkout and payment are charged in USD. Prices exclude applicable taxes. Launch price applies to the first paid month for eligible new customers; regular price applies from the second month.</p>
+  <p class="subscription-tax-note">Every plan shows both the USD base price and an estimated local-currency equivalent. Launch Price is charged for the first paid month only; Regular Price applies from the second month. Local currency amounts are estimates and may vary with exchange rates. Applicable taxes are extra.</p>
 
   <article class="subscription-plan subscription-plan-free">
     <h2>3-Day Trial</h2>
-    <div class="subscription-price" data-usd-price="0.01">$0.01 USD</div><p class="subscription-local-price" data-local-price="0.01">≈ local currency estimate</p>
+    <div class="subscription-price-group">
+      <div class="subscription-price-label">ONE-TIME TRIAL FEE · 3 DAYS</div>
+      <div class="subscription-price">$0.01 USD</div>
+      <p class="subscription-local-price" data-local-price="0.01" data-price-kind="trial">Local currency estimate loading…</p>
+    </div>
     <p class="subscription-limit">One-time trial fee · 3 days</p>
     <ul>
       <li>1 connected channel on any one supported platform</li>
@@ -685,9 +702,16 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
-    <div class="subscription-original-price">Regular $10.62 USD/month</div>
-    <div class="subscription-price" data-usd-price="5.30">Launch $5.30 USD/month</div>
-    <p class="subscription-local-price" data-local-price="5.30">≈ local currency estimate</p>
+    <div class="subscription-price-group">
+      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+      <div class="subscription-price" data-usd-price="5.30">$5.30 USD / month</div>
+      <p class="subscription-local-price" data-local-price="5.30" data-price-kind="launch">Local currency estimate loading…</p>
+    </div>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd">$10.62 USD / month</div>
+      <p class="subscription-local-price subscription-regular-local" data-local-price="10.62" data-price-kind="regular">Local currency estimate loading…</p>
+    </div>
     <p class="subscription-limit">1 connected channel · 1 platform</p>
     <ul>
       <li>Automatic content generation ON</li>
@@ -702,9 +726,16 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan subscription-plan-featured">
     <h2>Creator Plan</h2>
-    <div class="subscription-original-price">Regular $31.86 USD/month</div>
-    <div class="subscription-price" data-usd-price="15.93">Launch $15.93 USD/month</div>
-    <p class="subscription-local-price" data-local-price="15.93">≈ local currency estimate</p>
+    <div class="subscription-price-group">
+      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+      <div class="subscription-price" data-usd-price="15.93">$15.93 USD / month</div>
+      <p class="subscription-local-price" data-local-price="15.93" data-price-kind="launch">Local currency estimate loading…</p>
+    </div>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd">$31.86 USD / month</div>
+      <p class="subscription-local-price subscription-regular-local" data-local-price="31.86" data-price-kind="regular">Local currency estimate loading…</p>
+    </div>
     <p class="subscription-limit">Up to 4 connected platform accounts</p>
     <ul>
       <li>Automatic content generation</li>
@@ -719,9 +750,16 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Professional Plan</h2>
-    <div class="subscription-original-price">Regular $106.26 USD/month</div>
-    <div class="subscription-price" data-usd-price="53.13">Launch $53.13 USD/month</div>
-    <p class="subscription-local-price" data-local-price="53.13">≈ local currency estimate</p>
+    <div class="subscription-price-group">
+      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+      <div class="subscription-price" data-usd-price="53.13">$53.13 USD / month</div>
+      <p class="subscription-local-price" data-local-price="53.13" data-price-kind="launch">Local currency estimate loading…</p>
+    </div>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd">$106.26 USD / month</div>
+      <p class="subscription-local-price subscription-regular-local" data-local-price="106.26" data-price-kind="regular">Local currency estimate loading…</p>
+    </div>
     <p class="subscription-limit">3 connected channels</p>
     <ul>
       <li>Automatic content generation</li>
@@ -736,9 +774,16 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Premium Plan</h2>
-    <div class="subscription-original-price">Regular $318.87 USD/month</div>
-    <div class="subscription-price" data-usd-price="159.44">Launch $159.44 USD/month</div>
-    <p class="subscription-local-price" data-local-price="159.44">≈ local currency estimate</p>
+    <div class="subscription-price-group">
+      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+      <div class="subscription-price" data-usd-price="159.44">$159.44 USD / month</div>
+      <p class="subscription-local-price" data-local-price="159.44" data-price-kind="launch">Local currency estimate loading…</p>
+    </div>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd">$318.87 USD / month</div>
+      <p class="subscription-local-price subscription-regular-local" data-local-price="318.87" data-price-kind="regular">Local currency estimate loading…</p>
+    </div>
     <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
       <li>Higher-capacity content generation and automation</li>
@@ -753,9 +798,16 @@ html body.ng-unified-subpage .subscription-plan h2{
 
   <article class="subscription-plan">
     <h2>Enterprise Plan</h2>
-    <div class="subscription-original-price">Regular $1,062.24 USD/month</div>
-    <div class="subscription-price" data-usd-price="531.12">Launch $531.12 USD/month</div>
-    <p class="subscription-local-price" data-local-price="531.12">≈ local currency estimate</p>
+    <div class="subscription-price-group">
+      <div class="subscription-price-label">LAUNCH PRICE · FIRST MONTH</div>
+      <div class="subscription-price" data-usd-price="531.12">$531.12 USD / month</div>
+      <p class="subscription-local-price" data-local-price="531.12" data-price-kind="launch">Local currency estimate loading…</p>
+    </div>
+    <div class="subscription-regular-group">
+      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
+      <div class="subscription-regular-usd">$1,062.24 USD / month</div>
+      <p class="subscription-local-price subscription-regular-local" data-local-price="1,062.24" data-price-kind="regular">Local currency estimate loading…</p>
+    </div>
     <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
       <li>Custom channels, platform accounts and team-member limits</li>
@@ -834,8 +886,10 @@ html body.ng-unified-subpage .subscription-plan h2{
       try{
         var amount=usd*rate;
         var formatted=new Intl.NumberFormat(locale,{style:'currency',currency:currency,maximumFractionDigits:currency==='JPY'||currency==='KRW'?0:2}).format(amount);
-        el.textContent='≈ '+formatted+' (estimated)';
-      }catch(e){el.textContent='≈ '+amount.toFixed(2)+' '+currency+' (estimated)';}
+        var kind=el.getAttribute('data-price-kind');
+        var label=kind==='regular'?'Regular price: ':kind==='launch'?'Launch price: ':kind==='trial'?'Trial fee: ':'Local price: ';
+        el.textContent=label+formatted+' / '+(kind==='trial'?'one-time':'month')+' (estimated)';
+      }catch(e){el.textContent=(el.getAttribute('data-price-kind')==='regular'?'Regular price: ':'Local price: ')+amount.toFixed(2)+' '+currency+' (estimated)';}
     });
   }
   fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store'})
