@@ -697,6 +697,42 @@ html body.ng-unified-subpage .subscription-plan h2{
 @media(max-width:340px){.subscription-plan-starter-reference{grid-template-columns:1fr!important}.subscription-plan-starter-reference>.subscription-regular-group,.subscription-plan-starter-reference>.subscription-offer-group{grid-column:1!important;grid-row:auto!important}}
 </style>
 
+
+<style id="ng-starter-reference-fullwidth-fix-v3">
+/* Correct the reference graphic's grid sizing: it must span the entire Starter card. */
+html body .subscription-plans > article.subscription-plan-starter-reference{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:18px!important;width:100%!important;box-sizing:border-box!important;
+ padding:16px!important;margin:0!important;
+ background:linear-gradient(145deg,#0a1b3b 0%,#06132d 100%)!important;
+ color:#eaf3ff!important;border:0!important;border-radius:24px!important;box-shadow:none!important;
+}
+html body .subscription-plans > article.subscription-plan-starter-reference > .starter-reference-graphic{
+ display:block!important;position:relative!important;flex:0 0 auto!important;
+ width:100%!important;max-width:none!important;min-width:0!important;
+ grid-column:auto!important;grid-row:auto!important;
+ margin:0!important;padding:0!important;overflow:visible!important;
+}
+html body .subscription-plans > article.subscription-plan-starter-reference > .starter-reference-graphic svg{
+ display:block!important;width:100%!important;max-width:none!important;height:auto!important;
+ aspect-ratio:4/3!important;object-fit:contain!important;
+}
+html body .subscription-plans > article.subscription-plan-starter-reference > .subscription-limit,
+html body .subscription-plans > article.subscription-plan-starter-reference > ul,
+html body .subscription-plans > article.subscription-plan-starter-reference > .subscription-status,
+html body .subscription-plans > article.subscription-plan-starter-reference > .subscription-yearly-group{
+ width:100%!important;max-width:none!important;box-sizing:border-box!important;
+}
+html body .subscription-plans > article.subscription-plan-starter-reference > .subscription-limit{color:#c6d8f1!important;margin:0 0 4px!important}
+html body .subscription-plans > article.subscription-plan-starter-reference > ul{color:#e6efff!important;margin:0 0 4px!important;padding-left:34px!important}
+html body .subscription-plans > article.subscription-plan-starter-reference > .subscription-status{
+ background:#0a1d36!important;color:#a9c2e2!important;border-color:#31577e!important;
+}
+@media(max-width:480px){
+ html body .subscription-plans > article.subscription-plan-starter-reference{padding:12px!important;gap:16px!important}
+}
+</style>
+
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
