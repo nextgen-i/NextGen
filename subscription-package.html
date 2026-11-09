@@ -2144,5 +2144,17 @@ html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
  }
 }
 </style>
+<style id="ng-trial-status-equal-inset-correction-final">
+/* Undo the over-expansion/left shift: status stays within the Trial shell's own padded content box. */
+@media(max-width:620px){
+ html body.ng-unified-subpage .app>main article.subscription-plan.ng-trial-package-shell>div.subscription-status{
+   position:static!important;left:auto!important;right:auto!important;transform:none!important;
+   display:flex!important;box-sizing:border-box!important;
+   width:100%!important;max-width:100%!important;min-width:0!important;
+   margin:8px 0 0!important;
+   padding:8px 10px!important;
+ }
+}
+</style>
 </body>
 </html>
