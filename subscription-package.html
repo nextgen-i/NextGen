@@ -1082,11 +1082,13 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
   </div>
 </div>
   <div class="ng-trial-features">
-    <p>1 connected channel · 1 platform</p>
-    <p>1 video · 10 seconds</p>
-    <p>1 image</p>
-    <p>Basic caption</p>
-    <p>Manual approval ON</p>
+    <ul>
+      <li>1 connected channel · 1 platform</li>
+      <li>1 video · 10 seconds</li>
+      <li>1 image</li>
+      <li>Basic caption</li>
+      <li>Manual approval ON</li>
+    </ul>
   </div>
   <div class="subscription-status">Plan activation pending</div>
 </article>
@@ -2256,6 +2258,33 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   font-size:15px!important;
   font-weight:400!important;
   line-height:1.38!important;
+}
+</style>
+<style id="ng-trial-features-use-paid-ul-li-markup-final">
+/* Free Trial uses the same native UL/LI markup as every paid plan, so typography and bullets inherit identical rules. */
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features{
+  width:100%!important;max-width:560px!important;
+  margin:6px auto 0!important;padding:0 2px!important;
+  color:#e6efff!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features ul{
+  display:block!important;
+  margin:12px 0 12px!important;
+  padding-left:25px!important;
+  color:#e6efff!important;
+  font-size:clamp(15px,3.8vw,20px)!important;
+  line-height:1.65!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li{
+  display:list-item!important;
+  padding:0!important;
+  margin:0 0 5px!important;
+  font-size:inherit!important;
+  line-height:inherit!important;
+  color:inherit!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li::before{
+  content:none!important;
 }
 </style>
 </body>
