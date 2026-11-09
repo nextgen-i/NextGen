@@ -800,3 +800,43 @@ html body .app>header #ng-hamburger span:nth-child(2){width:10px!important;}
   top:-4px!important;right:-4px!important;min-width:23px!important;height:23px!important;
   font-size:11px!important;padding:0 3px!important;
 }
+
+
+/* GLOBAL FULL-WIDTH LAYOUT + ZERO PAGE SIDE MARGINS — 2026-11-09
+   Layout-only override; preserve Master Design v32 colors, typography, header and navigation styling. */
+html,body{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+html body .app,
+html body .layout,
+html body main,
+html body .app>main{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+html body .app{
+  /* Remove the former 430px app-width cap on mobile and desktop. */
+  box-sizing:border-box!important;
+}
+html body main{
+  box-sizing:border-box!important;
+}
+html body .card,
+html body .panel,
+html body .intro,
+html body .settings-card,
+html body .section-card,
+html body [class*="card"]{
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+html body :is(p,span,label,strong,em,b,i,small,h1,h2,h3,h4,h5,h6,li,a){
+  margin-left:0.01px!important;
+  margin-right:0.01px!important;
+}
