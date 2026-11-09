@@ -247,6 +247,35 @@ svg{display:block}
  .subscription-plan.ng-trial-package-shell .ng-trial-inner-card{max-width:560px!important}
 }
 
+
+/* Starter Plan price-card replacement copied from subscription-package-new.html.
+   Only the marked Starter Plan price areas are replaced; plan content and other plans stay intact. */
+.ng-starter-price-copy{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0 0 16px!important;padding:0!important}
+.ng-starter-price-copy .ng-starter-price-card{
+  width:100%;max-width:560px;min-width:0;aspect-ratio:1.586/1;margin:0 auto;padding:15px 13px 13px;
+  background:linear-gradient(145deg,#14366b,#102b55);border:1px solid #28518a;border-radius:22px;
+  box-shadow:0 8px 24px #0005;box-sizing:border-box;color:#fff;
+}
+.ng-starter-price-copy .row{display:flex!important;position:static!important;align-items:center!important;justify-content:initial!important;gap:8px!important;margin:9px 0 0!important;padding:0!important;width:100%!important;height:auto!important}
+.ng-starter-price-copy .reg{position:static!important;flex:1 1 0!important;min-width:0!important;width:auto!important;margin:0!important;padding:0!important}
+.ng-starter-price-copy .reg small{display:block!important;font-size:12.5px!important;line-height:15px!important;color:#b0c4e5!important;text-transform:uppercase!important}
+.ng-starter-price-copy .reg s{display:block!important;margin-top:9px!important;font-size:17.5px!important;font-weight:500!important;line-height:20px!important;color:#fff!important;white-space:nowrap!important}
+.ng-starter-price-copy .offer{display:block!important;position:static!important;flex:0 0 58%!important;width:58%!important;max-width:213px!important;margin:0!important;padding:6px 8px 8px!important;background:linear-gradient(135deg,#174b43,#205f50)!important;border:1px solid #397d6d!important;border-radius:14px!important}
+.ng-starter-price-copy .pill{display:inline-block!important;height:24px!important;line-height:24px!important;padding:0 11px!important;border-radius:12px!important;background:#286b5d!important;color:#c1f5e4!important;font-size:14.5px!important;font-weight:700!important}
+.ng-starter-price-copy .offer h3{display:block!important;margin:5px 0 0!important;font-size:17px!important;font-weight:700!important;line-height:20px!important;color:#fff!important}
+.ng-starter-price-copy .offer p{display:block!important;margin:4px 0 0!important;font-size:14.5px!important;line-height:18px!important;color:#fff!important}
+.ng-starter-price-copy hr{display:block!important;width:100%!important;border:0!important;border-top:1px solid #ececec!important;margin:10px 0 0!important}
+.ng-starter-price-copy .total{display:flex!important;position:static!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;width:100%!important;height:32px!important;margin:10px 0 0!important;padding:0!important}
+.ng-starter-price-copy .total b{font-size:18.5px!important;font-weight:700!important;color:#fff!important}
+.ng-starter-price-copy .total strong{font-size:28px!important;font-weight:700!important;color:#4db8ff!important;white-space:nowrap!important}
+.ng-starter-price-copy .note{display:block!important;margin:7px 0 0!important;font-size:12px!important;line-height:14px!important;color:#b0c4e5!important}
+.ng-starter-price-copy .billing-grid{display:grid!important;position:static!important;grid-template-columns:1fr 1fr!important;gap:8px!important;margin:12px 0 0!important;padding:0!important;width:100%!important}
+.ng-starter-price-copy .billing{display:block!important;position:static!important;min-width:0!important;margin:0!important;padding:8px 9px!important;border:1px solid #28518a!important;border-radius:10px!important;background:#0b1d43!important}
+.ng-starter-price-copy .billing b{display:block!important;color:#65caff!important;font-size:12px!important;margin:0 0 3px!important}
+.ng-starter-price-copy .billing strong{display:block!important;font-size:17px!important;color:#fff!important}
+.ng-starter-price-copy .billing small{display:block!important;color:#b0c4e5!important;font-size:11px!important;margin:2px 0 0!important}
+@media(max-width:620px){.ng-starter-price-copy .ng-starter-price-card{max-width:560px!important}}
+
 </style>
 
 <style id="ng-header-logo-crop-fix">
@@ -956,20 +985,24 @@ body.ng-unified-subpage .subscription-plan{width:100%!important;max-width:none!i
   </div>
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
-    <div class="subscription-offer-group">
-      <div class="subscription-offer-kicker">TODAY OFFER ONLY FOR YOU</div>
-      <div class="subscription-offer-badge">50% OFF</div>
-      <div class="subscription-price-label">FIRST MONTH OFFER PRICE</div>
-      <div class="subscription-price" data-inr-price="499" data-price-kind="launch">₹499 / month</div>
-    </div>
-    <div class="subscription-regular-group">
-      <div class="subscription-price-label">REGULAR PRICE · FROM 2ND MONTH</div>
-      <div class="subscription-regular-usd" data-inr-price="999" data-price-kind="regular">₹999 / month</div>
-    </div>
-    <div class="subscription-yearly-group">
-      <div class="subscription-price-label">YEARLY PRICE · SAVE 10% · PAID UPFRONT</div>
-      <div class="subscription-yearly-price" data-inr-price="10789" data-price-kind="annual">₹10,789 / year</div>
-      <div class="subscription-yearly-note">12 months · 10% off regular annual total</div>
+    <div class="ng-starter-price-copy">
+      <div class="ng-starter-price-card">
+        <div class="row">
+          <div class="reg"><small>Regular Price</small><s>₹999/month</s></div>
+          <div class="offer">
+            <span class="pill">50% OFF</span>
+            <h3>Today Offer Only for You!</h3>
+            <p>50% OFF for 1st Month</p>
+          </div>
+        </div>
+        <hr>
+        <div class="total"><b>Your First Month Price</b><strong data-inr-price="499" data-price-kind="launch">₹499</strong></div>
+        <p class="note">From the 2nd month: ₹999/month. Offer applies to the first paid month only.</p>
+      </div>
+      <div class="billing-grid">
+        <div class="billing"><b>MONTHLY</b><strong data-inr-price="499" data-price-kind="launch">₹499</strong><small>1st month offer · then ₹999/month</small></div>
+        <div class="billing"><b>YEARLY · SAVE 10%</b><strong data-inr-price="10789" data-price-kind="annual">₹10,789</strong><small>Based on ₹999/month</small></div>
+      </div>
     </div>
     <p class="subscription-limit">1 connected channel · 1 platform</p>
     <ul>
