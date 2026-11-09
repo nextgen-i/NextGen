@@ -2030,5 +2030,47 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
  }
 }
 </style>
+
+<style id="ng-mobile-card-seven-pixel-gap-and-trial-size-final">
+/* Mobile: target approximately 7px between every price/trial card and its outer rounded shell. */
+@media(max-width:480px){
+ html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
+ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy{
+   box-sizing:border-box!important;width:calc(100% + 22px)!important;
+   max-width:none!important;margin-left:-11px!important;margin-right:-11px!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap{
+   box-sizing:border-box!important;width:calc(100% + 18px)!important;
+   max-width:none!important;margin-left:-9px!important;margin-right:-9px!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap .plan-grid{
+   box-sizing:border-box!important;width:100%!important;
+   max-width:100%!important;margin-left:0!important;margin-right:0!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card{
+   box-sizing:border-box!important;width:calc(100% - 8px)!important;
+   max-width:520px!important;margin-left:auto!important;margin-right:auto!important;
+ }
+}
+@media(min-width:481px) and (max-width:620px){
+ html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
+ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy{
+   box-sizing:border-box!important;width:calc(100% + 22px)!important;
+   max-width:none!important;margin-left:-11px!important;margin-right:-11px!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap{
+   box-sizing:border-box!important;width:calc(100% + 18px)!important;
+   max-width:none!important;margin-left:-9px!important;margin-right:-9px!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap .plan-grid{
+   box-sizing:border-box!important;width:100%!important;max-width:100%!important;
+   margin-left:0!important;margin-right:0!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card{
+   box-sizing:border-box!important;width:calc(100% - 8px)!important;
+   max-width:520px!important;margin-left:auto!important;margin-right:auto!important;
+ }
+}
+</style>
 </body>
 </html>
