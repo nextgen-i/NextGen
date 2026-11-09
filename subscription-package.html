@@ -1081,7 +1081,6 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
     </section>
   </div>
 </div>
-</article>
   <div class="ng-trial-features">
     <p>1 connected channel · 1 platform</p>
     <p>1 video · 10 seconds</p>
@@ -1089,6 +1088,7 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
     <p>Basic caption</p>
     <p>Manual approval ON</p>
   </div>
+</article>
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
     <div class="ng-starter-price-copy">
@@ -1987,6 +1987,18 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
     aspect-ratio:1.586/1!important;height:auto!important;
     margin-left:auto!important;margin-right:auto!important;
   }
+}
+</style>
+<style id="ng-trial-features-inside-border-final">
+/* Keep Free Trial limits inside the same outer rounded package border. */
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features{
+  display:block!important;box-sizing:border-box!important;
+  width:100%!important;max-width:none!important;min-width:0!important;
+  margin:10px 0 0!important;padding:0 7px 2px!important;
+  color:#b0c4e5!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p{
+  margin:2px 0!important;
 }
 </style>
 </body>
