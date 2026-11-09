@@ -1961,20 +1961,17 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
 
 
 <style id="ng-mobile-unified-card-size-and-seven-pixel-gap">
-/* One authoritative mobile rule: all blue price cards share the same dimensions and 7px shell gap. */
+/* Mobile: identical outer padding, wrapper width, card width and aspect ratio across Trial and paid plans. */
 @media(max-width:620px){
-  /* Paid-plan shells use 18px inner padding on phones: expand wrapper by 22px => 7px remaining each side. */
-  html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
-  html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy{
-    display:block!important;box-sizing:border-box!important;
-    width:calc(100% + 22px)!important;max-width:none!important;min-width:0!important;
-    margin-left:-11px!important;margin-right:-11px!important;
+  html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell{
+    box-sizing:border-box!important;padding:18px!important;
   }
-  /* Free Trial shell uses 16px inner padding: expand wrapper by 18px => 7px remaining each side. */
+  html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
+  html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy,
   html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap{
     display:block!important;box-sizing:border-box!important;
-    width:calc(100% + 18px)!important;max-width:none!important;min-width:0!important;
-    margin-left:-9px!important;margin-right:-9px!important;padding:0!important;
+    width:calc(100% + 22px)!important;max-width:none!important;min-width:0!important;
+    margin-left:-11px!important;margin-right:-11px!important;padding:0!important;
   }
   html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap .plan-grid{
     display:grid!important;box-sizing:border-box!important;
@@ -1982,7 +1979,6 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
     width:100%!important;max-width:100%!important;min-width:0!important;
     margin:0!important;padding:0!important;
   }
-  /* Identical width cap, aspect ratio and box sizing for Trial, Starter and every paid plan. */
   html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy .ng-starter-price-card,
   html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .ng-plan-price-card,
   html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card{
