@@ -2002,5 +2002,33 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
 }
 </style>
 
+
+<style id="ng-mobile-card-five-pixel-gap-final">
+/* Mobile only: keep every copied inner card about 5px inside its rounded package border. */
+@media(max-width:480px){
+ html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
+ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy{
+   box-sizing:border-box!important;width:calc(100% + 26px)!important;
+   max-width:none!important;margin-left:-13px!important;margin-right:-13px!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap,
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap .plan-grid{
+   box-sizing:border-box!important;width:calc(100% + 22px)!important;
+   max-width:none!important;margin-left:-11px!important;margin-right:-11px!important;
+ }
+}
+@media(min-width:481px) and (max-width:620px){
+ html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
+ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy{
+   box-sizing:border-box!important;width:calc(100% + 30px)!important;
+   max-width:none!important;margin-left:-15px!important;margin-right:-15px!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap,
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap .plan-grid{
+   box-sizing:border-box!important;width:calc(100% + 22px)!important;
+   max-width:none!important;margin-left:-11px!important;margin-right:-11px!important;
+ }
+}
+</style>
 </body>
 </html>
