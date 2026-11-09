@@ -2156,5 +2156,20 @@ html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
  }
 }
 </style>
+<style id="ng-all-plan-status-center-alignment-final">
+/* One final rule for every plan status: centered inside its own package shell, with no directional offsets. */
+@media(max-width:620px){
+ html body.ng-unified-subpage .app>main article.subscription-plan>.subscription-status{
+   display:flex!important;position:static!important;
+   left:auto!important;right:auto!important;transform:none!important;
+   float:none!important;clear:both!important;
+   box-sizing:border-box!important;
+   width:100%!important;max-width:100%!important;min-width:0!important;
+   margin:8px auto 0!important;
+   padding:8px 10px!important;
+   text-align:center!important;
+ }
+}
+</style>
 </body>
 </html>
