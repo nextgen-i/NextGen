@@ -554,6 +554,59 @@ html body.ng-unified-subpage .app>main{display:block!important;width:100%!import
 
 
 <main>
+
+<section class="ng-quote-request" id="custom-quote-request" aria-labelledby="ng-quote-title">
+ <h2 id="ng-quote-title">Custom Plan Quote Request</h2>
+ <p>Review your selected plan and channel capacity, then submit your request.</p>
+ <div class="ng-quote-summary"><span>Plan</span><strong id="ng-quote-plan">—</strong><span>Connected channels</span><strong id="ng-quote-channels">—</strong></div>
+ <form id="ng-quote-form">
+  <label for="ng-quote-message">Additional requirements (optional)</label>
+  <textarea id="ng-quote-message" rows="4" maxlength="2000" placeholder="Tell us about your usage, team size or required features"></textarea>
+  <button type="submit" id="ng-quote-submit">Submit Quote Request</button>
+  <p id="ng-quote-status" role="status" aria-live="polite"></p>
+ </form>
+ <p id="ng-quote-login-note" hidden>Please <a href="./login.html">log in</a> to submit and save your quote request.</p>
+</section>
+<style id="ng-custom-quote-request-style">
+.ng-quote-request{margin:20px 14px;padding:18px;border:1px solid #28518a;border-radius:16px;background:#091b3a;color:#fff}
+.ng-quote-request h2{margin:0 0 8px;color:#8bd8ff;font-size:22px}.ng-quote-request p{color:#c7d8f3}
+.ng-quote-summary{display:grid;grid-template-columns:1fr auto;gap:9px;padding:12px;margin:14px 0;background:#06132d;border-radius:10px}
+.ng-quote-summary span{color:#9eb6d8}.ng-quote-summary strong{color:#fff;text-align:right}
+.ng-quote-request label{display:block;margin:12px 0 6px;font-weight:700}
+.ng-quote-request textarea{box-sizing:border-box;width:100%;padding:11px;border:1px solid #315b91;border-radius:9px;background:#06132d;color:#fff;font:inherit}
+.ng-quote-request button{width:100%;margin-top:12px;padding:13px;border:0;border-radius:10px;background:#16b8ee;color:#04152c;font-weight:800;font-size:15px}
+.ng-quote-request a{color:#8bd8ff}.ng-quote-request #ng-quote-status{min-height:1em}
+</style>
+<script id="ng-custom-quote-request-script">
+(function(){
+ var params=new URLSearchParams(location.search),plan=params.get('plan'),channels=Number(params.get('channels'));
+ var section=document.getElementById('custom-quote-request');
+ if(!section||!['Premium','Enterprise'].includes(plan)||!Number.isInteger(channels)||channels<1)return;
+ section.hidden=false;
+ document.getElementById('ng-quote-plan').textContent=plan;
+ document.getElementById('ng-quote-channels').textContent=channels+' channels';
+ var form=document.getElementById('ng-quote-form'),status=document.getElementById('ng-quote-status'),
+     submit=document.getElementById('ng-quote-submit'),loginNote=document.getElementById('ng-quote-login-note');
+ form.addEventListener('submit',async function(event){
+  event.preventDefault();status.textContent='Submitting your request…';submit.disabled=true;
+  try{
+   var client=window.getNextGenSupabaseClient&&window.getNextGenSupabaseClient();
+   if(!client)throw new Error('Secure account connection is unavailable. Please refresh and try again.');
+   var auth=await client.auth.getUser(),user=auth.data&&auth.data.user;
+   if(auth.error||!user){loginNote.hidden=false;status.textContent='Log in before submitting this request.';return;}
+   var result=await client.from('quote_requests').insert({
+    owner_id:user.id,plan_name:plan,channel_count:channels,
+    message:document.getElementById('ng-quote-message').value.trim()
+   });
+   if(result.error)throw result.error;
+   status.textContent='Your '+plan+' quote request for '+channels+' channels has been saved successfully.';
+   form.reset();history.replaceState({},'',location.pathname);
+  }catch(error){status.textContent=error&&error.message?error.message:'Could not submit the request. Please try again.';}
+  finally{submit.disabled=false;}
+ });
+})();
+</script>
+
 <section class="page-intro"><div class="page-icon">⚙</div><div></div></section>
 <section class="settings-list" aria-label="Settings options">
   <h2>Account</h2>
