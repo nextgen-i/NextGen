@@ -2171,5 +2171,16 @@ html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
  }
 }
 </style>
+<style id="ng-trial-status-restore-size-center-only-final">
+/* Restore the Free Trial status panel's previous wider size; center it symmetrically without changing height or padding. */
+@media(max-width:620px){
+ html body.ng-unified-subpage .app>main article.subscription-plan.ng-trial-package-shell>div.subscription-status{
+   position:static!important;left:auto!important;right:auto!important;transform:none!important;
+   box-sizing:border-box!important;
+   width:calc(100% + 22px)!important;max-width:none!important;min-width:0!important;
+   margin-top:8px!important;margin-left:-11px!important;margin-right:-11px!important;
+ }
+}
+</style>
 </body>
 </html>
