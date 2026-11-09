@@ -1083,10 +1083,10 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
 </div>
   <div class="ng-trial-features">
     <ul>
-      <li>1 connected channel · 1 platform</li>
-      <li>1 video · 10 seconds</li>
-      <li>1 image</li>
-      <li>Basic caption</li>
+      <li>1 Connected Channel · 1 Platform</li>
+      <li>1 Video · 10 Seconds</li>
+      <li>1 Image</li>
+      <li>Basic Caption</li>
       <li>Manual approval ON</li>
     </ul>
   </div>
@@ -2217,110 +2217,30 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   font-weight:700!important;
 }
 </style>
-<style id="ng-trial-feature-text-match-paid-size-final">
-/* Match Free Trial feature text to paid-plan feature-list typography on mobile. */
-@media(max-width:620px){
- html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features,
- html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p{
-   font-size:15px!important;
-   line-height:1.38!important;
- }
-}
-</style>
-<style id="ng-trial-feature-text-exact-paid-typography-final">
-/* Use the exact same font-size and line-height expression as the paid-plan feature lists. */
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features,
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p{
-  font-size:clamp(15px,3.8vw,20px)!important;
-  line-height:1.38!important;
-}
-</style>
-<style id="ng-trial-feature-match-paid-list-complete-final">
-/* Match Free Trial feature typography to the paid-plan UL/LI typography, not just nominal font size. */
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features,
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p{
-  font-family:inherit!important;
-  font-size:15px!important;
-  font-weight:400!important;
-  font-style:normal!important;
-  letter-spacing:normal!important;
-  line-height:1.38!important;
-  color:#e6efff!important;
-  text-transform:none!important;
-}
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p{
-  padding-left:22px!important;
-  margin:0 0 3px!important;
-}
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p::before{
-  color:#e6efff!important;
-  font-family:inherit!important;
-  font-size:15px!important;
-  font-weight:400!important;
-  line-height:1.38!important;
-}
-</style>
-<style id="ng-trial-features-use-paid-ul-li-markup-final">
-/* Free Trial uses the same native UL/LI markup as every paid plan, so typography and bullets inherit identical rules. */
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features{
-  width:100%!important;max-width:560px!important;
-  margin:6px auto 0!important;padding:0 2px!important;
-  color:#e6efff!important;
-}
+<style id="ng-trial-feature-text-match-paid-package-final">
+/* Match Free Trial list text to the paid package list typography. */
 html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features ul{
-  display:block!important;
-  margin:12px 0 12px!important;
-  padding-left:25px!important;
-  color:#e6efff!important;
+  font-family:inherit!important;
   font-size:clamp(15px,3.8vw,20px)!important;
+  font-weight:400!important;
+  letter-spacing:normal!important;
   line-height:1.65!important;
+  color:#e6efff!important;
 }
 html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li{
-  display:list-item!important;
-  padding:0!important;
-  margin:0 0 5px!important;
+  font-family:inherit!important;
   font-size:inherit!important;
+  font-weight:inherit!important;
+  letter-spacing:inherit!important;
   line-height:inherit!important;
   color:inherit!important;
 }
-html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li::before{
-  content:none!important;
-}
-</style>
-<style id="ng-trial-use-exact-paid-mobile-list-rules-final">
-/* Remove Trial-only typography differences. Use the same mobile UL/LI values as paid plans. */
 @media(max-width:480px){
- html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features ul{
-   font-family:inherit!important;
-   font-size:15px!important;
-   font-weight:400!important;
-   letter-spacing:normal!important;
-   line-height:1.38!important;
-   margin:7px 0 12px!important;
-   padding-left:23px!important;
-   color:#e6efff!important;
- }
- html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li{
-   font-family:inherit!important;
-   font-size:15px!important;
-   font-weight:400!important;
-   letter-spacing:normal!important;
-   line-height:1.38!important;
-   margin:0 0 2px!important;
-   padding:0!important;
-   color:#e6efff!important;
- }
-}
-</style>
-<style id="ng-trial-bullets-visually-match-paid-final">
-/* Increase only Free Trial feature bullet typography to match the visibly larger paid-plan bullets. */
-@media(max-width:480px){
- html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features ul,
- html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li{
-   font-size:18px!important;
-   line-height:1.45!important;
-   font-weight:400!important;
- }
+  html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features ul,
+  html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li{
+    font-size:15px!important;
+    line-height:1.38!important;
+  }
 }
 </style>
 </body>
