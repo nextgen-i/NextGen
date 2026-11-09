@@ -2287,5 +2287,30 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   content:none!important;
 }
 </style>
+<style id="ng-trial-use-exact-paid-mobile-list-rules-final">
+/* Remove Trial-only typography differences. Use the same mobile UL/LI values as paid plans. */
+@media(max-width:480px){
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features ul{
+   font-family:inherit!important;
+   font-size:15px!important;
+   font-weight:400!important;
+   letter-spacing:normal!important;
+   line-height:1.38!important;
+   margin:7px 0 12px!important;
+   padding-left:23px!important;
+   color:#e6efff!important;
+ }
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li{
+   font-family:inherit!important;
+   font-size:15px!important;
+   font-weight:400!important;
+   letter-spacing:normal!important;
+   line-height:1.38!important;
+   margin:0 0 2px!important;
+   padding:0!important;
+   color:#e6efff!important;
+ }
+}
+</style>
 </body>
 </html>
