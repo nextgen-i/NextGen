@@ -2265,5 +2265,13 @@ html body.ng-unified-subpage .subscription-plan .total strong{
   white-space:nowrap!important;
 }
 </style>
+<style id="ng-package-card-inner-padding-compact-approved">
+/* Only reduce the inside padding of the outer package cards; preserve all nested card design and elements. */
+@media(max-width:620px){
+  html body.ng-unified-subpage .app>main article.subscription-plan{
+    padding:11px 9px!important;
+  }
+}
+</style>
 </body>
 </html>
