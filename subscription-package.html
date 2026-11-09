@@ -2341,21 +2341,22 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   left:12px!important;right:12px!important;top:94px!important;margin:0!important;
   font-size:12px!important;line-height:15px!important;color:#d6e4ff!important;white-space:nowrap!important;
 }
-/* Correct the trial price alignment: keep the label on the left and the full ₹ amount inside the right edge. */
+/* Final visibility fix: reserve enough width for the entire currency amount and keep it above card contents. */
 html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card>.total{
-  position:static!important;display:block!important;width:100%!important;height:0!important;
-  margin:0!important;padding:0!important;
+  position:static!important;width:100%!important;height:0!important;overflow:visible!important;
 }
 html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card>.total b{
-  position:absolute!important;left:12px!important;top:74px!important;
-  display:block!important;margin:0!important;text-align:left!important;
+  position:absolute!important;left:12px!important;right:auto!important;top:74px!important;
+  width:auto!important;max-width:calc(100% - 100px)!important;z-index:6!important;
 }
 html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card>.total strong{
-  position:absolute!important;right:14px!important;top:70px!important;left:auto!important;
-  display:block!important;width:max-content!important;min-width:0!important;
-  margin:0!important;padding:0!important;text-align:right!important;white-space:nowrap!important;
-}
-</style>
+  position:absolute!important;left:auto!important;right:14px!important;top:70px!important;
+  display:block!important;box-sizing:border-box!important;width:52px!important;min-width:52px!important;
+  max-width:52px!important;height:30px!important;margin:0!important;padding:0!important;
+  overflow:visible!important;z-index:7!important;text-align:right!important;
+  font-size:24px!important;line-height:30px!important;white-space:nowrap!important;
+  transform:none!important;
+}</style>
 
 </body>
 </html>
