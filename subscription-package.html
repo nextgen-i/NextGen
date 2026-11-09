@@ -2312,5 +2312,16 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
  }
 }
 </style>
+<style id="ng-trial-bullets-visually-match-paid-final">
+/* Increase only Free Trial feature bullet typography to match the visibly larger paid-plan bullets. */
+@media(max-width:480px){
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features ul,
+ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features li{
+   font-size:18px!important;
+   line-height:1.45!important;
+   font-weight:400!important;
+ }
+}
+</style>
 </body>
 </html>
