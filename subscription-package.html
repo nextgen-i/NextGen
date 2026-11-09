@@ -2197,5 +2197,23 @@ html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
  }
 }
 </style>
+<style id="ng-trial-features-bullet-dots-final">
+/* Match Free Trial feature rows to the dotted feature-list style used by paid packages. */
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p{
+  position:relative!important;
+  display:block!important;
+  padding-left:22px!important;
+  margin:2px 0!important;
+  line-height:1.32!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-features p::before{
+  content:"•"!important;
+  position:absolute!important;
+  left:5px!important;
+  top:0!important;
+  color:#dce8fa!important;
+  font-weight:700!important;
+}
+</style>
 </body>
 </html>
