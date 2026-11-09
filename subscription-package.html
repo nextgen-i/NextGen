@@ -2087,5 +2087,22 @@ html body.ng-unified-subpage main>p.subscription-tax-note#ng-currency-note{
   }
 }
 </style>
+<style id="ng-currency-note-exact-equal-padding-final">
+/* Currency note: equal internal left/right inset, independent of margin collapsing or width calculations. */
+html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
+  display:block!important;box-sizing:border-box!important;
+  width:100%!important;max-width:760px!important;
+  margin:0 auto 14px!important;
+  padding-left:16px!important;padding-right:16px!important;
+  text-align:left!important;
+}
+@media(max-width:620px){
+ html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
+   width:100%!important;max-width:none!important;
+   margin:0 0 14px!important;
+   padding-left:16px!important;padding-right:16px!important;
+ }
+}
+</style>
 </body>
 </html>
