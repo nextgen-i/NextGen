@@ -2341,6 +2341,20 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   left:12px!important;right:12px!important;top:94px!important;margin:0!important;
   font-size:12px!important;line-height:15px!important;color:#d6e4ff!important;white-space:nowrap!important;
 }
+/* Correct the trial price alignment: keep the label on the left and the full ₹ amount inside the right edge. */
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card>.total{
+  position:static!important;display:block!important;width:100%!important;height:0!important;
+  margin:0!important;padding:0!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card>.total b{
+  position:absolute!important;left:12px!important;top:74px!important;
+  display:block!important;margin:0!important;text-align:left!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card>.total strong{
+  position:absolute!important;right:14px!important;top:70px!important;left:auto!important;
+  display:block!important;width:max-content!important;min-width:0!important;
+  margin:0!important;padding:0!important;text-align:right!important;white-space:nowrap!important;
+}
 </style>
 
 </body>
