@@ -2488,3 +2488,15 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   white-space:normal!important;
 }
 </style>
+
+
+<!-- NG: Monthly/Yearly billing cards use 800:648 width ratio; keep height unchanged. -->
+<style id="ng-billing-card-width-ratio-800-648-20261109">
+@media(min-width:621px){
+ html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy .billing-grid,
+ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-grid{
+   grid-template-columns:minmax(0,800fr) minmax(0,648fr)!important;
+   gap:8px!important;
+ }
+}
+</style>
