@@ -1332,7 +1332,7 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       var amount=Number(el.getAttribute('data-inr-price'));
       var kind=el.getAttribute('data-price-kind');
       var label='';
-      if(kind==='trial')label=' one-time';
+      if(kind==='trial')label='';
       else if(kind==='launch')label=' / month';
       else if(kind==='regular')label=' / month';
       else if(kind==='annual')label=' / year (10% off)';
