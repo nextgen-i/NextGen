@@ -2045,5 +2045,21 @@ html body.ng-unified-subpage .ng-plan-price-copy .billing-grid{gap:8px!important
  html body.ng-unified-subpage .ng-trial-features{font-size:clamp(13px,3.5vw,18px)!important}
 }
 </style>
+<style id="ng-tax-note-equal-side-margin-final">
+/* Currency/pricing information paragraph: equal left and right page margins on mobile. */
+html body.ng-unified-subpage main>p.subscription-tax-note#ng-currency-note{
+  display:block!important;box-sizing:border-box!important;
+  width:calc(100% - 32px)!important;max-width:760px!important;
+  margin-left:auto!important;margin-right:auto!important;
+  padding-left:0!important;padding-right:0!important;
+  text-align:left!important;
+}
+@media(max-width:620px){
+ html body.ng-unified-subpage main>p.subscription-tax-note#ng-currency-note{
+   width:calc(100% - 32px)!important;
+   margin-left:16px!important;margin-right:16px!important;
+ }
+}
+</style>
 </body>
 </html>
