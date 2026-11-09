@@ -840,3 +840,15 @@ html body :is(p,span,label,strong,em,b,i,small,h1,h2,h3,h4,h5,h6,li,a){
   margin-left:0.01px!important;
   margin-right:0.01px!important;
 }
+
+
+/* GLOBAL TEXT SIDE MARGIN MICRO-ADJUSTMENT — 2026-11-09
+   Keep page left/right margins at zero; update text-side margins only. */
+html body :is(p,span,label,strong,em,b,i,small,h1,h2,h3,h4,h5,h6,li,a){
+  margin-left:0.02px!important;
+  margin-right:0.02px!important;
+}
+html,body{
+  margin-left:0!important;
+  margin-right:0!important;
+}
