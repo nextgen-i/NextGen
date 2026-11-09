@@ -1193,26 +1193,20 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
     <div class="subscription-status">Monthly plan · Free-video limits to be finalized</div>
   </article>
 
-  <article class="subscription-plan">
+</section>
+
+<section class="subscription-plans ng-custom-plans" aria-label="Custom pricing plans">
+  <div class="ng-custom-plans-heading">
+    <h2>Custom Plans</h2>
+    <p>Flexible capacity and tailored pricing for growing teams and businesses.</p>
+  </div>
+
+  <article class="subscription-plan ng-custom-plan">
     <h2>Premium Plan</h2>
-    <div class="ng-plan-price-copy">
-      <div class="ng-plan-price-card">
-        <div class="row">
-          <div class="reg"><small>Regular Price</small><s data-inr-price="29999" data-price-kind="regular">₹29,999/month</s></div>
-          <div class="offer">
-            <span class="pill">50% OFF</span>
-            <h3>Premium Offer</h3>
-            <p>50% OFF for 1st Month</p>
-          </div>
-        </div>
-        <hr>
-        <div class="total"><b>Your First Month Price</b><strong data-inr-price="14999" data-price-kind="launch">₹14,999</strong></div>
-        <p class="note">From the 2nd month: ₹29,999/month. Offer applies to the first paid month only.</p>
-      </div>
-      <div class="billing-grid">
-        <div class="billing"><b>MONTHLY</b><strong data-inr-price="14999" data-price-kind="launch">₹14,999</strong><small>1st month offer · then ₹29,999/month</small></div>
-        <div class="billing"><b>YEARLY · SAVE 10%</b><strong data-inr-price="323989" data-price-kind="annual">₹3,23,989</strong><small>Based on ₹29,999/month</small></div>
-      </div>
+    <div class="ng-custom-price-panel">
+      <span class="ng-custom-price-label">CUSTOM PRICING</span>
+      <strong>Tailored to your needs</strong>
+      <p>Pricing based on channel count, content volume, credit allocation and required features.</p>
     </div>
     <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
@@ -1221,31 +1215,17 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <li>Advanced AI voice, subtitles, SEO and analytics</li>
       <li>Team workflow and priority support options</li>
       <li>Auto Approval only with required safety checks</li>
-      <li>Final channel limits and usage allowances to be confirmed</li>
+      <li>Final channel limits and usage allowances confirmed in your quote</li>
     </ul>
-    <div class="subscription-status">Monthly plan · Capacity details to be finalized</div>
+    <a class="ng-custom-cta" href="./send-feedback.html?topic=premium-custom-pricing">Request Premium Quote</a>
   </article>
 
-  <article class="subscription-plan">
+  <article class="subscription-plan ng-custom-plan">
     <h2>Enterprise Plan</h2>
-    <div class="ng-plan-price-copy">
-      <div class="ng-plan-price-card">
-        <div class="row">
-          <div class="reg"><small>Regular Price</small><s data-inr-price="99999" data-price-kind="regular">₹99,999/month</s></div>
-          <div class="offer">
-            <span class="pill">50% OFF</span>
-            <h3>Enterprise Offer</h3>
-            <p>50% OFF for 1st Month</p>
-          </div>
-        </div>
-        <hr>
-        <div class="total"><b>Your First Month Price</b><strong data-inr-price="49999" data-price-kind="launch">₹49,999</strong></div>
-        <p class="note">From the 2nd month: ₹99,999/month. Offer applies to the first paid month only.</p>
-      </div>
-      <div class="billing-grid">
-        <div class="billing"><b>MONTHLY</b><strong data-inr-price="49999" data-price-kind="launch">₹49,999</strong><small>1st month offer · then ₹99,999/month</small></div>
-        <div class="billing"><b>YEARLY · SAVE 10%</b><strong data-inr-price="1079989" data-price-kind="annual">₹10,79,989</strong><small>Based on ₹99,999/month</small></div>
-      </div>
+    <div class="ng-custom-price-panel">
+      <span class="ng-custom-price-label">CUSTOM PRICING</span>
+      <strong>Enterprise solution</strong>
+      <p>Pricing based on organization scale, teams, connected platforms, usage and service requirements.</p>
     </div>
     <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
@@ -1256,9 +1236,21 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <li>Dedicated onboarding and support options</li>
       <li>Service scope and capacity confirmed before activation</li>
     </ul>
-    <div class="subscription-status">Monthly plan · Enterprise setup pending</div>
+    <a class="ng-custom-cta" href="./send-feedback.html?topic=enterprise-custom-pricing">Contact Sales</a>
   </article>
 </section>
+
+<style id="ng-custom-plans-separated-from-public-20261109">
+.ng-custom-plans{margin-top:18px!important;padding-top:18px!important;border-top:1px solid #24436d!important}
+.ng-custom-plans-heading{padding:0 17px 4px!important}
+.ng-custom-plans-heading h2{margin:0 0 6px!important;color:#8bd8ff!important;font-size:clamp(22px,5vw,30px)!important}
+.ng-custom-plans-heading p{margin:0 0 8px!important;color:#b8cbe7!important;font-size:14px!important;line-height:1.5!important}
+.ng-custom-price-panel{display:flex!important;flex-direction:column!important;gap:7px!important;margin:0 0 13px!important;padding:14px!important;border:1px solid #28518a!important;border-radius:13px!important;background:#0b2146!important}
+.ng-custom-price-label{align-self:flex-start!important;padding:4px 9px!important;border-radius:20px!important;background:#173f69!important;color:#8bd8ff!important;font-size:11px!important;font-weight:800!important;letter-spacing:.6px!important}
+.ng-custom-price-panel strong{color:#fff!important;font-size:19px!important;line-height:1.3!important}
+.ng-custom-price-panel p{margin:0!important;color:#b8cbe7!important;font-size:13px!important;line-height:1.45!important}
+.ng-custom-cta{display:flex!important;min-height:44px!important;align-items:center!important;justify-content:center!important;padding:9px 14px!important;border:1px solid #287cc2!important;border-radius:11px!important;background:linear-gradient(90deg,#174de0,#168de8)!important;color:#fff!important;text-decoration:none!important;font-size:14px!important;font-weight:800!important}
+</style>
 
 <section class="wallet-panel" aria-labelledby="wallet-heading">
   <h2 id="wallet-heading">Central Credit Wallet</h2>
