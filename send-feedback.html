@@ -557,8 +557,15 @@ html body.ng-unified-subpage .app>main{display:block!important;width:100%!import
 
 <section class="ng-quote-request" id="custom-quote-request" hidden aria-labelledby="ng-quote-title">
  <h2 id="ng-quote-title">Custom Plan Quote Request</h2>
- <p>Review your selected plan and channel capacity, then submit your request.</p>
- <div class="ng-quote-summary"><span>Plan</span><strong id="ng-quote-plan">—</strong><span>Connected channels</span><strong id="ng-quote-channels">—</strong></div>
+ <p>Review all selected plan limits, then submit your request.</p>
+ <div class="ng-quote-summary">
+  <span>Plan</span><strong id="ng-quote-plan">—</strong>
+  <span>Connected Channels</span><strong id="ng-quote-channels">—</strong>
+  <span>Daily Short Videos</span><strong id="ng-quote-shorts">—</strong>
+  <span>Video Duration</span><strong id="ng-quote-duration">—</strong>
+  <span>Long Videos / Month</span><strong id="ng-quote-long">—</strong>
+  <span>Images / Month</span><strong id="ng-quote-images">—</strong>
+ </div>
  <form id="ng-quote-form">
   <label for="ng-quote-message">Additional requirements (optional)</label>
   <textarea id="ng-quote-message" rows="4" maxlength="2000" placeholder="Tell us about your usage, team size or required features"></textarea>
@@ -579,12 +586,18 @@ html body.ng-unified-subpage .app>main{display:block!important;width:100%!import
 </style>
 <script id="ng-custom-quote-request-script">
 (function(){
- var params=new URLSearchParams(location.search),plan=params.get('plan'),channels=Number(params.get('channels'));
+ var params=new URLSearchParams(location.search),plan=params.get('plan');
+ var values={channels:Number(params.get('channels')),shorts:Number(params.get('daily_shorts')),
+  duration:Number(params.get('duration_seconds')),long:Number(params.get('long_videos')),images:Number(params.get('images'))};
  var section=document.getElementById('custom-quote-request');
- if(!section||!['Premium','Enterprise'].includes(plan)||!Number.isInteger(channels)||channels<1)return;
+ if(!section||!['Premium','Enterprise'].includes(plan)||Object.keys(values).some(function(k){return !Number.isInteger(values[k])||values[k]<1;}))return;
  section.hidden=false;
  document.getElementById('ng-quote-plan').textContent=plan;
- document.getElementById('ng-quote-channels').textContent=channels+' channels';
+ document.getElementById('ng-quote-channels').textContent=values.channels+' channels';
+ document.getElementById('ng-quote-shorts').textContent=values.shorts+' per day';
+ document.getElementById('ng-quote-duration').textContent=values.duration+' seconds';
+ document.getElementById('ng-quote-long').textContent=values.long+' per month';
+ document.getElementById('ng-quote-images').textContent=values.images+' per month';
  var form=document.getElementById('ng-quote-form'),status=document.getElementById('ng-quote-status'),
      submit=document.getElementById('ng-quote-submit'),loginNote=document.getElementById('ng-quote-login-note');
  form.addEventListener('submit',async function(event){
@@ -595,11 +608,13 @@ html body.ng-unified-subpage .app>main{display:block!important;width:100%!import
    var auth=await client.auth.getUser(),user=auth.data&&auth.data.user;
    if(auth.error||!user){loginNote.hidden=false;status.textContent='Log in before submitting this request.';return;}
    var result=await client.from('quote_requests').insert({
-    owner_id:user.id,plan_name:plan,channel_count:channels,
+    owner_id:user.id,plan_name:plan,channel_count:values.channels,daily_short_videos:values.shorts,
+    short_video_duration_seconds:values.duration,long_videos_per_month:values.long,
+    images_per_month:values.images,selection_details:values,
     message:document.getElementById('ng-quote-message').value.trim()
    });
    if(result.error)throw result.error;
-   status.textContent='Your '+plan+' quote request for '+channels+' channels has been saved successfully.';
+   status.textContent='Your '+plan+' quote request has been saved successfully.';
    form.reset();history.replaceState({},'',location.pathname);
   }catch(error){status.textContent=error&&error.message?error.message:'Could not submit the request. Please try again.';}
   finally{submit.disabled=false;}
