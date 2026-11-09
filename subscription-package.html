@@ -1208,6 +1208,13 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <strong>Tailored to your needs</strong>
       <p>Pricing based on channel count, content volume, credit allocation and required features.</p>
     </div>
+    <div class="ng-channel-selector">
+      <label for="premium-channel-count">Connected Channels</label>
+      <select id="premium-channel-count" name="premium-channel-count">
+        <option value="5">5 Channels</option><option value="10" selected>10 Channels</option><option value="15">15 Channels</option><option value="custom">Custom</option>
+      </select>
+      <input id="premium-custom-count" type="number" min="16" step="1" placeholder="Enter channel count" aria-label="Custom Premium channel count" hidden>
+    </div>
     <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
       <li>Higher-capacity content generation and automation</li>
@@ -1226,6 +1233,13 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <span class="ng-custom-price-label">CUSTOM PRICING</span>
       <strong>Enterprise solution</strong>
       <p>Pricing based on organization scale, teams, connected platforms, usage and service requirements.</p>
+    </div>
+    <div class="ng-channel-selector">
+      <label for="enterprise-channel-count">Connected Channels</label>
+      <select id="enterprise-channel-count" name="enterprise-channel-count">
+        <option value="20">20 Channels</option><option value="30" selected>30 Channels</option><option value="50">50 Channels</option><option value="100">100 Channels</option><option value="custom">Custom</option>
+      </select>
+      <input id="enterprise-custom-count" type="number" min="101" step="1" placeholder="Enter channel count" aria-label="Custom Enterprise channel count" hidden>
     </div>
     <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
@@ -2414,6 +2428,27 @@ html body.ng-unified-subpage .ng-plan-price-copy .billing{
   padding-top:6px!important;padding-bottom:6px!important;
 }
 </style>
+
+<style id="ng-custom-channel-selectors-20261109">
+.ng-channel-selector{display:grid;gap:7px;margin:0 0 14px;padding:12px;border:1px solid #28518a;border-radius:12px;background:#091b3a}
+.ng-channel-selector label{color:#8bd8ff;font-size:13px;font-weight:800}
+.ng-channel-selector select,.ng-channel-selector input{box-sizing:border-box;width:100%;min-height:42px;padding:0 11px;border:1px solid #315b91;border-radius:9px;background:#06132d;color:#fff;font:inherit}
+.ng-channel-selector input:not([hidden]){display:block}
+.ng-channel-selector [hidden]{display:none!important}
+</style>
+<script id="ng-custom-channel-selectors-script-20261109">
+(function(){
+  function wire(selectId,inputId){
+    var select=document.getElementById(selectId), input=document.getElementById(inputId);
+    if(!select||!input)return;
+    function sync(){input.hidden=select.value!=="custom";if(!input.hidden)input.focus();}
+    select.addEventListener("change",sync);sync();
+  }
+  wire("premium-channel-count","premium-custom-count");
+  wire("enterprise-channel-count","enterprise-custom-count");
+})();
+</script>
+
 </body>
 </html>
 
