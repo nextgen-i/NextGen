@@ -316,6 +316,37 @@ svg{display:block}
   margin-right:0.02px!important;
 }
 
+
+/* FIX: margin alone did not change the visible gap because the package width
+   was still capped at calc(100% - 32px). Expand cards to the full available width. */
+.subscription-plans{padding-left:0!important;padding-right:0!important}
+.subscription-plan{
+  width:calc(100% - 0.04px)!important;
+  max-width:none!important;
+  margin-left:0.02px!important;
+  margin-right:0.02px!important;
+}
+.subscription-plan.ng-trial-package-shell{
+  width:calc(100% - 0.04px)!important;
+  max-width:none!important;
+  margin-left:0.02px!important;
+  margin-right:0.02px!important;
+}
+.ng-starter-price-copy .ng-starter-price-card,
+.ng-plan-price-copy .ng-plan-price-card,
+.ng-trial-inner-card{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+.ng-starter-price-copy .billing-grid,
+.ng-plan-price-copy .billing-grid{
+  width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
 </style>
 
 <style id="ng-header-logo-crop-fix">
