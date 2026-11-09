@@ -1063,10 +1063,10 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
   <p class="subscription-tax-note" id="ng-currency-note">Package prices are fixed in INR. India visitors see INR; visitors outside India see an automatically converted USD equivalent. Launch Price applies to the first paid month only; Regular Price applies from the second month. Applicable taxes are extra.</p>
 
   <article class="subscription-plan ng-trial-package-shell">
+  <h2 class="ng-trial-package-title">Free Trial</h2>
   <div class="ng-trial-copy-wrap">
   <div class="plan-grid">
     <section class="ng-trial-inner-card">
-      <h1>Free Trial</h1>
       <div class="row">
         <div class="reg"><small>Trial Validity</small><div style="margin-top:9px;font-size:17.5px;font-weight:500;line-height:20px;color:var(--ink)">3 Days</div></div>
         <div class="offer">
@@ -2059,6 +2059,16 @@ html body.ng-unified-subpage main>p.subscription-tax-note#ng-currency-note{
    width:calc(100% - 32px)!important;
    margin-left:16px!important;margin-right:16px!important;
  }
+}
+</style>
+<style id="ng-trial-title-above-inner-card-final">
+/* Place the Free Trial title above the blue price card, but inside the outer package border. */
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell>.ng-trial-package-title{
+  display:block!important;position:static!important;
+  margin:0 0 12px!important;padding:0!important;
+  color:#8bd8ff!important;font-size:clamp(22px,5vw,32px)!important;
+  font-weight:800!important;line-height:1.12!important;
+  text-align:left!important;
 }
 </style>
 </body>
