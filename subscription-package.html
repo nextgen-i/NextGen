@@ -143,6 +143,32 @@ svg{display:block}
 .subscription-price-group .subscription-price{color:#fff}
 @media(max-width:380px){.subscription-price-group,.subscription-regular-group{padding:9px}.subscription-regular-usd{font-size:16px}}
 
+
+/* Exact Free Trial card copied from subscription-package-new.html.
+   Scoped to this card only; all other legacy subscription page styles remain untouched. */
+.ng-trial-copy-card{
+  width:100%;max-width:560px;min-width:0;aspect-ratio:1.586/1;margin:0 auto;
+  padding:15px 13px 13px;background:linear-gradient(145deg,#14366b,#102b55);
+  border:1px solid #28518a;border-radius:22px;box-shadow:0 8px 24px #0005;
+  color:#fff;box-sizing:border-box;
+}
+.ng-trial-copy-card *{box-sizing:border-box}
+.ng-trial-copy-card>h1{font-size:19.5px;font-weight:700;line-height:22px;color:#65caff;margin:0}
+.ng-trial-copy-card .row{display:flex;align-items:center;margin-top:9px;gap:8px}
+.ng-trial-copy-card .reg{flex:1;min-width:0}
+.ng-trial-copy-card .reg small{display:block;font-size:12.5px;line-height:15px;color:#b0c4e5;text-transform:uppercase}
+.ng-trial-copy-card .trial-days{margin-top:9px;font-size:17.5px;font-weight:500;line-height:20px;color:#fff}
+.ng-trial-copy-card .offer{flex:none;width:min(213px,58%);padding:6px 8px 8px;background:linear-gradient(135deg,#174b43,#205f50);border:1px solid #397d6d;border-radius:14px}
+.ng-trial-copy-card .pill{display:inline-block;height:24px;line-height:24px;padding:0 11px;border-radius:12px;background:#286b5d;color:#c1f5e4;font-size:14.5px;font-weight:700}
+.ng-trial-copy-card .offer h2{display:block;margin:5px 0 0;font-size:17px;font-weight:700;line-height:20px;white-space:normal;color:#fff}
+.ng-trial-copy-card .offer p{margin:4px 0 0;font-size:14.5px;line-height:18px;color:#fff}
+.ng-trial-copy-card hr{border:0;border-top:1px solid #ececec;margin:10px 0 0}
+.ng-trial-copy-card .total{display:flex;align-items:center;justify-content:space-between;margin-top:10px;height:32px;gap:8px}
+.ng-trial-copy-card .total b{font-size:18.5px;font-weight:700;color:#fff}
+.ng-trial-copy-card .total strong{font-size:28px;font-weight:700;color:#4db8ff;white-space:nowrap}
+.ng-trial-copy-card .note{margin:7px 0 0;font-size:12px;line-height:14px;color:#b0c4e5}
+@media(max-width:620px){.ng-trial-copy-card{max-width:560px}}
+
 </style>
 
 <style id="ng-header-logo-crop-fix">
@@ -823,26 +849,20 @@ body.ng-unified-subpage .subscription-plan{width:100%!important;max-width:none!i
   </div>
   <p class="subscription-tax-note" id="ng-currency-note">Package prices are fixed in INR. India visitors see INR; visitors outside India see an automatically converted USD equivalent. Launch Price applies to the first paid month only; Regular Price applies from the second month. Applicable taxes are extra.</p>
 
-  <article class="subscription-plan subscription-plan-free ng-trial-redesign">
-    <h2>Free Trial</h2>
-    <div class="ng-trial-top">
-      <div class="ng-trial-validity">
-        <span>TRIAL VALIDITY</span>
-        <strong>3 Days</strong>
-      </div>
-      <div class="ng-trial-offer">
-        <span class="ng-trial-pill">₹1 ONLY</span>
-        <h3>3-Day Trial</h3>
-        <p>One-time payment</p>
-      </div>
+  <section class="ng-trial-copy-card">
+  <h1>Free Trial</h1>
+  <div class="row">
+    <div class="reg"><small>Trial Validity</small><div class="trial-days">3 Days</div></div>
+    <div class="offer">
+      <span class="pill">₹1 ONLY</span>
+      <h2>3-Day Trial</h2>
+      <p>One-time payment</p>
     </div>
-    <hr class="ng-trial-divider">
-    <div class="ng-trial-total">
-      <strong>Your Trial Price</strong>
-      <b data-inr-price="1" data-price-kind="trial">₹1</b>
-    </div>
-    <p class="ng-trial-note">1 account + 1 device. No automatic paid renewal.</p>
-  </article>
+  </div>
+  <hr>
+  <div class="total"><b>Your Trial Price</b><strong data-inr-price="1" data-price-kind="trial">₹1</strong></div>
+  <p class="note">1 account + 1 device. No automatic paid renewal.</p>
+</section>
   <div class="ng-trial-features">
     <p>1 connected channel · 1 platform</p>
     <p>1 video · 10 seconds</p>
