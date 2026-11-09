@@ -1870,5 +1870,31 @@ html body.ng-unified-subpage .app>main .subscription-status{
   margin-right:0.01px!important;
 }
 </style>
+
+<style id="ng-card-side-gap-reduction-final-v2">
+/* Reduce visible side gaps: price/trial cards expand across the package's inner padding. */
+html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
+html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy{
+  display:block!important;box-sizing:border-box!important;
+  width:calc(100% + 36px)!important;max-width:none!important;
+  margin-left:-18px!important;margin-right:-18px!important;
+}
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap,
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap .plan-grid{
+  display:block!important;box-sizing:border-box!important;
+  width:calc(100% + 36px)!important;max-width:none!important;
+  margin-left:-18px!important;margin-right:-18px!important;
+}
+html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy .ng-starter-price-card,
+html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .ng-plan-price-card,
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  margin-left:0!important;margin-right:0!important;
+}
+@media(max-width:480px){
+ html body.ng-unified-subpage .subscription-plan{padding-left:18px!important;padding-right:18px!important}
+}
+</style>
+
 </body>
 </html>
