@@ -2121,5 +2121,16 @@ html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
  }
 }
 </style>
+<style id="ng-plan-status-card-match-package-width-final">
+/* Make the Plan activation/status panel nearly as wide as the package card, with a 7px mobile side inset. */
+@media(max-width:620px){
+ html body.ng-unified-subpage .subscription-plan>.subscription-status{
+   display:flex!important;box-sizing:border-box!important;
+   width:calc(100% + 22px)!important;max-width:none!important;min-width:0!important;
+   margin-left:-11px!important;margin-right:-11px!important;
+   padding-left:10px!important;padding-right:10px!important;
+ }
+}
+</style>
 </body>
 </html>
