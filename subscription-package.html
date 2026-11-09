@@ -2500,3 +2500,15 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
  }
 }
 </style>
+
+
+<!-- NG: Apply Monthly/Yearly 800:648 width ratio on mobile and desktop. -->
+<style id="ng-billing-card-width-ratio-800-648-all-screens">
+html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy .billing-grid,
+html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,800fr) minmax(0,648fr)!important;
+  width:100%!important;
+  gap:8px!important;
+}
+</style>
