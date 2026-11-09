@@ -2243,5 +2243,27 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   }
 }
 </style>
+<style id="ng-price-amount-right-align-approved-final">
+/* Approved preview: keep price labels on the left and align every amount to the far right. */
+html body.ng-unified-subpage .subscription-plan .total{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  width:100%!important;
+  gap:8px!important;
+}
+html body.ng-unified-subpage .subscription-plan .total b{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  text-align:left!important;
+}
+html body.ng-unified-subpage .subscription-plan .total strong{
+  display:block!important;
+  flex:0 0 auto!important;
+  margin-left:auto!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+</style>
 </body>
 </html>
