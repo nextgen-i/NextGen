@@ -1912,5 +1912,24 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
 }
 </style>
 
+
+<style id="ng-card-side-padding-5px-final">
+/* Set exactly 5px inner side gap for all trial and paid-plan price cards. */
+html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy,
+html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy,
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap,
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-copy-wrap .plan-grid{
+  display:block!important;box-sizing:border-box!important;
+  width:calc(100% - 10px)!important;max-width:none!important;
+  margin-left:auto!important;margin-right:auto!important;
+}
+html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy .ng-starter-price-card,
+html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .ng-plan-price-card,
+html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial-inner-card{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  margin-left:0!important;margin-right:0!important;
+}
+</style>
+
 </body>
 </html>
