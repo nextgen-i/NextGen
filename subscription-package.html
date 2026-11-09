@@ -1208,14 +1208,15 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <strong>Tailored to your needs</strong>
       <p>Pricing based on channel count, content volume, credit allocation and required features.</p>
     </div>
-    <div class="ng-channel-selector">
-      <label for="premium-channel-count">Connected Channels</label>
-      <select id="premium-channel-count" name="premium-channel-count">
-        <option value="5">5 Channels</option><option value="10" selected>10 Channels</option><option value="15">15 Channels</option><option value="custom">Custom</option>
-      </select>
-      <input id="premium-custom-count" type="number" min="16" step="1" placeholder="Enter channel count" aria-label="Custom Premium channel count" hidden>
-    </div>
-    <p class="subscription-limit">Custom channel and usage capacity</p>
+<div class="ng-plan-builder" id="premium-builder" data-plan="Premium">
+ <h3>Premium Plan Builder</h3><p class="ng-builder-intro">Select your required capacity and content usage.</p>
+ <div class="ng-builder-fields">
+ <div class="ng-builder-field"><label for="premium-channels">Connected Channels</label><select id="premium-channels" name="premium-channels"><option value="20" selected>20 Channels</option><option value="25">25 Channels</option><option value="30">30 Channels</option><option value="40">40 Channels</option><option value="50">50+ Channels</option><option value="custom">Custom</option></select><input id="premium-channels-custom" type="number" min="51" step="1" placeholder="Enter channel count" aria-label="Custom Connected Channels" hidden></div>
+ <div class="ng-builder-field"><label for="premium-shorts">Daily Short Videos</label><select id="premium-shorts" name="premium-shorts"><option value="3">3</option><option value="5">5</option><option value="10" selected>10</option><option value="custom">Custom</option></select><input id="premium-shorts-custom" type="number" min="1" step="1" placeholder="Enter daily short video count" aria-label="Custom Daily Short Videos" hidden></div>
+ <div class="ng-builder-field"><label for="premium-duration">Video Duration</label><select id="premium-duration" name="premium-duration"><option value="4">4 sec</option><option value="6">6 sec</option><option value="8" selected>8 sec</option><option value="custom">Custom</option></select><input id="premium-duration-custom" type="number" min="1" step="1" placeholder="Enter duration in seconds" aria-label="Custom Video Duration" hidden></div>
+ <div class="ng-builder-field"><label for="premium-long">Long Videos / Month</label><select id="premium-long" name="premium-long"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option><option value="custom">Custom</option></select><input id="premium-long-custom" type="number" min="1" step="1" placeholder="Enter monthly long video count" aria-label="Custom Long Videos / Month" hidden></div>
+ <div class="ng-builder-field"><label for="premium-images">Images / Month</label><select id="premium-images" name="premium-images"><option value="60">60</option><option value="100" selected>100</option><option value="200">200</option><option value="custom">Custom</option></select><input id="premium-images-custom" type="number" min="1" step="1" placeholder="Enter monthly image count" aria-label="Custom Images / Month" hidden></div>
+ </div></div>    <p class="subscription-limit">Custom channel and usage capacity</p>
     <ul>
       <li>Higher-capacity content generation and automation</li>
       <li>Custom credit allocation and longer video options</li>
@@ -1234,14 +1235,15 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <strong>Enterprise solution</strong>
       <p>Pricing based on organization scale, teams, connected platforms, usage and service requirements.</p>
     </div>
-    <div class="ng-channel-selector">
-      <label for="enterprise-channel-count">Connected Channels</label>
-      <select id="enterprise-channel-count" name="enterprise-channel-count">
-        <option value="20">20 Channels</option><option value="30" selected>30 Channels</option><option value="50">50 Channels</option><option value="100">100 Channels</option><option value="custom">Custom</option>
-      </select>
-      <input id="enterprise-custom-count" type="number" min="101" step="1" placeholder="Enter channel count" aria-label="Custom Enterprise channel count" hidden>
-    </div>
-    <p class="subscription-limit">Custom enterprise capacity</p>
+<div class="ng-plan-builder" id="enterprise-builder" data-plan="Enterprise">
+ <h3>Enterprise Plan Builder</h3><p class="ng-builder-intro">Select your required capacity and content usage.</p>
+ <div class="ng-builder-fields">
+ <div class="ng-builder-field"><label for="enterprise-channels">Connected Channels</label><select id="enterprise-channels" name="enterprise-channels"><option value="50" selected>50 Channels</option><option value="75">75 Channels</option><option value="100">100 Channels</option><option value="200">200 Channels</option><option value="custom">Custom</option></select><input id="enterprise-channels-custom" type="number" min="201" step="1" placeholder="Enter channel count" aria-label="Custom Connected Channels" hidden></div>
+ <div class="ng-builder-field"><label for="enterprise-shorts">Daily Short Videos</label><select id="enterprise-shorts" name="enterprise-shorts"><option value="10" selected>10</option><option value="20">20</option><option value="50">50</option><option value="custom">Custom</option></select><input id="enterprise-shorts-custom" type="number" min="1" step="1" placeholder="Enter daily short video count" aria-label="Custom Daily Short Videos" hidden></div>
+ <div class="ng-builder-field"><label for="enterprise-duration">Video Duration</label><select id="enterprise-duration" name="enterprise-duration"><option value="4">4 sec</option><option value="6">6 sec</option><option value="8" selected>8 sec</option><option value="custom">Custom</option></select><input id="enterprise-duration-custom" type="number" min="1" step="1" placeholder="Enter duration in seconds" aria-label="Custom Video Duration" hidden></div>
+ <div class="ng-builder-field"><label for="enterprise-long">Long Videos / Month</label><select id="enterprise-long" name="enterprise-long"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="custom">Custom</option></select><input id="enterprise-long-custom" type="number" min="1" step="1" placeholder="Enter monthly long video count" aria-label="Custom Long Videos / Month" hidden></div>
+ <div class="ng-builder-field"><label for="enterprise-images">Images / Month</label><select id="enterprise-images" name="enterprise-images"><option value="100" selected>100</option><option value="250">250</option><option value="500">500</option><option value="custom">Custom</option></select><input id="enterprise-images-custom" type="number" min="1" step="1" placeholder="Enter monthly image count" aria-label="Custom Images / Month" hidden></div>
+ </div></div>    <p class="subscription-limit">Custom enterprise capacity</p>
     <ul>
       <li>Custom channels, platform accounts and team-member limits</li>
       <li>Custom credit and video-generation allocation</li>
@@ -2429,35 +2431,54 @@ html body.ng-unified-subpage .ng-plan-price-copy .billing{
 }
 </style>
 
-<style id="ng-custom-channel-selectors-20261109">
-.ng-channel-selector{display:grid;gap:7px;margin:0 0 14px;padding:12px;border:1px solid #28518a;border-radius:12px;background:#091b3a}
-.ng-channel-selector label{color:#8bd8ff;font-size:13px;font-weight:800}
-.ng-channel-selector select,.ng-channel-selector input{box-sizing:border-box;width:100%;min-height:42px;padding:0 11px;border:1px solid #315b91;border-radius:9px;background:#06132d;color:#fff;font:inherit}
-.ng-channel-selector input:not([hidden]){display:block}
-.ng-channel-selector [hidden]{display:none!important}
+<style id="ng-custom-plan-builder-styles-20261109">
+.ng-plan-builder{margin:0 0 16px;padding:14px;border:1px solid #28518a;border-radius:14px;background:#091b3a}
+.ng-plan-builder h3{margin:0 0 5px;color:#8bd8ff;font-size:17px}.ng-builder-intro{margin:0 0 12px;color:#c7d8f3;font-size:13px}
+.ng-builder-fields{display:grid;grid-template-columns:1fr;gap:10px}
+.ng-builder-field{display:grid;gap:6px;padding:10px;border:1px solid #244875;border-radius:10px;background:#06132d}
+.ng-builder-field label{color:#b9dfff;font-size:13px;font-weight:800}
+.ng-builder-field select,.ng-builder-field input{box-sizing:border-box;width:100%;min-height:42px;padding:0 11px;border:1px solid #315b91;border-radius:9px;background:#081a36;color:#fff;font:inherit}
+.ng-builder-field input:not([hidden]){display:block}.ng-builder-field [hidden]{display:none!important}
+@media(min-width:560px){.ng-builder-fields{grid-template-columns:1fr 1fr}}
 </style>
-<script id="ng-custom-channel-selectors-script-20261109">
+<script id="ng-custom-plan-builder-script-20261109">
 (function(){
-  function wire(selectId,inputId,ctaId,plan,minCustom){
-    var select=document.getElementById(selectId), input=document.getElementById(inputId), cta=document.getElementById(ctaId);
-    if(!select||!input||!cta)return;
-    function sync(){input.hidden=select.value!=="custom";}
-    select.addEventListener("change",sync);sync();
-    cta.addEventListener("click",function(event){
-      var chosen=select.value, count=chosen==="custom"?Number(input.value):Number(chosen);
-      if(!Number.isInteger(count)||count<minCustom&&chosen==="custom"){
-        event.preventDefault();input.hidden=false;input.focus();
-        input.setCustomValidity("Enter a whole number of at least "+minCustom+" channels.");input.reportValidity();return;
-      }
-      input.setCustomValidity("");
-      var url=new URL(cta.href,window.location.href);
-      url.searchParams.set("plan",plan);url.searchParams.set("channels",String(count));
-      cta.href=url.toString();
-    });
-    input.addEventListener("input",function(){input.setCustomValidity("");});
+ function setup(prefix,plan,ctaId,minChannel){
+  var cta=document.getElementById(ctaId), ids=['channels','shorts','duration','long','images'];
+  if(!cta)return;
+  function getValue(key){
+   var select=document.getElementById(prefix+'-'+key),custom=document.getElementById(prefix+'-'+key+'-custom');
+   if(!select)return null;
+   if(select.value==='custom'){
+    var n=Number(custom&&custom.value);
+    if(!Number.isInteger(n)||n<((key==='channels')?minChannel:1)){
+     if(custom){custom.hidden=false;custom.setCustomValidity('Enter a whole number of at least '+((key==='channels')?minChannel:1)+'.');custom.reportValidity();custom.focus();}
+     return null;
+    }
+    custom.setCustomValidity('');return n;
+   }
+   return Number(select.value);
   }
-  wire("premium-channel-count","premium-custom-count","premium-quote-cta","Premium",16);
-  wire("enterprise-channel-count","enterprise-custom-count","enterprise-quote-cta","Enterprise",101);
+  ids.forEach(function(key){
+   var select=document.getElementById(prefix+'-'+key),custom=document.getElementById(prefix+'-'+key+'-custom');
+   if(!select||!custom)return;
+   function sync(){custom.hidden=select.value!=='custom';}
+   select.addEventListener('change',sync);custom.addEventListener('input',function(){custom.setCustomValidity('');});sync();
+  });
+  cta.addEventListener('click',function(e){
+   var values={};for(var i=0;i<ids.length;i++){values[ids[i]]=getValue(ids[i]);if(values[ids[i]]===null){e.preventDefault();return;}}
+   var url=new URL(cta.href,location.href);
+   url.searchParams.set('plan',plan);
+   url.searchParams.set('channels',values.channels);
+   url.searchParams.set('daily_shorts',values.shorts);
+   url.searchParams.set('duration_seconds',values.duration);
+   url.searchParams.set('long_videos',values.long);
+   url.searchParams.set('images',values.images);
+   cta.href=url.toString();
+  });
+ }
+ setup('premium','Premium','premium-quote-cta',51);
+ setup('enterprise','Enterprise','enterprise-quote-cta',201);
 })();
 </script>
 
