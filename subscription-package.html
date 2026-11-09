@@ -1580,5 +1580,21 @@ html body.ng-unified-subpage .ng-subpage-title{
  window.addEventListener('load',fix,{once:true});
 })();
 </script>
+<style id="ng-subscription-zero-side-margin-final">
+html body.ng-unified-subpage,
+html body.ng-unified-subpage .app,
+html body.ng-unified-subpage .app>main,
+html body.ng-unified-subpage .subscription-plans{
+ width:100%!important;max-width:none!important;
+ margin-left:0!important;margin-right:0!important;
+}
+html body.ng-unified-subpage{padding-left:0!important;padding-right:0!important}
+html body.ng-unified-subpage .app>main,
+html body.ng-unified-subpage .subscription-plans{padding-left:0!important;padding-right:0!important}
+html body.ng-unified-subpage .subscription-plan{
+ width:100%!important;max-width:none!important;
+ margin-left:0!important;margin-right:0!important;
+}
+</style>
 </body>
 </html>
