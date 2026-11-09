@@ -2133,14 +2133,14 @@ html body.ng-unified-subpage main p#ng-currency-note.subscription-tax-note{
 }
 </style>
 <style id="ng-trial-status-full-package-width-final">
-/* Free Trial activation status: align its outer edges to the same 7px inset as the package price card. */
+/* Free Trial status panel: force its visible left/right edges to sit 7px inside the outer package border. */
 @media(max-width:620px){
- html body.ng-unified-subpage main article.subscription-plan.ng-trial-package-shell>div.subscription-status{
+ html body.ng-unified-subpage .app>main article.subscription-plan.ng-trial-package-shell>div.subscription-status{
    display:flex!important;position:relative!important;left:-11px!important;right:auto!important;
-   box-sizing:border-box!important;width:calc(100% + 22px)!important;
-   max-width:none!important;min-width:0!important;
-   margin:8px -11px 0!important;
-   padding:8px 10px!important;
+   transform:translateX(0)!important;
+   box-sizing:border-box!important;
+   width:calc(100% + 22px)!important;max-width:none!important;min-width:0!important;
+   margin:8px -11px 0!important;padding:8px 10px!important;
  }
 }
 </style>
