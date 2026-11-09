@@ -2001,5 +2001,49 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   margin:2px 0!important;
 }
 </style>
+<style id="ng-subscription-compact-text-spacing-final">
+/* Compact text rhythm throughout Subscription Package page; preserve card dimensions and colors. */
+html body.ng-unified-subpage main p,
+html body.ng-unified-subpage main li{
+  line-height:1.32!important;
+}
+html body.ng-unified-subpage main p{margin-top:2px!important;margin-bottom:2px!important}
+html body.ng-unified-subpage .subscription-plan h2{
+  margin-top:4px!important;margin-bottom:12px!important;line-height:1.12!important;
+}
+html body.ng-unified-subpage .subscription-plan ul{
+  margin-top:7px!important;margin-bottom:12px!important;line-height:1.38!important;
+}
+html body.ng-unified-subpage .subscription-plan li{margin-bottom:2px!important;line-height:1.38!important}
+html body.ng-unified-subpage .subscription-limit{
+  margin-top:0!important;margin-bottom:9px!important;line-height:1.3!important;
+}
+html body.ng-unified-subpage .subscription-status{
+  min-height:42px!important;padding:8px 11px!important;margin-top:8px!important;line-height:1.3!important;
+}
+html body.ng-unified-subpage .ng-trial-features{
+  margin-top:6px!important;padding-top:0!important;padding-bottom:0!important;line-height:1.3!important;
+}
+html body.ng-unified-subpage .ng-trial-features p{margin:1px 0!important;line-height:1.3!important}
+html body.ng-unified-subpage .ng-starter-price-copy .note,
+html body.ng-unified-subpage .ng-plan-price-copy .note{
+  margin-top:5px!important;line-height:1.25!important;
+}
+html body.ng-unified-subpage .ng-starter-price-copy .row,
+html body.ng-unified-subpage .ng-plan-price-copy .row{
+  margin-top:6px!important;gap:6px!important;
+}
+html body.ng-unified-subpage .ng-starter-price-copy hr,
+html body.ng-unified-subpage .ng-plan-price-copy hr{margin:8px 0!important}
+html body.ng-unified-subpage .ng-starter-price-copy .total,
+html body.ng-unified-subpage .ng-plan-price-copy .total{margin-top:6px!important}
+html body.ng-unified-subpage .ng-starter-price-copy .billing-grid,
+html body.ng-unified-subpage .ng-plan-price-copy .billing-grid{gap:8px!important;margin-top:8px!important}
+@media(max-width:620px){
+ html body.ng-unified-subpage .subscription-plan{padding-top:17px!important;padding-bottom:17px!important}
+ html body.ng-unified-subpage .subscription-plan ul{padding-left:21px!important}
+ html body.ng-unified-subpage .ng-trial-features{font-size:clamp(13px,3.5vw,18px)!important}
+}
+</style>
 </body>
 </html>
