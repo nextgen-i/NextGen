@@ -1224,7 +1224,7 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <li>Auto Approval only with required safety checks</li>
       <li>Final channel limits and usage allowances confirmed in your quote</li>
     </ul>
-    <a class="ng-custom-cta" href="./send-feedback.html?topic=premium-custom-pricing">Request Premium Quote</a>
+    <a class="ng-custom-cta" id="premium-quote-cta" href="./send-feedback.html?topic=premium-custom-pricing">Request Premium Quote</a>
   </article>
 
   <article class="subscription-plan ng-custom-plan">
@@ -1250,7 +1250,7 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <li>Dedicated onboarding and support options</li>
       <li>Service scope and capacity confirmed before activation</li>
     </ul>
-    <a class="ng-custom-cta" href="./send-feedback.html?topic=enterprise-custom-pricing">Contact Sales</a>
+    <a class="ng-custom-cta" id="enterprise-quote-cta" href="./send-feedback.html?topic=enterprise-custom-pricing">Contact Sales</a>
   </article>
 </section>
 
@@ -2438,14 +2438,26 @@ html body.ng-unified-subpage .ng-plan-price-copy .billing{
 </style>
 <script id="ng-custom-channel-selectors-script-20261109">
 (function(){
-  function wire(selectId,inputId){
-    var select=document.getElementById(selectId), input=document.getElementById(inputId);
-    if(!select||!input)return;
-    function sync(){input.hidden=select.value!=="custom";if(!input.hidden)input.focus();}
+  function wire(selectId,inputId,ctaId,plan,minCustom){
+    var select=document.getElementById(selectId), input=document.getElementById(inputId), cta=document.getElementById(ctaId);
+    if(!select||!input||!cta)return;
+    function sync(){input.hidden=select.value!=="custom";}
     select.addEventListener("change",sync);sync();
+    cta.addEventListener("click",function(event){
+      var chosen=select.value, count=chosen==="custom"?Number(input.value):Number(chosen);
+      if(!Number.isInteger(count)||count<minCustom&&chosen==="custom"){
+        event.preventDefault();input.hidden=false;input.focus();
+        input.setCustomValidity("Enter a whole number of at least "+minCustom+" channels.");input.reportValidity();return;
+      }
+      input.setCustomValidity("");
+      var url=new URL(cta.href,window.location.href);
+      url.searchParams.set("plan",plan);url.searchParams.set("channels",String(count));
+      cta.href=url.toString();
+    });
+    input.addEventListener("input",function(){input.setCustomValidity("");});
   }
-  wire("premium-channel-count","premium-custom-count");
-  wire("enterprise-channel-count","enterprise-custom-count");
+  wire("premium-channel-count","premium-custom-count","premium-quote-cta","Premium",16);
+  wire("enterprise-channel-count","enterprise-custom-count","enterprise-quote-cta","Enterprise",101);
 })();
 </script>
 
