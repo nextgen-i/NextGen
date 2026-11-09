@@ -1087,7 +1087,7 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
       <li>1 Video · 10 Seconds</li>
       <li>1 Image</li>
       <li>Basic Caption</li>
-      <li>Manual approval ON</li>
+      <li>Manual Approval ON</li>
     </ul>
   </div>
   <div class="subscription-status">Plan activation pending</div>
@@ -2263,6 +2263,26 @@ html body.ng-unified-subpage .subscription-plan .total strong{
   margin-left:auto!important;
   text-align:right!important;
   white-space:nowrap!important;
+}
+</style>
+<style id="ng-approved-package-preview-layout-final">
+/* Apply the approved preview: one price card, plain feature list outside it. */
+html body.ng-unified-subpage .subscription-plan .ng-starter-price-copy .billing-grid,
+html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-grid{
+  display:none!important;
+}
+html body.ng-unified-subpage .subscription-plan .subscription-limit,
+html body.ng-unified-subpage .subscription-plan ul,
+html body.ng-unified-subpage .subscription-plan .ng-trial-features,
+html body.ng-unified-subpage .subscription-plan .ng-trial-features ul,
+html body.ng-unified-subpage .subscription-plan .ng-trial-features li{
+  font-weight:400!important;
+}
+html body.ng-unified-subpage .subscription-plan .ng-trial-features{
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
 }
 </style>
 </body>
