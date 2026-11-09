@@ -2358,5 +2358,26 @@ html body.ng-unified-subpage .subscription-plan.ng-trial-package-shell .ng-trial
   transform:none!important;
 }</style>
 
+<style id="ng-all-paid-plan-price-amount-visibility-20261109">
+/* Keep full monthly/yearly amounts visible in the five paid-plan price cards. */
+html body.ng-unified-subpage .ng-starter-price-copy .ng-starter-price-card .total,
+html body.ng-unified-subpage .ng-plan-price-copy .ng-plan-price-card .total{
+  display:flex!important;position:static!important;align-items:center!important;
+  justify-content:space-between!important;width:100%!important;height:32px!important;
+  margin:10px 0 0!important;padding:0!important;gap:8px!important;overflow:visible!important;
+}
+html body.ng-unified-subpage .ng-starter-price-copy .ng-starter-price-card .total b,
+html body.ng-unified-subpage .ng-plan-price-copy .ng-plan-price-card .total b{
+  position:static!important;display:block!important;flex:1 1 auto!important;
+  min-width:0!important;margin:0!important;padding:0!important;text-align:left!important;
+}
+html body.ng-unified-subpage .ng-starter-price-copy .ng-starter-price-card .total strong,
+html body.ng-unified-subpage .ng-plan-price-copy .ng-plan-price-card .total strong{
+  position:static!important;display:block!important;flex:0 0 auto!important;
+  width:auto!important;min-width:max-content!important;max-width:none!important;
+  margin:0 0 0 auto!important;padding:0!important;overflow:visible!important;
+  text-align:right!important;white-space:nowrap!important;transform:none!important;
+}
+</style>
 </body>
 </html>
