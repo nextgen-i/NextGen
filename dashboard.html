@@ -1937,12 +1937,18 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links{
 </script>
 
 \n<script src="./nextgen-pull-refresh.js?v=20261106-global-custom-v4" defer></script>\n
-<script id="ng-subscription-origin-capture">
+<script id="ng-page-origin-capture">
 (function(){
  document.addEventListener('click',function(e){
-  var a=e.target&&e.target.closest?e.target.closest('a[data-ng-subscription-origin="1"]'):null;
+  var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
   if(!a)return;
-  try{sessionStorage.setItem('ngSubscriptionReturnUrl',window.location.href);}catch(err){}
+  try{
+   var u=new URL(a.href,window.location.href);
+   if(u.origin!==window.location.origin)return;
+   var path=u.pathname.split('/').pop();
+   if(path==='settings.html')sessionStorage.setItem('ngSettingsReturnUrl',window.location.href);
+   if(path==='subscription-package.html')sessionStorage.setItem('ngSubscriptionReturnUrl',window.location.href);
+  }catch(err){}
  },true);
 })();
 </script>
