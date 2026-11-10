@@ -37,7 +37,7 @@
     remember(destination.href);
   },true);
   document.addEventListener("click",function(event){
-    var control=event.target&&event.target.closest?event.target.closest("[data-ng-back],#ng-settings-back,.ng-subpage-back,.ng-back-button,button[aria-label='Back'],button[aria-label='Go back'],a[aria-label='Back'],a[aria-label='Go back']"):null;
+    var control=event.target&&event.target.closest?event.target.closest("[data-ng-back],#ng-settings-back,#ng-subscription-back,.ng-subpage-back,.ng-subscription-back,.ng-back-button,button[aria-label='Back'],button[aria-label='Go back'],a[aria-label='Back'],a[aria-label='Go back']"):null;
     if(!control)return;
     if(control.matches("a[href]"))event.preventDefault();
     event.preventDefault();
