@@ -981,13 +981,26 @@ html body.ng-unified-subpage .ng-package-details .subscription-status{margin-top
 
 
 
-<style id="ng-package-details-button-match-inner-card-edges-20261110">
-/* Slightly widen only the Package Details buttons to match the inner price-card edges, not the outer package shell. */
-html body.ng-unified-subpage .subscription-plan .ng-package-details>summary{
+
+
+<style id="ng-package-details-button-card-edge-alignment-final-20261110">
+/* Match the button width to the visible inner price-card edges on phones. */
+@media(max-width:620px){
+ html body.ng-unified-subpage .subscription-plan .ng-package-details>summary{
   box-sizing:border-box!important;
-  width:calc(100% + 12px)!important;
-  margin-left:-6px!important;
+  width:calc(100vw - 17px)!important;
+  max-width:none!important;
+  position:relative!important;
+  left:50%!important;
+  margin-left:0!important;
   margin-right:0!important;
+  transform:translateX(-50%)!important;
+ }
+}
+@media(min-width:621px){
+ html body.ng-unified-subpage .subscription-plan .ng-package-details>summary{
+  width:100%!important;margin-left:0!important;margin-right:0!important;transform:none!important;left:auto!important;
+ }
 }
 </style>
 </head>
