@@ -965,6 +965,17 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
  }
 }
 </style>
+
+<style id="ng-free-trial-package-details-button-20261110">
+/* Free Trial details are tucked behind a clear, accessible button-style disclosure. */
+html body.ng-unified-subpage .ng-package-details{width:100%;margin:14px 0 0;color:#e6efff}
+html body.ng-unified-subpage .ng-package-details>summary{list-style:none;display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:46px;padding:11px 16px;border:1px solid #2878d8;border-radius:12px;background:linear-gradient(90deg,#164fc4,#168be8);color:#fff;font-size:15px;font-weight:800;text-align:center;cursor:pointer;box-shadow:0 0 10px #1677ff33}
+html body.ng-unified-subpage .ng-package-details>summary::-webkit-details-marker{display:none}
+html body.ng-unified-subpage .ng-package-details>summary::after{content:"＋";font-size:18px;line-height:1}
+html body.ng-unified-subpage .ng-package-details[open]>summary::after{content:"−"}
+html body.ng-unified-subpage .ng-package-details .ng-trial-features{margin:12px 0 0!important;padding:12px 14px!important;border:1px solid #244875;border-radius:12px;background:#071630}
+html body.ng-unified-subpage .ng-package-details .subscription-status{margin-top:12px}
+</style>
 </head>
 <body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./settings.html" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
@@ -1081,25 +1092,29 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
     </section>
   </div>
 </div>
-  <div class="ng-trial-features">
-    <ul>
-      <li>1 Connected Channel · 1 Platform</li>
-      <li>Per Day: 1 AI Video · 10 Seconds</li>
-      <li>Per Day: 1 AI Image</li>
-      <li>Per Day: 1 Text Post</li>
-      <li>Per Day: 1 Caption</li>
-      <li>Per Day: 1 Hashtag Set</li>
-      <li>Per Day: 1 Title &amp; Description</li>
-      <li>Basic SEO Suggestions</li>
-      <li>Basic Content Scheduling</li>
-      <li>Standard Video Quality</li>
-      <li>No Watermark</li>
-      <li>Manual Approval ON · Auto Approval OFF</li>
-      <li>No content is published without your approval</li>
-      <li>3-Day Trial · Daily limits reset each day</li>
-    </ul>
-  </div>
-  <div class="subscription-status">Plan activation pending</div>
+  <details class="ng-package-details" id="free-trial-package-details">
+    <summary>Package Details</summary>
+    <div class="ng-trial-features">
+      <ul>
+        <li>Trial Validity: 3 Days · One-time payment ₹1</li>
+        <li>1 Connected Channel · 1 Platform (choose YouTube, Facebook, Instagram or Threads)</li>
+        <li>AI Video: 1 video per day · 10 seconds per video · 3 videos total</li>
+        <li>AI Image: 1 image per day · 3 images total</li>
+        <li>Text Post: 1 per day · 3 total</li>
+        <li>Caption: 1 per day · 3 total</li>
+        <li>Hashtag Set: 1 per day · 3 total</li>
+        <li>Title &amp; Description: 1 set per day · 3 sets total</li>
+        <li>Basic SEO Suggestions</li>
+        <li>Basic Content Scheduling</li>
+        <li>Standard Video Quality · No Watermark</li>
+        <li>Manual Approval ON · Auto Approval OFF</li>
+        <li>No content is published without your approval</li>
+        <li>Daily limits reset each day during the 3-day trial</li>
+        <li>One account + one device · No automatic paid renewal</li>
+      </ul>
+    </div>
+    <div class="subscription-status">Plan activation pending</div>
+  </details>
 </article>
   <article class="subscription-plan">
     <h2>Starter Plan</h2>
