@@ -14,6 +14,7 @@
       .catch(function(err){console.error("NextGen navigation menu:",err);});
   }
   function bind(){
+    var pageName=(location.pathname.split("/").pop()||"").toLowerCase();
     var trigger=document.getElementById("ng-hamburger");
     var drawer=document.getElementById("ng-menu-drawer");
     var backdrop=document.getElementById("ng-menu-backdrop");
@@ -106,7 +107,12 @@
     }
     try{if(sessionStorage.getItem("ng-hamburger-open")==="1")openMenu();}catch(e){}
     drawer.querySelectorAll("a[href]").forEach(function(link){
-      link.addEventListener("click",function(){if(link.getAttribute("href")!=="#")closeMenu();});
+      link.addEventListener("click",function(){
+        if(link.getAttribute("href")!=="#"){
+          try{var target=new URL(link.href,window.location.href);if(target.origin===window.location.origin&&target.pathname.split("/").pop()==="settings.html"&&pageName!=="settings.html")sessionStorage.setItem("ngSettingsReturnUrl",window.location.href);}catch(e){}
+          closeMenu();
+        }
+      });
     });
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
