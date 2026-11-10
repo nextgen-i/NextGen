@@ -1202,8 +1202,8 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
     return u.href;
    }catch(err){return null;}
   }
-  chosen=validSettingsReturn(document.referrer);
-  if(!chosen)chosen=validSettingsReturn(stored);
+  chosen=validSettingsReturn(stored);
+  if(!chosen)chosen=validSettingsReturn(document.referrer);
   window.location.assign(chosen||'./dashboard.html');
  });
 })();
