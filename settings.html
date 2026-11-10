@@ -1198,7 +1198,7 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
   function validSettingsReturn(value){
    try{
     var u=new URL(value,window.location.href),path=u.pathname.split('/').pop();
-    if(u.origin!==window.location.origin||u.href===window.location.href||path==='settings.html'||path==='subscription-package.html')return null;
+    if(u.origin!==window.location.origin||u.href===window.location.href||path==='settings.html')return null;
     return u.href;
    }catch(err){return null;}
   }
