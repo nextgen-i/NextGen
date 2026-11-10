@@ -41,6 +41,7 @@
     if(!control)return;
     if(control.matches("a[href]"))event.preventDefault();
     event.preventDefault();
+    event.stopImmediatePropagation();
     back("./dashboard.html");
   },true);
 })();
