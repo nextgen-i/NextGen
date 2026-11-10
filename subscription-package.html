@@ -684,9 +684,16 @@ body.ng-subscription-page nav.ng-bottom-nav{display:none!important}
   var b=e.target&&e.target.closest?e.target.closest('.ng-subpage-back, #ng-subscription-back'):null;
   if(!b)return;
   e.preventDefault();
+  var target=null;
+  try{target=sessionStorage.getItem('ngSubscriptionReturnUrl');sessionStorage.removeItem('ngSubscriptionReturnUrl');}catch(err){}
+  if(target){
+   try{var u=new URL(target,window.location.href);if(u.origin===window.location.origin&&u.href!==window.location.href){window.location.assign(u.href);return;}}catch(err){}
+  }
+  if(document.referrer){
+   try{var ref=new URL(document.referrer);if(ref.origin===window.location.origin&&ref.href!==window.location.href){window.location.assign(ref.href);return;}}catch(err){}
+  }
   if(window.history.length>1){window.history.back();return;}
-  var ref=document.referrer;
-  if(ref){try{var u=new URL(ref);if(u.origin===window.location.origin){window.location.assign(ref);}}catch(err){}}
+  window.location.assign('./dashboard.html');
  },true);
 })();
 </script>
