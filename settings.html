@@ -1193,8 +1193,16 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  });
  var back=document.getElementById('ng-settings-back');
  if(back)back.addEventListener('click',function(){
-  if(window.history.length>1)window.history.back();
-  else window.location.href='./index.html';
+  var target=null;
+  try{target=sessionStorage.getItem('ngSettingsReturnUrl');sessionStorage.removeItem('ngSettingsReturnUrl');}catch(err){}
+  if(target){
+   try{var u=new URL(target,window.location.href);if(u.origin===window.location.origin&&u.href!==window.location.href){window.location.assign(u.href);return;}}catch(err){}
+  }
+  if(document.referrer){
+   try{var ref=new URL(document.referrer);if(ref.origin===window.location.origin&&ref.href!==window.location.href){window.location.assign(ref.href);return;}}catch(err){}
+  }
+  if(window.history.length>1){window.history.back();return;}
+  window.location.assign('./dashboard.html');
  });
 })();
 </script>
