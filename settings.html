@@ -1193,17 +1193,17 @@ body.ng-profile-open #ng-profile-menu .ng-profile-links a>i{
  });
  var back=document.getElementById('ng-settings-back');
  if(back)back.addEventListener('click',function(){
-  var target=null,chosen=null;
-  try{target=sessionStorage.getItem('ngSettingsReturnUrl');sessionStorage.removeItem('ngSettingsReturnUrl');}catch(err){}
+  var stored=null,chosen=null;
+  try{stored=sessionStorage.getItem('ngSettingsReturnUrl');sessionStorage.removeItem('ngSettingsReturnUrl');}catch(err){}
   function validSettingsReturn(value){
    try{
     var u=new URL(value,window.location.href),path=u.pathname.split('/').pop();
-    if(u.origin!==window.location.origin||u.href===window.location.href||path==='settings.html')return null;
+    if(u.origin!==window.location.origin||u.href===window.location.href||path==='settings.html'||path==='404.html')return null;
     return u.href;
    }catch(err){return null;}
   }
-  chosen=validSettingsReturn(target);
-  if(!chosen)chosen=validSettingsReturn(document.referrer);
+  chosen=validSettingsReturn(document.referrer);
+  if(!chosen)chosen=validSettingsReturn(stored);
   window.location.assign(chosen||'./dashboard.html');
  });
 })();
