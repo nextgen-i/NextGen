@@ -1211,7 +1211,7 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
 <div class="ng-plan-builder" id="premium-builder" data-plan="Premium">
  <h3>Premium Plan Builder</h3><p class="ng-builder-intro">Select your required capacity and content usage.</p>
  <div class="ng-builder-fields">
- <div class="ng-builder-field"><label for="premium-channels">Connected Channels</label><select id="premium-channels" name="premium-channels"><option value="20" selected>20 Channels</option><option value="25">25 Channels</option><option value="30">30 Channels</option><option value="40">40 Channels</option><option value="50">50+ Channels</option><option value="custom">Custom</option></select><input id="premium-channels-custom" type="number" min="51" step="1" placeholder="Enter channel count" aria-label="Custom Connected Channels" hidden></div>
+ <div class="ng-builder-field"><label for="premium-channels">Connected Channels</label><select id="premium-channels" name="premium-channels"><option value="5" selected>5 Channels</option><option value="10">10 Channels</option><option value="15">15 Channels</option><option value="custom">Custom</option></select><input id="premium-channels-custom" type="number" min="16" step="1" placeholder="Enter channel count" aria-label="Custom Connected Channels" hidden></div>
  <div class="ng-builder-field"><label for="premium-shorts">Daily Short Videos</label><select id="premium-shorts" name="premium-shorts"><option value="3">3</option><option value="5">5</option><option value="10" selected>10</option><option value="custom">Custom</option></select><input id="premium-shorts-custom" type="number" min="1" step="1" placeholder="Enter daily short video count" aria-label="Custom Daily Short Videos" hidden></div>
  <div class="ng-builder-field"><label for="premium-duration">Video Duration</label><select id="premium-duration" name="premium-duration"><option value="4">4 sec</option><option value="6">6 sec</option><option value="8" selected>8 sec</option><option value="custom">Custom</option></select><input id="premium-duration-custom" type="number" min="1" step="1" placeholder="Enter duration in seconds" aria-label="Custom Video Duration" hidden></div>
  <div class="ng-builder-field"><label for="premium-long">Long Videos / Month</label><select id="premium-long" name="premium-long"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option><option value="custom">Custom</option></select><input id="premium-long-custom" type="number" min="1" step="1" placeholder="Enter monthly long video count" aria-label="Custom Long Videos / Month" hidden></div>
@@ -1238,7 +1238,7 @@ html body.ng-unified-subpage .subscription-plan .ng-plan-price-copy .billing-gri
 <div class="ng-plan-builder" id="enterprise-builder" data-plan="Enterprise">
  <h3>Enterprise Plan Builder</h3><p class="ng-builder-intro">Select your required capacity and content usage.</p>
  <div class="ng-builder-fields">
- <div class="ng-builder-field"><label for="enterprise-channels">Connected Channels</label><select id="enterprise-channels" name="enterprise-channels"><option value="50" selected>50 Channels</option><option value="75">75 Channels</option><option value="100">100 Channels</option><option value="200">200 Channels</option><option value="custom">Custom</option></select><input id="enterprise-channels-custom" type="number" min="201" step="1" placeholder="Enter channel count" aria-label="Custom Connected Channels" hidden></div>
+ <div class="ng-builder-field"><label for="enterprise-channels">Connected Channels</label><select id="enterprise-channels" name="enterprise-channels"><option value="20" selected>20 Channels</option><option value="30">30 Channels</option><option value="50">50 Channels</option><option value="100">100 Channels</option><option value="custom">Custom</option></select><input id="enterprise-channels-custom" type="number" min="101" step="1" placeholder="Enter channel count" aria-label="Custom Connected Channels" hidden></div>
  <div class="ng-builder-field"><label for="enterprise-shorts">Daily Short Videos</label><select id="enterprise-shorts" name="enterprise-shorts"><option value="10" selected>10</option><option value="20">20</option><option value="50">50</option><option value="custom">Custom</option></select><input id="enterprise-shorts-custom" type="number" min="1" step="1" placeholder="Enter daily short video count" aria-label="Custom Daily Short Videos" hidden></div>
  <div class="ng-builder-field"><label for="enterprise-duration">Video Duration</label><select id="enterprise-duration" name="enterprise-duration"><option value="4">4 sec</option><option value="6">6 sec</option><option value="8" selected>8 sec</option><option value="custom">Custom</option></select><input id="enterprise-duration-custom" type="number" min="1" step="1" placeholder="Enter duration in seconds" aria-label="Custom Video Duration" hidden></div>
  <div class="ng-builder-field"><label for="enterprise-long">Long Videos / Month</label><select id="enterprise-long" name="enterprise-long"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="custom">Custom</option></select><input id="enterprise-long-custom" type="number" min="1" step="1" placeholder="Enter monthly long video count" aria-label="Custom Long Videos / Month" hidden></div>
@@ -2477,8 +2477,8 @@ html body.ng-unified-subpage .ng-plan-price-copy .billing{
    cta.href=url.toString();
   });
  }
- setup('premium','Premium','premium-quote-cta',51);
- setup('enterprise','Enterprise','enterprise-quote-cta',201);
+ setup('premium','Premium','premium-quote-cta',16);
+ setup('enterprise','Enterprise','enterprise-quote-cta',101);
 })();
 </script>
 
