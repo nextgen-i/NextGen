@@ -677,7 +677,18 @@ body.ng-subscription-page footer,
 body.ng-subscription-page nav.ng-bottom-nav{display:none!important}
 </style>
 <script id="ng-subscription-back-behavior">
-(function(){var b=document.getElementById('ng-subscription-back');if(!b)return;b.addEventListener('click',function(e){if(window.history.length>1){e.preventDefault();window.history.back();}});})();
+(function(){
+ if(window.__ngSubscriptionBackHandler)return;
+ window.__ngSubscriptionBackHandler=true;
+ document.addEventListener('click',function(e){
+  var b=e.target&&e.target.closest?e.target.closest('.ng-subpage-back, #ng-subscription-back'):null;
+  if(!b)return;
+  e.preventDefault();
+  if(window.history.length>1){window.history.back();return;}
+  var ref=document.referrer;
+  if(ref){try{var u=new URL(ref);if(u.origin===window.location.origin){window.location.assign(ref);}}catch(err){}}
+ },true);
+})();
 </script>
 <style id="ng-unified-subpage-header-v1">
 html,body.ng-unified-subpage{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:auto!important}
@@ -1004,7 +1015,7 @@ html body.ng-unified-subpage .ng-package-details .subscription-status{margin-top
 }
 </style>
 </head>
-<body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="./dashboard.html" aria-label="Back to Dashboard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
+<body class="ng-unified-subpage"><header class="subpage-header"><a class="ng-subpage-back" href="#" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong class="ng-subpage-title">Subscription Package</strong></header>
 <div class="app">
 
 
@@ -1925,7 +1936,7 @@ html body.ng-unified-subpage .ng-subpage-title{
   h.style.setProperty('visibility','visible','important');
   h.style.setProperty('opacity','1','important');
   if(!document.getElementById('ng-subscription-back')||!h.querySelector('strong')){
-   h.innerHTML='<a href="./dashboard.html" id="ng-subscription-back" class="ng-subscription-back" aria-label="Back to Dashboard" title="Back to Dashboard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong>Subscription Package</strong>';
+   h.innerHTML='<a href="#" id="ng-subscription-back" class="ng-subscription-back" aria-label="Back" title="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></a><strong>Subscription Package</strong>';
   }
   var a=h.querySelector('#ng-subscription-back'),t=h.querySelector('strong');
   if(a){a.style.setProperty('display','grid','important');a.style.setProperty('visibility','visible','important');}
