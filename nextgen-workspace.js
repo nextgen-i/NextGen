@@ -233,8 +233,25 @@
       ...(item.status==='draft'||item.status==='pending_approval'?[{label:'Delete',onClick:async()=>{if(!confirm('Delete this draft?'))return;const {error}=await client.from('content_items').delete().eq('id',item.id);if(error){setNote('draftNote',error.message,true);return;}await loadBase();renderContent();}}]:[])
     ]));
   }
+  function canUseAutoApproval(){
+    const sources=[user&&user.user_metadata,user&&user.app_metadata,settings||{}].filter(Boolean);
+    const keys=['plan','plan_name','planName','subscription_plan','subscriptionPlan','current_plan','active_plan','tier'];
+    let raw='';
+    for(const source of sources){for(const key of keys){if(source[key]!=null&&String(source[key]).trim()){raw=String(source[key]).toLowerCase();break;}}if(raw)break;}
+    const normalized=raw.replace(/[^a-z]/g,'');
+    // Fail closed when no verified plan entitlement is available.
+    return normalized.includes('creator')||normalized.includes('professional')||normalized.includes('premium')||normalized.includes('enterprise');
+  }
   async function setApprovalMode(mode){
     const enabled=mode==='auto';
+    if(enabled&&!canUseAutoApproval()){
+      const autoButton=$('autoMode');
+      if(autoButton)autoButton.dataset.planLocked='true';
+      if($('modeNote'))$('modeNote').textContent='Upgrade Required: Auto Approval is available on Creator and Professional plans.';
+      const modal=$('ng-upgrade-modal');if(modal)modal.hidden=false;
+      return;
+    }
+    if($('autoMode'))$('autoMode').dataset.planLocked='false';
     const {error}=await client.from('automation_settings').upsert({
       owner_id:user.id,approval_mode:mode,auto_approval_enabled:enabled,background_mode_enabled:false,
       timezone:'Asia/Kolkata',daily_idea_times:(settings&&settings.daily_idea_times)||['08:00:00','14:00:00','18:00:00']
