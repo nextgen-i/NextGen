@@ -120,7 +120,7 @@
         const list=document.querySelector('.app main .list');
         if(list)list.insertAdjacentElement('beforebegin',diag);
       }
-      if(diag)diag.textContent='Account: '+(user.email||'signed in')+' · User ID: '+user.id+' · Channels loaded: '+channels.length+' · YouTube: '+channels.filter(x=>String(x.platform||'').toLowerCase()==='youtube').length;
+      if(diag)diag.textContent='Account: '+(user.email||'signed in')+' · Channels loaded: '+channels.length+' · YouTube: '+channels.filter(x=>String(x.platform||'').toLowerCase()==='youtube').length;
     }
     const [items,s]=await Promise.all([
       client.from('content_items').select('id,channel_id,platform,content_type,title,caption,hashtags,tags,keywords,thumbnail_url,thumbnail_prompt,status,scheduled_for,created_at').order('created_at',{ascending:false}).limit(100),
@@ -168,6 +168,15 @@
     // Rebuild from saved channels, while retaining one starter card for
     // every platform that has not yet been added by the user.
     root.innerHTML='';
+    if(!channels.length){
+      const note=document.createElement('p');
+      note.className='channels-empty';
+      note.setAttribute('role','status');
+      note.style.cssText='padding:20px 14px;text-align:center;color:#a9c9ee';
+      note.textContent='No channels are saved for this signed-in account yet. Use Add Channel to add a profile.';
+      root.append(note);
+      return;
+    }
     const seenChannels=new Set();
     const renderedPlatforms=new Set();
     const platformOrder={youtube:0,facebook:1,instagram:2,threads:3};
